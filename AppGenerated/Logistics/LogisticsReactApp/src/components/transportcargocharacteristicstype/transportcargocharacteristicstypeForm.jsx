@@ -15,8 +15,6 @@ super(props);
     _id: Joi.string(),
     id:  Joi.number()
       .required()
-
-
       .label("id"),
     cargoTypeCode:  Joi.string()
       .allow('').allow(null)

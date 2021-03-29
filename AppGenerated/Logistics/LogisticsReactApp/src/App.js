@@ -577,7 +577,11 @@ class App extends Component {
             <Route path="/logout" component={Logout} />
             <Route path="/register" component={RegisterForm} />
             <Route path="/startingpage" component={StartingPage} />     
-            <Route path="/transportcapacitybooking" component={TransportCapacityBooking} />
+            <Route path="/transportcapacitybooking"
+            render={props => {
+            if (!auth.isUserLoggedIn()) return <Redirect to="/login" />;
+            return <TransportCapacityBooking {...props} />;}}
+             />
             {/* following is a protected route only loggedIn user can access it */}
             <Route
                 path="/additionalconsignmentidentificationtypes/:id"
@@ -4537,9 +4541,9 @@ class App extends Component {
             <Redirect to="/not-found" />
           </Switch>
         </main>
-        <div className="footer footer-copyright text-center p-3" >© Aritha
+        {/* <div className="footer footer-copyright text-center p-3" >© Aritha
           <a href="https://aritha.org"></a>
-        </div>
+        </div> */}
       </React.Fragment>
     );
   }

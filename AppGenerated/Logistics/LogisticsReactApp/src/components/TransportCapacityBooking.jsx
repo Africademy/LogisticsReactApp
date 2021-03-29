@@ -9,6 +9,12 @@ import { getEnumerationlibrarys } from "../../src/services/enumerationlibrarySer
 import { getIncotermscodes } from "../../src/services/incotermscodeService";
 import { getTransportservicecategorycodes } from "../../src/services/transportservicecategorycodeService";
 import { getTransportservicelevelcodes } from "../../src/services/transportservicelevelcodeService";
+import Address from "./Address"
+import LogisticLocation from './LogisticLocation'
+import Contact from './Contact'
+import PlannedPickUp from "./PlannedPickUp";
+import TransportReference from "./TransportReference"
+import TransportCapacityBookingSpaceRequirement from "./TransportCapacityBookingSpaceRequirement"
 
 
 
@@ -49,7 +55,7 @@ export class TransportCapacityBooking extends Component {
         transportCapacityBookingIdentifications: [],
         transportServiceCategoryCodes: [],
         transportServiceConditionTypeCodes: [],
-        transportServiceLevelCodes: [{value:'',label:''},],
+        transportServiceLevelCodes: [],
         logisticServicesBuyers: [],
         logisticServicesSellers: [],
         pickUpPartys: [],
@@ -61,9 +67,8 @@ export class TransportCapacityBooking extends Component {
         _id: Joi.string(),
         id: Joi.number()
             .required()
-
-
             .label("id"),
+
         creationDateTime: Joi.date()
             .required()
 
@@ -293,10 +298,7 @@ export class TransportCapacityBooking extends Component {
         const { data: handlingInstructions } = await getEnumerationlibrarys();
         this.setState({ handlingInstructions: handlingInstructions });
     }
-    async populatehandlingInstructions() {
-        const { data: handlingInstructions } = await getEnumerationlibrarys();
-        this.setState({ handlingInstructions: handlingInstructions });
-    }
+
     async populatedocumentActionCodes() {
         const { data: documentActionCodes } = await getEnumerationlibrarys();
         this.setState({ documentActionCodes: documentActionCodes });
@@ -319,8 +321,8 @@ export class TransportCapacityBooking extends Component {
 
     async populatetransportServiceLevelCodes() {
         const { data: transportServiceLevelCodes } = await getTransportservicelevelcodes();
-        
-        this.setState({ transportServiceLevelCodes: transportServiceLevelCodes});
+
+        this.setState({ transportServiceLevelCodes: transportServiceLevelCodes });
     }
 
     async populatelogisticServicesBuyers() {
@@ -379,6 +381,7 @@ export class TransportCapacityBooking extends Component {
     };
 
     validateProperty = inputField => {
+        console.log(inputField)
         const { name, value } = inputField;
         const obj = { [name]: value };
         const scheema = { [name]: this.scheema[name] };
@@ -411,379 +414,156 @@ export class TransportCapacityBooking extends Component {
                 <div class="row">
                     <div class="col-md-12">
                         <div class="page-header">
-                            <h1>Transport Capacity Booking</h1>
+                            <h1 className="header text-center">Transport Capacity Booking</h1>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <form role="form">
-                            <div class="form-group">
-                                <label for="transportServiceCategoryCode">Transport Service Category:</label>
-                                <select
-                                    value={this.state.data["transportServiceCategoryCodeId"]}
-                                    onChange={this.handleChange}
-                                    name="transportServiceCategoryCodeId"
-                                    id="transportServiceCategoryCodeId"
-                                    className="form-control"
-                                >
-                                    <option value="" disabled defaultValue>
-                                        Select Transport Service Category
-                                    </option>
-                                    {this.state.transportServiceCategoryCodes.map(populatetransportServiceCategoryCodes => (
-                                        <option key={populatetransportServiceCategoryCodes._id} value={populatetransportServiceCategoryCodes.codeListVersion}>
-                                            {populatetransportServiceCategoryCodes.codeListVersion}
-                                        </option>
-                                    ))}
-                                </select>
-                                {this.state.errors["transportServiceCategoryCodeId"] && <div className="alert alert-danger">{this.state.errors["transportServiceCategoryCodeId"]}</div>}
-                            </div>
-
-                            <div class="form-group">
-                                <label for="transportServiceConditionTypeCodeId">Transport Service Condition Type:</label>
-                                <select
-                                    value={this.state.data["transportServiceConditionTypeCodeId"]}
-                                    onChange={this.handleChange}
-                                    name="transportServiceConditionTypeCodeId"
-                                    id="transportServiceConditionTypeCodeId"
-                                    className="form-control"
-                                >
-                                    <option value="" disabled defaultValue>
-                                        Select Transport Service Condition Type
-                                    </option>
-                                    {this.state.transportServiceConditionTypeCodes.map(Enumerationlibrary => (
-                                        <option key={Enumerationlibrary._id} value={Enumerationlibrary._id}>
-                                            {Enumerationlibrary.id}
-                                        </option>
-                                    ))}
-                                </select>
-                                {this.state.errors["transportServiceConditionTypeCodeId"] && <div className="alert alert-danger">{this.state.errors["transportServiceConditionTypeCodeId"]}</div>}
-                            </div>
-
-                            <div class="form-group">
-                                <label for="transportServiceLevelCodeId">Transport Service Level:</label>
-                                <Select
-                                    value={this.state.transportServiceLevelCodeId}
-                                    onChange={this.handleChange}
-                                    options={this.state.transportServiceLevelCodes}
-                                    
-                                />
-                            </div>
-
-                            <div id="card-989291">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <a class="card-link collapsed" data-toggle="collapse" data-parent="#card-989291" href="#card-element-780562">Logistic Services Buyer:</a>
-                                    </div>
-                                    <div id="card-element-780562" class="collapse">
-                                        <div class="card-body">
-
-                                            <div class="form-group ">
-                                                <label for="gln">Global Location Number:<a href="/">Find</a>  <a href="/">Create</a></label>
-                                                <input type="number" class="form-control" id="gln" />
-                                            </div>
-
-
-                                            <div id="card-989292">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <a class="card-link collapsed" data-toggle="collapse" data-parent="#card-989292" href="#card-element-780563">Address:</a>
-                                                    </div>
-                                                    <div id="card-element-780563" class="collapse">
-                                                        < Address />
-                                                    </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div className="col-md-1"></div>
+                        <div class="col-md-10 center">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form>
+                                        <div>
+                                            {/* <!-- <div class="form-group">
+                                     <label for="">Automatically Generated</label>
+                                    <input id="" name="" type="text" placeholder="Booking number" readonly value="BI545"
+                                        required="required" class="form-control"/>
+                                </div> --> */}
+                                            <div class="form-group">
+                                                <label for="transportServiceCategoryCode">Transport Service Category:</label>
+                                                <div>
+                                                    <select
+                                                        value={this.state.data["transportServiceCategoryCodeId"]}
+                                                        onChange={this.handleChange}
+                                                        name="transportServiceCategoryCodeId"
+                                                        id="transportServiceCategoryCodeId"
+                                                        className="form-control"
+                                                    >
+                                                        <option value="" disabled defaultValue>
+                                                            Select Transport Service Category
+                                                        </option>
+                                                        {this.state.transportServiceCategoryCodes.map(populatetransportServiceCategoryCodes => (
+                                                            <option key={populatetransportServiceCategoryCodes._id} value={populatetransportServiceCategoryCodes.codeListVersion}>
+                                                                {populatetransportServiceCategoryCodes.codeListVersion}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+                                                    {this.state.errors["transportServiceCategoryCodeId"]
+                                                        &&
+                                                        <div className="alert alert-danger">{this.state.errors["transportServiceCategoryCodeId"]}</div>}
                                                 </div>
                                             </div>
-                                            < Contact />
-                                            < DutyFeeTaxRegistration />
-                                            < OrganisationDetails />
-                                            < FinancialInstitutionInformation />
-
+                                            <div class="form-group">
+                                                <label for="transportServiceConditionTypeCode">Transport Service Condition Type:</label>
+                                                <div>
+                                                    <select
+                                                        value={this.state.data["transportServiceConditionTypeCodeId"]}
+                                                        onChange={this.handleChange}
+                                                        name="transportServiceConditionTypeCodeId"
+                                                        id="transportServiceConditionTypeCodeId"
+                                                        className="form-control"
+                                                    >
+                                                        <option value="" disabled defaultValue>
+                                                            Select Transport Service Condition Type
+                                                        </option>
+                                                        {this.state.transportServiceConditionTypeCodes.map(Enumerationlibrary => (
+                                                            <option key={Enumerationlibrary._id} value={Enumerationlibrary._id}>
+                                                                {Enumerationlibrary.id}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+                                                    {this.state.errors["transportServiceConditionTypeCodeId"] && <div className="alert alert-danger">{this.state.errors["transportServiceConditionTypeCodeId"]}</div>}
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="transportServiceLevelCode">Transport Service Level:</label>
+                                                <div>
+                                                    <Select
+                                                        value={this.state.transportServiceLevelCodeId}
+                                                        onChange={this.handleChange}
+                                                        options={this.state.transportServiceLevelCodes}
+                                                    />
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                        < PlannedPickUp />
+                                        < TransportCapacityBookingSpaceRequirement />
+
+                                    </form>
+                                </div>
                                 </div>
                             </div>
-                            < PlannedPickUp />
-                            <button type="submit" class="btn btn-primary">
-                                Submit
-				            </button>
-                        </form>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </div >
         )
     }
 }
 
-function Contact() {
+function FinancialInstitutionInformation() {
     return (
-        <div id="card-989294">
-            <div class="card">
-                <div class="card-header">
-                    <a class="card-link collapsed" data-toggle="collapse" data-parent="#card-989294" href="#card-element-780564">Contact:</a>
-                </div>
-                <div id="card-element-780564" class="collapse">
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label for="contactTypeCode">Contact Type:</label>
-                            <Select class="form-control dropdown-toggle" id="contactTypeCode" data-toggle="dropdown"></Select>
-                        </div>
-                        <div class="form-group">
-                            <label for="personName">Person Name:</label>
-                            <input type="string" class="form-control" id="personName" />
-                        </div>
-                        <div class="form-group">
-                            <label for="departmentName">Department Name:</label>
-                            <input type="string" class="form-control" id="departmentName" />
-                        </div>
-                        <div class="form-group">
-                            <label for="jobTitle">Job Title:</label>
-                            <input type="string" class="form-control" id="jobTitle" />
-                        </div>
-                        <div class="form-group">
-                            <label for="responsibility">Responsibility:</label>
-                            <Select class="form-control dropdown-toggle" id="responsibility" data-toggle="dropdown"></Select>
-                        </div>
-                        <div className="card">
-                            <h5>Communication Channel</h5>
-                            <div class="form-group">
-                                <label for="communicationChannelCode">Communication Channel Code:</label>
-                                <Select class="form-control dropdown-toggle" id="communicationChannelCode" data-toggle="dropdown"></Select>
+                <div>
+                    <div id="card-989296">
+                        <div class="card">
+                            <div class="card-header">
+                                <a class="card-link collapsed" data-toggle="collapse" data-parent="#card-989296" href="#card-element-780566">Financial Institution Information:</a>
                             </div>
-                            <div class="form-group">
-                                <label for="communicationValue">Communication Value:</label>
-                                <input type="string" class="form-control" id="communicationValue" />
-                            </div>
-                            <div class="form-group">
-                                <label for="communicationChannelName">Communication Channel Name:</label>
-                                <input type="string" class="form-control" id="communicationChannelName" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    )
-}
-
-function DutyFeeTaxRegistration() {
-    return (
-        <div id="card-989295">
-            <div class="card">
-                <div class="card-header">
-                    <a class="card-link collapsed" data-toggle="collapse" data-parent="#card-989295" href="#card-element-780565">Duty Fee Tax Registration:</a>
-                </div>
-                <div id="card-element-780565" class="collapse">
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label for="dutyFeeTaxRegistrationID">Duty Fee Tax Registration ID:</label>
-                            <Select class="form-control dropdown-toggle" id="dutyFeeTaxRegistrationID" data-toggle="dropdown"></Select>
-                        </div>
-                        <div class="form-group">
-                            <label for="dutyFeeTaxTypeCode">Duty Fee Tax Type:</label>
-                            <Select class="form-control dropdown-toggle" id="dutyFeeTaxTypeCode" data-toggle="dropdown"></Select>
-                        </div>
-                        <div class="form-group">
-                            <label for="dutyFeeTaxAgencyName">Duty Fee Tax Agency Name:</label>
-                            <input type="string" class="form-control" id="dutyFeeTaxAgencyName" />
-                        </div>
-                        <div class="form-group">
-                            <label for="dutyFeeTaxDescription">Duty Fee Tax Description:</label>
-                            <Select class="form-control dropdown-toggle" id="dutyFeeTaxTypeCode" data-toggle="dropdown"></Select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
-}
-
-function OrganisationDetails() {
-    return (
-        <div id="card-989296">
-            <div class="card">
-                <div class="card-header">
-                    <a class="card-link collapsed" data-toggle="collapse" data-parent="#card-989296" href="#card-element-780566">Organisation Details:</a>
-                </div>
-                <div id="card-element-780566" class="collapse">
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label for="organisationName">Organisation Name:</label>
-                            <input type="string" class="form-control" id="organisationName" />
-                        </div>
-                        <div class="form-group">
-                            <label for="issuedCapital">Issued Capital:</label>
-                            <Select class="form-control dropdown-toggle" id="issuedCapital" data-toggle="dropdown"></Select>
-                        </div>
-                        <div class="form-group">
-                            <label for="legalStructure">Legal Structure:</label>
-                            <Select class="form-control dropdown-toggle" id="legalStructure" data-toggle="dropdown"></Select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="dutyFeeTaxDescription">Duty Fee Tax Description:</label>
-                            <Select class="form-control dropdown-toggle" id="dutyFeeTaxTypeCode" data-toggle="dropdown"></Select>
-                        </div>
-                        <div id="card-989292">
-                            <div class="card">
-                                <div class="card-header">
-                                    <a class="card-link collapsed" data-toggle="collapse" data-parent="#card-989292" href="#card-element-780563">Official Address:</a>
+                            <div id="card-element-780566" class="collapse">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="financialInstitutionName">Financial Institution Name:</label>
+                                        <input type="string" class="form-control" id="financialInstitutionName" />
+                                    </div>
+                                    <div className="card" id="financialAccount">
+                                        <h4 for="financialAccount">financialAccount:</h4>
+                                        <div class="form-group">
+                                            <label for="financialAccountNumber">Financial Account Number:</label>
+                                            <input type="string" class="form-control" id="financialAccountNumber" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="financialAccountNumberTypeCode">Financial Account Number Type:</label>
+                                            <Select class="form-control dropdown-toggle" id="financialAccountNumberTypeCode" data-toggle="dropdown"></Select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="financialAccountName">Financial Account Name:</label>
+                                            <input type="string" class="form-control" id="financialAccountName" />
+                                        </div>
+                                    </div>
+                                    <div className="card" id="financialRoutingNumber">
+                                        <h4 for="financialRoutingNumber">Financial Routing Number:</h4>
+                                        <div class="form-group">
+                                            <label for="financialRoutingNumber">Financial Routing Number:</label>
+                                            <input type="string" class="form-control" id="financialRoutingNumber" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="financialRoutingNumberTypeCode">Financial Routing Number Type:</label>
+                                            <Select class="form-control dropdown-toggle" id="financialRoutingNumberTypeCode" data-toggle="dropdown"></Select>
+                                        </div>
+                                    </div>
+                                    <div className="card">
+                                        <h4>Additional Financial Information</h4>
+                                        <div class="form-group">
+                                            <label for="description">Description:</label>
+                                            <Select class="form-control dropdown-toggle" id="description" data-toggle="dropdown"></Select>
+                                        </div>
+                                    </div>
+                                    <div id="card-989292">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <a class="card-link collapsed" data-toggle="collapse" data-parent="#card-989292" href="#card-element-780563">Official Address:</a>
+                                            </div>
+                                            <div id="card-element-780563" class="collapse">
+                                                < Address />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div id="card-element-780563" class="collapse">
-                                    < Address />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card">
-                            <h4>Legal Registration:</h4>
-                            <div class="form-group">
-                                <label for="legalRegistrationNumber">Legal Registration Number:</label>
-                                <input type="string" class="form-control" id="legalRegistrationNumber" />
-                            </div>
-                            <div class="form-group">
-                                <label for="legalRegistrationType">Legal Registration Type:</label>
-                                <Select class="form-control dropdown-toggle" id="legalRegistrationType" data-toggle="dropdown"></Select>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    )
-}
-
-function PlannedPickUp() {
-    return (
-        <div id="plannedPickUp" className="card">
-            <h5 for="plannedPickUp">Planned PickUp</h5>
-            <div class="form-group">
-                <label for="logisticEventTypeCode">Logistic Event Type:</label>
-                <Select class="form-control dropdown-toggle" id="logisticEventTypeCode" data-toggle="dropdown"></Select>
-            </div>
-            <div class="form-group">
-                <label for="logisticEventDuration">Logistic Event Duration:</label>
-                <Select class="form-control dropdown-toggle" id="logisticEventDuration" data-toggle="dropdown"></Select>
-            </div>
-            <div>
-                < LogisticLocation />
-            </div>
-            <div id="card-element-576248" class="collapse">
-                <div class="card-header">
-                    <a class="card-link collapsed" data-toggle="collapse" data-parent="#card-989296" href="#card-element-780566">Logistic Event Period:</a>
-                </div>
-                <div class="card-body">
-                    <form role="form" class="form-inline">
-                        <div class="form-group">
-                            <label for="dayOfThebeginDateWeekCode"> Begin Date:</label>
-                            <input type="date" class="form-control" id="beginDate" />
-                        </div>
-                        <div class="form-group">
-                            <label for="beginTime"> Begin Time:</label>
-                            <input type="time" class="form-control" id="isOperational" />
-                        </div>
-                        <div class="form-group">
-                            <label for="endDate"> End Date:</label>
-                            <input type="date" class="form-control" id="endDate" />
-                        </div>
-                        <div class="form-group">
-                            <label for="endTime"> End Time:</label>
-                            <input type="time" class="form-control" id="endTime" />
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-    )
-}
-
-function LogisticLocation() {
-    return (
-        <div id="card-element-576244" class="collapse">
-            <div class="card-body">
-                <form role="form" class="form">
-                    <div class="form-group">
-                        <label for="unLocationCode"> UN Location:</label>
-                        <Select class="form-control dropdown-toggle" id="unLocationCode" data-toggle="dropdown"></Select>
-                    </div>
-                    <div class="form-group">
-                        <label for="gln"> GLN:</label>
-                        <Select class="form-control dropdown-toggle" id="gln" data-toggle="dropdown"></Select>
-                    </div>
-                    <div class="form-group">
-                        <label for="additionalLocationIdentification"> Additional Location Identification:</label>
-                        <Select class="form-control dropdown-toggle" id="additionalLocationIdentification" data-toggle="dropdown"></Select>
-                    </div>
-                    <div class="form-group">
-                        <label for="sublocationIdentification">Sublocation Identification:</label>
-                        <input type="string" class="form-control" id="communsublocationIdentification" />
-                    </div>
-                    <div class="form-group">
-                        <label for="locationName">Location Name:</label>
-                        <input type="string" class="form-control" id="locationName" />
-                    </div>
-                    <div class="form-group">
-                        <label for="locationSpecificInstructions"> Location Specific Instructions:</label>
-                        <Select class="form-control dropdown-toggle" id="locationSpecificInstructions" data-toggle="dropdown"></Select>
-                    </div>
-                    <div class="form-group">
-                        <label for="utcOffset">UTC Offset:</label>
-                        <input type="float" class="form-control" id="utcOffset" />
-                    </div>
-                    < Address />
-                    < Contact />
-                    <div id="card-element-576245" class="collapse">
-                        <div class="card-body">
-                            <form role="form" class="form-inline">
-                                <div class="form-group">
-                                    <label for="dayOfTheWeekCode"> Day Of The Week:</label>
-                                    <Select class="form-control dropdown-toggle" id="dayOfTheWeekCode" data-toggle="dropdown"></Select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="isOperational"> Is Operational:</label>
-                                    <input type="checkbox" class="form-control" id="isOperational" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="closingTime"> closingTime:</label>
-                                    <input type="time" class="form-control" id="closingTime" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="openingTime"> Opening Time:</label>
-                                    <input type="time" class="form-control" id="openingTime" />
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div id="card-element-576245" class="collapse">
-                        <div class="card-body">
-                            <form role="form" class="form-inline">
-                                <div class="form-group">
-                                    <label for="isOperational"> Is Operational:</label>
-                                    <input type="checkbox" class="form-control" id="isOperational" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="specialDate"> Special Date:</label>
-                                    <input type="date" class="form-control" id="specialDateName" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="closingTime"> closingTime:</label>
-                                    <input type="time" class="form-control" id="closingTime" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="openingTime"> Opening Time:</label>
-                                    <input type="time" class="form-control" id="openingTime" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="specialDateName">Special Date Name:</label>
-                                    <Select class="form-control dropdown-toggle" id="specialDateName" data-toggle="dropdown"></Select>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
     )
 }
 
