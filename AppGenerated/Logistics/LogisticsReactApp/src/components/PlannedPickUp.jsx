@@ -12,7 +12,7 @@ const intialData = {
     timemeasurementtypes: [],
     errors: {}
 }
-const PlannedPickUp = () => {
+const PlannedPickUp = (props) => {
     const [state, setState] = useState(intialData)
     //  const [data,setData] = useState({ logisticeventtypecode: "", logisticeventduration: ""})
 
@@ -39,7 +39,7 @@ const PlannedPickUp = () => {
     }
     const handleSelect = (e, type) => {
         if (type === "logisticEventDuration") {
-            this.setState({ timemeasurementtype: e.target.text })
+            setState({...state, timemeasurementtype: e.target.text })
         }
     }
 
@@ -47,17 +47,37 @@ const PlannedPickUp = () => {
         <div id="card-989303">
             <div class="card my-3">
                 <div class="card-header">
-                    <a class="card-link collapsed card-title" data-toggle="collapse" data-parent="#card-989303" href="#card-element-780303">Planned PickUp:</a>
+                    <a class="card-link collapsed card-title" data-toggle="collapse" data-parent="#card-989303" href="#card-element-102">{props.name}:</a>
                 </div>
-                <div id="card-element-780303" class="collapse">
+                <div id="card-element-102" class="collapse">
                     <div class="card-body">
                         <div class="form-group">
                             <label for="logisticEventTypeCode">Logistic Event Type:</label>
-                            <Select class="form-control dropdown-toggle" id="logisticEventTypeCode" data-toggle="dropdown" options={state.logisticeventtypecodes} />
+                            <div>
+                                <select
+                                    value={state.data["logisticEventTypeCodeId"]}
+                                    // onChange={this.handleChange}
+                                    name="logisticEventTypeCode"
+                                    id="logisticEventTypeCode"
+                                    className="form-control"
+                                >
+                                    <option value="" disabled defaultValue>
+                                        Select Logistic Event Type
+                                                        </option>
+                                    {/* {state.logisticeventtypecodes.map(logisticeventtypecode => (
+                                        <option key={logisticeventtypecode.id} value={logisticeventtypecode.codeListVersion}>
+                                            {logisticeventtypecode.codeListVersion}
+                                        </option>
+                                    ))} */}
+                                </select>
+                                {/* {this.state.errors["transportServiceCategoryCodeId"]
+                                    &&
+                                    <div className="alert alert-danger">{this.state.errors["transportServiceCategoryCodeId"]}</div>} */}
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-12 control-label" for="logisticEventDuration">Associated Invoice Amount</label>
-                            <div class="col-12">
+                            <label for="logisticEventDuration">Associated Invoice Amount</label>
+                            <div >
                                 <div class="input-group">
                                     <input id="logisticEventDuration" name="logisticEventDuration"
                                         class="form-control" placeholder="Logistic Event Duration" type="text" />
@@ -86,8 +106,10 @@ const PlannedPickUp = () => {
                             < LogisticLocation />
                         </div>
                         <div class="card my-2">
+                            <div class="card-header">
+                                <a class="card-title">Logistic Event Period:</a>
+                            </div>
                             <div class="card-body">
-                                <h3 class="card-title">Logistic Event Period</h3>
                                 <form>
                                     <div class="form-group row">
                                         <div class="input-group col-6 my-1">
@@ -127,8 +149,10 @@ const PlannedPickUp = () => {
                             </div>
                         </div>
                         <div class="card my-2">
+                            <div class="card-header">
+                                <a class="card-title">Logistic Event Time:</a>
+                            </div>
                             <div class="card-body">
-                                <h3 class="card-title">Logistic Event Time</h3>
                                 <form class="row">
                                     <div class="form-group col-10 row">
                                         <div class="input-group col-6 my-1">

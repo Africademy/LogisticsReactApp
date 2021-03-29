@@ -140,7 +140,7 @@ export class Address extends Component {
 
     render() {
         return (
-            <div class="card-body">
+            <div className="my-3">
                 <div class="form-group">
                     <label for="city">City:</label>
                     <input type="string" class="form-control" id="city" />
@@ -197,11 +197,11 @@ export class Address extends Component {
                     <label for="streetAddressThree"> Street Address Three:</label>
                     <input type="string" class="form-control" id="streetAddressThree" />
                 </div>
-                <div class="card">
+                <div class="card my-3" id="card-109">
                     <div class="card-header">
-                        <a class="collapsed card-link" data-toggle="collapse" data-parent="#card-989291" href="#card-element-576244">Geographical Coordinates:</a>
+                        <a class="collapsed card-link" data-toggle="collapse" data-parent="#card-109" href="#card-element-109">Geographical Coordinates:</a>
                     </div>
-                    <div id="card-element-576244" class="collapse">
+                    <div id="card-element-109" class="collapse">
                         <div class="card-body">
                             <form role="form" class="form-inline">
                                 <div class="form-group">

@@ -480,15 +480,38 @@ export class TransportCapacityBooking extends Component {
                                             <div class="form-group">
                                                 <label for="transportServiceLevelCode">Transport Service Level:</label>
                                                 <div>
-                                                    <Select
+                                                <div>
+                                                    <select
+                                                        value={this.state.data["transportServiceLevelCodeId"]}
+                                                        onChange={this.handleChange}
+                                                        name="transportServiceLevelCode"
+                                                        id="transportServiceLevelCode"
+                                                        className="form-control"
+                                                    >
+                                                        <option value="" disabled defaultValue>
+                                                            Select Transport Service Level
+                                                        </option>
+                                                        {this.state.transportServiceLevelCodes.map(transportServiceLevelCode => (
+                                                            <option key={transportServiceLevelCode.id} value={transportServiceLevelCode.codeListVersion}>
+                                                                {transportServiceLevelCode.codeListVersion}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+                                                    {this.state.errors["transportServiceLevelCode"]
+                                                        &&
+                                                        <div className="alert alert-danger">{this.state.errors["transportServiceLevelCode"]}</div>}
+                                                </div>
+                                                    {/* <Select
                                                         value={this.state.transportServiceLevelCodeId}
                                                         onChange={this.handleChange}
                                                         options={this.state.transportServiceLevelCodes}
-                                                    />
+                                                    /> */}
                                                 </div>
                                             </div>
                                         </div>
-                                        < PlannedPickUp />
+                                        < PlannedPickUp name="Planned PickUp" />
+                                        < PlannedPickUp name="Planned DropOff"/>
+
                                         < TransportCapacityBookingSpaceRequirement />
 
                                     </form>

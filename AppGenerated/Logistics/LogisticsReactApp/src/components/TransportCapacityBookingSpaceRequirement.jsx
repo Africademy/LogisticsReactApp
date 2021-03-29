@@ -155,9 +155,9 @@ export class TransportCapacityBookingSpaceRequirement extends Component {
                     <div id="card-element-780308" class="collapse">
                         <div class="card-body">
                             <div className="card">
-                                <div class="form-group">
-                                    <h3 className="card-title">Transport Cargo Characteristics</h3>
-                                </div>
+                            <div class="card-header">
+                                <a class="card-title">Transport Cargo Characteristics:</a>
+                            </div>
                                 <div class="form-group">
                                     <label class="col-12 control-label" for="cargoTypeCode">Cargo Type</label>
                                     <div class="col-12">
@@ -490,9 +490,9 @@ export class TransportCapacityBookingSpaceRequirement extends Component {
                                 </div>
                             </div>
                             <div className="card my-3">
-                                <div class="form-group">
-                                    <h3 className="card-title">Package Total</h3>
-                                </div>
+                            <div class="card-header">
+                                <a class="card-title">Package Total:</a>
+                            </div>
                                 <div class="form-group">
                                     <label class="col-12 control-label" for="packageTypeCode">Package Type:</label>
                                     <div class="col-12">
@@ -504,7 +504,8 @@ export class TransportCapacityBookingSpaceRequirement extends Component {
                                     </div>
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="totalPackageQuantity">Total Package Quantity</label>
+                                    <label class="col-12 control-label" htmlFor="totalPackageQuantity">Total Package Quantity</label>
+                                    <div className="col-12">
                                     <input
                                         value={this.state.data["totalPackageQuantity"]}
                                         onChange={this.handleChange}
@@ -514,7 +515,8 @@ export class TransportCapacityBookingSpaceRequirement extends Component {
                                         className="form-control"
                                     />
                                     {this.state.errors["totalPackageQuantity"] && <div className="alert alert-danger">{this.state.errors["totalPackageQuantity"]}</div>}
-                                </div>
+                                    </div>
+                                                  </div>
                                 <div class="form-group">
                                     <label class="col-12 control-label" for="totalGrossWeight">Total Gross Weight</label>
                                     <div class="col-12">

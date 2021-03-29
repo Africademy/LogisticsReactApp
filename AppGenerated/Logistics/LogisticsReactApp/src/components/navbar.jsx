@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import logo from "../../src/Logo.png"
 
 const Navbar = ({ user }) => {
   return (
@@ -7,8 +8,8 @@ const Navbar = ({ user }) => {
       style={{ marginBottom: 10 }}
       className="navbar navbar-expand-lg navbar-light bg-light  custom-navbar"
     >
-      <Link className="navbar-brand custom-navbar-brand" to="/">
-        Logistics
+      <Link className="navbar-brand custom-navbar-brand" to="/home">
+      <img className="logo" src={logo} width="50" height="30" alt="Logo" />Cargoflo
       </Link>
 
       
@@ -21,9 +22,9 @@ const Navbar = ({ user }) => {
 
         {user && (
           <li className="nav-item active">
-            <NavLink className="nav-link custom-nav-link" to="/sampleComponent">
+            {/* <NavLink className="nav-link custom-nav-link" to="/sampleComponent">
               sampleComponent
-            </NavLink>
+            </NavLink> */}
           </li>
         )}
         </ul>

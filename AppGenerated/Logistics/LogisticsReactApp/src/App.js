@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
 import NotFound from "./components/notFound";
 import Navbar from "./components/navbar";
+import Home from "./components/Home";
 import LoginForm from "./components/loginForm";
 import RegisterForm from "./components/registerForm";
 import ProfileForm from "./components/profileForm";
@@ -583,6 +584,13 @@ class App extends Component {
             return <TransportCapacityBooking {...props} />;}}
              />
             {/* following is a protected route only loggedIn user can access it */}
+            <Route
+                path="/home"
+                render={props => {
+                  if (!auth.isUserLoggedIn()) return <Redirect to="/login" />;
+                  return < Home {...props} />;
+                }}
+            />
             <Route
                 path="/additionalconsignmentidentificationtypes/:id"
                 render={props => {
@@ -4536,7 +4544,7 @@ class App extends Component {
                 }}
             />
             <Route path="/not-found" component={NotFound} />
-            <Redirect from="/" exact to="/additionalconsignmentidentificationtypes" />
+            <Redirect from="/" exact to="/home" />
 
             <Redirect to="/not-found" />
           </Switch>

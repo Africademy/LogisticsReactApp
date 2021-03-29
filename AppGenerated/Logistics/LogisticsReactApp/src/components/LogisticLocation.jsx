@@ -44,7 +44,8 @@ export class LogisticLocation extends Component {
                                         </div>
                                 </div>  
                                 {this.state.unlnew && <div className="card my-2">
-                                <div class="form-group">
+                                 <div className="card-body">
+                                 <div class="form-group">
                                         <label for="gln"> GLN:</label>
                                         <Select class="form-control dropdown-toggle" id="gln" data-toggle="dropdown"></Select>
                                     </div>
@@ -118,6 +119,8 @@ export class LogisticLocation extends Component {
                                             </form>
                                         </div>
                                     </div>
+                                 </div>
+                                
                                 </div>}
 
                                     {/* <div class="form-group">
