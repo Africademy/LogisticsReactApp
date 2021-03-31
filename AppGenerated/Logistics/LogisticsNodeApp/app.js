@@ -191,7 +191,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 //Your API ENDPOINTS
-app.use('/api/user',authRoute);
+app.use('/api/user', authRoute);
 app.use("/api/additionalconsignmentidentificationtypes", AdditionalconsignmentidentificationtypesRoute);
 app.use("/api/additionalindividualassetidentifications", AdditionalindividualassetidentificationsRoute);
 app.use("/api/additionallocationidentifications", AdditionallocationidentificationsRoute);
@@ -380,10 +380,10 @@ mongoose
   })
   .then(() => console.log("Connected to your MongoDB."))
   .catch(err => {
-    console.log("Failed to connected to DB Error: "+ err.message);
+    console.log("Failed to connected to DB Error: " + err.message);
   });
 
-  let createServiceObj = null;
-  createServiceObj = createService.getInstance();
-  createServiceObj.createSampleUser();
-  app.listen(5000,()=> console.log('listening on port 5000'));
+let createServiceObj = null;
+createServiceObj = createService.getInstance();
+createServiceObj.createSampleUser();
+app.listen(5000, () => console.log('listening on port 5000'));

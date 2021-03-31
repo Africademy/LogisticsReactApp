@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
 
 const TransportcapacitybookingScheema = mongoose.Schema({
-  id: {
-    type: Number,
-    required: true
-  },
   creationDateTime: {
     type: Date,
     required: true
