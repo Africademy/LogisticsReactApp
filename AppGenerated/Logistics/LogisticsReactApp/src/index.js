@@ -7,8 +7,9 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import "./index.css";
-import $ from 'jquery';
-import Popper from 'popper.js';
+import "font-awesome/css/font-awesome.min.css";
+// import $ from 'jquery';
+// import Popper from 'popper.js';
 
 ReactDOM.render(
   <BrowserRouter>
