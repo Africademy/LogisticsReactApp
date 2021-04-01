@@ -164,7 +164,7 @@ export class TransportCapacityBookingSpaceRequirement extends Component {
 
 
       ///Post 
-        const handleSubmitPackageTotal = (e) =>{
+        const handleSubmitPackageTotal =  (e) =>{
             e.preventDefault()
             const data ={
                 totalPackageQuantity: this.state.totalPackageQuantityPT,
@@ -180,7 +180,7 @@ export class TransportCapacityBookingSpaceRequirement extends Component {
                 packageTypeCodeId:this.state.packageTypeCode
             }
            console.log(JSON.stringify(data),"posting data")
-          savePackagetotaltype(JSON.stringify(data))
+            savePackagetotaltype(data)
         }
      
     const handleInputChange =(e,type)=>{
