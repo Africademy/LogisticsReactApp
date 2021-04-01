@@ -2,6 +2,12 @@ const express = require("express");
 const router = express.Router(); 
 const verify = require("./verifyToken"); 
 const Transportcargocharacteristicstype = require("../models/Transportcargocharacteristicstype");
+const Cargotypecode = require("../models/Cargotypecode");
+const Harmonizedsystemcode = require("../models/Harmonizedsystemcode");
+const Cargotypedescription = require("../models/Cargotypedescription");
+const Countryoforigincode = require("../models/Countryoforigincode");
+const Finaldestinationcountry = require("../models/Finaldestinationcountry");
+
 
 router.get("/", verify, async (req, res) => {
   try {
@@ -42,23 +48,74 @@ router.get("/:id", verify, async (req, res) => {
 
 router.post("/", verify, async (req, res) => {
   try {
+    const cargotypecodes = await Cargotypecode.findById(req.body.cargoTypeCodeId);
+    const harmonizedsystemcodes = await Harmonizedsystemcode.findById(req.body.harmonizedSystemCodeId);
+    const cargotypedescription = await Cargotypedescription.findById(req.body.cargoTypeDescriptionId);
+    const countryoforigincodes = await Countryoforigincode.findById(req.body.countryOfOriginCodeId);
+    const finaldestinationcountrys = await Finaldestinationcountry.findById(req.body.finalDestinationCountryId);
+    
+
     const transportcargocharacteristicstype = new Transportcargocharacteristicstype ({
-        id: req.body.id,
-        cargoTypeCode: req.body.cargoTypeCode,
-        harmonizedSystemCode: req.body.harmonizedSystemCode,
-        cargoTypeDescription: req.body.cargoTypeDescription,
-        countryOfOriginCode: req.body.countryOfOriginCode,
-        finalDestinationCountry: req.body.finalDestinationCountry,
-        totalGrossVolume: req.body.totalGrossVolume,
-        totalGrossWeight: req.body.totalGrossWeight,
-        totalTransportNetWeight: req.body.totalTransportNetWeight,
-        totalChargeableWeight: req.body.totalChargeableWeight,
-        declaredWeightForCustoms: req.body.declaredWeightForCustoms,
-        totalLoadingLength: req.body.totalLoadingLength,
-        associatedInvoiceAmount: req.body.associatedInvoiceAmount,
-        declaredValueForCustoms: req.body.declaredValueForCustoms,
-        totalPackageQuantity: req.body.totalPackageQuantity,
-        totalItemQuantity: req.body.totalItemQuantity,
+        cargoTypeCode: {
+          Id: cargotypecodes._id,
+          Name: cargotypecodes.codeListVersion
+        },
+        harmonizedSystemCode: {
+          Id: harmonizedsystemcodes._id,
+          Name: harmonizedsystemcodes.codeListVersion
+        },
+        cargoTypeDescription: {
+          Id: cargotypedescription._id,
+          Name: cargotypedescription.codeListVersion
+        },
+        countryOfOriginCode: {
+          Id: countryoforigincodes._id,
+          Name: countryoforigincodes.codeListVersion
+        },
+        finalDestinationCountry: {
+          Id: finaldestinationcountrys._id,
+          Name: finaldestinationcountrys.codeListVersion
+        },
+        totalGrossVolume: {
+          Value: req.body.totalGrossWeight.Value,
+          Measurementtype: req.body.totalGrossWeight.Measurementtype
+        },
+        totalGrossWeight: {
+          Value: req.body.totalGrossWeight.Value,
+          Measurementtype: req.body.totalGrossWeight.Measurementtype
+        },
+        totalTransportNetWeight: {
+          Value: req.body.totalTransportNetWeight.Value,
+          Measurementtype: req.body.totalTransportNetWeight.Measurementtype
+        },
+        totalChargeableWeight: {
+          Value: req.body.totalChargeableWeight.Value,
+          Measurementtype: req.body.totalChargeableWeight.Measurementtype
+        },
+        declaredWeightForCustoms: {
+          Value: req.body.declaredWeightForCustoms.Value,
+          Measurementtype: req.body.declaredWeightForCustoms.Measurementtype
+        },
+        totalLoadingLength: {
+          Value: req.body.totalLoadingLength.Value,
+          Measurementtype: req.body.totalLoadingLength.Measurementtype
+        },
+        associatedInvoiceAmount: {
+          Value: req.body.totalGrossWeight.Value,
+          Measurementtype: req.body.totalGrossWeight.Measurementtype
+        },
+        declaredValueForCustoms: {
+          Value: req.body.associatedInvoiceAmount.Value,
+          Measurementtype: req.body.associatedInvoiceAmount.Measurementtype
+        },
+        totalPackageQuantity: {
+          Value: req.body.totalPackageQuantity.Value,
+          Measurementtype: req.body.totalPackageQuantity.Measurementtype
+        },
+        totalItemQuantity: {
+          Value: req.body.totalItemQuantity.Value,
+          Measurementtype: req.body.totalItemQuantity.Measurementtype
+        },
     });
     const savedTransportcargocharacteristicstype = await transportcargocharacteristicstype.save();
     res.status(200).json(savedTransportcargocharacteristicstype);

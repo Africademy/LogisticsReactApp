@@ -1,96 +1,53 @@
 const mongoose = require("mongoose");
 
 const LogisticeventtypeScheema = mongoose.Schema({
-  id: {
-    type: Number,
+  associatedInvoiceAmount: {
+    type: [{
+      Id: {
+        type: String,
+        required: true
+      },
+      Name: {
+        type: String,
+        required: true
+      },
+      AmountType: {
+        type: String,
+        required: true
+      }
+    }],
+    required: true
+  },
+  logisticEventDateTime: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
+  },
+  logisticEventPeriod: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
+  },
+  logisticEventDuration: {
+    type: mongoose.Schema.Types.ObjectId,
     required: true
   },
   logisticEventTypeCode: {
-    type: Number,
-    required: false
-  },
-  logisticEventDuration: {
-    type: Number,
-    required: false
+    type: [{
+      Id: {
+        type: String,
+        required: true
+      },
+      Name: {
+        type: String,
+        required: true
+      },
+    }],
+    required: true
   },
   logisticLocation: {
-    type: Number,
-    required: false
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
   },
-  logisticEventPeriod: {
-    type: Number,
-    required: false
-  },
-  logisticEventDateTime: {
-    type: Number,
-    required: false
-  },
-  logisticEventDateTime: {
-    type: [{
-      Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
-    }],
-    required:true
-  },
-  logisticEventPeriod: {
-    type: [{
-      Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
-    }],
-    required:true
-  },
-  logisticEventDuration: {
-    type: [{
-      Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
-    }],
-    required:true
-  },
-  logisticEventTypeCode: {
-    type: [{
-      Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
-    }],
-    required:true
-  },
-  logisticLocation: {
-    type: [{
-      Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
-    }],
-    required:true
-  },
-  createdAt:{
+  createdAt: {
     type: Date,
     default: Date.now
   }

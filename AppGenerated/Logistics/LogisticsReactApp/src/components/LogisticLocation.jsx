@@ -20,12 +20,12 @@ export class LogisticLocation extends Component {
         const handleSetvalue = () => {
             this.setState({unlnew:true})
         }
-        console.log(this.state.unlnew,"status")
+        console.log(this.props.location,"inside LogisticLocation")
         return (
             <div id="card-989304">
                 <div class="card">
                     <div class="card-header">
-                        <a class="card-link collapsed" data-toggle="collapse" data-parent="#card-989304" href="#card-element-780304">Logistic Location:</a>
+                        <a class="card-link collapsed" data-toggle="collapse" data-parent="#card-989304" href="#card-element-780304"> {this.props.location === "Planned DropOff" ? "DropOff Location" : "Pickup Location:"} </a>
                     </div>
                     <div id="card-element-780304" class="collapse">
                         <div class="card-body">

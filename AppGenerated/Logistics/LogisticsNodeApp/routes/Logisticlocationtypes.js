@@ -4,6 +4,11 @@ const verify = require("./verifyToken");
 const Logisticlocationtype = require("../models/Logisticlocationtype");
 const Operatinghourstype= require("../models/Operatinghourstype");
 const Specialoperatinghourstype= require("../models/Specialoperatinghourstype");
+const Countrycode = require("../models/Countrycode");
+const Currencyofpartycode = require("../models/Currencyofpartycode");
+const Languageofthepartycode = require("../models/Languageofthepartycode");
+const Contacttype = require("../models/Contacttype");
+
 
 router.get("/", verify, async (req, res) => {
   try {
@@ -49,52 +54,51 @@ router.post("/", verify, async (req, res) => {
   try {
     const locationspecificinstructionss = await Description200type.findById(req.body.locationSpecificInstructionsId);
     const additionallocationidentifications = await Identifiertype.findById(req.body.additionalLocationIdentificationId);
-    const regularoperatinghourss = await Operatinghourstype.findById(req.body.regularOperatingHoursId);
-    const specialoperatinghourss = await Specialoperatinghourstype.findById(req.body.specialOperatingHoursId);
-    const addresss = await Address.findById(req.body.addressId);
-    const contacts = await Contacttype.findById(req.body.contactId);
+    const countrycodes = await Countrycode.findById(req.body.countryCodeId);
+    const currencyofpartycodes = await Currencyofpartycode.findById(req.body.currencyOfPartyCodeId);
+    const languageofthepartycodes = await Languageofthepartycode.findById(req.body.languageOfThePartyCodeId);
+    const contacttypes = await Contacttype.findById(req.body.contactId);
     const unlocationcodes = await Enumerationlibrary.findById(req.body.unLocationCodeId);
     const logisticlocationtype = new Logisticlocationtype ({
-        id: req.body.id,
         unLocationCode: req.body.unLocationCode,
-        gln: req.body.gln,
-        additionalLocationIdentification: req.body.additionalLocationIdentification,
         sublocationIdentification: req.body.sublocationIdentification,
         locationName: req.body.locationName,
-        locationSpecificInstructions: req.body.locationSpecificInstructions,
         utcOffset: req.body.utcOffset,
-        address: req.body.address,
-        contact: req.body.contact,
-        regularOperatingHours: req.body.regularOperatingHours,
-        specialOperatingHours: req.body.specialOperatingHours,
-        locationSpecificInstructions: [{
+        locationSpecificInstructions: {
           Id: locationspecificinstructionss._id,
-          Name: locationspecificinstructionss.id
-        }],
-        additionalLocationIdentification: [{
+          Name: locationspecificinstructionss.codeListVersion
+        },
+        additionalLocationIdentification: {
           Id: additionallocationidentifications._id,
-          Name: additionallocationidentifications.id
-        }],
-        regularOperatingHours: [{
-          Id: regularoperatinghourss._id,
-          Name: regularoperatinghourss.id
-        }],
-        specialOperatingHours: [{
-          Id: specialoperatinghourss._id,
-          Name: specialoperatinghourss.id
-        }],
-        address: [{
-          Id: addresss._id,
-          Name: addresss.id
-        }],
-        contact: [{
-          Id: contacts._id,
-          Name: contacts.id
-        }],
-        unLocationCode: [{
-          Id: unlocationcodes._id,
-          Name: unlocationcodes.id
-        }],
+          Name: additionallocationidentifications.codeListVersion
+        },
+
+        contact: contacttypes._id,
+        cityCode: req.body.cityCode,
+        countryCode: {
+          Id: countrycodes._id,
+          Name: countrycodes.codeListVersion
+        },
+        currencyOfParty: {
+          Id: currencyofpartycodes._id,
+          Name: currencyofpartycodes.codeListVersion
+        },
+        languageOfTheParty: {
+          Id: languageofthepartycodes._id,
+          Name: languageofthepartycodes.codeListVersion
+        },
+        countyCode: req.body.countyCode,
+        crossStreet: req.body.crossStreet,
+        name: req.body.name,
+        pOBoxNumber: req.body.pOBoxNumber,
+        postalCode: req.body.postalCode,
+        provinceCode: req.body.provinceCode,
+        state: req.body.state,
+        streetAddressOne: req.body.streetAddressOne,
+        streetAddressTwo: req.body.streetAddressTwo,
+        streetAddressThree: req.body.streetAddressThree,
+        latitude: req.body.latitude,
+        longitude: req.body.longitude
     });
     const savedLogisticlocationtype = await logisticlocationtype.save();
     res.status(200).json(savedLogisticlocationtype);

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router(); 
 const verify = require("./verifyToken"); 
 const Packagetotaltype = require("../models/Packagetotaltype");
+const Packagetypecode = require("../models/Packagetypecode");
 
 router.get("/", verify, async (req, res) => {
   try {
@@ -36,33 +37,21 @@ router.get("/:id", verify, async (req, res) => {
 
 router.post("/", verify, async (req, res) => {
   try {
-    const totalgrossvolumes = await Measurementtype.findById(req.body.totalGrossVolumeId);
-    const totalgrossweights = await Measurementtype.findById(req.body.totalGrossWeightId);
-    const returnablepackagings = await Returnablepackagingtype.findById(req.body.returnablePackagingId);
-    const packagetypecodes = await Enumerationlibrary.findById(req.body.packageTypeCodeId);
+ const packagetypecodes = await Packagetypecode.findById(req.body.packageTypeCodeId);
     const packagetotaltype = new Packagetotaltype ({
-        id: req.body.id,
-        packageTypeCode: req.body.packageTypeCode,
         totalPackageQuantity: req.body.totalPackageQuantity,
-        totalGrossVolume: req.body.totalGrossVolume,
-        totalGrossWeight: req.body.totalGrossWeight,
-        returnablePackaging: req.body.returnablePackaging,
-        totalGrossVolume: [{
-          Id: totalgrossvolumes._id,
-          Name: totalgrossvolumes.id
-        }],
-        totalGrossWeight: [{
-          Id: totalgrossweights._id,
-          Name: totalgrossweights.id
-        }],
-        returnablePackaging: [{
-          Id: returnablepackagings._id,
-          Name: returnablepackagings.id
-        }],
-        packageTypeCode: [{
+        totalGrossVolume: {
+          Value: req.body.totalGrossVolume.value,
+          Measurementtype: req.body.totalGrossVolume.measurementtype
+        },
+        totalGrossWeight: {
+          Value: req.body.totalGrossWeight.Value,
+          Measurementtype: req.body.totalGrossWeight.Measurementtype
+        },
+        packageTypeCode: {
           Id: packagetypecodes._id,
-          Name: packagetypecodes.id
-        }],
+          Name: packagetypecodes.codeListVersion
+        },
     });
     const savedPackagetotaltype = await packagetotaltype.save();
     res.status(200).json(savedPackagetotaltype);

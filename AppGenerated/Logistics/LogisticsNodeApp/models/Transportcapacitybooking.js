@@ -1,339 +1,112 @@
 const mongoose = require("mongoose");
 
 const TransportcapacitybookingScheema = mongoose.Schema({
-  bookingid: {
+  bookingId: {
     type: Number,
     required: true
-  },
-  creationDateTime: {
-    type: Date,
-    required: true
-  },
-  documentStatusCode: {
-    type: Number,
-    required: true
-  },
-  documentActionCode: {
-    type: Number,
-    required: false
-  },
-  documentStructureVersion: {
-    type: String,
-    required: false
-  },
-  lastUpdateDateTime: {
-    type: Date,
-    required: false
-  },
-  revisionNumber: {
-    type: Number,
-    required: false
-  },
-  extension: {
-    type: String,
-    required: false
-  },
-  documentEffectiveDate: {
-    type: Date,
-    required: false
-  },
-  avpList: {
-    type: String,
-    required: false
-  },
-  transportCapacityBookingIdentification: {
-    type: Number,
-    required: false
-  },
-  transportServiceCategoryCode: {
-    type: Number,
-    required: true
-  },
-  transportServiceConditionTypeCode: {
-    type: Number,
-    required: false
-  },
-  transportServiceLevelCode: {
-    type: Number,
-    required: false
-  },
-  logisticServicesBuyer: {
-    type: Number,
-    required: true
-  },
-  logisticServicesSeller: {
-    type: Number,
-    required: true
-  },
-  pickUpParty: {
-    type: Number,
-    required: false
-  },
-  dropOffParty: {
-    type: Number,
-    required: false
-  },
-  plannedPickUp: {
-    type: Number,
-    required: false
-  },
-  plannedDropOff: {
-    type: Number,
-    required: false
-  },
-  transportReference: {
-    type: Number,
-    required: false
-  },
-  deliveryTerms: {
-    type: String,
-    required: false
-  },
-  handlingInstruction: {
-    type: Number,
-    required: false
   },
   transportCapacityBookingSpaceRequirements: {
-    type: Number,
-    required: true
-  },
-  transportCapacityBookingTransportMovement: {
-    type: Number,
-    required: false
-  },
-  transportCapacityBookingSpaceRequirements: {
-    type: [{
-      Id: {
-        type: String,
-        required: true
-      },
-      Name: {
-        type: String,
-        required: true
-      },
-    }],
-    required: true
-  },
-  transportCapacityBookingTransportMovement: {
-    type: [{
-      Id: {
-        type: String,
-        required: true
-      },
-      Name: {
-        type: String,
-        required: true
-      },
-    }],
-    required: true
-  },
-  avpList: {
-    type: [{
-      Id: {
-        type: String,
-        required: true
-      },
-      Name: {
-        type: String,
-        required: true
-      },
-    }],
-    required: true
-  },
-  documentStatusCode: {
-    type: [{
-      Id: {
-        type: String,
-        required: true
-      },
-      Name: {
-        type: String,
-        required: true
-      },
-    }],
-    required: true
-  },
-  dropOffParty: {
-    type: [{
-      Id: {
-        type: String,
-        required: true
-      },
-      Name: {
-        type: String,
-        required: true
-      },
-    }],
-    required: true
+    Transportcargocharacteristicstypes: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Transportcargocharacteristicstypes',
+      required: false
+    },
+    Packagetotaltypes: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Packagetotaltypes',
+      required: false
+    }
   },
   plannedPickUp: {
-    type: [{
-      Id: {
-        type: String,
-        required: true
-      },
-      Name: {
-        type: String,
-        required: true
-      },
-    }],
-    required: true
+    Logisticlocation: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Logisticlocationtypes',
+      required: false
+    },
+    LogisticEventDateTime: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Logisticeventdatetimes',
+      required: false
+    },
+    LogisticEventPeriod: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Logisticeventperiods',
+      required: false
+    }
   },
   plannedDropOff: {
     type: [{
-      Id: {
-        type: String,
-        required: true
+      Logisticlocation: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Logisticlocationtypes',
+        required: false
       },
-      Name: {
-        type: String,
-        required: true
+      LogisticEventDateTime: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Logisticeventdatetimes',
+        required: false
       },
-    }],
-    required: true
-  },
-  transportReference: {
-    type: [{
-      Id: {
-        type: String,
-        required: true
-      },
-      Name: {
-        type: String,
-        required: true
+      LogisticEventPeriod: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Logisticeventperiods',
+        required: false
       },
     }],
-    required: true
-  },
-  handlingInstruction: {
-    type: [{
-      Id: {
-        type: String,
-        required: true
-      },
-      Name: {
-        type: String,
-        required: true
-      },
-    }],
-    required: true
-  },
-  documentActionCode: {
-    type: [{
-      Id: {
-        type: String,
-        required: true
-      },
-      Name: {
-        type: String,
-        required: true
-      },
-    }],
-    required: true
+    required: false
   },
   transportCapacityBookingIdentification: {
-    type: [{
-      Id: {
-        type: String,
-        required: true
-      },
-      Name: {
-        type: String,
-        required: true
-      },
-    }],
-    required: true
+    type: String,
+    required: false
   },
   transportServiceCategoryCode: {
-    type: [{
-      Id: {
-        type: String,
-        required: true
-      },
-      Name: {
-        type: String,
-        required: true
-      },
-    }],
-    required: true
+    Id: {
+      type: String,
+      required: false
+    },
+    Name: {
+      type: String,
+      required: false
+    },
   },
   transportServiceConditionTypeCode: {
-    type: [{
-      Id: {
-        type: String,
-        required: true
-      },
-      Name: {
-        type: String,
-        required: true
-      },
-    }],
-    required: true
+    Id: {
+      type: String,
+      required: false
+    },
+    Name: {
+      type: String,
+      required: false
+    },
   },
   transportServiceLevelCode: {
-    type: [{
-      Id: {
-        type: String,
-        required: true
-      },
-      Name: {
-        type: String,
-        required: true
-      },
-    }],
-    required: true
+    Id: {
+      type: String,
+      required: false
+    },
+    Name: {
+      type: String,
+      required: false
+    },
   },
   logisticServicesBuyer: {
-    type: [{
-      Id: {
-        type: String,
-        required: true
-      },
-      Name: {
-        type: String,
-        required: true
-      },
-    }],
-    required: true
+    Id: {
+      type: String,
+      required: false
+    },
+    Name: {
+      type: String,
+      required: false
+    },
   },
   logisticServicesSeller: {
-    type: [{
-      Id: {
-        type: String,
-        required: true
-      },
-      Name: {
-        type: String,
-        required: true
-      },
-    }],
-    required: true
-  },
-  pickUpParty: {
-    type: [{
-      Id: {
-        type: String,
-        required: true
-      },
-      Name: {
-        type: String,
-        required: true
-      },
-    }],
-    required: true
-  },
-  deliveryTerms: {
-    type: [{
-      Id: {
-        type: String,
-        required: true
-      },
-      Name: {
-        type: String,
-        required: true
-      },
-    }],
-    required: true
+    Id: {
+      type: String,
+      required: false
+    },
+    Name: {
+      type: String,
+      required: false
+    },
   },
   createdAt: {
     type: Date,

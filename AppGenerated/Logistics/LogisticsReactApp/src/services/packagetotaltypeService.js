@@ -15,12 +15,22 @@ export function getPackagetotaltype(id) {
   return myhttp.get(apiEndPoint + "/" + id);
 }
 
-export function savePackagetotaltype(packagetotaltype) {
+export async function  savePackagetotaltype(packagetotaltype) {
   if (packagetotaltype._id) {
-    const body = { ...packagetotaltype };
+    const body =  packagetotaltype ;
     delete body._id;
-    return myhttp.put(apiEndPoint + "/" + packagetotaltype._id, body);
+    return myhttp.put(apiEndPoint + "/" + packagetotaltype._id, body).then(
+      (res)=> console.log(res)
+    ).catch(
+      (err)=> console.log(err)
+    );
   }
-  return myhttp.post(apiEndPoint, packagetotaltype);
+  return await myhttp.post(apiEndPoint, packagetotaltype);
 }
 
+// .then(function (response) {
+//   console.log(response);
+// })
+// .catch(function (error) {
+//   console.log(error);
+// });

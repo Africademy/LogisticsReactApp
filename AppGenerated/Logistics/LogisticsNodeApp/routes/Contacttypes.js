@@ -4,6 +4,8 @@ const verify = require("./verifyToken");
 const Contacttype = require("../models/Contacttype");
 const Communicationchanneltype= require("../models/Communicationchanneltype");
 const Description70type= require("../models/Description70type");
+const Contacttypecode = require("../models/Contacttypecode");
+
 
 router.get("/", verify, async (req, res) => {
   try {
@@ -43,7 +45,7 @@ router.post("/", verify, async (req, res) => {
     const communicationchannels = await Communicationchanneltype.findById(req.body.communicationChannelId);
     const afterhourscommunicationchannels = await Communicationchanneltype.findById(req.body.afterHoursCommunicationChannelId);
     const responsibilitys = await Description70type.findById(req.body.responsibilityId);
-    const contacttypecodes = await Enumerationlibrary.findById(req.body.contactTypeCodeId);
+    const contacttypecodes = await Contacttypecode.findById(req.body.contactTypeCodeId);
     const contacttype = new Contacttype ({
         id: req.body.id,
         contactTypeCode: req.body.contactTypeCode,

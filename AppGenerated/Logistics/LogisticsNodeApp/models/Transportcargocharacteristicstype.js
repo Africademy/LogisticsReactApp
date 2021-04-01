@@ -1,69 +1,156 @@
 const mongoose = require("mongoose");
 
 const TransportcargocharacteristicstypeScheema = mongoose.Schema({
-  id: {
-    type: Number,
-    required: true
-  },
+  
   cargoTypeCode: {
-    type: String,
-    required: false
+      Id: {
+        type: Number,
+        required: true
+      },
+      Name:{
+        type: String,
+        required: true
+      }
   },
   harmonizedSystemCode: {
-    type: String,
-    required: false
+      Id: {
+        type: Number,
+        required: true
+      },
+      Name:{
+        type: String,
+        required: true
+      }
   },
   cargoTypeDescription: {
-    type: String,
-    required: false
+      Id: {
+        type: Number,
+        required: true
+      },
+      Name:{
+        type: String,
+        required: true
+      }
   },
   countryOfOriginCode: {
-    type: String,
-    required: false
+      Id: {
+        type: Number,
+        required: true
+      },
+      Name:{
+        type: String,
+        required: true
+      }
   },
   finalDestinationCountry: {
-    type: String,
-    required: false
+      Id: {
+        type: Number,
+        required: true
+      },
+      Name:{
+        type: String,
+        required: true
+      }
   },
   totalGrossVolume: {
-    type: Number,
-    required: false
+    Value: {
+      type: String,
+      required: true
+      },
+   Measurementtype:{
+      type: String,
+      required: true
+      },
   },
   totalGrossWeight: {
-    type: Number,
-    required: false
+    Value: {
+      type: String,
+      required: true
+      },
+   Measurementtype:{
+      type: String,
+      required: true
+      },
   },
   totalTransportNetWeight: {
-    type: Number,
-    required: false
+    Value: {
+      type: String,
+      required: true
+      },
+   Measurementtype:{
+      type: String,
+      required: true
+      },
   },
   totalChargeableWeight: {
-    type: Number,
-    required: false
+    Value: {
+      type: String,
+      required: true
+      },
+   Measurementtype:{
+      type: String,
+      required: true
+      },
   },
   declaredWeightForCustoms: {
-    type: Number,
-    required: false
+    Value: {
+      type: String,
+      required: true
+      },
+   Measurementtype:{
+      type: String,
+      required: true
+      },
   },
   totalLoadingLength: {
-    type: Number,
-    required: false
+    Value: {
+      type: String,
+      required: true
+      },
+   Measurementtype:{
+      type: String,
+      required: true
+      },
   },
   associatedInvoiceAmount: {
-    type: Number,
-    required: false
+      Value: {
+        type: String,
+        required: true
+        },
+     Measurementtype:{
+        type: String,
+        required: true
+        },
   },
   declaredValueForCustoms: {
-    type: Number,
-    required: false
+    Value: {
+      type: String,
+      required: true
+      },
+   Measurementtype:{
+      type: String,
+      required: true
+      },
   },
   totalPackageQuantity: {
-    type: Number,
-    required: false
+    Value: {
+      type: String,
+      required: true
+      },
+   Measurementtype:{
+      type: String,
+      required: true
+      },
   },
   totalItemQuantity: {
-    type: Number,
-    required: false
+    Value: {
+      type: String,
+      required: true
+      },
+   Measurementtype:{
+      type: String,
+      required: true
+      },
   },
   createdAt:{
     type: Date,

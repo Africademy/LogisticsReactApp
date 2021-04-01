@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const LogisticeventperiodScheema = mongoose.Schema({
   beginDate: {
-    type: String,
+    type: Date,
     required: false
   },
   beginTime: {
@@ -10,7 +10,7 @@ const LogisticeventperiodScheema = mongoose.Schema({
     required: false
   },
   endDate: {
-    type: String,
+    type: Date,
     required: false
   },
   endTime: {

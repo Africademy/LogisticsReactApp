@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const LogisticeventdatetimeScheema = mongoose.Schema({
   date: {
-    type: String,
+    type: Date,
     required: true
   },
   time: {
