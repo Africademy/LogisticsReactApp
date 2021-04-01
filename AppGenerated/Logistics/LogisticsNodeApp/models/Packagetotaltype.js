@@ -1,81 +1,40 @@
 const mongoose = require("mongoose");
 
 const PackagetotaltypeScheema = mongoose.Schema({
-  id: {
-    type: Number,
-    required: true
-  },
-  packageTypeCode: {
-    type: Number,
-    required: false
-  },
+
   totalPackageQuantity: {
     type: Number,
     required: false
   },
   totalGrossVolume: {
-    type: Number,
-    required: false
-  },
+      Value: {
+         type: String,
+         required: true
+         },
+      Measurementtype:{
+         type: String,
+         required: true
+         }
+    },
   totalGrossWeight: {
-    type: Number,
-    required: false
-  },
-  returnablePackaging: {
-    type: Number,
-    required: false
-  },
-  totalGrossVolume: {
-    type: [{
-      Id: {
+      Value: {
          type: String,
          required: true
          },
-      Name:{
+      Measurementtype:{
          type: String,
          required: true
          },
-    }],
-    required:true
-  },
-  totalGrossWeight: {
-    type: [{
-      Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
-    }],
-    required:true
-  },
-  returnablePackaging: {
-    type: [{
-      Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
-    }],
-    required:true
   },
   packageTypeCode: {
-    type: [{
       Id: {
          type: String,
-         required: true
+         required: false
          },
       Name:{
          type: String,
-         required: true
+         required: false
          },
-    }],
-    required:true
   },
   createdAt:{
     type: Date,

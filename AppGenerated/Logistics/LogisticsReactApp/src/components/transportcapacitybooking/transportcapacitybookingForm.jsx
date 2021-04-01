@@ -56,23 +56,17 @@ super(props);
     _id: Joi.string(),
     id:  Joi.number()
       .required()
-
-
       .label("id"),
+
     creationDateTime:  Joi.date()
       .required()
-
-
       .label("creationDateTime"),
+
     documentStatusCode:  Joi.number()
       .required()
-
-
       .label("documentStatusCode"),
+
     documentActionCode:  Joi.number()
-
-
-
       .label("documentActionCode"),
     documentStructureVersion:  Joi.string()
       .allow('').allow(null)

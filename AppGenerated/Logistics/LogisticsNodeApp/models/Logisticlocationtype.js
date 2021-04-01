@@ -1,22 +1,15 @@
 const mongoose = require("mongoose");
 
 const LogisticlocationtypeScheema = mongoose.Schema({
-  id: {
-    type: Number,
-    required: true
-  },
+  
   unLocationCode: {
     type: Number,
     required: false
   },
-  gln: {
-    type: String,
-    required: false
-  },
-  additionalLocationIdentification: {
-    type: Number,
-    required: false
-  },
+  // gln: {
+  //   type: String,
+  //   required: false
+  // },
   sublocationIdentification: {
     type: String,
     required: false
@@ -25,32 +18,16 @@ const LogisticlocationtypeScheema = mongoose.Schema({
     type: String,
     required: false
   },
-  locationSpecificInstructions: {
-    type: Number,
-    required: false
-  },
   utcOffset: {
     type: Number,
     required: false
   },
-  address: {
-    type: Number,
-    required: false
-  },
   contact: {
-    type: Number,
-    required: false
-  },
-  regularOperatingHours: {
-    type: Number,
-    required: false
-  },
-  specialOperatingHours: {
-    type: Number,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Contacttypes',
     required: false
   },
   locationSpecificInstructions: {
-    type: [{
       Id: {
          type: String,
          required: true
@@ -59,11 +36,8 @@ const LogisticlocationtypeScheema = mongoose.Schema({
          type: String,
          required: true
          },
-    }],
-    required:true
   },
   additionalLocationIdentification: {
-    type: [{
       Id: {
          type: String,
          required: true
@@ -72,73 +46,88 @@ const LogisticlocationtypeScheema = mongoose.Schema({
          type: String,
          required: true
          },
-    }],
-    required:true
   },
-  regularOperatingHours: {
-    type: [{
-      Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
-    }],
-    required:true
+  cityCode: {
+    type: String,
+    required: false
   },
-  specialOperatingHours: {
-    type: [{
-      Id: {
-         type: String,
-         required: true
-         },
+  countryCode: {
+      Id:{
+        type: Number,
+        required: true
+      },
       Name:{
-         type: String,
-         required: true
-         },
-    }],
-    required:true
+        type: String,
+        required: true
+      }
   },
-  address: {
-    type: [{
-      Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
-    }],
-    required:true
+  countyCode: {
+    type: String,
+    required: false
   },
-  contact: {
-    type: [{
-      Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
-    }],
-    required:true
+  crossStreet: {
+    type: String,
+    required: false
   },
-  unLocationCode: {
-    type: [{
-      Id: {
-         type: String,
-         required: true
-         },
+  currencyOfParty:{
+      Id:{
+        type: Number,
+        required: true
+      },
       Name:{
-         type: String,
-         required: true
-         },
-    }],
-    required:true
+        type: String,
+        required: true
+      }
+  },
+  languageOfTheParty:{
+      Id:{
+        type: Number,
+        required: true
+      },
+      Name:{
+        type: String,
+        required: true
+      }
+  },
+  name: {
+    type: String,
+    required: false
+  },
+  pOBoxNumber: {
+    type: String,
+    required: false
+  },
+  postalCode: {
+    type: String,
+    required: false
+  },
+  provinceCode: {
+    type: String,
+    required: false
+  },
+  state: {
+    type: String,
+    required: false
+  },
+  streetAddressOne: {
+    type: String,
+    required: false
+  },
+  streetAddressTwo: {
+    type: String,
+    required: false
+  },
+  streetAddressThree: {
+    type: String,
+    required: false
+  },
+  latitude:{
+    type: String,
+    required: false
+  },
+  longitude:{
+    type: String,
+    required: false
   },
   createdAt:{
     type: Date,

@@ -51,7 +51,7 @@ const PlannedPickUp = (props) => {
                 </div>
                 <div id="card-element-102" class="collapse">
                     <div class="card-body">
-                        <div class="form-group">
+                        {/* <div class="form-group">
                             <label for="logisticEventTypeCode">Logistic Event Type:</label>
                             <div>
                                 <select
@@ -64,15 +64,15 @@ const PlannedPickUp = (props) => {
                                     <option value="" disabled defaultValue>
                                         Select Logistic Event Type
                                                         </option>
-                                    {/* {state.logisticeventtypecodes.map(logisticeventtypecode => (
+                                    {state.logisticeventtypecodes.map(logisticeventtypecode => (
                                         <option key={logisticeventtypecode.id} value={logisticeventtypecode.codeListVersion}>
                                             {logisticeventtypecode.codeListVersion}
                                         </option>
-                                    ))} */}
+                                    ))}
                                 </select>
-                                {/* {this.state.errors["transportServiceCategoryCodeId"]
+                                 {this.state.errors["transportServiceCategoryCodeId"]
                                     &&
-                                    <div className="alert alert-danger">{this.state.errors["transportServiceCategoryCodeId"]}</div>} */}
+                                    <div className="alert alert-danger">{this.state.errors["transportServiceCategoryCodeId"]}</div>}
                             </div>
                         </div>
                         <div class="form-group">
@@ -100,7 +100,7 @@ const PlannedPickUp = (props) => {
                                 &&
                                 <div className="alert alert-danger">{state.errors["timemeasurementtype"]}</div>}
 
-                        </div>
+                        </div> */}
 
                         <div>
                             < LogisticLocation />

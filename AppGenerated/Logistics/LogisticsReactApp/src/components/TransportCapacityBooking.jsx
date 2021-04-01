@@ -492,7 +492,7 @@ export class TransportCapacityBooking extends Component {
                                                             Select Transport Service Level
                                                         </option>
                                                         {this.state.transportServiceLevelCodes.map(transportServiceLevelCode => (
-                                                            <option key={transportServiceLevelCode.id} value={transportServiceLevelCode.codeListVersion}>
+                                                            <option key={transportServiceLevelCode.id} value={transportServiceLevelCode.id}>
                                                                 {transportServiceLevelCode.codeListVersion}
                                                             </option>
                                                         ))}
