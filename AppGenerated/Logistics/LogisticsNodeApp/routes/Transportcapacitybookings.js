@@ -19,53 +19,63 @@ router.get("/", verify, async (req, res) => {
 
 router.get("/:id", verify, async (req, res) => {
   try {
-    const transportcapacitybooking = await Transportcapacitybooking.findById(req.params.id);
-    res.json({
-      _id: transportcapacitybooking._id,
-      creationDateTime: transportcapacitybooking.creationDateTime,
-      documentStatusCode: transportcapacitybooking.documentStatusCode,
-      documentActionCode: transportcapacitybooking.documentActionCode,
-      documentStructureVersion: transportcapacitybooking.documentStructureVersion,
-      lastUpdateDateTime: transportcapacitybooking.lastUpdateDateTime,
-      revisionNumber: transportcapacitybooking.revisionNumber,
-      extension: transportcapacitybooking.extension,
-      documentEffectiveDate: transportcapacitybooking.documentEffectiveDate,
-      avpList: transportcapacitybooking.avpList,
-      transportCapacityBookingIdentification: transportcapacitybooking.transportCapacityBookingIdentification,
-      transportServiceCategoryCode: transportcapacitybooking.transportServiceCategoryCode,
-      transportServiceConditionTypeCode: transportcapacitybooking.transportServiceConditionTypeCode,
-      transportServiceLevelCode: transportcapacitybooking.transportServiceLevelCode,
-      logisticServicesBuyer: transportcapacitybooking.logisticServicesBuyer,
-      logisticServicesSeller: transportcapacitybooking.logisticServicesSeller,
-      pickUpParty: transportcapacitybooking.pickUpParty,
-      dropOffParty: transportcapacitybooking.dropOffParty,
-      plannedPickUp: transportcapacitybooking.plannedPickUp,
-      plannedDropOff: transportcapacitybooking.plannedDropOff,
-      transportReference: transportcapacitybooking.transportReference,
-      deliveryTerms: transportcapacitybooking.deliveryTerms,
-      handlingInstruction: transportcapacitybooking.handlingInstruction,
-      transportCapacityBookingSpaceRequirements: transportcapacitybooking.transportCapacityBookingSpaceRequirements,
-      transportCapacityBookingTransportMovement: transportcapacitybooking.transportCapacityBookingTransportMovement,
-      transportCapacityBookingSpaceRequirementsId: transportcapacitybooking.transportCapacityBookingSpaceRequirements.Id,
-      transportCapacityBookingTransportMovementId: transportcapacitybooking.transportCapacityBookingTransportMovement.Id,
-      avpListId: transportcapacitybooking.avpList.Id,
-      documentStatusCodeId: transportcapacitybooking.documentStatusCode.Id,
-      dropOffPartyId: transportcapacitybooking.dropOffParty.Id,
-      plannedPickUpId: transportcapacitybooking.plannedPickUp.Id,
-      plannedDropOffId: transportcapacitybooking.plannedDropOff.Id,
-      transportReferenceId: transportcapacitybooking.transportReference.Id,
-      handlingInstructionId: transportcapacitybooking.handlingInstruction.Id,
-      documentActionCodeId: transportcapacitybooking.documentActionCode.Id,
-      transportCapacityBookingIdentificationId: transportcapacitybooking.transportCapacityBookingIdentification.Id,
-      transportServiceCategoryCodeId: transportcapacitybooking.transportServiceCategoryCode.Id,
-      transportServiceConditionTypeCodeId: transportcapacitybooking.transportServiceConditionTypeCode.Id,
-      transportServiceLevelCodeId: transportcapacitybooking.transportServiceLevelCode.Id,
-      logisticServicesBuyerId: transportcapacitybooking.logisticServicesBuyer.Id,
-      logisticServicesSellerId: transportcapacitybooking.logisticServicesSeller.Id,
-      pickUpPartyId: transportcapacitybooking.pickUpParty.Id,
-      deliveryTermsId: transportcapacitybooking.deliveryTerms.Id,
-      createdAt: transportcapacitybooking.createdAt
+    const transportcapacitybookings = await Transportcapacitybooking.find({
+      bookingid: Number(req.params.id)
     });
+    if (transportcapacitybookings.length === 0) return res.json({
+      message: 'No data found'
+    });
+    let data = [];
+    transportcapacitybookings.forEach(transportcapacitybooking => {
+      data.push({
+        _id: transportcapacitybooking._id,
+        bookingid: transportcapacitybooking.bookingid,
+        creationDateTime: transportcapacitybooking.creationDateTime,
+        documentStatusCode: transportcapacitybooking.documentStatusCode,
+        documentActionCode: transportcapacitybooking.documentActionCode,
+        documentStructureVersion: transportcapacitybooking.documentStructureVersion,
+        lastUpdateDateTime: transportcapacitybooking.lastUpdateDateTime,
+        revisionNumber: transportcapacitybooking.revisionNumber,
+        extension: transportcapacitybooking.extension,
+        documentEffectiveDate: transportcapacitybooking.documentEffectiveDate,
+        avpList: transportcapacitybooking.avpList,
+        transportCapacityBookingIdentification: transportcapacitybooking.transportCapacityBookingIdentification,
+        transportServiceCategoryCode: transportcapacitybooking.transportServiceCategoryCode,
+        transportServiceConditionTypeCode: transportcapacitybooking.transportServiceConditionTypeCode,
+        transportServiceLevelCode: transportcapacitybooking.transportServiceLevelCode,
+        logisticServicesBuyer: transportcapacitybooking.logisticServicesBuyer,
+        logisticServicesSeller: transportcapacitybooking.logisticServicesSeller,
+        pickUpParty: transportcapacitybooking.pickUpParty,
+        dropOffParty: transportcapacitybooking.dropOffParty,
+        plannedPickUp: transportcapacitybooking.plannedPickUp,
+        plannedDropOff: transportcapacitybooking.plannedDropOff,
+        transportReference: transportcapacitybooking.transportReference,
+        deliveryTerms: transportcapacitybooking.deliveryTerms,
+        handlingInstruction: transportcapacitybooking.handlingInstruction,
+        transportCapacityBookingSpaceRequirements: transportcapacitybooking.transportCapacityBookingSpaceRequirements,
+        transportCapacityBookingTransportMovement: transportcapacitybooking.transportCapacityBookingTransportMovement,
+        transportCapacityBookingSpaceRequirementsId: transportcapacitybooking.transportCapacityBookingSpaceRequirements.Id,
+        transportCapacityBookingTransportMovementId: transportcapacitybooking.transportCapacityBookingTransportMovement.Id,
+        avpListId: transportcapacitybooking.avpList.Id,
+        documentStatusCodeId: transportcapacitybooking.documentStatusCode.Id,
+        dropOffPartyId: transportcapacitybooking.dropOffParty.Id,
+        plannedPickUpId: transportcapacitybooking.plannedPickUp.Id,
+        plannedDropOffId: transportcapacitybooking.plannedDropOff.Id,
+        transportReferenceId: transportcapacitybooking.transportReference.Id,
+        handlingInstructionId: transportcapacitybooking.handlingInstruction.Id,
+        documentActionCodeId: transportcapacitybooking.documentActionCode.Id,
+        transportCapacityBookingIdentificationId: transportcapacitybooking.transportCapacityBookingIdentification.Id,
+        transportServiceCategoryCodeId: transportcapacitybooking.transportServiceCategoryCode.Id,
+        transportServiceConditionTypeCodeId: transportcapacitybooking.transportServiceConditionTypeCode.Id,
+        transportServiceLevelCodeId: transportcapacitybooking.transportServiceLevelCode.Id,
+        logisticServicesBuyerId: transportcapacitybooking.logisticServicesBuyer.Id,
+        logisticServicesSellerId: transportcapacitybooking.logisticServicesSeller.Id,
+        pickUpPartyId: transportcapacitybooking.pickUpParty.Id,
+        deliveryTermsId: transportcapacitybooking.deliveryTerms.Id,
+        createdAt: transportcapacitybooking.createdAt
+      });
+    });
+    res.send(data);
   } catch (ex) {
     res.status(400).json({
       message: ex.message

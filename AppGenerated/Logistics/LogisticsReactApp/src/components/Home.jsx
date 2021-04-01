@@ -6,7 +6,7 @@ function Home() {
   return (
     <div className="wrapper">
       <div className="container-fluid">
-        <div className="row">
+        <div className="row mb-2">
           <div className="col-md-12">
             <div className="carousel slide" id="carousel-81724">
               <ol className="carousel-indicators">

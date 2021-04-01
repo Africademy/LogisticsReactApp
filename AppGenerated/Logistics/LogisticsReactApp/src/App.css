@@ -124,3 +124,7 @@
   top: 30px;
   padding-top: 1rem;
 }
+
+*[class$="-primary"] {
+  background-color: #007b9e !important;
+}

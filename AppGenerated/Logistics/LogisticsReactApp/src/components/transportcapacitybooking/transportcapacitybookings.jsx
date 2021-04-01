@@ -15,12 +15,12 @@ class Transportcapacitybookings extends Component {
     currentPage: 1,
   };
 
-  async componentDidMount() {
+  componentDidMount = async () => {
     const {
       data: transportcapacitybookings,
     } = await getTransportcapacitybookings();
     this.setState({ records: transportcapacitybookings });
-  }
+  };
 
   handleDelete = async (id) => {
     const alltransportcapacitybookings = this.state.records;
@@ -60,18 +60,26 @@ class Transportcapacitybookings extends Component {
 
   handleGetBooking = async (e) => {
     e.preventDefault();
-    const singletransportbooking = [];
-    const { data } = this.state;
+    let singletransportbooking = [];
+    const data = { ...this.state.data };
     console.log(data);
     try {
-      let res = await getTransportcapacitybooking(data.bookingid.toString());
+      let res = await getTransportcapacitybooking(data.bookingid);
       console.log(res);
+      singletransportbooking = res.data;
     } catch (err) {
       if (err.response && err.response.status === 404) {
         console.error(err);
-        //  error
       }
-      this.setState({ records: singletransportbooking });
+    } finally {
+      singletransportbooking =
+        singletransportbooking.length > 0
+          ? singletransportbooking
+          : this.getPagedData().data;
+
+      this.setState({
+        records: singletransportbooking,
+      });
     }
   };
 
@@ -196,8 +204,12 @@ class Transportcapacitybookings extends Component {
               <tbody>
                 {paginatedTransportcapacitybookings.map((record, i) => (
                   <tr key={i}>
-                    <th scope="row">{record._id}</th>
-                    <td>{record.creationDateTime}</td>
+                    <th scope="row">
+                      <Link to={`/viewtransportcapacitybooking/${record._id}`}>
+                        {record.bookingid}
+                      </Link>
+                    </th>
+                    <td>{new Date(record.creationDateTime).toDateString()}</td>
                     <td>{record.documentEffectiveDate}</td>
                     <td>{record.extension}</td>
                     <td>{record.documentStructureVersion}</td>
@@ -205,25 +217,19 @@ class Transportcapacitybookings extends Component {
                     <td>{record.documentStructureVersion}</td>
                     <td>
                       <div className="action-buttons text-center">
-                        {/* <a href="#" className="btn btn-secondary btn-sm mx-1">
-                          Edit
-                        </a>
-                        <a href="#" className="btn btn-primary btn-sm mx-1">
-                          View
-                        </a> */}
-                        <Link
+                        {/* <Link
                           to={`/viewtransportcapacitybooking/${record._id}`}
                           className="btn btn-info btn-sm mx-1 my-sm-1"
                           title="View"
                         >
                           <i className="fa fa-eye"></i>
-                        </Link>
+                        </Link> */}
                         <Link
                           to={`/transportcapacitybookings/${record._id}`}
                           className="btn btn-warning btn-sm mx-1 my-sm-1"
                           title="Edit"
                         >
-                          <i className="fa fa-edit"></i>
+                          <i className="fa fa-pencil"></i>
                         </Link>
                         <button
                           onClick={() => this.handleDelete(record._id)}
@@ -238,7 +244,11 @@ class Transportcapacitybookings extends Component {
                 ))}
               </tbody>
             </table>
-            <a href="#" className="float-right text-decoration-none">
+            <a
+              href="#"
+              className="float-right text-decoration-none"
+              onClick={this.componentDidMount}
+            >
               See all
             </a>
           </div>

@@ -395,6 +395,7 @@ super(props);
 
     this.setState({ data: data, errors: errors });
   };
+  
   handleSubmit = async (event) => {
     event.preventDefault();
     const errors = this.validate();

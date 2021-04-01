@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const TransportcapacitybookingScheema = mongoose.Schema({
+  bookingid: {
+    type: Number,
+    required: true
+  },
   creationDateTime: {
     type: Date,
     required: true
@@ -100,238 +104,238 @@ const TransportcapacitybookingScheema = mongoose.Schema({
   transportCapacityBookingSpaceRequirements: {
     type: [{
       Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
+        type: String,
+        required: true
+      },
+      Name: {
+        type: String,
+        required: true
+      },
     }],
-    required:true
+    required: true
   },
   transportCapacityBookingTransportMovement: {
     type: [{
       Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
+        type: String,
+        required: true
+      },
+      Name: {
+        type: String,
+        required: true
+      },
     }],
-    required:true
+    required: true
   },
   avpList: {
     type: [{
       Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
+        type: String,
+        required: true
+      },
+      Name: {
+        type: String,
+        required: true
+      },
     }],
-    required:true
+    required: true
   },
   documentStatusCode: {
     type: [{
       Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
+        type: String,
+        required: true
+      },
+      Name: {
+        type: String,
+        required: true
+      },
     }],
-    required:true
+    required: true
   },
   dropOffParty: {
     type: [{
       Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
+        type: String,
+        required: true
+      },
+      Name: {
+        type: String,
+        required: true
+      },
     }],
-    required:true
+    required: true
   },
   plannedPickUp: {
     type: [{
       Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
+        type: String,
+        required: true
+      },
+      Name: {
+        type: String,
+        required: true
+      },
     }],
-    required:true
+    required: true
   },
   plannedDropOff: {
     type: [{
       Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
+        type: String,
+        required: true
+      },
+      Name: {
+        type: String,
+        required: true
+      },
     }],
-    required:true
+    required: true
   },
   transportReference: {
     type: [{
       Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
+        type: String,
+        required: true
+      },
+      Name: {
+        type: String,
+        required: true
+      },
     }],
-    required:true
+    required: true
   },
   handlingInstruction: {
     type: [{
       Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
+        type: String,
+        required: true
+      },
+      Name: {
+        type: String,
+        required: true
+      },
     }],
-    required:true
+    required: true
   },
   documentActionCode: {
     type: [{
       Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
+        type: String,
+        required: true
+      },
+      Name: {
+        type: String,
+        required: true
+      },
     }],
-    required:true
+    required: true
   },
   transportCapacityBookingIdentification: {
     type: [{
       Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
+        type: String,
+        required: true
+      },
+      Name: {
+        type: String,
+        required: true
+      },
     }],
-    required:true
+    required: true
   },
   transportServiceCategoryCode: {
     type: [{
       Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
+        type: String,
+        required: true
+      },
+      Name: {
+        type: String,
+        required: true
+      },
     }],
-    required:true
+    required: true
   },
   transportServiceConditionTypeCode: {
     type: [{
       Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
+        type: String,
+        required: true
+      },
+      Name: {
+        type: String,
+        required: true
+      },
     }],
-    required:true
+    required: true
   },
   transportServiceLevelCode: {
     type: [{
       Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
+        type: String,
+        required: true
+      },
+      Name: {
+        type: String,
+        required: true
+      },
     }],
-    required:true
+    required: true
   },
   logisticServicesBuyer: {
     type: [{
       Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
+        type: String,
+        required: true
+      },
+      Name: {
+        type: String,
+        required: true
+      },
     }],
-    required:true
+    required: true
   },
   logisticServicesSeller: {
     type: [{
       Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
+        type: String,
+        required: true
+      },
+      Name: {
+        type: String,
+        required: true
+      },
     }],
-    required:true
+    required: true
   },
   pickUpParty: {
     type: [{
       Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
+        type: String,
+        required: true
+      },
+      Name: {
+        type: String,
+        required: true
+      },
     }],
-    required:true
+    required: true
   },
   deliveryTerms: {
     type: [{
       Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
+        type: String,
+        required: true
+      },
+      Name: {
+        type: String,
+        required: true
+      },
     }],
-    required:true
+    required: true
   },
-  createdAt:{
+  createdAt: {
     type: Date,
     default: Date.now
   }
