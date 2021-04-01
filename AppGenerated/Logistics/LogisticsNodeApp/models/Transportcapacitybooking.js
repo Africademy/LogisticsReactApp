@@ -55,7 +55,6 @@ const TransportcapacitybookingScheema = mongoose.Schema({
     required: false
   },
   transportServiceCategoryCode: {
-    type: [{
       Id: {
         type: String,
         required: false
@@ -64,11 +63,8 @@ const TransportcapacitybookingScheema = mongoose.Schema({
         type: String,
         required: false
       },
-    }],
-    required: false
   },
   transportServiceConditionTypeCode: {
-    type: [{
       Id: {
         type: String,
         required: false
@@ -77,11 +73,8 @@ const TransportcapacitybookingScheema = mongoose.Schema({
         type: String,
         required: false
       },
-    }],
-    required: false
   },
   transportServiceLevelCode: {
-    type: [{
       Id: {
         type: String,
         required: false
@@ -90,11 +83,9 @@ const TransportcapacitybookingScheema = mongoose.Schema({
         type: String,
         required: false
       },
-    }],
     required: false
   },
   logisticServicesBuyer: {
-    type: [{
       Id: {
         type: String,
         required: false
@@ -103,11 +94,8 @@ const TransportcapacitybookingScheema = mongoose.Schema({
         type: String,
         required: false
       },
-    }],
-    required: false
   },
   logisticServicesSeller: {
-    type: [{
       Id: {
         type: String,
         required: false
@@ -116,8 +104,6 @@ const TransportcapacitybookingScheema = mongoose.Schema({
         type: String,
         required: false
       },
-    }],
-    required: false
   },
   createdAt: {
     type: Date,
