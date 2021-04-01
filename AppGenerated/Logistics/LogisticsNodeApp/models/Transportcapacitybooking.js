@@ -83,7 +83,6 @@ const TransportcapacitybookingScheema = mongoose.Schema({
         type: String,
         required: false
       },
-    required: false
   },
   logisticServicesBuyer: {
       Id: {
