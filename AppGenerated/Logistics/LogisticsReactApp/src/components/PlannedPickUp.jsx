@@ -21,7 +21,10 @@ const PlannedPickUp = (props) => {
         populateLogisticeventdurations();
         populateTimemeasurementtypes();
     }, [])
-    console.log(state.logisticeventdurations, "New")
+    // console.log(state.logisticeventdurations, "New")
+
+  console.log(props.name,"loction")
+
     const populateLogisticeventtypecodes = async () => {
         const { data: logisticeventtypecodes } = await getLogisticeventtypecodes();
         // useEffect(() => {
@@ -68,6 +71,7 @@ const PlannedPickUp = (props) => {
                                         <option key={logisticeventtypecode.id} value={logisticeventtypecode.codeListVersion}>
                                             {logisticeventtypecode.codeListVersion}
                                         </option>
+<<<<<<< Updated upstream
                                     ))}
                                 </select>
                                  {this.state.errors["transportServiceCategoryCodeId"]
@@ -76,6 +80,16 @@ const PlannedPickUp = (props) => {
                             </div>
                         </div>
                         <div class="form-group">
+=======
+                                    ))} */}
+                                {/* </select> */}
+                                {/* {this.state.errors["transportServiceCategoryCodeId"]
+                                    &&
+                                    <div className="alert alert-danger">{this.state.errors["transportServiceCategoryCodeId"]}</div>} */}
+                            {/* </div>
+                        </div> */}
+                        {/* <div class="form-group"> 
+>>>>>>> Stashed changes
                             <label for="logisticEventDuration">Associated Invoice Amount</label>
                             <div >
                                 <div class="input-group">
@@ -84,8 +98,8 @@ const PlannedPickUp = (props) => {
                                     <div class="input-group-btn">
                                         <button type="button" class="btn btn-default dropdown-toggle"
                                             data-toggle="dropdown">
-                                            {state.data.timemeasurementtype}
-                                            <span class="caret"></span>
+                                            {state.data.timemeasurementtype} */}
+                                            {/* <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu pull-right">
                                             {state.timemeasurementtypes.map(data => (
@@ -103,11 +117,11 @@ const PlannedPickUp = (props) => {
                         </div> */}
 
                         <div>
-                            < LogisticLocation />
+                            < LogisticLocation location={props.name}  />
                         </div>
                         <div class="card my-2">
                             <div class="card-header">
-                                <a class="card-title">Logistic Event Period:</a>
+                                <a class="card-title">Time Band:</a>
                             </div>
                             <div class="card-body">
                                 <form>
@@ -150,7 +164,7 @@ const PlannedPickUp = (props) => {
                         </div>
                         <div class="card my-2">
                             <div class="card-header">
-                                <a class="card-title">Logistic Event Time:</a>
+                                <a class="card-title">Event Time:</a>
                             </div>
                             <div class="card-body">
                                 <form class="row">

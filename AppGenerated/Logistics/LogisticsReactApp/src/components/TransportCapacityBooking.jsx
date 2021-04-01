@@ -432,7 +432,7 @@ export class TransportCapacityBooking extends Component {
                                         required="required" class="form-control"/>
                                 </div> --> */}
                                             <div class="form-group">
-                                                <label for="transportServiceCategoryCode">Transport Service Category:</label>
+                                                <label for="transportServiceCategoryCode">Service Category:</label>
                                                 <div>
                                                     <select
                                                         value={this.state.data["transportServiceCategoryCodeId"]}
@@ -456,7 +456,7 @@ export class TransportCapacityBooking extends Component {
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="transportServiceConditionTypeCode">Transport Service Condition Type:</label>
+                                                <label for="transportServiceConditionTypeCode"> Service Condition Type:</label>
                                                 <div>
                                                     <select
                                                         value={this.state.data["transportServiceConditionTypeCodeId"]}
@@ -478,7 +478,7 @@ export class TransportCapacityBooking extends Component {
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="transportServiceLevelCode">Transport Service Level:</label>
+                                                <label for="transportServiceLevelCode"> Service Level:</label>
                                                 <div>
                                                 <div>
                                                     <select
