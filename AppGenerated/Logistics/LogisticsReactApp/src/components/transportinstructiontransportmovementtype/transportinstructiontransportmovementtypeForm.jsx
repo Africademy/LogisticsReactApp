@@ -522,7 +522,7 @@ super(props);
                 className="form-control"
                   >
                   <option value="" disabled defaultValue>
-                     Select Transportmeanstype
+                     Selectmeanstype
                   </option>
                   {this.state.transportMeanss.map(Transportmeanstype => (
                     <option key={Transportmeanstype._id} value={Transportmeanstype._id}>

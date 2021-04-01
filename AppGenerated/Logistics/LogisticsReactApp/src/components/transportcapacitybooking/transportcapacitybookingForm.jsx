@@ -740,7 +740,7 @@ super(props);
                 className="form-control"
                   >
                   <option value="" disabled defaultValue>
-                     Select Transportcapacitybookingspacerequirement
+                     Selectcapacitybookingspacerequirement
                   </option>
                   {this.state.transportCapacityBookingSpaceRequirementss.map(Transportcapacitybookingspacerequirement => (
                     <option key={Transportcapacitybookingspacerequirement._id} value={Transportcapacitybookingspacerequirement._id}>
@@ -761,7 +761,7 @@ super(props);
                 className="form-control"
                   >
                   <option value="" disabled defaultValue>
-                     Select Transportcapacitybookingtransportmovementtype
+                     Selectcapacitybookingtransportmovementtype
                   </option>
                   {this.state.transportCapacityBookingTransportMovements.map(Transportcapacitybookingtransportmovementtype => (
                     <option key={Transportcapacitybookingtransportmovementtype._id} value={Transportcapacitybookingtransportmovementtype._id}>

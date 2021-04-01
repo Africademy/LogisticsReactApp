@@ -15,6 +15,7 @@ import Contact from './Contact'
 import PlannedPickUp from "./PlannedPickUp";
 import TransportReference from "./TransportReference"
 import TransportCapacityBookingSpaceRequirement from "./TransportCapacityBookingSpaceRequirement"
+import { getTransportserviceconditiontypecodes } from '../services/transportserviceconditiontypecodeService';
 
 
 
@@ -315,7 +316,7 @@ export class TransportCapacityBooking extends Component {
     }
 
     async populatetransportServiceConditionTypeCodes() {
-        const { data: transportServiceConditionTypeCodes } = await getEnumerationlibrarys();
+        const { data: transportServiceConditionTypeCodes } = await getTransportserviceconditiontypecodes();
         this.setState({ transportServiceConditionTypeCodes: transportServiceConditionTypeCodes });
     }
 
@@ -398,7 +399,7 @@ export class TransportCapacityBooking extends Component {
         const data = { ...this.state.data };
         data[event.currentTarget.name] = event.currentTarget.value;
 
-        this.setState({ data: data, errors: errors });
+        this.setState({ data: data}, {errors:errors});
     };
     handleSubmit = async (event) => {
         event.preventDefault();
@@ -442,7 +443,7 @@ export class TransportCapacityBooking extends Component {
                                                         className="form-control"
                                                     >
                                                         <option value="" disabled defaultValue>
-                                                            Select Transport Service Category
+                                                            Select Service Category
                                                         </option>
                                                         {this.state.transportServiceCategoryCodes.map(populatetransportServiceCategoryCodes => (
                                                             <option key={populatetransportServiceCategoryCodes._id} value={populatetransportServiceCategoryCodes.codeListVersion}>
@@ -466,11 +467,11 @@ export class TransportCapacityBooking extends Component {
                                                         className="form-control"
                                                     >
                                                         <option value="" disabled defaultValue>
-                                                            Select Transport Service Condition Type
+                                                            Select Service Condition Type
                                                         </option>
                                                         {this.state.transportServiceConditionTypeCodes.map(Enumerationlibrary => (
                                                             <option key={Enumerationlibrary._id} value={Enumerationlibrary._id}>
-                                                                {Enumerationlibrary.id}
+                                                                {Enumerationlibrary.codeListVersion}
                                                             </option>
                                                         ))}
                                                     </select>
@@ -484,15 +485,15 @@ export class TransportCapacityBooking extends Component {
                                                     <select
                                                         value={this.state.data["transportServiceLevelCodeId"]}
                                                         onChange={this.handleChange}
-                                                        name="transportServiceLevelCode"
-                                                        id="transportServiceLevelCode"
+                                                        name="transportServiceLevelCodeId"
+                                                        id="transportServiceLevelCodeId"
                                                         className="form-control"
                                                     >
                                                         <option value="" disabled defaultValue>
-                                                            Select Transport Service Level
+                                                            Select Service Level
                                                         </option>
                                                         {this.state.transportServiceLevelCodes.map(transportServiceLevelCode => (
-                                                            <option key={transportServiceLevelCode.id} value={transportServiceLevelCode.id}>
+                                                            <option key={transportServiceLevelCode._id} value={transportServiceLevelCode._id}>
                                                                 {transportServiceLevelCode.codeListVersion}
                                                             </option>
                                                         ))}
@@ -513,8 +514,11 @@ export class TransportCapacityBooking extends Component {
                                         < PlannedPickUp name="Planned DropOff"/>
 
                                         < TransportCapacityBookingSpaceRequirement />
-
+                                        
                                     </form>
+ <button className="packageTotal"  >Submit </button>
+
+
                                 </div>
                                 </div>
                             </div>

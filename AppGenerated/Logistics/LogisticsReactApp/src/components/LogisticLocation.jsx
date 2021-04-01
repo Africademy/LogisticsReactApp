@@ -45,10 +45,10 @@ export class LogisticLocation extends Component {
                                 </div>  
                                 {this.state.unlnew && <div className="card my-2">
                                  <div className="card-body">
-                                 <div class="form-group">
+                                 {/* <div class="form-group">
                                         <label for="gln"> GLN:</label>
                                         <Select class="form-control dropdown-toggle" id="gln" data-toggle="dropdown"></Select>
-                                    </div>
+                                    </div> */}
                                     <div class="form-group">
                                         <label for="additionalLocationIdentification"> Additional Location Identification:</label>
                                         <Select class="form-control dropdown-toggle" id="additionalLocationIdentification" data-toggle="dropdown"></Select>

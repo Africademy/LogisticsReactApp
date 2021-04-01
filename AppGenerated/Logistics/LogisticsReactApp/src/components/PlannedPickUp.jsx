@@ -71,16 +71,6 @@ const PlannedPickUp = (props) => {
                                         <option key={logisticeventtypecode.id} value={logisticeventtypecode.codeListVersion}>
                                             {logisticeventtypecode.codeListVersion}
                                         </option>
-<<<<<<< Updated upstream
-                                    ))}
-                                </select>
-                                 {this.state.errors["transportServiceCategoryCodeId"]
-                                    &&
-                                    <div className="alert alert-danger">{this.state.errors["transportServiceCategoryCodeId"]}</div>}
-                            </div>
-                        </div>
-                        <div class="form-group">
-=======
                                     ))} */}
                                 {/* </select> */}
                                 {/* {this.state.errors["transportServiceCategoryCodeId"]
@@ -89,7 +79,6 @@ const PlannedPickUp = (props) => {
                             {/* </div>
                         </div> */}
                         {/* <div class="form-group"> 
->>>>>>> Stashed changes
                             <label for="logisticEventDuration">Associated Invoice Amount</label>
                             <div >
                                 <div class="input-group">

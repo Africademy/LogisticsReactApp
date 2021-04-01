@@ -491,7 +491,7 @@ super(props);
                 className="form-control"
                   >
                   <option value="" disabled defaultValue>
-                     Select Transportsealtype
+                     Selectsealtype
                   </option>
                   {this.state.transportSeals.map(Transportsealtype => (
                     <option key={Transportsealtype._id} value={Transportsealtype._id}>

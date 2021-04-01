@@ -522,7 +522,7 @@ super(props);
                 className="form-control"
                   >
                   <option value="" disabled defaultValue>
-                     Select Transportcargocharacteristicstype
+                     Selectcargocharacteristicstype
                   </option>
                   {this.state.transportCargoCharacteristicss.map(Transportcargocharacteristicstype => (
                     <option key={Transportcargocharacteristicstype._id} value={Transportcargocharacteristicstype._id}>
@@ -543,7 +543,7 @@ super(props);
                 className="form-control"
                   >
                   <option value="" disabled defaultValue>
-                     Select Transportequipmenttype
+                     Selectequipmenttype
                   </option>
                   {this.state.referencedTransportEquipments.map(Transportequipmenttype => (
                     <option key={Transportequipmenttype._id} value={Transportequipmenttype._id}>
@@ -564,7 +564,7 @@ super(props);
                 className="form-control"
                   >
                   <option value="" disabled defaultValue>
-                     Select Transportreferencetype
+                     Selectreferencetype
                   </option>
                   {this.state.transportReferences.map(Transportreferencetype => (
                     <option key={Transportreferencetype._id} value={Transportreferencetype._id}>

@@ -705,7 +705,7 @@ export class TransportCapacityBookingSpaceRequirement extends Component {
                                             </div>
                                     </div>
                                 </div>
-                                <button onClick={handleSubmitPackageTotal}>Submit</button>
+                                
                             </div>
                         </div>
                     </div>

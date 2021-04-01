@@ -606,7 +606,7 @@ super(props);
                 className="form-control"
                   >
                   <option value="" disabled defaultValue>
-                     Select Transportequipmenttype
+                     Selectequipmenttype
                   </option>
                   {this.state.referencedTransportEquipments.map(Transportequipmenttype => (
                     <option key={Transportequipmenttype._id} value={Transportequipmenttype._id}>
