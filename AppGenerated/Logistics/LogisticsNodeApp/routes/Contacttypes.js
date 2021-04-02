@@ -50,18 +50,19 @@ router.post("/", verify, async (req, res) => {
         personName: req.body.personName,
         departmentName: req.body.departmentName,
         jobTitle: req.body.jobTitle,
-       
-        communicationChannel: {
+        communicationChannelName: req.body.communicationChannelName,
+        communicationValue: req.body.communicationValue,
+        communicationChannelCode: {
           Id: communicationchannels._id,
-          Name: communicationchannels.id
+          Name: communicationchannels.communicationChannelName
         },
         responsibility: {
           Id: responsibilitys._id,
-          Name: responsibilitys.id
+          Name: responsibilitys.codeListVersion
         },
         contactTypeCode: {
           Id: contacttypecodes._id,
-          Name: contacttypecodes.id
+          Name: contacttypecodes.codeListVersion
         },
     });
     const savedContacttype = await contacttype.save();

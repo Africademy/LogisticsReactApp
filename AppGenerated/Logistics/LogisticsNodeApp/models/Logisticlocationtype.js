@@ -53,7 +53,7 @@ const LogisticlocationtypeScheema = mongoose.Schema({
   },
   countryCode: {
       Id:{
-        type: Number,
+        type: String,
         required: true
       },
       Name:{
@@ -71,7 +71,7 @@ const LogisticlocationtypeScheema = mongoose.Schema({
   },
   currencyOfParty:{
       Id:{
-        type: Number,
+        type: String,
         required: true
       },
       Name:{
@@ -81,7 +81,7 @@ const LogisticlocationtypeScheema = mongoose.Schema({
   },
   languageOfTheParty:{
       Id:{
-        type: Number,
+        type: String,
         required: true
       },
       Name:{

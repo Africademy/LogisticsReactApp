@@ -35,7 +35,6 @@ const TransportcapacitybookingScheema = mongoose.Schema({
     }
   },
   plannedDropOff: {
-    type: [{
       Logisticlocation: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Logisticlocationtypes',
@@ -51,7 +50,6 @@ const TransportcapacitybookingScheema = mongoose.Schema({
         ref: 'Logisticeventperiods',
         required: false
       },
-    }],
     required: false
   },
   transportCapacityBookingIdentification: {

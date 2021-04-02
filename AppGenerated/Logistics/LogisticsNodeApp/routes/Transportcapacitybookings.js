@@ -15,6 +15,8 @@ const Packagetotaltype = require("../models/Packagetotaltype");
 const Logisticlocationtype = require("../models/Logisticlocationtype");
 const Logisticeventdatetime = require("../models/Logisticeventdatetime");
 const Logisticeventperiod = require("../models/Logisticeventperiod");
+const Contacttype = require("../models/Contacttype");
+
 
 router.get("/", verify, async (req, res) => {
   try {
@@ -29,65 +31,59 @@ router.get("/", verify, async (req, res) => {
 
 router.get("/:id", verify, async (req, res) => {
   try {
-    const transportcapacitybookings = await Transportcapacitybooking.find({
-      bookingid: Number(req.params.id)
-    });
+    const transportcapacitybookings = await Transportcapacitybooking.findById(req.params.id);
     if (transportcapacitybookings.length === 0) return res.json({
       message: 'No data found'
     });
-    res.json(transportcapacitybookings);
+    // res.json(transportcapacitybookings);
 
-    // let data = [];
+    let data = [];
+    let plannedPickUplogisticcontacttypes;
+    let plannedDropOfflogisticcontacttypes;
+    const transportcargocharacteristicstypes = await Transportcargocharacteristicstype.findById(transportcapacitybookings.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes)
+    const packagetotaltypes = await Packagetotaltype.findById(transportcapacitybookings.transportCapacityBookingSpaceRequirements.Packagetotaltypes)
+    const plannedPickUplogisticlocationtypes = await Logisticlocationtype.findById(transportcapacitybookings.plannedPickUp.Logisticlocation)
+    if(plannedPickUplogisticlocationtypes){
+      plannedPickUplogisticcontacttypes = await Contacttype.findById(plannedPickUplogisticlocationtypes.contact)
+    }
+    const plannedPickUplogisticeventdatetimes = await Logisticeventdatetime.findById(transportcapacitybookings.plannedPickUp.LogisticEventDateTime)
+    const plannedPickUplogisticeventperiods = await Logisticeventperiod.findById(transportcapacitybookings.plannedPickUp.LogisticEventPeriod)
+    const plannedDropOfflogisticlocationtypes = await Logisticlocationtype.findById(transportcapacitybookings.plannedDropOff.Logisticlocation)
+    if(plannedDropOfflogisticlocationtypes){
+      plannedDropOfflogisticcontacttypes = await Contacttype.findById(plannedPickUplogisticlocationtypes.contact)
+    }
+    const plannedDropOfflogisticeventdatetimes = await Logisticeventdatetime.findById(transportcapacitybookings.plannedDropOff.LogisticEventDateTime)
+    const plannedDropOfflogisticeventperiods = await Logisticeventperiod.findById(transportcapacitybookings.plannedDropOff.LogisticEventPeriod)
+
     // transportcapacitybookings.forEach(transportcapacitybooking => {
-    //   data.push({
-    //     _id: transportcapacitybooking._id,
-    // bookingid: transportcapacitybooking.bookingid,
-    // creationDateTime: transportcapacitybooking.creationDateTime,
-    // documentStatusCode: transportcapacitybooking.documentStatusCode,
-    // documentActionCode: transportcapacitybooking.documentActionCode,
-    // documentStructureVersion: transportcapacitybooking.documentStructureVersion,
-    // lastUpdateDateTime: transportcapacitybooking.lastUpdateDateTime,
-    // revisionNumber: transportcapacitybooking.revisionNumber,
-    // extension: transportcapacitybooking.extension,
-    // documentEffectiveDate: transportcapacitybooking.documentEffectiveDate,
-    // avpList: transportcapacitybooking.avpList,
-    // transportCapacityBookingIdentification: transportcapacitybooking.transportCapacityBookingIdentification,
-    // transportServiceCategoryCode: transportcapacitybooking.transportServiceCategoryCode,
-    // transportServiceConditionTypeCode: transportcapacitybooking.transportServiceConditionTypeCode,
-    // transportServiceLevelCode: transportcapacitybooking.transportServiceLevelCode,
-    // logisticServicesBuyer: transportcapacitybooking.logisticServicesBuyer,
-    // logisticServicesSeller: transportcapacitybooking.logisticServicesSeller,
-    // pickUpParty: transportcapacitybooking.pickUpParty,
-    // dropOffParty: transportcapacitybooking.dropOffParty,
-    // plannedPickUp: transportcapacitybooking.plannedPickUp,
-    // plannedDropOff: transportcapacitybooking.plannedDropOff,
-    // transportReference: transportcapacitybooking.transportReference,
-    // deliveryTerms: transportcapacitybooking.deliveryTerms,
-    // handlingInstruction: transportcapacitybooking.handlingInstruction,
-    // transportCapacityBookingSpaceRequirements: transportcapacitybooking.transportCapacityBookingSpaceRequirements,
-    // transportCapacityBookingTransportMovement: transportcapacitybooking.transportCapacityBookingTransportMovement,
-    // transportCapacityBookingSpaceRequirementsId: transportcapacitybooking.transportCapacityBookingSpaceRequirements.Id,
-    // transportCapacityBookingTransportMovementId: transportcapacitybooking.transportCapacityBookingTransportMovement.Id,
-    // avpListId: transportcapacitybooking.avpList.Id,
-    // documentStatusCodeId: transportcapacitybooking.documentStatusCode.Id,
-    // dropOffPartyId: transportcapacitybooking.dropOffParty.Id,
-    // plannedPickUpId: transportcapacitybooking.plannedPickUp.Id,
-    // plannedDropOffId: transportcapacitybooking.plannedDropOff.Id,
-    // transportReferenceId: transportcapacitybooking.transportReference.Id,
-    // handlingInstructionId: transportcapacitybooking.handlingInstruction.Id,
-    // documentActionCodeId: transportcapacitybooking.documentActionCode.Id,
-    // transportCapacityBookingIdentificationId: transportcapacitybooking.transportCapacityBookingIdentification.Id,
-    // transportServiceCategoryCodeId: transportcapacitybooking.transportServiceCategoryCode.Id,
-    // transportServiceConditionTypeCodeId: transportcapacitybooking.transportServiceConditionTypeCode.Id,
-    // transportServiceLevelCodeId: transportcapacitybooking.transportServiceLevelCode.Id,
-    // logisticServicesBuyerId: transportcapacitybooking.logisticServicesBuyer.Id,
-    // logisticServicesSellerId: transportcapacitybooking.logisticServicesSeller.Id,
-    // pickUpPartyId: transportcapacitybooking.pickUpParty.Id,
-    // deliveryTermsId: transportcapacitybooking.deliveryTerms.Id,
-    //     createdAt: transportcapacitybooking.createdAt
-    //   });
+      data.push({
+        bookingid: transportcapacitybookings._id,
+        transportcargocharacteristicstype: transportcargocharacteristicstypes,
+        packagetotaltype: packagetotaltypes,
+        plannedPickUpLogisticLocationType: plannedPickUplogisticlocationtypes,
+        plannedPickUplogisticContactType: plannedPickUplogisticcontacttypes,
+        plannedPickUpLogisticEventDateTime: plannedPickUplogisticeventdatetimes,
+        plannedPickUpLogisticEventPeriod: plannedPickUplogisticeventperiods,
+        plannedDropOffLogisticLocationType:plannedDropOfflogisticlocationtypes,
+        plannedDropOfflogisticContactType: plannedDropOfflogisticcontacttypes,
+        plannedDropOffLogisticEventDateTime: plannedDropOfflogisticeventdatetimes,
+        plannedDropOffLogisticEventPeriod: plannedDropOfflogisticeventperiods,
+        transportServiceCategoryCode: {
+          Id: transportcapacitybookings.transportServiceCategoryCode.Id,
+          Name: transportcapacitybookings.transportServiceCategoryCode.Name
+        },
+        transportServiceConditionTypeCode: {
+          Id: transportcapacitybookings.transportServiceConditionTypeCode.Id,
+          Name: transportcapacitybookings.transportServiceConditionTypeCode.Name
+        },
+        transportServiceLevelCode: {
+          Id: transportcapacitybookings.transportServiceLevelCode.Id,
+          Name: transportcapacitybookings.transportServiceLevelCode.Name
+        },
+        createdAt: transportcapacitybookings.createdAt
+      });
     // });
-    // res.send(data);
+    res.send(data);
   } catch (ex) {
     res.status(400).json({
       message: ex.message
@@ -114,7 +110,7 @@ router.post("/", verify, async (req, res) => {
 
     const transportcapacitybooking = new Transportcapacitybooking({
 
-      transportCapacityBookingIdentification: req.body.transportCapacityBookingIdentification,
+      bookingId: req.body.bookingId,
       
       transportCapacityBookingSpaceRequirements: {
         Transportcargocharacteristicstypes: transportcargocharacteristicstypes._id,

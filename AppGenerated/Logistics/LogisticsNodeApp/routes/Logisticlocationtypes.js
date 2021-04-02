@@ -8,7 +8,8 @@ const Countrycode = require("../models/Countrycode");
 const Currencyofpartycode = require("../models/Currencyofpartycode");
 const Languageofthepartycode = require("../models/Languageofthepartycode");
 const Contacttype = require("../models/Contacttype");
-
+const Description200type = require("../models/Description200type");
+const Identifiertype = require("../models/Identifiertype");
 
 router.get("/", verify, async (req, res) => {
   try {
@@ -22,27 +23,51 @@ router.get("/", verify, async (req, res) => {
 router.get("/:id", verify, async (req, res) => {
   try {
     const logisticlocationtype = await Logisticlocationtype.findById(req.params.id);
+    let logisticcontacttypes;
+    if(logisticlocationtype){
+      logisticcontacttypes = await Contacttype.findById(logisticlocationtype.contact)
+    }
     res.json({
         _id: logisticlocationtype._id,
-        id: logisticlocationtype.id,
         unLocationCode: logisticlocationtype.unLocationCode,
-        gln: logisticlocationtype.gln,
-        additionalLocationIdentification: logisticlocationtype.additionalLocationIdentification,
         sublocationIdentification: logisticlocationtype.sublocationIdentification,
         locationName: logisticlocationtype.locationName,
-        locationSpecificInstructions: logisticlocationtype.locationSpecificInstructions,
         utcOffset: logisticlocationtype.utcOffset,
-        address: logisticlocationtype.address,
-        contact: logisticlocationtype.contact,
-        regularOperatingHours: logisticlocationtype.regularOperatingHours,
-        specialOperatingHours: logisticlocationtype.specialOperatingHours,
-        locationSpecificInstructionsId: logisticlocationtype.locationSpecificInstructions.Id,
-        additionalLocationIdentificationId: logisticlocationtype.additionalLocationIdentification.Id,
-        regularOperatingHoursId: logisticlocationtype.regularOperatingHours.Id,
-        specialOperatingHoursId: logisticlocationtype.specialOperatingHours.Id,
-        addressId: logisticlocationtype.address.Id,
-        contactId: logisticlocationtype.contact.Id,
-        unLocationCodeId: logisticlocationtype.unLocationCode.Id,
+        contact: logisticcontacttypes,
+        cityCode: logisticlocationtype.cityCode,
+
+        locationSpecificInstructions: {
+          Id: logisticlocationtype.locationSpecificInstructions.Id,
+          Name: logisticlocationtype.locationSpecificInstructions.Name
+        },
+        additionalLocationIdentification: {
+          Id: logisticlocationtype.additionalLocationIdentification.Id,
+          Name: logisticlocationtype.additionalLocationIdentification.Name
+        },
+        countryCode: {
+          Id: logisticlocationtype.countryCode.Id,
+          Name: logisticlocationtype.countryCode.Name
+        },
+        currencyOfParty: {
+          Id: logisticlocationtype.currencyOfParty.Id,
+          Name: logisticlocationtype.currencyOfParty.Name
+        },
+        languageOfTheParty: {
+          Id: logisticlocationtype.languageOfTheParty.Id,
+          Name: logisticlocationtype.languageOfTheParty.Name
+        },
+        countyCode: logisticlocationtype.countyCode,
+        crossStreet: logisticlocationtype.crossStreet,
+        name: logisticlocationtype.name,
+        pOBoxNumber: logisticlocationtype.pOBoxNumber,
+        postalCode: logisticlocationtype.postalCode,
+        provinceCode: logisticlocationtype.provinceCode,
+        state: logisticlocationtype.state,
+        streetAddressOne: logisticlocationtype.streetAddressOne,
+        streetAddressTwo: logisticlocationtype.streetAddressTwo,
+        streetAddressThree: logisticlocationtype.streetAddressThree,
+        latitude: logisticlocationtype.latitude,
+        longitude: logisticlocationtype.longitude,
         createdAt: logisticlocationtype.createdAt
     });
   } catch (ex) {
@@ -58,7 +83,6 @@ router.post("/", verify, async (req, res) => {
     const currencyofpartycodes = await Currencyofpartycode.findById(req.body.currencyOfPartyCodeId);
     const languageofthepartycodes = await Languageofthepartycode.findById(req.body.languageOfThePartyCodeId);
     const contacttypes = await Contacttype.findById(req.body.contactId);
-    const unlocationcodes = await Enumerationlibrary.findById(req.body.unLocationCodeId);
     const logisticlocationtype = new Logisticlocationtype ({
         unLocationCode: req.body.unLocationCode,
         sublocationIdentification: req.body.sublocationIdentification,
@@ -70,7 +94,7 @@ router.post("/", verify, async (req, res) => {
         },
         additionalLocationIdentification: {
           Id: additionallocationidentifications._id,
-          Name: additionallocationidentifications.codeListVersion
+          Name: additionallocationidentifications.identificationSchemeName
         },
 
         contact: contacttypes._id,
