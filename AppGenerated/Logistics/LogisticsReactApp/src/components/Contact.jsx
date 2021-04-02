@@ -5,7 +5,7 @@ export class Contact extends Component {
     render() {
         return (
             <div id="card-989294">
-            <div class="card my-3">
+            <div class="card">
                 <div class="card-header">
                     <a class="card-link collapsed" data-toggle="collapse" data-parent="#card-989294" href="#card-element-780564">Contact:</a>
                 </div>

@@ -351,10 +351,10 @@ export class TransportCapacityBookingSpaceRequirement extends Component {
                                         <select id="harmonizedSystemCode" name="harmonizedSystemCode"
                                             className="form-control" value={this.state.harmonizedSystemCode} onChange={(e)=>handleSelectChange(e,"harmonizedSystemCode")} >
                                             <option value="" disabled defaultValue>
-                                                Select Cargo Type
+                                                Select Harmonized system
                                                         </option>
                                             {this.state.harmonizedSystemCodes.map(harmonizedSystemCode => (
-                                                <option key={harmonizedSystemCode._id} value={harmonizedSystemCode.codeListVersion}>
+                                                <option key={harmonizedSystemCode._id} value={harmonizedSystemCode._id}>
                                                     {harmonizedSystemCode.codeListVersion}
                                                 </option>
                                             ))}
@@ -375,7 +375,7 @@ export class TransportCapacityBookingSpaceRequirement extends Component {
                                                 Cargo Type Description
                                                     </option>
                                             {this.state.cargoTypeDescriptions.map(cargoTypeDescription => (
-                                                <option key={cargoTypeDescription._id} value={cargoTypeDescription.codeListVersion}>
+                                                <option key={cargoTypeDescription._id} value={cargoTypeDescription._id}>
                                                     {cargoTypeDescription.codeListVersion}
                                                 </option>
                                             ))}
@@ -400,7 +400,7 @@ export class TransportCapacityBookingSpaceRequirement extends Component {
                                                     Select Country Of Origin
                                                     </option>
                                                 {this.state.countryOfOriginCodes.map(countryOfOriginCode => (
-                                                    <option key={countryOfOriginCode._id} value={countryOfOriginCode.codeListVersion}>
+                                                    <option key={countryOfOriginCode._id} value={countryOfOriginCode._id}>
                                                         {countryOfOriginCode.codeListVersion}
                                                     </option>
                                                 ))}
@@ -423,7 +423,7 @@ export class TransportCapacityBookingSpaceRequirement extends Component {
                                                     Select Final Destination Country
                                                     </option>
                                                 {this.state.finalDestinationCountrys.map(finalDestinationCountry => (
-                                                    <option key={finalDestinationCountry._id} value={finalDestinationCountry.codeListVersion}>
+                                                    <option key={finalDestinationCountry._id} value={finalDestinationCountry._id}>
                                                         {finalDestinationCountry.codeListVersion}
                                                     </option>
                                                 ))}

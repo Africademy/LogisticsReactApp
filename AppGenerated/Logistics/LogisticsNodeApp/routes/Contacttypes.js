@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router(); 
 const verify = require("./verifyToken"); 
 const Contacttype = require("../models/Contacttype");
-const Communicationchanneltype= require("../models/Communicationchanneltype");
+const Communicationchannel= require("../models/Communicationchannel");
 const Description70type= require("../models/Description70type");
 const Contacttypecode = require("../models/Contacttypecode");
 
@@ -42,35 +42,27 @@ router.get("/:id", verify, async (req, res) => {
 
 router.post("/", verify, async (req, res) => {
   try {
-    const communicationchannels = await Communicationchanneltype.findById(req.body.communicationChannelId);
-    const afterhourscommunicationchannels = await Communicationchanneltype.findById(req.body.afterHoursCommunicationChannelId);
+    const communicationchannels = await Communicationchannel.findById(req.body.communicationChannelId);
     const responsibilitys = await Description70type.findById(req.body.responsibilityId);
     const contacttypecodes = await Contacttypecode.findById(req.body.contactTypeCodeId);
     const contacttype = new Contacttype ({
-        id: req.body.id,
-        contactTypeCode: req.body.contactTypeCode,
+
         personName: req.body.personName,
         departmentName: req.body.departmentName,
         jobTitle: req.body.jobTitle,
-        responsibility: req.body.responsibility,
-        communicationChannel: req.body.communicationChannel,
-        afterHoursCommunicationChannel: req.body.afterHoursCommunicationChannel,
-        communicationChannel: [{
+       
+        communicationChannel: {
           Id: communicationchannels._id,
           Name: communicationchannels.id
-        }],
-        afterHoursCommunicationChannel: [{
-          Id: afterhourscommunicationchannels._id,
-          Name: afterhourscommunicationchannels.id
-        }],
-        responsibility: [{
+        },
+        responsibility: {
           Id: responsibilitys._id,
           Name: responsibilitys.id
-        }],
-        contactTypeCode: [{
+        },
+        contactTypeCode: {
           Id: contacttypecodes._id,
           Name: contacttypecodes.id
-        }],
+        },
     });
     const savedContacttype = await contacttype.save();
     res.status(200).json(savedContacttype);

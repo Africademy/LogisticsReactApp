@@ -313,6 +313,7 @@ export class TransportCapacityBooking extends Component {
     async populatetransportServiceCategoryCodes() {
         const { data: transportServiceCategoryCodes } = await getTransportservicecategorycodes();
         this.setState({ transportServiceCategoryCodes: transportServiceCategoryCodes });
+        console.log(this.state.transportServiceCategoryCodes,"service codes")
     }
 
     async populatetransportServiceConditionTypeCodes() {
@@ -399,7 +400,7 @@ export class TransportCapacityBooking extends Component {
         const data = { ...this.state.data };
         data[event.currentTarget.name] = event.currentTarget.value;
 
-        this.setState({ data: data}, {errors:errors});
+        this.setState({ data: data, errors: errors});
     };
     handleSubmit = async (event) => {
         event.preventDefault();
@@ -446,7 +447,7 @@ export class TransportCapacityBooking extends Component {
                                                             Select Service Category
                                                         </option>
                                                         {this.state.transportServiceCategoryCodes.map(populatetransportServiceCategoryCodes => (
-                                                            <option key={populatetransportServiceCategoryCodes._id} value={populatetransportServiceCategoryCodes.codeListVersion}>
+                                                            <option key={populatetransportServiceCategoryCodes._id} value={populatetransportServiceCategoryCodes._id}>
                                                                 {populatetransportServiceCategoryCodes.codeListVersion}
                                                             </option>
                                                         ))}

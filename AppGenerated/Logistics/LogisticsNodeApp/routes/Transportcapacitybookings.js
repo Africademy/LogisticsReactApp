@@ -101,8 +101,8 @@ router.post("/", verify, async (req, res) => {
     const transportservicecategorycodes = await Transportservicecategorycode.findById(req.body.transportServiceCategoryCodeId);
     const transportserviceconditiontypecodes = await Transportserviceconditiontypecode.findById(req.body.transportServiceConditionTypeCodeId);
     const transportservicelevelcodes = await Transportservicelevelcode.findById(req.body.transportServiceLevelCodeId);
-    const logisticservicesbuyers = await Logisticservicesbuyer.findById(req.body.logisticServicesBuyerId);
-    const logisticservicessellers = await Logisticservicesseller.findById(req.body.logisticServicesSellerId);
+    // const logisticservicesbuyers = await Logisticservicesbuyer.findById(req.body.logisticServicesBuyerId);
+    // const logisticservicessellers = await Logisticservicesseller.findById(req.body.logisticServicesSellerId);
     const transportcargocharacteristicstypes = await Transportcargocharacteristicstype.findById(req.body.transportcargocharacteristicstypeId)
     const packagetotaltypes = await Packagetotaltype.findById(req.body.packagetotaltypeId)
     const plannedPickUplogisticlocationtypes = await Logisticlocationtype.findById(req.body.plannedPickUpLogisticLocationTypeId)
@@ -143,12 +143,12 @@ router.post("/", verify, async (req, res) => {
         Name: transportservicelevelcodes.codeListVersion
       },
       logisticServicesBuyer: {
-        Id: logisticservicesbuyers._id,
-        Name: logisticservicesbuyers.codeListVersion
+        Id: 78767,
+        Name: "Sudarshan"
       },
       logisticServicesSeller: {
-        Id: logisticservicessellers._id,
-        Name: logisticservicessellers.codeListVersion
+        Id: 9865,
+        Name: "Prabhu"
       }
     });
     const savedTransportcapacitybooking = await transportcapacitybooking.save();

@@ -4,7 +4,7 @@ const TransportcargocharacteristicstypeScheema = mongoose.Schema({
   
   cargoTypeCode: {
       Id: {
-        type: Number,
+        type: String,
         required: true
       },
       Name:{
@@ -14,7 +14,7 @@ const TransportcargocharacteristicstypeScheema = mongoose.Schema({
   },
   harmonizedSystemCode: {
       Id: {
-        type: Number,
+        type: String,
         required: true
       },
       Name:{
@@ -24,7 +24,7 @@ const TransportcargocharacteristicstypeScheema = mongoose.Schema({
   },
   cargoTypeDescription: {
       Id: {
-        type: Number,
+        type: String,
         required: true
       },
       Name:{
@@ -34,7 +34,7 @@ const TransportcargocharacteristicstypeScheema = mongoose.Schema({
   },
   countryOfOriginCode: {
       Id: {
-        type: Number,
+        type: String,
         required: true
       },
       Name:{
@@ -44,7 +44,7 @@ const TransportcargocharacteristicstypeScheema = mongoose.Schema({
   },
   finalDestinationCountry: {
       Id: {
-        type: Number,
+        type: String,
         required: true
       },
       Name:{

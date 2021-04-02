@@ -2,10 +2,6 @@ const mongoose = require("mongoose");
 
 const ContacttypeScheema = mongoose.Schema({
 
-  contactTypeCode: {
-    type: Number,
-    required: false
-  },
   personName: {
     type: String,
     required: false
@@ -27,7 +23,6 @@ const ContacttypeScheema = mongoose.Schema({
     required: false
   },
   communicationChannelCode: {
-    type: [{
       Id: {
          type: String,
          required: true
@@ -35,12 +30,9 @@ const ContacttypeScheema = mongoose.Schema({
       Name:{
          type: String,
          required: true
-         },
-    }],
-    required:true
+         }
   },
   responsibility: {
-    type: [{
       Id: {
          type: String,
          required: true
@@ -49,11 +41,9 @@ const ContacttypeScheema = mongoose.Schema({
          type: String,
          required: true
          },
-    }],
-    required:true
+
   },
   contactTypeCode: {
-    type: [{
       Id: {
          type: String,
          required: true
@@ -62,8 +52,6 @@ const ContacttypeScheema = mongoose.Schema({
          type: String,
          required: true
          },
-    }],
-    required:true
   },
   createdAt:{
     type: Date,

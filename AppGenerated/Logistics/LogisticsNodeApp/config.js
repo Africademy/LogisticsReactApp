@@ -4,7 +4,7 @@ const DB = {
     key: "231sad_ItCanBeAnyRandString_UGHASD82371923192J"
   },
   server: {
-    url: "mongodb://13.233.146.100:4542/logistics",
+    url: "mongodb://13.233.146.100:4542/logisticsdb",
     key: "231sad_ItCanBeAnyRandString_UGHASD82371923192J"
   }
 }
