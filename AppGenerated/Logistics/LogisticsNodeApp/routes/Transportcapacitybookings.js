@@ -17,7 +17,6 @@ const Logisticeventdatetime = require("../models/Logisticeventdatetime");
 const Logisticeventperiod = require("../models/Logisticeventperiod");
 const Contacttype = require("../models/Contacttype");
 
-
 router.get("/", verify, async (req, res) => {
   try {
     const Transportcapacitybookings = await Transportcapacitybooking
@@ -44,7 +43,7 @@ router.get("/", verify, async (req, res) => {
 router.get("/:id", verify, async (req, res) => {
   try {
     const transportcapacitybookings = await Transportcapacitybooking
-      .find({
+      .findOne({
         bookingId: req.params.id
       })
       .populate('transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes')
@@ -52,13 +51,15 @@ router.get("/:id", verify, async (req, res) => {
       .populate('plannedPickUp.Logisticlocation')
       .populate('plannedPickUp.LogisticEventDateTime')
       .populate('plannedPickUp.LogisticEventPeriod')
-      .populate('plannedPickUp.Logisticlocation.contact')
       .populate('plannedDropOff.Logisticlocation')
       .populate('plannedDropOff.LogisticEventDateTime')
       .populate('plannedDropOff.LogisticEventPeriod')
-      .populate('plannedDropOff.Logisticlocation.contact')
-      .exec((e, r) => {
+      .exec(async (e, r) => {
         if (e) return res.status(400).send(e);
+        console.log(r)
+        const contact = await Contacttype.findById(r.plannedPickUp.Logisticlocation.contact);
+        console.log(contact);
+        r.plannedPickUp.Logisticlocation.contact = contact;
         res.send(r);
       });
 
