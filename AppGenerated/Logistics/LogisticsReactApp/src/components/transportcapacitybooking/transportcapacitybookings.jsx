@@ -7,6 +7,7 @@ import {
   getTransportcapacitybookings,
   deleteTransportcapacitybooking,
 } from "../../services/transportcapacitybookingService";
+import Moment from "moment";
 
 class Transportcapacitybookings extends Component {
   state = {
@@ -61,8 +62,14 @@ class Transportcapacitybookings extends Component {
   handleGetBooking = async (e) => {
     e.preventDefault();
     let singletransportbooking = [];
-    const data = { ...this.state.data };
-    console.log(data);
+    var data = { ...this.state.data };
+    // console.log(data);
+
+    // data["bookingid"] = data.bookingid ? data.bookingid : false;
+    data.fromdate = new Date(data.fromdate).getTime();
+    data.todate = new Date(data.todate).getTime();
+    // data = JSON.stringify(data);
+    // console.log(data);
     try {
       let res = await getTransportcapacitybooking(data.bookingid);
       console.log(res);
@@ -83,6 +90,10 @@ class Transportcapacitybookings extends Component {
     }
   };
 
+  formatDate = (d) => {
+    return Moment(d).format("DD-MM-YYYY hh:mm");
+  };
+
   render() {
     const {
       totalCount,
@@ -98,7 +109,7 @@ class Transportcapacitybookings extends Component {
             </div>
           ) : (
             <div className="col-6 text-muted">
-              <p>There are {totalCount} transportcapacitybookings</p>
+              <p>There are {totalCount} Transport Capacity Bookings</p>
             </div>
           )}
           <div className="col-6">
@@ -122,7 +133,6 @@ class Transportcapacitybookings extends Component {
                       name="bookingid"
                       placeholder="Booking Id"
                       type="text"
-                      required="required"
                       className="form-control"
                       onChange={this.handleInputChange}
                     />
@@ -169,24 +179,6 @@ class Transportcapacitybookings extends Component {
         </div>
 
         <div className="bookings-list my-2">
-          {/* <label htmlFor="list-group">List</label>
-          <div className="list-group">
-            <a href="#" className="list-group-item list-group-item-action">
-              Cras justo odio
-            </a>
-            <a href="#" className="list-group-item list-group-item-action">
-              Dapibus ac facilisis in
-            </a>
-            <a href="#" className="list-group-item list-group-item-action">
-              Morbi leo risus
-            </a>
-            <a href="#" className="list-group-item list-group-item-action">
-              Porta ac consectetur ac
-            </a>
-            <a href="#" className="list-group-item list-group-item-action">
-              Vestibulum at eros
-            </a>
-          </div> */}
           <div className="table-responsive">
             <table className="table table-bordered table-hover">
               <thead>
@@ -195,9 +187,10 @@ class Transportcapacitybookings extends Component {
                   <th scope="col">From</th>
                   <th scope="col">To</th>
                   <th scope="col">Type</th>
+                  <th scope="col">Service Level</th>
+                  <th scope="col">Service Code</th>
                   <th scope="col">Total Weight</th>
                   <th scope="col">Due</th>
-                  <th scope="col">Status</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
@@ -206,15 +199,45 @@ class Transportcapacitybookings extends Component {
                   <tr key={i}>
                     <th scope="row">
                       <Link to={`/viewtransportcapacitybooking/${record._id}`}>
-                        {record.bookingid}
+                        {record.bookingId}
                       </Link>
                     </th>
-                    <td>{new Date(record.creationDateTime).toDateString()}</td>
-                    <td>{record.documentEffectiveDate}</td>
-                    <td>{record.extension}</td>
-                    <td>{record.documentStructureVersion}</td>
-                    <td>{record.documentStructureVersion}</td>
-                    <td>{record.documentStructureVersion}</td>
+                    <td id="from-address">
+                      <span>
+                        {this.formatDate(
+                          record.plannedPickUp.LogisticEventDateTime.date
+                        )}
+                      </span>
+                      <small id="from-address" className="form-text text-muted">
+                        {record.plannedPickUp.Logisticlocation.locationName}
+                      </small>
+                    </td>
+                    <td id="to-address">
+                      <span>
+                        {this.formatDate(
+                          record.plannedDropOff.LogisticEventDateTime.date
+                        )}
+                      </span>
+                      <small id="to-address" className="form-text text-muted">
+                        {record.plannedDropOff.Logisticlocation.locationName}
+                      </small>
+                    </td>
+                    <td>{record.transportServiceConditionTypeCode.Name}</td>
+                    <td>{record.transportServiceLevelCode.Name}</td>
+                    <td>{record.transportServiceCategoryCode.Name}</td>
+                    <td>
+                      {
+                        record.transportCapacityBookingSpaceRequirements
+                          .Transportcargocharacteristicstypes.totalGrossWeight
+                          .Value
+                      }
+                    </td>
+                    <td>
+                      {this.formatDate(
+                        record.plannedDropOff.LogisticEventPeriod.endDate
+                      )}
+                    </td>
+                    {/* <td>{record.extension}</td> */}
                     <td>
                       <div className="action-buttons text-center">
                         {/* <Link
@@ -244,14 +267,14 @@ class Transportcapacitybookings extends Component {
                 ))}
               </tbody>
             </table>
-            <a
-              href="#"
-              className="float-right text-decoration-none"
-              onClick={this.componentDidMount}
-            >
-              See all
-            </a>
           </div>
+          <a
+            href="#"
+            className="float-right text-decoration-none"
+            onClick={this.componentDidMount}
+          >
+            See all
+          </a>
         </div>
 
         {/* <div className="table-responsive">
@@ -397,7 +420,7 @@ class Transportcapacitybookings extends Component {
                   {paginatedTransportcapacitybookings.map(record => (
                     <tr key={record._id}>
                       <td key="1">{record.id}</td>
-                      <td key="2">{record.creationDateTime}</td>
+                      <td key="2">{record.createdAt}</td>
                       <td key="3">{record.documentStatusCode}</td>
                       <td key="4">{record.documentActionCode}</td>
                       <td key="5">{record.documentStructureVersion}</td>
@@ -464,7 +487,6 @@ class Transportcapacitybookings extends Component {
                 </tbody>
               </table>
             </div> */}
-
         <Pagination
           itemsCount={totalCount}
           pageSize={this.state.pageSize}

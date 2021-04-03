@@ -9,7 +9,7 @@ const DB = {
   }
 }
 var config = {
-  DB_CONNECTION: DB.localhost.url,
-  TOKKEN_SECRET: DB.localhost.key
+  DB_CONNECTION: DB.server.url,
+  TOKKEN_SECRET: DB.server.key
 };
 module.exports = config;

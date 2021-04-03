@@ -572,7 +572,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <Navbar user={this.state.user} />
-        <main role="main" className="container">
+        <main role="main" className="container-fluid">
           <Switch>
             <Route path="/login" component={LoginForm} />
             <Route path="/logout" component={Logout} />

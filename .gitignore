@@ -2,6 +2,7 @@
 /node_modules
 /AppGenerated/Logistics/LogisticsNodeApp/node_modules
 /AppGenerated/Logistics/LogisticsReactApp/node_modules
+/.vscode/
 
 # Output files
 /output

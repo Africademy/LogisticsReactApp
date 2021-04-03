@@ -1,5 +1,7 @@
 import myhttp from "./httpService";
-import { apiUrl } from "../CRUDAppConfigs.json";
+import {
+  apiUrl
+} from "../CRUDAppConfigs.json";
 
 const apiEndPoint = apiUrl + "/transportcapacitybookings"
 
@@ -17,10 +19,11 @@ export function getTransportcapacitybooking(id) {
 
 export function saveTransportcapacitybooking(transportcapacitybooking) {
   if (transportcapacitybooking._id) {
-    const body = { ...transportcapacitybooking };
+    const body = {
+      ...transportcapacitybooking
+    };
     delete body._id;
     return myhttp.put(apiEndPoint + "/" + transportcapacitybooking._id, body);
   }
   return myhttp.post(apiEndPoint, transportcapacitybooking);
 }
-

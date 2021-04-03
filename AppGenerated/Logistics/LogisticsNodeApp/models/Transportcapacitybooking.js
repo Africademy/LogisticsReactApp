@@ -21,6 +21,23 @@ const TransportcapacitybookingScheema = mongoose.Schema({
     Logisticlocation: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Logisticlocationtypes',
+      // required: false
+    },
+    LogisticEventDateTime: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Logisticeventdatetimes',
+      // required: false
+    },
+    LogisticEventPeriod: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Logisticeventperiods',
+      // required: false
+    }
+  },
+  plannedDropOff: {
+    Logisticlocation: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Logisticlocationtypes',
       required: false
     },
     LogisticEventDateTime: {
@@ -32,24 +49,7 @@ const TransportcapacitybookingScheema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Logisticeventperiods',
       required: false
-    }
-  },
-  plannedDropOff: {
-      Logisticlocation: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Logisticlocationtypes',
-        required: false
-      },
-      LogisticEventDateTime: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Logisticeventdatetimes',
-        required: false
-      },
-      LogisticEventPeriod: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Logisticeventperiods',
-        required: false
-      },
+    },
     required: false
   },
   transportCapacityBookingIdentification: {

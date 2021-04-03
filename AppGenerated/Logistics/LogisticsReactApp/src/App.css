@@ -125,6 +125,12 @@
   padding-top: 1rem;
 }
 
-*[class$="-primary"] {
-  background-color: #007b9e !important;
+.container-fluid {
+  padding: 0 8% !important;
 }
+
+.btn-primary {
+  background-color: #007b9e !important;
+  border: #007b9e !important;
+}
+

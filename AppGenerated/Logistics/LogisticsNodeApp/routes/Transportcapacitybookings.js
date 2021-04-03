@@ -20,8 +20,20 @@ const Contacttype = require("../models/Contacttype");
 
 router.get("/", verify, async (req, res) => {
   try {
-    const Transportcapacitybookings = await Transportcapacitybooking.find();
-    res.json(Transportcapacitybookings);
+    const Transportcapacitybookings = await Transportcapacitybooking
+      .find()
+      .populate('transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes')
+      .populate('transportCapacityBookingSpaceRequirements.Packagetotaltypes')
+      .populate('plannedPickUp.Logisticlocation')
+      .populate('plannedPickUp.LogisticEventDateTime')
+      .populate('plannedPickUp.LogisticEventPeriod')
+      .populate('plannedDropOff.Logisticlocation')
+      .populate('plannedDropOff.LogisticEventDateTime')
+      .populate('plannedDropOff.LogisticEventPeriod')
+      .exec((e, r) => {
+        if (e) return res.status(400).send(e);
+        res.send(r);
+      });
   } catch (ex) {
     res.status(400).json({
       message: ex.message
@@ -31,59 +43,28 @@ router.get("/", verify, async (req, res) => {
 
 router.get("/:id", verify, async (req, res) => {
   try {
-    const transportcapacitybookings = await Transportcapacitybooking.findById(req.params.id);
-    if (transportcapacitybookings.length === 0) return res.json({
+    const transportcapacitybookings = await Transportcapacitybooking
+      .find({
+        bookingId: req.params.id
+      })
+      .populate('transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes')
+      .populate('transportCapacityBookingSpaceRequirements.Packagetotaltypes')
+      .populate('plannedPickUp.Logisticlocation')
+      .populate('plannedPickUp.LogisticEventDateTime')
+      .populate('plannedPickUp.LogisticEventPeriod')
+      .populate('plannedPickUp.Logisticlocation.contact')
+      .populate('plannedDropOff.Logisticlocation')
+      .populate('plannedDropOff.LogisticEventDateTime')
+      .populate('plannedDropOff.LogisticEventPeriod')
+      .populate('plannedDropOff.Logisticlocation.contact')
+      .exec((e, r) => {
+        if (e) return res.status(400).send(e);
+        res.send(r);
+      });
+
+    if (transportcapacitybookings && transportcapacitybookings.length === 0) return res.json({
       message: 'No data found'
     });
-    // res.json(transportcapacitybookings);
-
-    let data = [];
-    let plannedPickUplogisticcontacttypes;
-    let plannedDropOfflogisticcontacttypes;
-    const transportcargocharacteristicstypes = await Transportcargocharacteristicstype.findById(transportcapacitybookings.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes)
-    const packagetotaltypes = await Packagetotaltype.findById(transportcapacitybookings.transportCapacityBookingSpaceRequirements.Packagetotaltypes)
-    const plannedPickUplogisticlocationtypes = await Logisticlocationtype.findById(transportcapacitybookings.plannedPickUp.Logisticlocation)
-    if(plannedPickUplogisticlocationtypes){
-      plannedPickUplogisticcontacttypes = await Contacttype.findById(plannedPickUplogisticlocationtypes.contact)
-    }
-    const plannedPickUplogisticeventdatetimes = await Logisticeventdatetime.findById(transportcapacitybookings.plannedPickUp.LogisticEventDateTime)
-    const plannedPickUplogisticeventperiods = await Logisticeventperiod.findById(transportcapacitybookings.plannedPickUp.LogisticEventPeriod)
-    const plannedDropOfflogisticlocationtypes = await Logisticlocationtype.findById(transportcapacitybookings.plannedDropOff.Logisticlocation)
-    if(plannedDropOfflogisticlocationtypes){
-      plannedDropOfflogisticcontacttypes = await Contacttype.findById(plannedPickUplogisticlocationtypes.contact)
-    }
-    const plannedDropOfflogisticeventdatetimes = await Logisticeventdatetime.findById(transportcapacitybookings.plannedDropOff.LogisticEventDateTime)
-    const plannedDropOfflogisticeventperiods = await Logisticeventperiod.findById(transportcapacitybookings.plannedDropOff.LogisticEventPeriod)
-
-    // transportcapacitybookings.forEach(transportcapacitybooking => {
-      data.push({
-        bookingid: transportcapacitybookings._id,
-        transportcargocharacteristicstype: transportcargocharacteristicstypes,
-        packagetotaltype: packagetotaltypes,
-        plannedPickUpLogisticLocationType: plannedPickUplogisticlocationtypes,
-        plannedPickUplogisticContactType: plannedPickUplogisticcontacttypes,
-        plannedPickUpLogisticEventDateTime: plannedPickUplogisticeventdatetimes,
-        plannedPickUpLogisticEventPeriod: plannedPickUplogisticeventperiods,
-        plannedDropOffLogisticLocationType:plannedDropOfflogisticlocationtypes,
-        plannedDropOfflogisticContactType: plannedDropOfflogisticcontacttypes,
-        plannedDropOffLogisticEventDateTime: plannedDropOfflogisticeventdatetimes,
-        plannedDropOffLogisticEventPeriod: plannedDropOfflogisticeventperiods,
-        transportServiceCategoryCode: {
-          Id: transportcapacitybookings.transportServiceCategoryCode.Id,
-          Name: transportcapacitybookings.transportServiceCategoryCode.Name
-        },
-        transportServiceConditionTypeCode: {
-          Id: transportcapacitybookings.transportServiceConditionTypeCode.Id,
-          Name: transportcapacitybookings.transportServiceConditionTypeCode.Name
-        },
-        transportServiceLevelCode: {
-          Id: transportcapacitybookings.transportServiceLevelCode.Id,
-          Name: transportcapacitybookings.transportServiceLevelCode.Name
-        },
-        createdAt: transportcapacitybookings.createdAt
-      });
-    // });
-    res.send(data);
   } catch (ex) {
     res.status(400).json({
       message: ex.message
@@ -111,7 +92,7 @@ router.post("/", verify, async (req, res) => {
     const transportcapacitybooking = new Transportcapacitybooking({
 
       bookingId: req.body.bookingId,
-      
+
       transportCapacityBookingSpaceRequirements: {
         Transportcargocharacteristicstypes: transportcargocharacteristicstypes._id,
         Packagetotaltypes: packagetotaltypes._id
@@ -158,8 +139,8 @@ router.post("/", verify, async (req, res) => {
 
 router.delete("/:id", verify, async (req, res) => {
   try {
-    const removedTransportcapacitybooking = await Transportcapacitybooking.remove({
-      id: req.params.id
+    const removedTransportcapacitybooking = await Transportcapacitybooking.deleteOne({
+      _id: req.params.id
     });
     res.json(removedTransportcapacitybooking);
   } catch (ex) {
