@@ -1,7 +1,0 @@
-
-const app = express();
-app.use(cors());
-app.use(bodyParser.json());
-
-//Your API ENDPOINTS
-app.use('/api/user',authRoute);

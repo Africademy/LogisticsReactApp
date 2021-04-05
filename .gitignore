@@ -1,8 +1,3 @@
-# dependencies
-/node_modules
-/AppGenerated/Logistics/LogisticsNodeApp/node_modules
-/AppGenerated/Logistics/LogisticsReactApp/node_modules
-/.vscode/
-
-# Output files
-/output
+# Dependencies
+/LogisticsNodeApp/node_modules
+/LogisticsReactApp/node_modules
