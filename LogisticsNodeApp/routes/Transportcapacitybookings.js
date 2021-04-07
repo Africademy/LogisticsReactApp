@@ -8,8 +8,6 @@ const Incotermscode = require("../models/Incotermscode");
 const Transportservicecategorycode = require("../models/Transportservicecategorycode");
 const Transportserviceconditiontypecode = require("../models/Transportserviceconditiontypecode");
 const Transportservicelevelcode = require("../models/Transportservicelevelcode");
-const Logisticservicesbuyer = require("../models/Logisticservicesbuyer");
-const Logisticservicesseller = require("../models/Logisticservicesseller");
 const Transportcargocharacteristicstype = require("../models/Transportcargocharacteristicstype");
 const Packagetotaltype = require("../models/Packagetotaltype");
 const Logisticlocationtype = require("../models/Logisticlocationtype");
@@ -42,26 +40,65 @@ router.get("/", verify, async (req, res) => {
 
 router.get("/:id", verify, async (req, res) => {
   try {
-    const transportcapacitybookings = await Transportcapacitybooking
-      .findOne({
-        bookingId: req.params.id
-      })
-      .populate('transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes')
-      .populate('transportCapacityBookingSpaceRequirements.Packagetotaltypes')
-      .populate('plannedPickUp.Logisticlocation')
-      .populate('plannedPickUp.LogisticEventDateTime')
-      .populate('plannedPickUp.LogisticEventPeriod')
-      .populate('plannedDropOff.Logisticlocation')
-      .populate('plannedDropOff.LogisticEventDateTime')
-      .populate('plannedDropOff.LogisticEventPeriod')
-      .exec(async (e, r) => {
-        if (e) return res.status(400).send(e);
-        console.log(r)
-        const contact = await Contacttype.findById(r.plannedPickUp.Logisticlocation.contact);
-        console.log(contact);
-        r.plannedPickUp.Logisticlocation.contact = contact;
-        res.send(r);
-      });
+    const startDate = req.query.fromdate ? new Date(Number(req.query.fromdate)) : false;
+    const endDate = req.query.todate ? new Date(Number(req.query.todate)) : false;
+    let transportcapacitybookings;
+
+    console.log(startDate, endDate);
+
+    if (req.params.id != 'false' && !startDate && !endDate) {
+      transportcapacitybookings = await Transportcapacitybooking
+        .findOne({
+          bookingId: req.params.id
+        })
+        .populate('transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes')
+        .populate('transportCapacityBookingSpaceRequirements.Packagetotaltypes')
+        .populate('plannedPickUp.Logisticlocation')
+        .populate('plannedPickUp.LogisticEventDateTime')
+        .populate('plannedPickUp.LogisticEventPeriod')
+        .populate('plannedDropOff.Logisticlocation')
+        .populate('plannedDropOff.LogisticEventDateTime')
+        .populate('plannedDropOff.LogisticEventPeriod')
+        .exec(async (e, r) => {
+          if (e) return res.status(400).send(e);
+          console.log(r)
+          const contact = await Contacttype.findById(r.plannedPickUp.Logisticlocation.contact);
+          console.log(contact);
+          r.plannedPickUp.Logisticlocation.contact = contact;
+          const data = [];
+          data.push(r);
+          res.send(data);
+        });
+    }
+
+    if (startDate && endDate) {
+      transportcapacitybookings = await Transportcapacitybooking
+        .find()
+        .populate('transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes')
+        .populate('transportCapacityBookingSpaceRequirements.Packagetotaltypes')
+        .populate('plannedPickUp.Logisticlocation')
+        .populate('plannedPickUp.LogisticEventDateTime')
+        .populate('plannedPickUp.LogisticEventPeriod')
+        .populate('plannedDropOff.Logisticlocation')
+        .populate('plannedDropOff.LogisticEventDateTime')
+        .populate('plannedDropOff.LogisticEventPeriod')
+        .where({
+          'plannedPickUp.LogisticEventDateTime.date': {
+            $gte: startDate,
+            $lte: endDate
+          }
+        })
+        .exec(async (e, r) => {
+          if (e) return res.status(400).send(e);
+          console.log(r);
+          const contact = await Contacttype.findById(r.plannedPickUp.Logisticlocation.contact);
+          console.log(contact);
+          r.plannedPickUp.Logisticlocation.contact = contact;
+          const data = [];
+          data.push(r);
+          res.send(data);
+        });
+    }
 
     if (transportcapacitybookings && transportcapacitybookings.length === 0) return res.json({
       message: 'No data found'

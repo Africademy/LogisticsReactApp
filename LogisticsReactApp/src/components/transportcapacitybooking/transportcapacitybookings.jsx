@@ -63,16 +63,16 @@ class Transportcapacitybookings extends Component {
     e.preventDefault();
     let singletransportbooking = [];
     var data = { ...this.state.data };
-    // console.log(data);
+    console.log(data);
 
-    // data["bookingid"] = data.bookingid ? data.bookingid : false;
-    data.fromdate = new Date(data.fromdate).getTime();
-    data.todate = new Date(data.todate).getTime();
+    data["bookingid"] = data.bookingid ? data.bookingid : false;
+    data.fromdate = data.fromdate ? new Date(data.fromdate).getTime() : "";
+    data.todate = data.todate ? new Date(data.todate).getTime() : "";
     // data = JSON.stringify(data);
     // console.log(data);
     try {
-      let res = await getTransportcapacitybooking(data.bookingid);
-      console.log(res);
+      let res = await getTransportcapacitybooking(data);
+      console.log(res.data);
       singletransportbooking = res.data;
     } catch (err) {
       if (err.response && err.response.status === 404) {

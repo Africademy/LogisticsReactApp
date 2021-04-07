@@ -1,3 +1,4 @@
 # Dependencies
 /LogisticsNodeApp/node_modules
 /LogisticsReactApp/node_modules
+/.vscode
