@@ -3935,13 +3935,22 @@ class App extends Component {
                 }}
             />
 
-            <Route
+            {/* <Route
                 path="/transportcapacitybookings/:id"
                 render={props => {
                   if (!auth.isUserLoggedIn()) return <Redirect to="/login" />;
                   return <TransportcapacitybookingForm {...props} />;
                 }}
+            /> */}
+
+            <Route
+                path="/transportcapacitybookings/newui"
+                render={props => {
+                  if (!auth.isUserLoggedIn()) return <Redirect to="/login" />;
+                  return <TransportcapacitybookingForm {...props} />;
+                }}
             />
+
             <Route
                 path="/viewTransportcapacitybooking/:id"
                 render={props => {

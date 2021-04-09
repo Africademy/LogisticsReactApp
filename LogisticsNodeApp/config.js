@@ -1,10 +1,11 @@
+const db_ip_port = "65.2.79.213:4542";
 const DB = {
   localhost: {
     url: "mongodb://localhost:27017/LogisticsDb",
     key: "231sad_ItCanBeAnyRandString_UGHASD82371923192J"
   },
   server: {
-    url: "mongodb://13.233.146.100:4542/logisticsdb",
+    url: `mongodb://${db_ip_port}/logisticsdb`,
     key: "231sad_ItCanBeAnyRandString_UGHASD82371923192J"
   }
 }

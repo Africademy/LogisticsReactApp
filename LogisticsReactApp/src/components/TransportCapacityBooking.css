@@ -1,0 +1,39 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* background-color: red; */
+}
+.TransportHeader {
+  text-align: center;
+}
+.capacityBokking {
+  border: 2px solid rgb(173, 168, 168);
+  padding: 2rem;
+}
+.serviceCategory {
+  display: flex;
+  flex-direction: column;
+}
+.cardheader {
+  padding: 10px;
+  background-color: rgba(207, 216, 221, 0.26);
+  color: rgb(124, 124, 185);
+  cursor: pointer;
+  font-size: large;
+  /* text-decoration: underline; */
+  margin-top: 15px;
+  box-shadow: 6px 12px 25px -17px rgba(0, 0, 0, 0.75);
+}
+.SpcaeRequirements {
+  padding: 10px;
+  border: 1px solid rgb(173, 168, 168);
+}
+.submitButton {
+  margin-top: 1.4rem;
+}
+.error {
+  color: rgb(252, 26, 26) !important;
+  font-size: 75% !important;
+  margin: 0.4rem 0 0px 0 !important;
+}

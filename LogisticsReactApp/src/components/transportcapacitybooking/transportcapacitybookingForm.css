@@ -1,0 +1,40 @@
+.card {
+  margin-bottom: 1rem !important;
+}
+
+.card-header,
+.card-title {
+  font-weight: 700 !important;
+}
+
+.card-toggle-header {
+  cursor: pointer;
+}
+
+.continue-block {
+  padding: 0.75rem 0;
+  /* border-top: 1px solid; */
+  background-color: #fff;
+  border-color: #d8dbe0;
+}
+
+.next-btn {
+  float: right;
+}
+
+.help-block.error {
+  color: rgb(247, 16, 16) !important;
+}
+
+label.collapseAddLocation-hide-btn {
+  top: 8px;
+  right: 10px;
+  font-style: italic;
+  position: absolute;
+  cursor: pointer;
+}
+
+button.btn.dropdown-toggle {
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+}
