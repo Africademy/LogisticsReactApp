@@ -23,7 +23,7 @@ export default class CargoCharacteristicsForm extends Component {
     super(props);
     this.props = props;
     this.state = this.props.data;
-    this.state.collapseSpecialRequirements = true;
+    this.state.collapseSpecialRequirements = false;
   }
   toggle = (key, val) => {
     let d = {};
@@ -154,7 +154,7 @@ export default class CargoCharacteristicsForm extends Component {
                     />
                     <CInputGroupAppend>
                       <CDropdown>
-                        <CDropdownToggle caret color="info">
+                        <CDropdownToggle caret className="border">
                           Select unit
                         </CDropdownToggle>
                         <CDropdownMenu>
@@ -180,7 +180,7 @@ export default class CargoCharacteristicsForm extends Component {
                     />
                     <CInputGroupAppend>
                       <CDropdown>
-                        <CDropdownToggle caret color="info">
+                        <CDropdownToggle caret className="border">
                           Select unit
                         </CDropdownToggle>
                         <CDropdownMenu>
@@ -208,7 +208,7 @@ export default class CargoCharacteristicsForm extends Component {
                     />
                     <CInputGroupAppend>
                       <CDropdown>
-                        <CDropdownToggle caret color="info">
+                        <CDropdownToggle caret className="border">
                           Select unit
                         </CDropdownToggle>
                         <CDropdownMenu>
@@ -236,7 +236,7 @@ export default class CargoCharacteristicsForm extends Component {
                     />
                     <CInputGroupAppend>
                       <CDropdown>
-                        <CDropdownToggle caret color="info">
+                        <CDropdownToggle caret className="border">
                           Select unit
                         </CDropdownToggle>
                         <CDropdownMenu>
@@ -264,7 +264,7 @@ export default class CargoCharacteristicsForm extends Component {
                     />
                     <CInputGroupAppend>
                       <CDropdown>
-                        <CDropdownToggle caret color="info">
+                        <CDropdownToggle caret className="border">
                           Select unit
                         </CDropdownToggle>
                         <CDropdownMenu>
@@ -292,7 +292,7 @@ export default class CargoCharacteristicsForm extends Component {
                     />
                     <CInputGroupAppend>
                       <CDropdown>
-                        <CDropdownToggle caret color="info">
+                        <CDropdownToggle caret className="border">
                           Select unit
                         </CDropdownToggle>
                         <CDropdownMenu>
@@ -320,7 +320,7 @@ export default class CargoCharacteristicsForm extends Component {
                     />
                     <CInputGroupAppend>
                       <CDropdown>
-                        <CDropdownToggle caret color="info">
+                        <CDropdownToggle caret className="border">
                           Select unit
                         </CDropdownToggle>
                         <CDropdownMenu>
@@ -348,7 +348,7 @@ export default class CargoCharacteristicsForm extends Component {
                     />
                     <CInputGroupAppend>
                       <CDropdown>
-                        <CDropdownToggle caret color="info">
+                        <CDropdownToggle caret className="border">
                           Select unit
                         </CDropdownToggle>
                         <CDropdownMenu>
@@ -376,7 +376,7 @@ export default class CargoCharacteristicsForm extends Component {
                     />
                     <CInputGroupAppend>
                       <CDropdown>
-                        <CDropdownToggle caret color="info">
+                        <CDropdownToggle caret className="border">
                           Select unit
                         </CDropdownToggle>
                         <CDropdownMenu>
@@ -404,7 +404,7 @@ export default class CargoCharacteristicsForm extends Component {
                     />
                     <CInputGroupAppend>
                       <CDropdown>
-                        <CDropdownToggle caret color="info">
+                        <CDropdownToggle caret className="border">
                           Select unit
                         </CDropdownToggle>
                         <CDropdownMenu>
@@ -469,7 +469,7 @@ export default class CargoCharacteristicsForm extends Component {
                     />
                     <CInputGroupAppend>
                       <CDropdown>
-                        <CDropdownToggle caret color="info">
+                        <CDropdownToggle caret className="border">
                           Select unit
                         </CDropdownToggle>
                         <CDropdownMenu>
@@ -497,7 +497,7 @@ export default class CargoCharacteristicsForm extends Component {
                     />
                     <CInputGroupAppend>
                       <CDropdown>
-                        <CDropdownToggle caret color="info">
+                        <CDropdownToggle caret className="border">
                           Select unit
                         </CDropdownToggle>
                         <CDropdownMenu>

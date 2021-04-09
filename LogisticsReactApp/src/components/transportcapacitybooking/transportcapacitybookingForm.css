@@ -19,7 +19,7 @@
 }
 
 .next-btn {
-  float: right;
+  float: right !important;
 }
 
 .help-block.error {

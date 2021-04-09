@@ -1,4 +1,3 @@
-// import {} from "@coreui/icons/css/all.min.css";
 import {
   CCard,
   CCardBody,

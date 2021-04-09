@@ -271,9 +271,7 @@ class createTransportcapacitybooking extends Component {
                           </CFormText>
                         </CFormGroup>
                       </CCol>
-                    </CRow>
 
-                    <CRow className="justify-content-center">
                       <CCol md="12">
                         <CButton
                           onClick={() => {
@@ -322,10 +320,11 @@ class createTransportcapacitybooking extends Component {
                           </CModalFooter>
                         </CModal>
                       </CCol>
-                    </CRow>
-                    <div className="card-title mt-3">Time Band</div>
 
-                    <CRow className="justify-content-center">
+                      <CCol md="12">
+                        <div className="card-title mt-3">Time Band</div>
+                      </CCol>
+
                       <CCol md="6">
                         <CFormGroup>
                           <CLabel htmlFor="nf-pickupStartTime">
@@ -354,11 +353,11 @@ class createTransportcapacitybooking extends Component {
                           </CFormText>
                         </CFormGroup>
                       </CCol>
-                    </CRow>
 
-                    <div className="card-title mt-3">Event Time</div>
+                      <CCol md="12">
+                        <div className="card-title mt-3">Event Time</div>
+                      </CCol>
 
-                    <CRow className="justify-content-center">
                       <CCol md="6">
                         <CFormGroup>
                           <CLabel htmlFor="nf-pickupStartTime">
@@ -387,17 +386,17 @@ class createTransportcapacitybooking extends Component {
                           </CFormText>
                         </CFormGroup>
                       </CCol>
-                    </CRow>
 
-                    <div className="continue-block">
-                      <CButton
-                        type="button"
-                        className="next-btn"
-                        color="primary"
-                      >
-                        Next
-                      </CButton>
-                    </div>
+                      <div className="col-md continue-block">
+                        <CButton
+                          type="button"
+                          className="next-btn"
+                          color="primary"
+                        >
+                          Next
+                        </CButton>
+                      </div>
+                    </CRow>
                   </CCardBody>
                 </CCollapse>
               </CCard>
@@ -406,111 +405,6 @@ class createTransportcapacitybooking extends Component {
                 {...this.props}
                 data={this.state}
               ></CargoCharacteristicsForm>
-
-              {/* <CCard>
-                <CCardHeader
-                  className="card-toggle-header"
-                  onClick={() => {
-                    this.toggle(
-                      "collapsePackageTotal",
-                      !this.state.collapsePackageTotal
-                    );
-                  }}
-                >
-                  Package Total
-                </CCardHeader>
-                <CCollapse show={this.state.collapsePackageTotal}>
-                  <CCardBody>
-                    <CRow>
-                      <CCol md="6">
-                        <CFormGroup>
-                          <CLabel htmlFor="packageTypeCode">
-                            Package Type
-                          </CLabel>
-                          <select
-                            className="form-control form-select"
-                            id="packageTypeCode"
-                          >
-                            <option value="">Select an option</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                          </select>
-                          <CFormText className="help-block error">
-                            show errors in here
-                          </CFormText>
-                        </CFormGroup>
-                      </CCol>
-                      <CCol md="6">
-                        <CFormGroup>
-                          <CLabel htmlFor="sublocationIdentification">
-                            Total Package Quantity
-                          </CLabel>
-                          <CInput
-                            type="text"
-                            id="sublocationIdentification"
-                            name="sublocationIdentification"
-                            placeholder="Enter here..."
-                          />
-                          <CFormText className="help-block error">
-                            show errors in here
-                          </CFormText>
-                        </CFormGroup>
-                      </CCol>
-                      <CCol md="6">
-                        <CInputGroup>
-                          <CInput
-                            type="email"
-                            id="username"
-                            name="username"
-                            autoComplete="name"
-                          />
-                          <CInputGroupAppend>
-                            <CDropdown>
-                              <CDropdownToggle caret color="info">
-                                Dropdown button
-                              </CDropdownToggle>
-                              <CDropdownMenu>
-                                <CDropdownItem>Action</CDropdownItem>
-                                <CDropdownItem>Action</CDropdownItem>
-                                <CDropdownItem>Another Action</CDropdownItem>
-                              </CDropdownMenu>
-                            </CDropdown>
-                          </CInputGroupAppend>
-                        </CInputGroup>
-                        <CFormText className="help-block error">
-                          show errors in here
-                        </CFormText>
-                      </CCol>
-                      <CCol md="6">
-                        <CInputGroup>
-                          <CInput
-                            type="email"
-                            id="username"
-                            name="username"
-                            autoComplete="name"
-                          />
-                          <CInputGroupAppend>
-                            <CDropdown>
-                              <CDropdownToggle caret color="info">
-                                Dropdown button
-                              </CDropdownToggle>
-                              <CDropdownMenu>
-                                <CDropdownItem>Action</CDropdownItem>
-                                <CDropdownItem>Action</CDropdownItem>
-                                <CDropdownItem>Another Action</CDropdownItem>
-                              </CDropdownMenu>
-                            </CDropdown>
-                          </CInputGroupAppend>
-                        </CInputGroup>
-                        <CFormText className="help-block error">
-                          show errors in here
-                        </CFormText>
-                      </CCol>
-                    </CRow>
-                  </CCardBody>
-                </CCollapse>
-              </CCard> */}
 
               {/* Form Ends here */}
             </CForm>
