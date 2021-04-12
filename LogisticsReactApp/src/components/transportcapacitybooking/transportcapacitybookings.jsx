@@ -1,7 +1,22 @@
+import {} from "./transportcapacitybookingForm.css";
 import React, { Component } from "react";
 import Pagination from "../common/Pagination";
 import { paginate } from "../../utils/paginate";
 import { Link } from "react-router-dom";
+import {
+  CBadge,
+  CButton,
+  CCard,
+  CCardBody,
+  CCol,
+  CDataTable,
+  CForm,
+  CFormGroup,
+  CInput,
+  CInputGroup,
+  CLabel,
+  CRow,
+} from "@coreui/react";
 import {
   getTransportcapacitybooking,
   getTransportcapacitybookings,
@@ -10,10 +25,76 @@ import {
 import Moment from "moment";
 
 class Transportcapacitybookings extends Component {
-  state = {
-    records: [],
-    pageSize: 10,
-    currentPage: 1,
+  constructor(props) {
+    super(props);
+    this.props = props;
+    this.state = {
+      records: [],
+      pageSize: 10,
+      currentPage: 1,
+    };
+  }
+
+  fields = [
+    { key: "bookingId", label: "Booking ID", _style: { width: "auto" } },
+    {
+      key: "plannedPickUp.LogisticEventDateTime.date",
+      label: "From",
+      _style: { width: "auto" },
+    },
+    {
+      key: "plannedDropOff.LogisticEventDateTime.date",
+      label: "To",
+      _style: { width: "auto" },
+    },
+    {
+      key: "transportServiceConditionTypeCode.Name",
+      label: "Type",
+      _style: { width: "auto" },
+    },
+    {
+      key: "transportServiceLevelCode.Name",
+      label: "Service Level",
+      _style: { width: "auto" },
+    },
+    {
+      key: "transportServiceCategoryCode.Name",
+      label: "Service Code",
+      _style: { width: "auto" },
+    },
+    {
+      key:
+        "transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossWeight.Value",
+      label: "Total Weight",
+      _style: { width: "auto" },
+    },
+    {
+      key: "plannedDropOff.LogisticEventPeriod.endDate",
+      label: "Due",
+      _style: { width: "auto" },
+    },
+    {
+      key: "action",
+      label: "Action",
+      _style: { width: "auto" },
+      sorter: false,
+      filter: false,
+    },
+  ];
+
+  getBadge = (status) => {
+    switch (status) {
+      case "Completed":
+        return "success";
+      case "Inprogress":
+        return "secondary";
+      case "Pending":
+        return "warning";
+      case "Cancelled":
+        return "danger";
+      default:
+        return "primary";
+    }
   };
 
   componentDidMount = async () => {
@@ -102,84 +183,180 @@ class Transportcapacitybookings extends Component {
 
     return (
       <React.Fragment>
-        <div className="row">
+        <CRow>
           {totalCount === 0 ? (
-            <div className="col-6 text-muted text">
-              <p>There are no records to show create a record</p>
-            </div>
+            <CCol md="6">
+              <div className="text-muted text">
+                <p>There are no records to show create a record</p>
+              </div>
+            </CCol>
           ) : (
-            <div className="col-6 text-muted">
-              <p>There are {totalCount} Transport Capacity Bookings</p>
-            </div>
+            <CCol md="6">
+              <div className="text-muted text">
+                <p>There are {totalCount} Transport Capacity Bookings</p>
+              </div>
+            </CCol>
           )}
-          <div className="col-6">
-            <Link
-              to="/transportcapacitybookings/new"
-              className="btn btn-primary custom-btn float-right"
-            >
-              New Booking
-            </Link>
-          </div>
-        </div>
-        <div className="card shadow-sm my-2">
-          <div className="card-body">
+          <CCol md="6">
+            <CButton className="btn btn-outline-info custom-btn float-right">
+              <Link to="/transportcapacitybookings/new">New Booking</Link>
+            </CButton>
+          </CCol>
+        </CRow>
+
+        <CCard className="shadow-sm my-2">
+          <CCardBody>
             <div className="search-booking-details">
-              <form className="row" onSubmit={this.handleGetBooking}>
-                <div className="form-group col-5">
-                  <label htmlFor="bookingid">Booking ID</label>
-                  <div className="input-group">
-                    <input
-                      id="bookingid"
-                      name="bookingid"
-                      placeholder="Booking Id"
-                      type="text"
-                      className="form-control"
-                      onChange={this.handleInputChange}
-                    />
-                  </div>
-                </div>
-                <div className="form-group col-3">
-                  <label htmlFor="fromdate">From</label>
-                  <div className="input-group">
-                    <input
-                      id="fromdate"
-                      name="fromdate"
-                      placeholder="From"
-                      type="date"
-                      className="form-control"
-                      onChange={this.handleInputChange}
-                    />
-                  </div>
-                </div>
-                <div className="form-group col-3">
-                  <label htmlFor="todate">To</label>
-                  <div className="input-group">
-                    <input
-                      id="todate"
-                      name="todate"
-                      placeholder="To"
-                      type="date"
-                      className="form-control"
-                      onChange={this.handleInputChange}
-                    />
-                  </div>
-                </div>
-                <div className="form-group col-1 text-right">
-                  <button
-                    name="submit"
-                    type="submit"
-                    className="btn btn-primary mt-md-3"
-                  >
-                    Go
-                  </button>
-                </div>
-              </form>
+              <CForm onSubmit={this.handleGetBooking}>
+                <CRow>
+                  <CCol md="5">
+                    <CFormGroup>
+                      <CLabel htmlFor="bookingid">Booking ID</CLabel>
+                      <CInputGroup>
+                        <CInput
+                          id="bookingid"
+                          name="bookingid"
+                          placeholder="Booking Id"
+                          type="text"
+                          className="form-control"
+                          onChange={this.handleInputChange}
+                        />
+                      </CInputGroup>
+                    </CFormGroup>
+                  </CCol>
+                  <CCol md="3">
+                    <CFormGroup>
+                      <CLabel htmlFor="fromdate">From</CLabel>
+                      <CInputGroup>
+                        <CInput
+                          id="fromdate"
+                          name="fromdate"
+                          placeholder="From"
+                          type="date"
+                          className="form-control"
+                          onChange={this.handleInputChange}
+                        />
+                      </CInputGroup>
+                    </CFormGroup>
+                  </CCol>
+                  <CCol md="3">
+                    <CFormGroup>
+                      <CLabel htmlFor="todate">To</CLabel>
+                      <CInputGroup>
+                        <CInput
+                          id="todate"
+                          name="todate"
+                          placeholder="To"
+                          type="date"
+                          className="form-control"
+                          onChange={this.handleInputChange}
+                        />
+                      </CInputGroup>
+                    </CFormGroup>
+                  </CCol>
+                  <CCol md="1">
+                    <CFormGroup>
+                      <CLabel htmlFor="todate" className="text-white">
+                        Submit
+                      </CLabel>
+                      <CButton
+                        type="submit"
+                        className="btn btn-info custom-btn float-right"
+                      >
+                        Go
+                      </CButton>
+                    </CFormGroup>
+                  </CCol>
+                </CRow>
+              </CForm>
             </div>
-          </div>
-        </div>
+          </CCardBody>
+        </CCard>
 
         <div className="bookings-list my-2">
-          <div className="table-responsive">
+          <CDataTable
+            items={paginatedTransportcapacitybookings}
+            fields={this.fields}
+            tableFilter
+            itemsPerPageSelect
+            itemsPerPage={this.state.pageSize}
+            hover
+            sorter
+            border
+            pagination
+            scopedSlots={{
+              bookingId: (item) => {
+                return (
+                  <td>
+                    <Link to={`/viewtransportcapacitybooking/${item._id}`}>
+                      {item.bookingId}
+                    </Link>
+                  </td>
+                );
+              },
+              status: (item) => {
+                return (
+                  <td>
+                    <CBadge color={this.getBadge(item.status)}>
+                      {item.status}
+                    </CBadge>
+                  </td>
+                );
+              },
+              "plannedPickUp.LogisticEventDateTime.date": (item) => {
+                return (
+                  <td>
+                    <span>
+                      {this.formatDate(
+                        item.plannedPickUp.LogisticEventDateTime.date
+                      )}
+                    </span>
+                    <small id="from-address" className="form-text text-muted">
+                      {item.plannedPickUp.Logisticlocation.locationName}
+                    </small>
+                  </td>
+                );
+              },
+              "plannedDropOff.LogisticEventDateTime.date": (item) => {
+                return (
+                  <td>
+                    <span>
+                      {this.formatDate(
+                        item.plannedDropOff.LogisticEventDateTime.date
+                      )}
+                    </span>
+                    <small id="to-address" className="form-text text-muted">
+                      {item.plannedDropOff.Logisticlocation.locationName}
+                    </small>
+                  </td>
+                );
+              },
+              action: (item) => {
+                return (
+                  <td>
+                    <div className="action-buttons text-center">
+                      <Link
+                        to={`/transportcapacitybookings/${item._id}`}
+                        className="btn btn-warning btn-sm mx-1 my-sm-1"
+                        title="Edit"
+                      >
+                        <i className="cil-pencil"></i>
+                      </Link>
+                      <button
+                        onClick={() => this.handleDelete(item._id)}
+                        className="btn btn-danger btn-sm mx-1 my-sm-1"
+                        title="Delete"
+                      >
+                        <i className="cil-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                );
+              },
+            }}
+          />
+
+          {/* <div className="table-responsive">
             <table className="table table-bordered table-hover">
               <thead>
                 <tr>
@@ -237,16 +414,8 @@ class Transportcapacitybookings extends Component {
                         record.plannedDropOff.LogisticEventPeriod.endDate
                       )}
                     </td>
-                    {/* <td>{record.extension}</td> */}
                     <td>
                       <div className="action-buttons text-center">
-                        {/* <Link
-                          to={`/viewtransportcapacitybooking/${record._id}`}
-                          className="btn btn-info btn-sm mx-1 my-sm-1"
-                          title="View"
-                        >
-                          <i className="fa fa-eye"></i>
-                        </Link> */}
                         <Link
                           to={`/transportcapacitybookings/${record._id}`}
                           className="btn btn-warning btn-sm mx-1 my-sm-1"
@@ -267,7 +436,7 @@ class Transportcapacitybookings extends Component {
                 ))}
               </tbody>
             </table>
-          </div>
+          </div> */}
           <a
             href="#"
             className="float-right text-decoration-none"
@@ -276,223 +445,12 @@ class Transportcapacitybookings extends Component {
             See all
           </a>
         </div>
-
-        {/* <div className="table-responsive">
-
-              <table className="table">
-                <thead>
-                    <tr>
-                    <th scope="col" key="1" style={{ cursor: "pointer" }}>
-                      Id
-                    </th>
-                    <th scope="col" key="2" style={{ cursor: "pointer" }}>
-                      Creation Date Time
-                    </th>
-                    <th scope="col" key="3" style={{ cursor: "pointer" }}>
-                      Document Status Code
-                    </th>
-                    <th scope="col" key="4" style={{ cursor: "pointer" }}>
-                      Document Action Code
-                    </th>
-                    <th scope="col" key="5" style={{ cursor: "pointer" }}>
-                      Document Structure Version
-                    </th>
-                    <th scope="col" key="6" style={{ cursor: "pointer" }}>
-                      Last Update Date Time
-                    </th>
-                    <th scope="col" key="7" style={{ cursor: "pointer" }}>
-                      Revision Number
-                    </th>
-                    <th scope="col" key="8" style={{ cursor: "pointer" }}>
-                      Extension
-                    </th>
-                    <th scope="col" key="9" style={{ cursor: "pointer" }}>
-                      Document Effective Date
-                    </th>
-                    <th scope="col" key="10" style={{ cursor: "pointer" }}>
-                      Avp List
-                    </th>
-                    <th scope="col" key="11" style={{ cursor: "pointer" }}>
-                      Transport Capacity Booking Identification
-                    </th>
-                    <th scope="col" key="12" style={{ cursor: "pointer" }}>
-                      Transport Service Category Code
-                    </th>
-                    <th scope="col" key="13" style={{ cursor: "pointer" }}>
-                      Transport Service Condition Type Code
-                    </th>
-                    <th scope="col" key="14" style={{ cursor: "pointer" }}>
-                      Transport Service Level Code
-                    </th>
-                    <th scope="col" key="15" style={{ cursor: "pointer" }}>
-                      Logistic Services Buyer
-                    </th>
-                    <th scope="col" key="16" style={{ cursor: "pointer" }}>
-                      Logistic Services Seller
-                    </th>
-                    <th scope="col" key="17" style={{ cursor: "pointer" }}>
-                      Pick Up Party
-                    </th>
-                    <th scope="col" key="18" style={{ cursor: "pointer" }}>
-                      Drop Off Party
-                    </th>
-                    <th scope="col" key="19" style={{ cursor: "pointer" }}>
-                      Planned Pick Up
-                    </th>
-                    <th scope="col" key="20" style={{ cursor: "pointer" }}>
-                      Planned Drop Off
-                    </th>
-                    <th scope="col" key="21" style={{ cursor: "pointer" }}>
-                      Transport Reference
-                    </th>
-                    <th scope="col" key="22" style={{ cursor: "pointer" }}>
-                      Delivery Terms
-                    </th>
-                    <th scope="col" key="23" style={{ cursor: "pointer" }}>
-                      Handling Instruction
-                    </th>
-                    <th scope="col" key="24" style={{ cursor: "pointer" }}>
-                      Transport Capacity Booking Space Requirements
-                    </th>
-                    <th scope="col" key="25" style={{ cursor: "pointer" }}>
-                      Transport Capacity Booking Transport Movement
-                    </th>
-                    <th scope="col" key="26" style={{ cursor: "pointer" }}>
-                      Transport Capacity Booking Space Requirements
-                    </th>
-                    <th scope="col" key="27" style={{ cursor: "pointer" }}>
-                      Transport Capacity Booking Transport Movement
-                    </th>
-                    <th scope="col" key="28" style={{ cursor: "pointer" }}>
-                      Avp List
-                    </th>
-                    <th scope="col" key="29" style={{ cursor: "pointer" }}>
-                      Document Status Code
-                    </th>
-                    <th scope="col" key="30" style={{ cursor: "pointer" }}>
-                      Drop Off Party
-                    </th>
-                    <th scope="col" key="31" style={{ cursor: "pointer" }}>
-                      Planned Pick Up
-                    </th>
-                    <th scope="col" key="32" style={{ cursor: "pointer" }}>
-                      Planned Drop Off
-                    </th>
-                    <th scope="col" key="33" style={{ cursor: "pointer" }}>
-                      Transport Reference
-                    </th>
-                    <th scope="col" key="34" style={{ cursor: "pointer" }}>
-                      Handling Instruction
-                    </th>
-                    <th scope="col" key="35" style={{ cursor: "pointer" }}>
-                      Document Action Code
-                    </th>
-                    <th scope="col" key="36" style={{ cursor: "pointer" }}>
-                      Transport Capacity Booking Identification
-                    </th>
-                    <th scope="col" key="37" style={{ cursor: "pointer" }}>
-                      Transport Service Category Code
-                    </th>
-                    <th scope="col" key="38" style={{ cursor: "pointer" }}>
-                      Transport Service Condition Type Code
-                    </th>
-                    <th scope="col" key="39" style={{ cursor: "pointer" }}>
-                      Transport Service Level Code
-                    </th>
-                    <th scope="col" key="40" style={{ cursor: "pointer" }}>
-                      Logistic Services Buyer
-                    </th>
-                    <th scope="col" key="41" style={{ cursor: "pointer" }}>
-                      Logistic Services Seller
-                    </th>
-                    <th scope="col" key="42" style={{ cursor: "pointer" }}>
-                      Pick Up Party
-                    </th>
-                    <th scope="col" key="43" style={{ cursor: "pointer" }}>
-                      Delivery Terms
-                    </th>
-                    <th scope="col" key="44" style={{ cursor: "pointer" }}>
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {paginatedTransportcapacitybookings.map(record => (
-                    <tr key={record._id}>
-                      <td key="1">{record.id}</td>
-                      <td key="2">{record.createdAt}</td>
-                      <td key="3">{record.documentStatusCode}</td>
-                      <td key="4">{record.documentActionCode}</td>
-                      <td key="5">{record.documentStructureVersion}</td>
-                      <td key="6">{record.lastUpdateDateTime}</td>
-                      <td key="7">{record.revisionNumber}</td>
-                      <td key="8">{record.extension}</td>
-                      <td key="9">{record.documentEffectiveDate}</td>
-                      <td key="10">{record.avpList}</td>
-                      <td key="11">{record.transportCapacityBookingIdentification}</td>
-                      <td key="12">{record.transportServiceCategoryCode}</td>
-                      <td key="13">{record.transportServiceConditionTypeCode}</td>
-                      <td key="14">{record.transportServiceLevelCode}</td>
-                      <td key="15">{record.logisticServicesBuyer}</td>
-                      <td key="16">{record.logisticServicesSeller}</td>
-                      <td key="17">{record.pickUpParty}</td>
-                      <td key="18">{record.dropOffParty}</td>
-                      <td key="19">{record.plannedPickUp}</td>
-                      <td key="20">{record.plannedDropOff}</td>
-                      <td key="21">{record.transportReference}</td>
-                      <td key="22">{record.deliveryTerms}</td>
-                      <td key="23">{record.handlingInstruction}</td>
-                      <td key="24">{record.transportCapacityBookingSpaceRequirements}</td>
-                      <td key="25">{record.transportCapacityBookingTransportMovement}</td>
-                      <td key="26">{record.t.Name}</td>
-                      <td key="27">{record.t.Name}</td>
-                      <td key="28">{record.a.Name}</td>
-                      <td key="29">{record.d.Name}</td>
-                      <td key="30">{record.d.Name}</td>
-                      <td key="31">{record.p.Name}</td>
-                      <td key="32">{record.p.Name}</td>
-                      <td key="33">{record.t.Name}</td>
-                      <td key="34">{record.h.Name}</td>
-                      <td key="35">{record.d.Name}</td>
-                      <td key="36">{record.t.Name}</td>
-                      <td key="37">{record.t.Name}</td>
-                      <td key="38">{record.t.Name}</td>
-                      <td key="39">{record.t.Name}</td>
-                      <td key="40">{record.l.Name}</td>
-                      <td key="41">{record.l.Name}</td>
-                      <td key="42">{record.p.Name}</td>
-                      <td key="43">{record.d.Name}</td>
-                      <td key="44">
-                              <Link
-                                to={`/viewtransportcapacitybooking/${record._id}`}
-                                className="btn btn-info btn-sm m-1"
-                                >
-                                View
-                              </Link>
-                              <Link
-                                to={`/transportcapacitybookings/${record._id}`}
-                                className="btn btn-warning btn-sm m-1"
-                                >
-                                Update
-                              </Link>
-                            <button
-                              onClick={() => this.handleDelete(record._id)}
-                              className="btn btn-danger btn-sm m-1"
-                              >
-                              Delete
-                            </button>
-                       </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div> */}
-        <Pagination
+        {/* <Pagination
           itemsCount={totalCount}
           pageSize={this.state.pageSize}
           onPageChange={this.handlePageChange}
           currentPage={this.state.currentPage}
-        />
+        /> */}
       </React.Fragment>
     );
   }
