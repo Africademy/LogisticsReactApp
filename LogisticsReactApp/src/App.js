@@ -571,8 +571,11 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <Navbar user={this.state.user} />
-        <main role="main" className="container-fluid">
+        <div className="navBarcomponet">
+          <Navbar user={this.state.user} />
+        </div>
+         <div className="mainComponent">
+         <main role="main" className="container-fluid">
           <Switch>
             <Route path="/login" component={LoginForm} />
             <Route path="/logout" component={Logout} />
@@ -4561,6 +4564,9 @@ class App extends Component {
         {/* <div className="footer footer-copyright text-center p-3" >© Aritha
           <a href="https://aritha.org"></a>
         </div> */}
+
+         </div>
+      
       </React.Fragment>
     );
   }

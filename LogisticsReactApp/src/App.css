@@ -134,3 +134,13 @@
   border: #007b9e !important;
 }
 
+.navBarcomponet {
+  width: 100%;
+  position: fixed;
+  z-index: 100;
+}
+.mainComponent {
+  position: relative;
+  top:5rem
+ 
+}

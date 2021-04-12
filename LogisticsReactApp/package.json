@@ -5,8 +5,10 @@
   "dependencies": {
     "@coreui/coreui": "^3.4.0",
     "@coreui/react": "^3.4.6",
-    "axios": "^0.18.0",
+    "@hookform/resolvers": "^2.2.0",
+    "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
+    "formik": "^2.2.6",
     "joi-browser": "^13.4.0",
     "jquery": "^3.4.1",
     "jwt-decode": "^2.2.0",
@@ -19,7 +21,8 @@
     "react-hook-form": "^7.0.4",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^2.1.8",
-    "react-select": "^4.3.0"
+    "react-select": "^4.3.0",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "react-scripts start",
