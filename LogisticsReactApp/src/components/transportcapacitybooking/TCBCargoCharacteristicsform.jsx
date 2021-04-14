@@ -13,12 +13,17 @@ import {
 import { Form, Formik } from "formik";
 import * as yup from 'yup';
 import FormicControl from "../../utils/CoreUI/FormicControl";
+import {useDispatch} from 'react-redux'
+import {SpaceRequirementsAction} from "../../actions/TCBActions"; 
 
 
- const CargoCharacteristicsForm =(props)=> {
+ const CargoCharacteristicsForm =({setenableNext})=> {
+
+  const dispatch = useDispatch()
+  
 
   const [CargoData,setCargoData] = useState(null)
-  const [collapseSpecialRequirements,setcollapseSpecialRequirements] =useState(false)
+
 
   const dropDownOtions = [
     {key:'select value' ,value: ''},
@@ -27,9 +32,7 @@ import FormicControl from "../../utils/CoreUI/FormicControl";
     {key:'option3' ,value: 'option3'}
   ]
 
-  const toggle = () => {
-    setcollapseSpecialRequirements(!collapseSpecialRequirements);
-  };
+ 
 
   const initialValues = {
     CargoType :'',
@@ -102,23 +105,16 @@ import FormicControl from "../../utils/CoreUI/FormicControl";
 
     return (
       <div>
-        <CCard>
-          <CCardHeader
-            className="card-toggle-header"
-            onClick={() => {
-              toggle();
-            }} 
-          >
-            Space Requirements
-          </CCardHeader>
-          <CCollapse show={collapseSpecialRequirements}>
-            <CCardBody>
+         <CCardBody>
             <Formik 
                 initialValues= {initialValues}
-                validationSchema= {validationSchema}
-                validateOnBlur={false}
-                validateOnChange={false}
-                onSubmit={value => setCargoData(value)}
+                // validationSchema= {validationSchema}
+                
+                onSubmit={value => {
+                  setenableNext(true)
+                  setCargoData(value)
+                  dispatch(SpaceRequirementsAction(value))
+                }}
               >
                   { formik => (
                     
@@ -275,7 +271,7 @@ import FormicControl from "../../utils/CoreUI/FormicControl";
                         className="next-btn"
                         color="primary"
                         style={{margin:"1rem"}}
-                        disabled={(!formik.dirty && formik.isValid )}
+                        disabled={(!formik.dirty  )}
                       >
                         Next
                       </CButton>
@@ -287,9 +283,7 @@ import FormicControl from "../../utils/CoreUI/FormicControl";
               </Formik>
 
             </CCardBody>
-          </CCollapse>
-         
-        </CCard>
+      
       </div>
     );
   

@@ -1,169 +1,146 @@
-import { CButton, CCard, CCardBody, CCardHeader, CCol, CCollapse, CFormGroup, CFormText, CInput, CLabel, CLink, CRow } from '@coreui/react'
-import { Form, Formik } from 'formik'
-import React, { useState } from 'react'
-import FormicControl from '../../utils/CoreUI/FormicControl'
-import CIcon from "@coreui/icons-react";
+import {
+	CButton,
+	CCardBody,
+	CCol,
+	CRow,
+} from "@coreui/react";
+import { Form, Formik } from "formik";
+import React, { useEffect, useState } from "react";
+import FormicControl from "../../utils/CoreUI/FormicControl";
+import * as yup from "yup";
+import Alert from "../../utils/Alert/Alert";
+import {useDispatch} from 'react-redux'
+import {ServiceDetailsAction} from "../../actions/TCBActions";
 
-function TCBOrderDetails() {
+// import { getTransportservicecategorycodes } from '../../services/transportservicecategorycodeService';
+// import { getTransportserviceconditiontypecodes } from '../../services/transportserviceconditiontypecodeService';
+// import { getTransportservicelevelcodes } from '../../services/transportservicelevelcodeService';
 
-    const [collapseOrderDetails,setcollapseOrderDetails] = useState(false)
+function TCBOrderDetails({ setenableNext }) {
+	const [showAlert, setshowAlert] = useState(false);
+  const dispatch = useDispatch()
 
-const initialValues ={
-    ProductName:'',
-    ProductCategory:'',
-    Quantity:'',
-    UnitPrice:''
+	// useEffect(()=>{
+	//     //cargo
+	//   populatetransportServiceCategoryCodes()
+	//   populatetransportServiceConditionTypeCodes()
+	//   populatetransportServiceLevelCodes()
 
+	// },[])
+
+	/// Transport 12
+
+	// const [transportServiceCategoryCodes,settransportServiceCategoryCodes] = useState([])
+	// const [transportServiceConditionTypeCodes,settransportServiceConditionTypeCodes] = useState([])
+	// const [transportServiceLevelCodes,settransportServiceLevelCodes] = useState([])
+
+	// const  populatetransportServiceCategoryCodes= async () =>{
+	//   const { data: transportServiceCategoryCodes } = await getTransportservicecategorycodes();
+	//   // this.setState({ transportServiceCategoryCodes: transportServiceCategoryCodes });
+	//   settransportServiceCategoryCodes([...transportServiceCategoryCodes])
+	//   }
+
+	//   const populatetransportServiceConditionTypeCodes = async () => {
+	//   const { data: transportServiceConditionTypeCodes } = await getTransportserviceconditiontypecodes();
+	//   // this.setState({ transportServiceConditionTypeCodes: transportServiceConditionTypeCodes });
+	//   settransportServiceConditionTypeCodes([...transportServiceConditionTypeCodes])
+	//   }
+
+	//   const populatetransportServiceLevelCodes = async () => {
+	//   const { data: transportServiceLevelCodes } = await getTransportservicelevelcodes();
+	//   // this.setState({ transportServiceLevelCodes: transportServiceLevelCodes });
+	//   settransportServiceLevelCodes([...transportServiceLevelCodes])
+	//   }
+
+	const initialValues = {
+		Servicecategory: "",
+		ServiceConditionType: "",
+		ServiceLevel: "",
+	};
+	const dropDownOtions = [
+		{ key: "select value", value: "" },
+		{ key: "option1", value: "option1" },
+		{ key: "option2", value: "option2" },
+		{ key: "option3", value: "option3" },
+	];
+	const validationSchema = yup.object({
+		Servicecategory: yup.string().required(),
+		ServiceConditionType: yup.string().required(),
+		ServiceLevel: yup.string().required(),
+	});
+
+	return (
+		<CCardBody>
+			<Formik
+				initialValues={initialValues}
+				// validationSchema={validationSchema}
+				onSubmit={(values) => {
+					console.log(values);
+					setenableNext(true);
+          dispatch(ServiceDetailsAction(values))
+          
+				}}
+			>
+				{(formik) => (
+					<Form>
+						<div className="AlertInOrder">
+							{showAlert && (
+								<Alert bgcolor="bgSuccess">
+									{" "}
+									Successfully Submited The Order Details! Please Go Head
+									Planned Details{" "}
+								</Alert>
+							)}
+						</div>
+
+						<CRow className="justify-content-center">
+							<CCol md="4">
+								<FormicControl
+									placeholder="Service category"
+									control="select"
+									label="Service category"
+									id="Servicecategory"
+									name="Servicecategory"
+									options={dropDownOtions}
+								/>
+							</CCol>
+							<CCol md="4">
+								<FormicControl
+									placeholder="Service Condition Type"
+									control="select"
+									label="ServiceConditionType"
+									id="ServiceConditionType"
+									name="ServiceConditionType"
+									options={dropDownOtions}
+								/>
+							</CCol>
+							<CCol md="4">
+								<FormicControl
+									placeholder="Service Level"
+									control="select"
+									label="Service Level"
+									id="ServiceLevel"
+									name="ServiceLevel"
+									options={dropDownOtions}
+								/>
+							</CCol>
+						</CRow>
+						<CButton
+							type="submit"
+							className="next-btn"
+							color="primary"
+							style={{ margin: "1rem" }}
+							disabled={!formik.dirty && formik.isValid}
+						>
+							Next
+						</CButton>
+					</Form>
+				)}
+			</Formik>
+		</CCardBody>
+	);
 }
 
-    return (
-        <CCard>
-                <CCardHeader
-                className="card-toggle-header"
-                onClick={() => {
-                    setcollapseOrderDetails(!collapseOrderDetails)
-                
-                }}
-                >
-                Order Details
-                <CIcon size={"sm"} name={"cisPlusCircle"} />
-                </CCardHeader>
-            
-        <CCollapse show={collapseOrderDetails}>
-         
-          <CCardBody>
-            <Formik
-              initialValues={initialValues}
-              onSubmit={(values)=> console.log(values)}
-            >
-              {
-                formik =>(
-                  <Form>
-                     <CRow className="justify-content-center">
-                        <CCol md="6">
-                            <CFormGroup>
-                            <CLabel htmlFor="nf-email">Email</CLabel>
-                            <CLink
-                                href="#"
-                                className="float-right font-xs font-italic"
-                            >
-                                Generate ID
-                            </CLink>
-                            <CInput
-                                type="email"
-                                id="nf-email"
-                                name="nf-email"
-                                placeholder="Enter Email.."
-                                autoComplete="email"
-                            />
-                            <CFormText className="help-block error">
-                                show errors in here
-                            </CFormText>
-                            </CFormGroup>
-                        
-                        </CCol>
-                        <CCol md="3">
-                            <CFormGroup>
-                            <CLabel htmlFor="nf-password">Password</CLabel>
-                            <CInput
-                                type="password"
-                                id="nf-password"
-                                name="nf-password"
-                                placeholder="Enter Password.."
-                                autoComplete="current-password"
-                            />
-                            <CFormText className="help-block error">
-                                show errors in here
-                            </CFormText>
-                            </CFormGroup>
-                        </CCol>
-                        <CCol md="3">
-                            <CFormGroup>
-                            <CLabel htmlFor="nf-password">Password</CLabel>
-                            <CInput
-                                type="password"
-                                id="nf-password"
-                                name="nf-password"
-                                placeholder="Enter Password.."
-                                autoComplete="current-password"
-                            />
-                            <CFormText className="help-block error">
-                                show errors in here
-                            </CFormText>
-                            </CFormGroup>
-                        </CCol>
-                     </CRow>
-                     <CRow className="justify-content-center">
-                       <CCol md="3">
+export default TCBOrderDetails;
 
-                            <FormicControl control="input" label="Product Name" name="ProductName"/>
-                            </CCol>
-                            <CCol md="3">
-
-                            <FormicControl control="select" label="Product Category" name="ProductCategory"  options={[]}/>
-                            </CCol>
-
-                            <CCol md="3">
-                            <FormicControl control="input" type="number" label="Quantity" name="Quantity"/>
-                            </CCol>
-                            <CCol md="3">
-                            <FormicControl control="input" type="number" label="Unit Price" name="UnitPrice"/>
-                            </CCol> 
-                            </CRow>
-                    <div className="continue-block">
-                    <CLink >
-                        Add New Product
-                        <CIcon size={"sm"} name={"cisPlusCircle"} />
-                    </CLink>
-                    
-                    </div>
-
-                     <CButton
-                                    type="submit"
-                                    className="next-btn"
-                                    color="primary"
-                                    style={{margin:"1rem"}}
-                                    disabled={!formik.dirty && formik.isValid }
-                                    >
-                                    Next
-                                    </CButton>
-                  </Form>
-                )
-              }
-              
-            </Formik>
-           
-        </CCardBody>
-        
-        </CCollapse>
-      </CCard>
-      
-      
-    )
-}
-
-export default TCBOrderDetails
-
-
-// {/* <div className="card-title mt-3">Product Details</div>
-
-{/* Loop the below CRow for new product */}
-// {/* <CRow className="justify-content-center">
-// <CCol md="3">
-
-//     <FormicControl control="input" label="Product Name" name="ProductName"/>
-// </CCol>
-// <CCol md="3">
-
-//     <FormicControl control="select" label="Product Category" name="ProductCategory"/>
-// </CCol>
-
-// <CCol md="3">
-//     <FormicControl control="input" type="number" label="Quantity" name="Quantity"/>
-// </CCol>
-// <CCol md="3">
-// <FormicControl control="input" type="number" label="Unit Price" name="UnitPrice"/>
-// </CCol>
-// </CRow>  */}
-
-
+///take later

@@ -1,8 +1,9 @@
 import { CFormGroup, CFormText, CLabel } from '@coreui/react'
-import { ErrorMessage, Field } from 'formik'
+import { Field, useField } from 'formik'
 import React from 'react'
 
 function CoreSelect(props) {
+    const [field,meta] = useField(props)
     const {label,name,id,options, ...rest } = props
     return (
         <div>
@@ -29,9 +30,9 @@ function CoreSelect(props) {
                         }
 
                     </select>
-                    <CFormText className="help-block error">
+                    { meta.touched &&  <CFormText className="help-block error">
                       {form.errors[name]}
-                    </CFormText>
+                    </CFormText>}
                   </CFormGroup>
 
                 }
