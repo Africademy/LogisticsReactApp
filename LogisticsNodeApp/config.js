@@ -1,4 +1,4 @@
-const db_ip_port = "13.233.255.67:4542";
+const db_ip_port = "13.235.73.252:4542";
 const DB = {
   localhost: {
     url: "mongodb://localhost:27017/LogisticsDb",

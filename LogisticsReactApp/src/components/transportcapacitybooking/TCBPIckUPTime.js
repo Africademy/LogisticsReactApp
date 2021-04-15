@@ -15,8 +15,16 @@ function TCBPIckUPTime({setenableNext}) {
     const [toggleModle,setToggleModal] = useState(false)
     const [plannedPickData,setplannedPickData] = useState(null)
 
-
     
+
+
+    // const changeValues = ()=>{
+    //     var d = new Date(formateTime && formateTime.pickupStartTime)
+       
+    //     console.log(d.getTime(),"TimeValue")
+    //     console.log(`{${d.getFullYear()}-${d.getMonth()}-${d.getDate()}}`,"DateValue")
+
+    // }
 
     const dropDownOtions = [
         {key:'select value' ,value: ''},
@@ -43,21 +51,18 @@ function TCBPIckUPTime({setenableNext}) {
 
      
     })
-
-    console.log(plannedPickData,"plannedPickData")
   
     return (
   
             <CCardBody> 
                  <Formik
                     initialValues= {initialValues}
-                    // validationSchema= {validationSchema}
+                    validationSchema= {validationSchema}
 
                     onSubmit={value => {
                         console.log(value)
                         dispatch(PickUpTimeAction(value))
-                    setenableNext(true)
-                    // setenablePrev(false)
+                    setenableNext(true)       
             }
             }
             >
@@ -102,10 +107,11 @@ function TCBPIckUPTime({setenableNext}) {
                                 className="next-btn"
                                 color="primary"
                                 style={{margin:"1rem"}}
-                                disabled={!formik.dirty && formik.isValid }
+                                disabled={!formik.dirty && formik.errors}
                                 >
                                 Next
                                 </CButton>
+                               
                             </div>
                         </Form>
                     )

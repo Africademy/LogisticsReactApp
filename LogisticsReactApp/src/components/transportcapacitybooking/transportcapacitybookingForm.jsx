@@ -24,6 +24,7 @@ import TCBDropOffLocation from "./TCBDropOffLocation";
 import TCBPIckUPTime from "./TCBPIckUPTime";
 import TCBDropOffTime from "./TCBDropOffTime";
 import CargoCharacteristicsForm from "./TCBCargoCharacteristicsform";
+import { getEnumerationlibrarys } from "../../services/enumerationlibraryService";
 
 
 
@@ -53,9 +54,49 @@ const createTransportcapacitybooking =() => {
   const [TabenableCG,setTabenableCG] = useState(false)
   const [TabenableSp,setTabenableSp] = useState(false)
 
+  //Order Details
+  const [transportServiceCategoryCodes,settransportServiceCategoryCodes]= useState([])
+  const [transportServiceConditionTypeCodes,settransportServiceConditionTypeCodes]= useState([])
+  const [transportServiceLevelCodes,settransportServiceLevelCodes]= useState([])
+  
+  useEffect(()=>{
+    populatetransportServiceCategoryCodes()
+    populatetransportServiceConditionTypeCodes()
+    populatetransportServiceLevelCodes()
+  },[])
  
 
-    // console.log(enableNextPd,"status")
+  const populatetransportServiceCategoryCodes = async () =>{
+    const {
+      data: transportServiceCategoryCodes,
+    } = await getEnumerationlibrarys();
+    // this.setState({
+    //   transportServiceCategoryCodes: transportServiceCategoryCodes,
+    // });
+    settransportServiceCategoryCodes(transportServiceCategoryCodes)
+  }
+
+  const populatetransportServiceConditionTypeCodes = async () => {
+    const {
+      data: transportServiceConditionTypeCodes,
+    } = await getEnumerationlibrarys();
+    // this.setState({
+    //   transportServiceConditionTypeCodes: transportServiceConditionTypeCodes,
+    // });
+    settransportServiceConditionTypeCodes(transportServiceConditionTypeCodes)
+  }
+
+  const populatetransportServiceLevelCodes = async () =>{
+    const { data: transportServiceLevelCodes } = await getEnumerationlibrarys();
+    // this.setState({ transportServiceLevelCodes: transportServiceLevelCodes });
+    settransportServiceLevelCodes(transportServiceLevelCodes)
+  }
+
+ 
+
+
+    console.log(transportServiceCategoryCodes,"arrays")
+    
     const handleSubmit =()=>{
       console.log(data,"From Redux")
     }

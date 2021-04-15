@@ -45,7 +45,9 @@ label.mfe-2 {
 	margin-right: 5px;
 }
 .cardheader {
-	background-color: rgb(125, 125, 204) !important;
+	/* background-color: rgb(125, 125, 204) !important; */
+	background-color: #5BAC12 !important;
+	/* 5BAC12 */
 }
 .cardFlex {
 	display: flex;
@@ -67,11 +69,11 @@ label.mfe-2 {
 	border-radius: 50%;
 }
 .cardFlex__header__Icon {
-	border: 2px solid rgba(0, 0, 0, 0.288);
+	/* border: 2px solid rgba(0, 0, 0, 0.288); */
 	margin-right: 0.5rem;
 	padding: 0.1rem 0.2rem;
 	border-radius: 50%;
-	background-color: rgb(88, 228, 135);
+	background-color:#5BAC12;
 	margin-bottom: 5px;
 }
 .AlertInTCB {

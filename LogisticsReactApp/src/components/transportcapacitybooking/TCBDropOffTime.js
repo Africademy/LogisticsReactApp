@@ -44,14 +44,14 @@ function TCBDropOffTime({ setenableNext }) {
 		{ key: "option3", value: "option3" },
 	];
 	const initialValues = {
-		pickupStartTime: "",
-		pickupEndTime: "",
+		dropOffStartTime: "",
+		dropOffEndTime: "",
 		// EventpickupStartTime:'',
 		// EventpickupEndTime:'',
 	};
 	const validationSchema = yup.object({
-		pickupStartTime: yup.string().required(),
-		pickupEndTime: yup.string().required(),
+		dropOffStartTime: yup.string().required(),
+		dropOffEndTime: yup.string().required(),
 		// EventpickupStartTime: yup.string().required(),
 		// EventpickupEndTime: yup.string().required(),
 	});
@@ -62,7 +62,7 @@ function TCBDropOffTime({ setenableNext }) {
 		<CCardBody>
 			<Formik
 				initialValues={initialValues}
-				// validationSchema={validationSchema}
+				validationSchema={validationSchema}
 				onSubmit={(value) => {
 					console.log(value);
 					dispatch(DropOffTimeAction(value))
@@ -82,7 +82,7 @@ function TCBDropOffTime({ setenableNext }) {
 									control="input"
 									type="datetime-local"
 									id="pickupStartTime"
-									name="pickupStartTime"
+									name="dropOffStartTime"
 								/>
 							</CCol>
 							<CCol md="6">
@@ -91,7 +91,7 @@ function TCBDropOffTime({ setenableNext }) {
 									control="input"
 									type="datetime-local"
 									id="pickupEndTime"
-									name="pickupEndTime"
+									name="dropOffEndTime"
 								/>
 							</CCol>
 						</CRow>
@@ -102,7 +102,7 @@ function TCBDropOffTime({ setenableNext }) {
 								className="next-btn"
 								color="primary"
 								style={{ margin: "1rem" }}
-								disabled={!formik.dirty && formik.isValid}
+								// disabled={!formik.dirty && formik.errors}
 							>
 								Next
 							</CButton>

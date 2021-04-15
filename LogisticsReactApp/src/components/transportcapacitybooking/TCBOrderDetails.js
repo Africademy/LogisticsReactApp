@@ -53,9 +53,9 @@ function TCBOrderDetails({ setenableNext }) {
 	//   }
 
 	const initialValues = {
-		Servicecategory: "",
-		ServiceConditionType: "",
-		ServiceLevel: "",
+		servicecategory: "",
+		serviceConditionType: "",
+		serviceLevel: "",
 	};
 	const dropDownOtions = [
 		{ key: "select value", value: "" },
@@ -64,9 +64,9 @@ function TCBOrderDetails({ setenableNext }) {
 		{ key: "option3", value: "option3" },
 	];
 	const validationSchema = yup.object({
-		Servicecategory: yup.string().required(),
-		ServiceConditionType: yup.string().required(),
-		ServiceLevel: yup.string().required(),
+		servicecategory: yup.string().required(),
+		serviceConditionType: yup.string().required(),
+		serviceLevel: yup.string().required(),
 	});
 
 	return (
@@ -82,7 +82,9 @@ function TCBOrderDetails({ setenableNext }) {
 				}}
 			>
 				{(formik) => (
+				
 					<Form>
+						
 						<div className="AlertInOrder">
 							{showAlert && (
 								<Alert bgcolor="bgSuccess">
@@ -100,8 +102,9 @@ function TCBOrderDetails({ setenableNext }) {
 									control="select"
 									label="Service category"
 									id="Servicecategory"
-									name="Servicecategory"
+									name="servicecategory"
 									options={dropDownOtions}
+									isRequired="true"
 								/>
 							</CCol>
 							<CCol md="4">
@@ -110,8 +113,9 @@ function TCBOrderDetails({ setenableNext }) {
 									control="select"
 									label="ServiceConditionType"
 									id="ServiceConditionType"
-									name="ServiceConditionType"
+									name="serviceConditionType"
 									options={dropDownOtions}
+									isRequired="true"
 								/>
 							</CCol>
 							<CCol md="4">
@@ -120,7 +124,7 @@ function TCBOrderDetails({ setenableNext }) {
 									control="select"
 									label="Service Level"
 									id="ServiceLevel"
-									name="ServiceLevel"
+									name="serviceLevel"
 									options={dropDownOtions}
 								/>
 							</CCol>
@@ -130,7 +134,9 @@ function TCBOrderDetails({ setenableNext }) {
 							className="next-btn"
 							color="primary"
 							style={{ margin: "1rem" }}
-							disabled={!formik.dirty && formik.isValid}
+							// disabled={!formik.dirty && formik.errors}
+							// && !formik.isValid
+							// console.log(formik.isValid,"valid")
 						>
 							Next
 						</CButton>

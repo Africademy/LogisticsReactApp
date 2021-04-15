@@ -15,6 +15,7 @@ function CoreInput(props) {
                    
                     return <CFormGroup >
                     <CLabel htmlFor={name}>{label}</CLabel>
+                    { (<span style={{color:"red",fontSize:"1rem",paddingLeft:"2px"}}> *</span>) }
                     <CInput
                       id={id}
                       {...rest}

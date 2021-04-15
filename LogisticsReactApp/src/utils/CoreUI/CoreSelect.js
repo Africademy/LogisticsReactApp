@@ -4,7 +4,7 @@ import React from 'react'
 
 function CoreSelect(props) {
     const [field,meta] = useField(props)
-    const {label,name,id,options, ...rest } = props
+    const {label,name,id,options,isRequired, ...rest } = props
     return (
         <div>
            
@@ -15,6 +15,7 @@ function CoreSelect(props) {
                     
                     return <CFormGroup >
                     <CLabel htmlFor={name}>{label}</CLabel>
+                    { isRequired && (<span style={{color:"red",fontSize:"1rem",paddingLeft:"2px"}}> *</span>) }
                     <select
                       className="form-control form-select"
                       id={id}

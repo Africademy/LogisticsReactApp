@@ -35,7 +35,7 @@ import {SpaceRequirementsAction} from "../../actions/TCBActions";
  
 
   const initialValues = {
-    CargoType :'',
+    cargoType :'',
     harmonizedSystemCode: "", 
     cargoTypeDescription: "", 
     countryOfOriginCode: "", 
@@ -68,7 +68,7 @@ import {SpaceRequirementsAction} from "../../actions/TCBActions";
     totalGrossVolumePTUnits:"",  
   }
   const validationSchema =yup.object({
-    CargoType: yup.string().required(),
+    cargoType: yup.string().required(),
     harmonizedSystemCode: yup.string().required(),
     cargoTypeDescription: yup.string().required(), 
     countryOfOriginCode: yup.string().required(), 
@@ -123,7 +123,7 @@ import {SpaceRequirementsAction} from "../../actions/TCBActions";
                       <div className="card-title my-2">Cargo Characteristics</div>
                       <CRow>
                         <CCol md="6">
-                            <FormicControl  control='select' label='Cargo Type' id='cargoTypeCode' name='CargoType' options={dropDownOtions}  />
+                            <FormicControl  control='select' label='Cargo Type' id='cargoTypeCode' name='cargoType' options={dropDownOtions}  />
                         </CCol>
                         <CCol md="6">
   
@@ -271,7 +271,7 @@ import {SpaceRequirementsAction} from "../../actions/TCBActions";
                         className="next-btn"
                         color="primary"
                         style={{margin:"1rem"}}
-                        disabled={(!formik.dirty  )}
+                        // disabled={!formik.dirty && formik.errors}
                       >
                         Next
                       </CButton>
