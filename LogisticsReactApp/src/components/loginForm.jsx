@@ -2,29 +2,34 @@ import React, { Component } from "react";
 import Joi from "joi-browser";
 import auth from "../services/authService";
 import { Redirect } from "react-router-dom";
+import {
+  CButton,
+  CCard,
+  CCardBody,
+  CCardGroup,
+  CCol,
+  CForm,
+  CInput,
+  CInputGroup,
+  CInputGroupPrepend,
+  CInputGroupText,
+  CRow,
+  CFormText,
+} from "@coreui/react";
 class LoginForm extends Component {
   state = {
     data: { email: "", password: "" },
-    errors: {}
+    errors: {},
   };
 
   scheema = {
-    email: Joi.string()
-      .required()
-      .email()
-      .min(5)
-      .max(255)
-      .label("email"),
-    password: Joi.string()
-      .min(6)
-      .max(255)
-      .required()
-      .label("password")
+    email: Joi.string().required().email().min(5).max(255).label("email"),
+    password: Joi.string().min(6).max(255).required().label("password"),
   };
 
   validate = () => {
     const result = Joi.validate(this.state.data, this.scheema, {
-      abortEarly: false
+      abortEarly: false,
     });
     if (!result.error) return null;
     const errors = {};
@@ -34,7 +39,7 @@ class LoginForm extends Component {
     return errors;
   };
 
-  validateProperty = inputField => {
+  validateProperty = (inputField) => {
     const { name, value } = inputField;
     const obj = { [name]: value };
     const scheema = { [name]: this.scheema[name] };
@@ -45,8 +50,8 @@ class LoginForm extends Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     const errors = this.validate();
-    this.setState({ errors: errors ? errors : {} }); 
-    if (errors) return; 
+    this.setState({ errors: errors ? errors : {} });
+    if (errors) return;
     try {
       const { data } = this.state;
       await auth.login(data.email, data.password);
@@ -61,7 +66,7 @@ class LoginForm extends Component {
     }
   };
 
-  handleChange = event => {
+  handleChange = (event) => {
     const errors = { ...this.state.errors };
     const errorMessage = this.validateProperty(event.currentTarget);
     if (errorMessage) errors[event.currentTarget.name] = errorMessage;
@@ -78,38 +83,131 @@ class LoginForm extends Component {
 
     return (
       <div>
-        <h1>Login Form</h1>
+        <CRow className="justify-content-center my-3">
+          <CCol md="6">
+            <CCardGroup>
+              <CCard className="p-4">
+                <CCardBody>
+                  <CForm onSubmit={this.handleSubmit}>
+                    <h1>Login</h1>
+                    <p className="text-muted">Sign In to your account</p>
+                    <CInputGroup className="mb-3">
+                      <CInputGroupPrepend>
+                        <CInputGroupText>
+                          <i className="cil-user"></i>
+                        </CInputGroupText>
+                      </CInputGroupPrepend>
+                      <CInput
+                        placeholder="Username/Email"
+                        value={this.state.data["email"]}
+                        onChange={this.handleChange}
+                        name="email"
+                        id="email"
+                        type="text"
+                        className="form-control"
+                      />
+                      {this.state.errors["email"] && (
+                        <CFormText className="help-block error">
+                          {this.state.errors["email"]}
+                        </CFormText>
+                      )}
+                    </CInputGroup>
+
+                    <CInputGroup className="mb-4">
+                      <CInputGroupPrepend>
+                        <CInputGroupText>
+                          <i className="cil-lock-locked"></i>
+                        </CInputGroupText>
+                      </CInputGroupPrepend>
+                      <CInput
+                        type="password"
+                        placeholder="Password"
+                        autoComplete="current-password"
+                        name="password"
+                        id="password"
+                        className="form-control"
+                        value={this.state.data["password"]}
+                        onChange={this.handleChange}
+                      />
+                      {this.state.errors["password"] && (
+                        <CFormText className="help-block error">
+                          {this.state.errors["password"]}
+                        </CFormText>
+                      )}
+                    </CInputGroup>
+                    <CRow>
+                      <CCol xs="3">
+                        <CButton color="primary" type="submit" className="px-4">
+                          Login
+                        </CButton>
+                      </CCol>
+                      <CCol xs="9" className="text-right">
+                        {/* <CButton color="link" className="px-0">
+                          Forgot password?
+                        </CButton> */}
+                      </CCol>
+                    </CRow>
+                  </CForm>
+                </CCardBody>
+              </CCard>
+              {/* <CCard className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
+                <CCardBody className="text-center">
+                  <div>
+                    <h2>Sign up</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                      labore et dolore magna aliqua.</p>
+                    <Link to="/register">
+                      <CButton color="primary" className="mt-3" active tabIndex={-1}>Register Now!</CButton>
+                    </Link>
+                  </div>
+                </CCardBody>
+              </CCard> */}
+            </CCardGroup>
+          </CCol>
+        </CRow>
+        {/* <h1>Login Form</h1>
         <form onSubmit={this.handleSubmit}>
-
           <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input
-                value={this.state.data["email"]}
-                onChange={this.handleChange}
-                name="email"
-                id="email"
-                type="text"
-                className="form-control"
-              />
-              {this.state.errors["email"] && <div className="alert alert-danger">{this.state.errors["email"]}</div>}
+            <label htmlFor="email">Email</label>
+            <input
+              value={this.state.data["email"]}
+              onChange={this.handleChange}
+              name="email"
+              id="email"
+              type="text"
+              className="form-control"
+            />
+            {this.state.errors["email"] && (
+              <div className="alert alert-danger">
+                {this.state.errors["email"]}
+              </div>
+            )}
           </div>
 
           <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                value={this.state.data["password"]}
-                onChange={this.handleChange}
-                name="password"
-                id="password"
-                type="password"
-                className="form-control"
-              />
-              {this.state.errors["password"] && <div className="alert alert-danger">{this.state.errors["password"]}</div>}
+            <label htmlFor="password">Password</label>
+            <input
+              value={this.state.data["password"]}
+              onChange={this.handleChange}
+              name="password"
+              id="password"
+              type="password"
+              className="form-control"
+            />
+            {this.state.errors["password"] && (
+              <div className="alert alert-danger">
+                {this.state.errors["password"]}
+              </div>
+            )}
           </div>
 
-          <button disabled={this.validate()} className="btn btn-primary custom-btn">Login</button>
-
-        </form>
+          <button
+            disabled={this.validate()}
+            className="btn btn-primary custom-btn"
+          >
+            Login
+          </button>
+        </form> */}
       </div>
     );
   }
