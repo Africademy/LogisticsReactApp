@@ -5,24 +5,100 @@ import {
 	CRow,
 } from "@coreui/react";
 import { Form, Formik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormicControl from "../../utils/CoreUI/FormicControl";
 import * as yup from "yup";
-import Alert from "../../utils/Alert/Alert";
+
 
 import {useDispatch} from 'react-redux'
 import {PickUpLocationAction} from "../../actions/TCBActions";
+import { getIdentifiertypes } from "../../services/identifiertypeService";
+import { getCurrencyofpartycodes } from "../../services/currencyofpartycodeService";
+import { getLanguageofthepartycodes } from "../../services/languageofthepartycodeService";
+import { getCountrycodes } from "../../services/countrycodeService";
+import { getContacttypecodes } from "../../services/contacttypecodeService";
+import { getDescription70types } from "../../services/description70typeService";
+import { getCommunicationchannels } from "../../services/communicationchannelService";
+import { getDescription200types } from "../../services/description200typeService";
 
 function TCBPickUpLocation({ setenableNext }) {
+// AdditionalLocationIdentification ---  getIdentifiertypes() cc
+// LocationSpecificInstructions: ----   getDescription200types() cc
+// CurrencyOfParty ---  getCurrencyofpartycodes() cc
+
+// LanguageOftheParty ---  getLanguageofthepartycodes() cc
+// Country --- getCountrycodes() cc
+
+// ContactType ----- getContacttypecodes() cc
+// Resposibilities ----  getDescription70types() cc
+// commmunicationChannel ---   getCommunicationchannels()  cc
 
 	const dispatch = useDispatch()
-	// const [showAlert,setshowAlert] = useState(false)
 
-	// const [collapseContactDetails,setcollapseContactDetails] = useState(false)
-	// const [collapseAddLocation,setcollapseAddLocation] = useState(false)
+	const [AdditionalLocationIdentification,setAdditionalLocationIdentification]= useState([])
+	const [LocationSpecificInstructions,setLocationSpecificInstructions]= useState([])
+	const [CurrencyOfParty,setCurrencyOfParty]= useState([])
+	const [LanguageOftheParty,setLanguageOftheParty]= useState([])
+
+	const [Country,setCountry]= useState([])
+
+	const [ContactType,setContactType]= useState([])
+	const [Resposibilities,setResposibilities]= useState([])
+	const [commmunicationChannel,setcommmunicationChannel]= useState([])
+
+
+ useEffect(()=>{
+	populateAdditionalLocationIdentificationCodes();
+	populateLocationSpecificInstructionsCodes()
+	populateCurrencyOfPartyCodes ()
+	populateLanguageOfthePartyCodes()
+	populateCountryCodes()
+	populateContactTypeCodes()
+	populateResposibilitiesCodes()
+	populatecommmunicationChannelCodes()
+
+ },[])
+   
+		const populateAdditionalLocationIdentificationCodes = async () =>{
+			const { data: Identifiertypes } = await getIdentifiertypes();
+			setAdditionalLocationIdentification(Identifiertypes)
+		}
+		const populateLocationSpecificInstructionsCodes = async () =>{
+			const { data: transportServiceLevelCodes } = await getDescription200types();
+			setLocationSpecificInstructions(transportServiceLevelCodes)
+		}
+		const populateCurrencyOfPartyCodes = async () =>{
+			const { data: transportServiceLevelCodes } = await getCurrencyofpartycodes();
+			setCurrencyOfParty(transportServiceLevelCodes)
+		}
+		const populateLanguageOfthePartyCodes = async () =>{
+			const { data: transportServiceLevelCodes } = await getLanguageofthepartycodes();
+			setLanguageOftheParty(transportServiceLevelCodes)
+		}
+		const populateCountryCodes = async () =>{
+			const { data: transportServiceLevelCodes } = await getCountrycodes();
+			setCountry(transportServiceLevelCodes)
+		}
+		const populateContactTypeCodes = async () =>{
+			const { data: transportServiceLevelCodes } = await getContacttypecodes();
+			setContactType(transportServiceLevelCodes)
+		}
+		const populateResposibilitiesCodes = async () =>{
+			const { data: transportServiceLevelCodes } = await getDescription70types();
+			setResposibilities(transportServiceLevelCodes)
+		}
+		const populatecommmunicationChannelCodes = async () =>{
+			const { data: transportServiceLevelCodes } = await getCommunicationchannels();
+			setcommmunicationChannel(transportServiceLevelCodes)
+		}
+
+
+  console.log(AdditionalLocationIdentification,"111111")
+	console.log(LocationSpecificInstructions,"22222")
+	console.log(CurrencyOfParty,"333333")
 
 	const dropDownOtions = [
-		{ key: "select value", value: "" },
+
 		{ key: "option1", value: "option1" },
 		{ key: "option2", value: "option2" },
 		{ key: "option3", value: "option3" },
@@ -114,19 +190,22 @@ function TCBPickUpLocation({ setenableNext }) {
 						<CRow className="justify-content-center">
 							<CCol md="4">
 								<FormicControl
-									control="select"
+									control="selectOptional"
 									label="Additional Location Identification"
 									id="AdditionalLocationIdentification"
 									name="additionalLocationIdentification"
+									typeOfOption = "AdditionalLocationIdentification"
+									isRequired="true"
 									options={dropDownOtions}
 								/>
 							</CCol>
 							<CCol md="4">
 								<FormicControl
-									control="select"
+									control="selectOptional"
 									label="Sublocation Identification"
 									id="SublocationIdentification"
 									name="sublocationIdentification"
+									isRequired="true"
 									options={dropDownOtions}
 								/>
 							</CCol>
@@ -142,7 +221,7 @@ function TCBPickUpLocation({ setenableNext }) {
 							</CCol>
 							<CCol md="4">
 								<FormicControl
-									control="select"
+									control="selectOptional"
 									label="Location Specific Instructions"
 									id="LocationSpecificInstructions"
 									name="locationSpecificInstructions"
@@ -172,7 +251,7 @@ function TCBPickUpLocation({ setenableNext }) {
 
 							<CCol md="4">
 								<FormicControl
-									control="select"
+									control="selectOptional"
 									label="Country"
 									id="Country"
 									name="country"
@@ -191,7 +270,7 @@ function TCBPickUpLocation({ setenableNext }) {
 							</CCol>
 							<CCol md="4">
 								<FormicControl
-									control="select"
+									control="selectOptional"
 									label="Currency Of Party"
 									id="CurrencyOfParty"
 									name="currencyOfParty"
@@ -200,7 +279,7 @@ function TCBPickUpLocation({ setenableNext }) {
 							</CCol>
 							<CCol md="4">
 								<FormicControl
-									control="select"
+									control="selectOptional"
 									label=" Language Of the Party"
 									id="LaunguageOftheParty"
 									name="launguageOftheParty"
@@ -338,7 +417,7 @@ function TCBPickUpLocation({ setenableNext }) {
 									<CRow>
 										<CCol md="4">
 											<FormicControl
-												control="select"
+												control="selectOptional"
 												label="Contact Type"
 												id="ContactType"
 												name="contactType"
@@ -377,7 +456,7 @@ function TCBPickUpLocation({ setenableNext }) {
 										</CCol>
 										<CCol md="4">
 											<FormicControl
-												control="select"
+												control="selectOptional"
 												placeholder="Enter here..."
 												label="Responsibility"
 												id="Responsibility"
@@ -392,7 +471,7 @@ function TCBPickUpLocation({ setenableNext }) {
 										</CCol>
 										<CCol md="4">
 											<FormicControl
-												control="select"
+												control="selectOptional"
 												placeholder="Enter here..."
 												label=" Communication Channel Code"
 												id="CommunicationChannelCode"

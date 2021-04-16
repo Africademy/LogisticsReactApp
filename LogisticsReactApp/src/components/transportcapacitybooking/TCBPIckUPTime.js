@@ -27,7 +27,7 @@ function TCBPIckUPTime({setenableNext}) {
     // }
 
     const dropDownOtions = [
-        {key:'select value' ,value: ''},
+        
         {key:'option1' ,value: 'option1'},
         {key:'option2' ,value: 'option2'},
         {key:'option3' ,value: 'option3'}
@@ -57,7 +57,7 @@ function TCBPIckUPTime({setenableNext}) {
             <CCardBody> 
                  <Formik
                     initialValues= {initialValues}
-                    validationSchema= {validationSchema}
+                    // validationSchema= {validationSchema}
 
                     onSubmit={value => {
                         console.log(value)

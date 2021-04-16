@@ -2,13 +2,12 @@ import { CFormGroup, CFormText, CLabel } from '@coreui/react'
 import { Field, useField } from 'formik'
 import React from 'react'
 
-function CoreSelect(props) {
+function CoreSelectOptional(props) {
     const [field,meta] = useField(props)
     const {label,name,id,options,isRequired,typeOfOption, ...rest } = props
     return (
         <div>
-           
-           
+
             <Field name={name}>
             {
                 ({field,form})=>{
@@ -17,7 +16,7 @@ function CoreSelect(props) {
                     <CLabel htmlFor={name}>{label}</CLabel>
                     { isRequired && (<span style={{color:"red",fontSize:"1rem",paddingLeft:"2px"}}> *</span>) }
                     {
-                        (typeOfOption === "ServiceCategory" || "ServiceCondition" || "ServiceLevel") && (
+                       
                             <select
                             className="form-control form-select"
                             id={id}
@@ -25,22 +24,16 @@ function CoreSelect(props) {
                             {...field}
                           > 
                           <option defaultValue>Select value</option>
-                            
                                  {
                                   options.map( item=>{
                                       return (
-                                          
-                                          <option key={item.value} value={item._id} >{item.codeListVersion}</option>
+                                        <option key={item.value} value={item.id} >{item.value}</option>
                                       
                                       )
                                   })
                                  }
-                          </select>
-
-                        )
-                    }
-                   
-                   
+                          </select>      
+                    }         
                     { meta.touched &&  <CFormText className="help-block error">
                       {form.errors[name]}
                     </CFormText>}
@@ -54,29 +47,4 @@ function CoreSelect(props) {
     )
 }
 
-export default CoreSelect
-
-// {typeOfOption === "AdditionalLocationIdentification" && (
-//     <select
-//     className="form-control form-select"
-//     id={id}
-//     {...rest}
-//     {...field}
-//     > 
-//     <option defaultValue>Select value</option>
-//          {
-             
-//               options.map( item=>{
-//                   return (
-                      
-//                       <option key={item.value} value={item._id} >{item.identificationSchemeAgencyCodeCodeListVersion}</option>
-                  
-//                   )
-//               })
-             
-//          }
-      
-    
-//     </select> 
-
-// )}
+export default CoreSelectOptional

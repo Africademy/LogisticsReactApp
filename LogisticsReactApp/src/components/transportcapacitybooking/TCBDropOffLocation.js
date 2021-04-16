@@ -113,11 +113,11 @@ const initialValues ={
                      <CRow className="justify-content-center">
                                         <CCol md="4">
                                             
-                                            <FormicControl control='select' label="Additional Location Identification"  id='AdditionalLocationIdentification' name='additionalLocationIdentification' options={dropDownOtions} />
+                                            <FormicControl control='selectOptional' label="Additional Location Identification"  id='AdditionalLocationIdentification' name='additionalLocationIdentification' options={dropDownOtions} />
                                         </CCol>
                                         <CCol md="4">
                                             
-                                            <FormicControl control='select' label="Sublocation Identification"  id='SublocationIdentification' name='sublocationIdentification' options={dropDownOtions} />
+                                            <FormicControl control='selectOptional' label="Sublocation Identification"  id='SublocationIdentification' name='sublocationIdentification' options={dropDownOtions} />
                                         </CCol>
                                         <CCol md="4">
                                             
@@ -125,7 +125,7 @@ const initialValues ={
                                         </CCol>
                                         <CCol md="4">
                                             
-                                            <FormicControl control='select' label="Location Specific Instructions"  id='LocationSpecificInstructions' name='locationSpecificInstructions' options={dropDownOtions} />
+                                            <FormicControl control='selectOptional' label="Location Specific Instructions"  id='LocationSpecificInstructions' name='locationSpecificInstructions' options={dropDownOtions} />
                                         </CCol>
                                         <CCol md="4">
                                             
@@ -138,7 +138,7 @@ const initialValues ={
 
                                         <CCol md="4">
                                             
-                                            <FormicControl control='select'  label="Country"  id='Country' name='country' options={dropDownOtions} />
+                                            <FormicControl control='selectOptional'  label="Country"  id='Country' name='country' options={dropDownOtions} />
                                         </CCol>
                                         <CCol md="4">
                                             
@@ -146,11 +146,11 @@ const initialValues ={
                                         </CCol>
                                         <CCol md="4">
                                             
-                                                <FormicControl control='select'  label="Currency Of Party"  id='CurrencyOfParty' name='currencyOfParty' options={dropDownOtions} />
+                                                <FormicControl control='selectOptional'  label="Currency Of Party"  id='CurrencyOfParty' name='currencyOfParty' options={dropDownOtions} />
                                         </CCol>
                                         <CCol md="4">
                                             
-                                            <FormicControl control='select'  label=" Language Of the Party"  id='LaunguageOftheParty' name='launguageOftheParty' options={dropDownOtions} />
+                                            <FormicControl control='selectOptional'  label=" Language Of the Party"  id='LaunguageOftheParty' name='launguageOftheParty' options={dropDownOtions} />
                                         </CCol>
                                         <CCol md="4">
                                             
@@ -226,7 +226,7 @@ const initialValues ={
                                    <CRow>
                                         <CCol md="4">
                                         
-                                            <FormicControl control='select'   label="Contact Type"  id='ContactType' name='contactType' options={dropDownOtions} />
+                                            <FormicControl control='selectOptional'   label="Contact Type"  id='ContactType' name='contactType' options={dropDownOtions} />
                                         </CCol>
                                         <CCol md="4">
                                         
@@ -245,7 +245,7 @@ const initialValues ={
                                         </CCol>
                                         <CCol md="4">
                                         
-                                            <FormicControl control='select'  placeholder="Enter here..."  label="Responsibility"  id='Responsibility' name='responsibility' options={dropDownOtions} />
+                                            <FormicControl control='selectOptional'  placeholder="Enter here..."  label="Responsibility"  id='Responsibility' name='responsibility' options={dropDownOtions} />
                                     
                                         </CCol>
                                         <CCol md="12">
@@ -253,7 +253,7 @@ const initialValues ={
                                         </CCol>
                                         <CCol md="4">
                                         
-                                        <FormicControl control='select'  placeholder="Enter here..."   label=" Communication Channel Code"  id='CommunicationChannelCode' name='communicationChannelCode' options={dropDownOtions} />
+                                        <FormicControl control='selectOptional'  placeholder="Enter here..."   label=" Communication Channel Code"  id='CommunicationChannelCode' name='communicationChannelCode' options={dropDownOtions} />
                                     
                                         </CCol>
                                         <CCol md="4">

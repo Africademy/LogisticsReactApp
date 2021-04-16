@@ -25,6 +25,9 @@ import TCBPIckUPTime from "./TCBPIckUPTime";
 import TCBDropOffTime from "./TCBDropOffTime";
 import CargoCharacteristicsForm from "./TCBCargoCharacteristicsform";
 import { getEnumerationlibrarys } from "../../services/enumerationlibraryService";
+import { getTransportservicelevelcodes } from "../../services/transportservicelevelcodeService";
+import { getTransportserviceconditiontypecodes } from "../../services/transportserviceconditiontypecodeService";
+import { getTransportservicecategorycodes } from "../../services/transportservicecategorycodeService";
 
 
 
@@ -69,38 +72,38 @@ const createTransportcapacitybooking =() => {
   const populatetransportServiceCategoryCodes = async () =>{
     const {
       data: transportServiceCategoryCodes,
-    } = await getEnumerationlibrarys();
-    // this.setState({
-    //   transportServiceCategoryCodes: transportServiceCategoryCodes,
-    // });
+    } = await getTransportservicecategorycodes();
+  
     settransportServiceCategoryCodes(transportServiceCategoryCodes)
   }
 
   const populatetransportServiceConditionTypeCodes = async () => {
     const {
       data: transportServiceConditionTypeCodes,
-    } = await getEnumerationlibrarys();
-    // this.setState({
-    //   transportServiceConditionTypeCodes: transportServiceConditionTypeCodes,
-    // });
+    } = await getTransportserviceconditiontypecodes();
+  
     settransportServiceConditionTypeCodes(transportServiceConditionTypeCodes)
   }
 
   const populatetransportServiceLevelCodes = async () =>{
-    const { data: transportServiceLevelCodes } = await getEnumerationlibrarys();
-    // this.setState({ transportServiceLevelCodes: transportServiceLevelCodes });
+    const { data: transportServiceLevelCodes } = await getTransportservicelevelcodes();
     settransportServiceLevelCodes(transportServiceLevelCodes)
   }
 
  
 
 
-    console.log(transportServiceCategoryCodes,"arrays")
-    
+    console.log(transportServiceLevelCodes,"arrays")
+
     const handleSubmit =()=>{
-      console.log(data,"From Redux")
-    }
-    
+      console.log( {...data,SpaceRequirements:{
+        totalItemQuantity: {
+             Value:data.SpaceRequirements.totalItemQuantity,
+             Measurementtype: data.SpaceRequirements.totalItemQuantityUnits,
+          
+      }}
+    },"From Redux")
+  }
     return (
       <div className="transportcapacitybooking">
         <div className="py-5">
@@ -142,7 +145,7 @@ const createTransportcapacitybooking =() => {
               
                 <CCollapse  show={ServiceDetails}>
                   {/* <div className="collapse"> */}
-                     <TCBOrderDetails setenableNext={setTabenablePL}  />
+                     <TCBOrderDetails setenableNext={setTabenablePL} optionServiceLevel={transportServiceLevelCodes} ServiceConditionTypeCodes={transportServiceConditionTypeCodes} ServiceCategoryCodes={transportServiceCategoryCodes} />
                   {/* </div> */}
               </CCollapse>
             </CCard>
@@ -336,3 +339,65 @@ const createTransportcapacitybooking =() => {
 }
 
 export default createTransportcapacitybooking;
+
+
+// cargoTypeCode: {
+//   Id: cargotypecodes._id,
+//   Name: cargotypecodes.codeListVersion,
+// },
+// harmonizedSystemCode: {
+//   Id: harmonizedsystemcodes._id,
+//   Name: harmonizedsystemcodes.codeListVersion,
+// },
+// cargoTypeDescription: {
+//   Id: cargotypedescription._id,
+//   Name: cargotypedescription.codeListVersion,
+// },
+// countryOfOriginCode: {
+//   Id: countryoforigincodes._id,
+//   Name: countryoforigincodes.codeListVersion,
+// },
+// finalDestinationCountry: {
+//   Id: finaldestinationcountrys._id,
+//   Name: finaldestinationcountrys.codeListVersion,
+// },
+// totalGrossVolume: {
+//   Value: body.totalGrossWeight.Value,
+//   Measurementtype: body.totalGrossWeight.Measurementtype,
+// },
+// totalGrossWeight: {
+//   Value: body.totalGrossWeight.Value,
+//   Measurementtype: body.totalGrossWeight.Measurementtype,
+// },
+// totalTransportNetWeight: {
+//   Value: body.totalTransportNetWeight.Value,
+//   Measurementtype: body.totalTransportNetWeight.Measurementtype,
+// },
+// totalChargeableWeight: {
+//   Value: body.totalChargeableWeight.Value,
+//   Measurementtype: body.totalChargeableWeight.Measurementtype,
+// },
+// declaredWeightForCustoms: {
+//   Value: body.declaredWeightForCustoms.Value,
+//   Measurementtype: body.declaredWeightForCustoms.Measurementtype,
+// },
+// totalLoadingLength: {
+//   Value: body.totalLoadingLength.Value,
+//   Measurementtype: body.totalLoadingLength.Measurementtype,
+// },
+// associatedInvoiceAmount: {
+//   Value: body.totalGrossWeight.Value,
+//   Measurementtype: body.totalGrossWeight.Measurementtype,
+// },
+// declaredValueForCustoms: {
+//   Value: body.associatedInvoiceAmount.Value,
+//   Measurementtype: body.associatedInvoiceAmount.Measurementtype,
+// },
+// totalPackageQuantity: {
+//   Value: body.totalPackageQuantity.Value,
+//   Measurementtype: body.totalPackageQuantity.Measurementtype,
+// },
+// totalItemQuantity: {
+//   Value: body.totalItemQuantity.Value,
+//   Measurementtype: body.totalItemQuantity.Measurementtype,
+// }

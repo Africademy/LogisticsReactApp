@@ -16,7 +16,7 @@ import {ServiceDetailsAction} from "../../actions/TCBActions";
 // import { getTransportserviceconditiontypecodes } from '../../services/transportserviceconditiontypecodeService';
 // import { getTransportservicelevelcodes } from '../../services/transportservicelevelcodeService';
 
-function TCBOrderDetails({ setenableNext }) {
+function TCBOrderDetails({ setenableNext,optionServiceLevel,ServiceConditionTypeCodes,ServiceCategoryCodes }) {
 	const [showAlert, setshowAlert] = useState(false);
   const dispatch = useDispatch()
 
@@ -57,12 +57,12 @@ function TCBOrderDetails({ setenableNext }) {
 		serviceConditionType: "",
 		serviceLevel: "",
 	};
-	const dropDownOtions = [
-		{ key: "select value", value: "" },
-		{ key: "option1", value: "option1" },
-		{ key: "option2", value: "option2" },
-		{ key: "option3", value: "option3" },
-	];
+	// const dropDownOtions = [
+	// 	{ key: "select value", value: "" },
+	// 	{ key: "option1", value: "option1" },
+	// 	{ key: "option2", value: "option2" },
+	// 	{ key: "option3", value: "option3" },
+	// ];
 	const validationSchema = yup.object({
 		servicecategory: yup.string().required(),
 		serviceConditionType: yup.string().required(),
@@ -103,7 +103,8 @@ function TCBOrderDetails({ setenableNext }) {
 									label="Service category"
 									id="Servicecategory"
 									name="servicecategory"
-									options={dropDownOtions}
+									typeOfOption = "ServiceCategory"
+									options={ServiceCategoryCodes}
 									isRequired="true"
 								/>
 							</CCol>
@@ -114,7 +115,8 @@ function TCBOrderDetails({ setenableNext }) {
 									label="ServiceConditionType"
 									id="ServiceConditionType"
 									name="serviceConditionType"
-									options={dropDownOtions}
+									typeOfOption = "ServiceCondition"
+									options={ServiceConditionTypeCodes}
 									isRequired="true"
 								/>
 							</CCol>
@@ -125,7 +127,8 @@ function TCBOrderDetails({ setenableNext }) {
 									label="Service Level"
 									id="ServiceLevel"
 									name="serviceLevel"
-									options={dropDownOtions}
+									typeOfOption = "ServiceLevel"
+									options={optionServiceLevel}
 								/>
 							</CCol>
 						</CRow>
