@@ -13,7 +13,7 @@ const Packagetotaltype = require("../models/Packagetotaltype");
 const Logisticlocationtype = require("../models/Logisticlocationtype");
 const Logisticeventdatetime = require("../models/Logisticeventdatetime");
 const Logisticeventperiod = require("../models/Logisticeventperiod");
-const Contacttype = require("../models/Contacttype");
+const Contacttypecode = require("../models/Contacttypecode");
 
 router.get("/", verify, async (req, res) => {
   try {
@@ -23,15 +23,19 @@ router.get("/", verify, async (req, res) => {
       )
       .populate("transportCapacityBookingSpaceRequirements.Packagetotaltypes")
       .populate("plannedPickUp.Logisticlocation")
-      .populate("plannedPickUp.LogisticEventDateTime")
       .populate("plannedPickUp.LogisticEventPeriod")
+      .populate("plannedPickUp.contact")
       .populate("plannedDropOff.Logisticlocation")
-      .populate("plannedDropOff.LogisticEventDateTime")
       .populate("plannedDropOff.LogisticEventPeriod")
+      .populate("plannedDropOff.contact")
+      // .populate("transportServiceCategoryCode.Id")
+      // .populate("transportServiceConditionTypeCode.Id")
+      // .populate("transportServiceLevelCode.Id")
       .exec((e, r) => {
         if (e) return res.status(400).send(e);
         res.send(r);
       });
+      // res.send(Transportcapacitybookings);
   } catch (ex) {
     res.status(400).json({
       message: ex.message,
@@ -41,10 +45,42 @@ router.get("/", verify, async (req, res) => {
 
 router.get("/:id", verify, async (req, res) => {
   try {
-    const startDate = req.query.fromdate
+    let transportcapacitybookings;
+    transportcapacitybookings = await Transportcapacitybooking.findOne({
+        _id: req.params.id,
+      })
+        .populate(
+          "transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes"
+        )
+        .populate("transportCapacityBookingSpaceRequirements.Packagetotaltypes")
+        .populate("plannedPickUp.Logisticlocation")
+        .populate("plannedPickUp.Logisticlocation.contact")
+        .populate("plannedPickUp.LogisticEventPeriod")
+        .populate("plannedDropOff.Logisticlocation")
+        .populate("plannedDropOff.Logisticlocation.contact")
+        .populate("plannedDropOff.LogisticEventPeriod")
+        .exec(async (e, r) => {
+          if (e) return res.status(400).send(e);
+          console.log(r);
+          res.send(r);
+        });
+    if (transportcapacitybookings && transportcapacitybookings.length === 0)
+      return res.json({
+        message: "No data found",
+      });
+  } catch (ex) {
+    res.status(400).json({
+      message: ex.message,
+    });
+  }
+});
+
+router.get("/filter/:bookingId", verify, async (req, res) => {
+  try {
+    const startDate = req.query.fromdate != undefined
       ? new Date(Number(req.query.fromdate))
       : false;
-    const endDate = req.query.todate
+    const endDate = req.query.todate != undefined
       ? new Date(Number(req.query.todate))
       : false;
     let transportcapacitybookings;
@@ -53,17 +89,19 @@ router.get("/:id", verify, async (req, res) => {
 
     if (req.params.id != "false" && !startDate && !endDate) {
       transportcapacitybookings = await Transportcapacitybooking.findOne({
-        bookingId: req.params.id,
+        _id: req.params.id,
       })
         .populate(
           "transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes"
         )
         .populate("transportCapacityBookingSpaceRequirements.Packagetotaltypes")
         .populate("plannedPickUp.Logisticlocation")
-        .populate("plannedPickUp.LogisticEventDateTime")
+        .populate("plannedPickUp.Logisticlocation.contact")
+        // .populate("plannedPickUp.LogisticEventDateTime")
         .populate("plannedPickUp.LogisticEventPeriod")
         .populate("plannedDropOff.Logisticlocation")
-        .populate("plannedDropOff.LogisticEventDateTime")
+        .populate("plannedDropOff.Logisticlocation.contact")
+        // .populate("plannedDropOff.LogisticEventDateTime")
         .populate("plannedDropOff.LogisticEventPeriod")
         .exec(async (e, r) => {
           if (e) return res.status(400).send(e);
@@ -86,25 +124,27 @@ router.get("/:id", verify, async (req, res) => {
         )
         .populate("transportCapacityBookingSpaceRequirements.Packagetotaltypes")
         .populate("plannedPickUp.Logisticlocation")
-        .populate("plannedPickUp.LogisticEventDateTime")
+        .populate("plannedPickUp.Logisticlocation.contact")
+        // .populate("plannedPickUp.LogisticEventDateTime")
         .populate("plannedPickUp.LogisticEventPeriod")
         .populate("plannedDropOff.Logisticlocation")
-        .populate("plannedDropOff.LogisticEventDateTime")
+        .populate("plannedDropOff.Logisticlocation.contact")
+        // .populate("plannedDropOff.LogisticEventDateTime")
         .populate("plannedDropOff.LogisticEventPeriod")
-        .where({
-          "plannedPickUp.LogisticEventDateTime.date": {
-            $gte: startDate,
-            $lte: endDate,
-          },
-        })
+        // .where({
+        //   "plannedPickUp.LogisticEventDateTime.date": {
+        //     $gte: startDate,
+        //     $lte: endDate,
+        //   },
+        // })
         .exec(async (e, r) => {
           if (e) return res.status(400).send(e);
           console.log(r);
-          const contact = await Contacttype.findById(
-            r.plannedPickUp.Logisticlocation.contact
-          );
-          console.log(contact);
-          r.plannedPickUp.Logisticlocation.contact = contact;
+          // const contact = await Contacttype.findById(
+          //   r.plannedPickUp.Logisticlocation.contact
+          // );
+          // console.log(contact);
+          // r.plannedPickUp.Logisticlocation.contact = contact;
           const data = [];
           data.push(r);
           res.send(data);
@@ -123,6 +163,9 @@ router.get("/:id", verify, async (req, res) => {
 });
 
 router.post("/", verify, async (req, res) => {
+  const session = await Transportcapacitybooking.startSession();
+  session.startTransaction();
+
   try {
     const ServiceDetailsData = req.body.ServiceDetailsData;
     const PickUpLocationData = req.body.PickUpLocationData;
@@ -261,9 +304,13 @@ router.post("/", verify, async (req, res) => {
       },
     });
     const savedTransportcapacitybooking = await transportcapacitybooking.save();
+
+    await session.commitTransaction();
+    session.endSession();
     res.status(200).json(savedTransportcapacitybooking);
   } catch (ex) {
-    console.log(ex);
+    await session.abortTransaction();
+    session.endSession();
     res.status(400).json({
       message: ex.message
     });
@@ -550,7 +597,7 @@ async function saveLogisticlocationtype(body){
     const countrycodes = await Countrycode.findById(body.countryCode);
     const currencyofpartycodes = await Currencyofpartycode.findById(body.currencyOfPartyCode);
     const languageofthepartycodes = await Languageofthepartycode.findById(body.languageOfthePartyCode);
-    const contacttypes = await Contacttype.findById(body.contactTypeCode);
+    const contacttypes = await Contacttypecode.findById(body.contactTypeCode);
 
     const logisticlocationtype = new Logisticlocationtype ({
         unLocationCode: body.unLocationCode,

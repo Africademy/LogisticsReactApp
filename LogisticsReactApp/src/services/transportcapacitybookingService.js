@@ -13,8 +13,12 @@ export function deleteTransportcapacitybooking(id) {
   return myhttp.delete(apiEndPoint + "/" + id);
 }
 
-export function getTransportcapacitybooking(data) {
-  return myhttp.get(`${apiEndPoint}/${data.bookingid}?fromdate=${data.fromdate}&todate=${data.todate}`);
+export function getTransportcapacitybooking(id) {
+  return myhttp.get(`${apiEndPoint}/${id}`);
+}
+
+export function filterTransportcapacitybooking(data) {
+  return myhttp.get(`${apiEndPoint}/filter/${data.bookingid}?fromdate=${data.fromdate}&todate=${data.todate}`);
 }
 
 export function saveTransportcapacitybooking(transportcapacitybooking) {
