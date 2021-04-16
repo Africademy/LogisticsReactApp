@@ -18,7 +18,6 @@ import {
   CRow,
 } from "@coreui/react";
 import {
-  getTransportcapacitybooking,
   getTransportcapacitybookings,
   filterTransportcapacitybooking,
   deleteTransportcapacitybooking,
@@ -70,7 +69,7 @@ class Transportcapacitybookings extends Component {
       _style: { width: "auto" },
     },
     {
-      key: "plannedDropOff.LogisticEventPeriod.endTime",
+      key: "plannedDropOff.LogisticEventPeriod.endDate",
       label: "Due",
       _style: { width: "auto" },
     },
@@ -151,7 +150,7 @@ class Transportcapacitybookings extends Component {
     data.fromdate = data.fromdate ? new Date(data.fromdate).getTime() : "";
     data.todate = data.todate ? new Date(data.todate).getTime() : "";
     // data = JSON.stringify(data);
-    // console.log(data);
+    console.log(data);
     try {
       let res = await filterTransportcapacitybooking(data);
       console.log(res.data);
@@ -199,9 +198,11 @@ class Transportcapacitybookings extends Component {
             </CCol>
           )}
           <CCol md="6">
-            <CButton className="btn btn-outline-info custom-btn float-right">
-              <Link to="/transportcapacitybookings/new">New Booking</Link>
-            </CButton>
+            <Link to="/transportcapacitybookings/new">
+              <CButton className="btn btn-outline-info custom-btn float-right">
+                New Booking
+              </CButton>
+            </Link>
           </CCol>
         </CRow>
 
@@ -274,7 +275,7 @@ class Transportcapacitybookings extends Component {
           </CCardBody>
         </CCard>
 
-        <div className="bookings-list my-2">
+        <div className="bookings-list card card-body my-2">
           <CDataTable
             items={paginatedTransportcapacitybookings}
             fields={this.fields}
@@ -344,10 +345,23 @@ class Transportcapacitybookings extends Component {
                   </td>
                 );
               },
-              "plannedDropOff.LogisticEventPeriod.endTime": (item) => {
+              "plannedDropOff.LogisticEventPeriod.endDate": (item) => {
                 return (
-                  <td>{this.formatDate(item.plannedDropOff.LogisticEventPeriod.endTime)}</td>
+                  <td>
+                    {this.formatDate(
+                      item.plannedDropOff.LogisticEventPeriod.endDate
+                    )}
+                  </td>
                 );
+              },
+              "transportServiceConditionTypeCode.Name": (item) => {
+                return <td>{item.transportServiceConditionTypeCode.Name}</td>;
+              },
+              "transportServiceLevelCode.Name": (item) => {
+                return <td>{item.transportServiceLevelCode.Name}</td>;
+              },
+              "transportServiceCategoryCode.Name": (item) => {
+                return <td>{item.transportServiceCategoryCode.Name}</td>;
               },
               action: (item) => {
                 return (
@@ -455,13 +469,12 @@ class Transportcapacitybookings extends Component {
               </tbody>
             </table>
           </div> */}
-          <a
-            href="#"
-            className="float-right text-decoration-none"
+          <span
+            className="btn btn-link text-right"
             onClick={this.componentDidMount}
           >
             See all
-          </a>
+          </span>
         </div>
         {/* <Pagination
           itemsCount={totalCount}

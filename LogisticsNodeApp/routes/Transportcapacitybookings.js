@@ -174,22 +174,9 @@ router.post("/", verify, async (req, res) => {
     const DropOffTime = req.body.DropOffTime;
     const SpaceRequirements = req.body.SpaceRequirements;
 
-    const transportservicecategorycodes = new Transportservicecategorycode({
-      codeListVersion: ServiceDetailsData.servicecategory,
-    });
-    const savedTransportservicecategorycode = await transportservicecategorycodes.save();
-
-    const transportserviceconditiontypecodes = new Transportserviceconditiontypecode(
-      {
-        codeListVersion: ServiceDetailsData.serviceConditionType,
-      }
-    );
-    const savedTransportserviceconditiontypecode = await transportserviceconditiontypecodes.save();
-
-    const transportservicelevelcodes = new Transportservicelevelcode({
-      codeListVersion: ServiceDetailsData.serviceLevel,
-    });
-    const savedTransportservicelevelcode = await transportservicelevelcodes.save();
+    const transportservicecategorycodes = await Transportservicecategorycode.findById(ServiceDetailsData.servicecategoryCode);
+    const transportserviceconditiontypecodes = await Transportserviceconditiontypecode.findById(ServiceDetailsData.serviceConditionTypeCode);
+    const transportservicelevelcodes = await Transportservicelevelcode.findById(ServiceDetailsData.serviceLevelCode);
 
     // const logisticservicesbuyers = await Logisticservicesbuyer.findById(req.body.logisticServicesBuyerId);
     // const logisticservicessellers = await Logisticservicesseller.findById(req.body.logisticServicesSellerId);
@@ -283,16 +270,16 @@ router.post("/", verify, async (req, res) => {
         LogisticEventPeriod: savedPlannedDropOffLogisticeventperiod._id,
       },
       transportServiceCategoryCode: {
-        Id: savedTransportservicecategorycode._id,
-        Name: savedTransportservicecategorycode.codeListVersion,
+        Id: transportservicecategorycodes._id,
+        Name: transportservicecategorycodes.codeListVersion,
       },
       transportServiceConditionTypeCode: {
-        Id: savedTransportserviceconditiontypecode._id,
-        Name: savedTransportserviceconditiontypecode.codeListVersion,
+        Id: transportserviceconditiontypecodes._id,
+        Name: transportserviceconditiontypecodes.codeListVersion,
       },
       transportServiceLevelCode: {
-        Id: savedTransportservicelevelcode._id,
-        Name: savedTransportservicelevelcode.codeListVersion,
+        Id: transportservicelevelcodes._id,
+        Name: transportservicelevelcodes.codeListVersion,
       },
       logisticServicesBuyer: {
         Id: 78767,

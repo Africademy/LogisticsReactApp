@@ -148,93 +148,91 @@ class RegisterForm extends Component {
             </button>
           </form>
         </div> */}
-        <div className="c-app c-default-layout flex-row align-items-center">
-          <CContainer>
-            <CRow className="justify-content-center">
-              <CCol md="6" lg="6" xl="6">
-                <CCard className="mx-4">
-                  <CCardBody className="p-4">
-                    <CForm onSubmit={this.handleSubmit}>
-                      <h1>Register</h1>
-                      <p className="text-muted">Create your account</p>
-                      <div className="mb-3">
-                        <CInputGroup>
-                          <CInputGroupPrepend>
-                            <CInputGroupText>
-                              <i className="cil-user"></i>
-                            </CInputGroupText>
-                          </CInputGroupPrepend>
-                          <CInput
-                            value={this.state.data["name"]}
-                            onChange={this.handleChange}
-                            name="name"
-                            id="name"
-                            type="name"
-                            className="form-control"
-                            placeholder="Name"
-                          />
-                        </CInputGroup>
-                        {this.state.errors["name"] && (
-                          <CFormText className="help-block error">
-                            {this.state.errors["name"]}
-                          </CFormText>
-                        )}
-                      </div>
-                      <div className="mb-3">
-                        <CInputGroup>
-                          <CInputGroupPrepend>
-                            <CInputGroupText>@</CInputGroupText>
-                          </CInputGroupPrepend>
-                          <CInput
-                            value={this.state.data["email"]}
-                            onChange={this.handleChange}
-                            name="email"
-                            id="email"
-                            type="text"
-                            className="form-control"
-                            placeholder="Email"
-                          />
-                        </CInputGroup>
-                        {this.state.errors["email"] && (
-                          <CFormText className="help-block error">
-                            {this.state.errors["email"]}
-                          </CFormText>
-                        )}
-                      </div>
-                      <div className="mb-3">
-                        <CInputGroup>
-                          <CInputGroupPrepend>
-                            <CInputGroupText>
-                              <i className="cil-lock-locked"></i>
-                            </CInputGroupText>
-                          </CInputGroupPrepend>
-                          <CInput
-                            value={this.state.data["password"]}
-                            onChange={this.handleChange}
-                            name="password"
-                            id="password"
-                            type="password"
-                            className="form-control"
-                            placeholder="Password"
-                          />
-                        </CInputGroup>
-                        {this.state.errors["password"] && (
-                          <CFormText className="help-block error">
-                            {this.state.errors["password"]}
-                          </CFormText>
-                        )}
-                      </div>
-                      <CButton
-                        type="submit"
-                        disabled={this.validate()}
-                        color="success"
-                        block
-                      >
-                        Register
-                      </CButton>
-                    </CForm>
-                  </CCardBody>
-                  {/* <CCardFooter className="p-4">
+        <CRow className="justify-content-center">
+          <CCol md="6">
+            <CCard className="p-4">
+              <CCardBody>
+                <CForm onSubmit={this.handleSubmit}>
+                  <h1>Register</h1>
+                  <p className="text-muted">Create your account</p>
+                  <div className="mb-3">
+                    <CInputGroup>
+                      <CInputGroupPrepend>
+                        <CInputGroupText>
+                          <i className="cil-user"></i>
+                        </CInputGroupText>
+                      </CInputGroupPrepend>
+                      <CInput
+                        value={this.state.data["name"]}
+                        onChange={this.handleChange}
+                        name="name"
+                        id="name"
+                        type="name"
+                        className="form-control"
+                        placeholder="Name"
+                      />
+                    </CInputGroup>
+                    {this.state.errors["name"] && (
+                      <CFormText className="help-block error">
+                        {this.state.errors["name"]}
+                      </CFormText>
+                    )}
+                  </div>
+                  <div className="mb-3">
+                    <CInputGroup>
+                      <CInputGroupPrepend>
+                        <CInputGroupText>@</CInputGroupText>
+                      </CInputGroupPrepend>
+                      <CInput
+                        value={this.state.data["email"]}
+                        onChange={this.handleChange}
+                        name="email"
+                        id="email"
+                        type="text"
+                        className="form-control"
+                        placeholder="Email"
+                      />
+                    </CInputGroup>
+                    {this.state.errors["email"] && (
+                      <CFormText className="help-block error">
+                        {this.state.errors["email"]}
+                      </CFormText>
+                    )}
+                  </div>
+                  <div className="mb-3">
+                    <CInputGroup>
+                      <CInputGroupPrepend>
+                        <CInputGroupText>
+                          <i className="cil-lock-locked"></i>
+                        </CInputGroupText>
+                      </CInputGroupPrepend>
+                      <CInput
+                        value={this.state.data["password"]}
+                        onChange={this.handleChange}
+                        name="password"
+                        id="password"
+                        type="password"
+                        className="form-control"
+                        placeholder="Password"
+                      />
+                    </CInputGroup>
+                    {this.state.errors["password"] && (
+                      <CFormText className="help-block error">
+                        {this.state.errors["password"]}
+                      </CFormText>
+                    )}
+                  </div>
+                  <CButton
+                    type="submit"
+                    disabled={this.validate()}
+                    color="success"
+                    block
+                  >
+                    Register
+                  </CButton>
+                </CForm>
+              </CCardBody>
+              {/* <CCardFooter className="p-4">
                     <CRow>
                       <CCol xs="12" sm="6">
                         <CButton className="btn-facebook mb-1" block>
@@ -248,11 +246,9 @@ class RegisterForm extends Component {
                       </CCol>
                     </CRow>
                   </CCardFooter> */}
-                </CCard>
-              </CCol>
-            </CRow>
-          </CContainer>
-        </div>
+            </CCard>
+          </CCol>
+        </CRow>
       </div>
     );
   }

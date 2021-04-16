@@ -83,7 +83,7 @@ class LoginForm extends Component {
 
     return (
       <div>
-        <CRow className="justify-content-center my-3">
+        <CRow className="justify-content-center">
           <CCol md="6">
             <CCardGroup>
               <CCard className="p-4">
@@ -142,20 +142,23 @@ class LoginForm extends Component {
 
                     <CRow>
                       <CCol xs="3">
-                        <CButton color="primary" type="submit" className="px-4">
+                        <CButton color="success" type="submit" className="px-4">
                           Login
                         </CButton>
                       </CCol>
-                      <CCol xs="9" className="text-right">
+                      <CCol xs="9" className="text-right pt-2">
                         {/* <CButton color="link" className="px-0">
                           Forgot password?
                         </CButton> */}
-                        <CButton color="primary" active tabIndex={-1}>
-                          <Link className="text-white" to="/register">
-                            Register Now!
-                          </Link>
-                        </CButton>
+                        <span className="px-0">
+                          Don't have account?&nbsp;&nbsp;
+                          <Link to="/register">Register Now!</Link>
+                        </span>
                       </CCol>
+                      {/* <CCol xs="12" className="text-center mt-3">
+                        Don't have account?&nbsp;&nbsp;
+                        <Link to="/register">Register Now!</Link>
+                      </CCol> */}
                     </CRow>
                   </CForm>
                 </CCardBody>
