@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const TransportcapacitybookingScheema = mongoose.Schema({
   bookingId: {
     type: Number,
-    required: true
+    required: true,
+    default: 1000000000000
   },
   transportCapacityBookingSpaceRequirements: {
     Transportcargocharacteristicstypes: {
@@ -21,17 +22,17 @@ const TransportcapacitybookingScheema = mongoose.Schema({
     Logisticlocation: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Logisticlocationtypes',
-      // required: false
+      required: false
     },
     LogisticEventDateTime: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Logisticeventdatetimes',
-      // required: false
+      required: false
     },
     LogisticEventPeriod: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Logisticeventperiods',
-      // required: false
+      required: false
     }
   },
   plannedDropOff: {
