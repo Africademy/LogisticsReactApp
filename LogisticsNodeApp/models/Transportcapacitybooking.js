@@ -4,112 +4,115 @@ const TransportcapacitybookingScheema = mongoose.Schema({
   bookingId: {
     type: Number,
     required: true,
-    default: 1000000000000
+    default: 1000000000000,
   },
   transportCapacityBookingSpaceRequirements: {
     Transportcargocharacteristicstypes: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Transportcargocharacteristicstypes',
-      required: true
+      ref: "Transportcargocharacteristicstypes",
+      required: true,
     },
     Packagetotaltypes: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Packagetotaltypes',
-      required: true
-    }
+      ref: "Packagetotaltypes",
+      required: true,
+    },
   },
   plannedPickUp: {
     Logisticlocation: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Logisticlocationtypes',
-      required: true
+      ref: "Logisticlocationtypes",
+      required: true,
     },
     LogisticEventDateTime: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Logisticeventdatetimes',
-      required: false
+      ref: "Logisticeventdatetimes",
+      required: false,
     },
     LogisticEventPeriod: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Logisticeventperiods',
-      required: true
-    }
+      ref: "Logisticeventperiods",
+      required: true,
+    },
   },
   plannedDropOff: {
     Logisticlocation: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Logisticlocationtypes',
-      required: true
+      ref: "Logisticlocationtypes",
+      required: true,
     },
     LogisticEventDateTime: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Logisticeventdatetimes',
-      required: false
+      ref: "Logisticeventdatetimes",
+      required: false,
     },
     LogisticEventPeriod: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Logisticeventperiods',
-      required: true
+      ref: "Logisticeventperiods",
+      required: true,
     },
   },
   transportCapacityBookingIdentification: {
     type: String,
-    required: false
+    required: false,
   },
   transportServiceCategoryCode: {
     Id: {
       type: String,
-      required: true
+      required: true,
     },
     Name: {
       type: String,
-      required: false
+      required: false,
     },
   },
   transportServiceConditionTypeCode: {
     Id: {
       type: String,
-      required: true
+      required: true,
     },
     Name: {
       type: String,
-      required: false
+      required: false,
     },
   },
   transportServiceLevelCode: {
     Id: {
       type: String,
-      required: true
+      required: true,
     },
     Name: {
       type: String,
-      required: false
+      required: false,
     },
   },
   logisticServicesBuyer: {
     Id: {
       type: String,
-      required: false
+      required: false,
     },
     Name: {
       type: String,
-      required: false
+      required: false,
     },
   },
   logisticServicesSeller: {
     Id: {
       type: String,
-      required: false
+      required: false,
     },
     Name: {
       type: String,
-      required: false
+      required: false,
     },
   },
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
-module.exports = mongoose.model("Transportcapacitybookings", TransportcapacitybookingScheema);
+module.exports = mongoose.model(
+  "Transportcapacitybookings",
+  TransportcapacitybookingScheema
+);
