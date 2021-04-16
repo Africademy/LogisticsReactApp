@@ -20,6 +20,7 @@ import {
 import {
   getTransportcapacitybooking,
   getTransportcapacitybookings,
+  filterTransportcapacitybooking,
   deleteTransportcapacitybooking,
 } from "../../services/transportcapacitybookingService";
 import Moment from "moment";
@@ -38,12 +39,12 @@ class Transportcapacitybookings extends Component {
   fields = [
     { key: "bookingId", label: "Booking ID", _style: { width: "auto" } },
     {
-      key: "plannedPickUp.LogisticEventDateTime.date",
+      key: "plannedPickUp.LogisticEventPeriod.beginDate",
       label: "From",
       _style: { width: "auto" },
     },
     {
-      key: "plannedDropOff.LogisticEventDateTime.date",
+      key: "plannedPickUp.LogisticEventPeriod.endDate",
       label: "To",
       _style: { width: "auto" },
     },
@@ -64,12 +65,12 @@ class Transportcapacitybookings extends Component {
     },
     {
       key:
-        "transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossWeight.Value",
+        "transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossWeight.Value",
       label: "Total Weight",
       _style: { width: "auto" },
     },
     {
-      key: "plannedDropOff.LogisticEventPeriod.endDate",
+      key: "plannedDropOff.LogisticEventPeriod.endTime",
       label: "Due",
       _style: { width: "auto" },
     },
@@ -152,7 +153,7 @@ class Transportcapacitybookings extends Component {
     // data = JSON.stringify(data);
     // console.log(data);
     try {
-      let res = await getTransportcapacitybooking(data);
+      let res = await filterTransportcapacitybooking(data);
       console.log(res.data);
       singletransportbooking = res.data;
     } catch (err) {
@@ -303,12 +304,12 @@ class Transportcapacitybookings extends Component {
                   </td>
                 );
               },
-              "plannedPickUp.LogisticEventDateTime.date": (item) => {
+              "plannedPickUp.LogisticEventPeriod.beginDate": (item) => {
                 return (
                   <td>
                     <span>
                       {this.formatDate(
-                        item.plannedPickUp.LogisticEventDateTime.date
+                        item.plannedPickUp.LogisticEventPeriod.beginDate
                       )}
                     </span>
                     <small id="from-address" className="form-text text-muted">
@@ -317,18 +318,35 @@ class Transportcapacitybookings extends Component {
                   </td>
                 );
               },
-              "plannedDropOff.LogisticEventDateTime.date": (item) => {
+              "plannedPickUp.LogisticEventPeriod.endDate": (item) => {
                 return (
                   <td>
                     <span>
                       {this.formatDate(
-                        item.plannedDropOff.LogisticEventDateTime.date
+                        item.plannedPickUp.LogisticEventPeriod.endDate
                       )}
                     </span>
                     <small id="to-address" className="form-text text-muted">
                       {item.plannedDropOff.Logisticlocation.locationName}
                     </small>
                   </td>
+                );
+              },
+              "transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossWeight.Value": (
+                item
+              ) => {
+                return (
+                  <td>
+                    {
+                      item.transportCapacityBookingSpaceRequirements
+                        .Packagetotaltypes.totalGrossWeight.Value
+                    }
+                  </td>
+                );
+              },
+              "plannedDropOff.LogisticEventPeriod.endTime": (item) => {
+                return (
+                  <td>{this.formatDate(item.plannedDropOff.LogisticEventPeriod.endTime)}</td>
                 );
               },
               action: (item) => {
