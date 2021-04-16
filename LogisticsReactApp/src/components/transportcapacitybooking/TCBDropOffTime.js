@@ -83,6 +83,7 @@ function TCBDropOffTime({ setenableNext }) {
 									type="datetime-local"
 									id="pickupStartTime"
 									name="dropOffStartTime"
+									isRequired="true"
 								/>
 							</CCol>
 							<CCol md="6">
@@ -92,6 +93,7 @@ function TCBDropOffTime({ setenableNext }) {
 									type="datetime-local"
 									id="pickupEndTime"
 									name="dropOffEndTime"
+									isRequired="true"
 								/>
 							</CCol>
 						</CRow>

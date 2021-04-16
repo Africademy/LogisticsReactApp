@@ -24,6 +24,7 @@ import { getMeasurementtypes } from "../../services/measurementtypeService";
 import { getAmounttypes } from "../../services/amounttypeService";
 import { getQuantitytypes } from "../../services/quantitytypeService";
 import { getPackagetypecodes } from "../../services/packagetypecodeService";
+import { getTotalpackagequantitys } from "../../services/totalpackagequantityService";
 
 
  const CargoCharacteristicsForm =({setenableNext})=> {
@@ -52,6 +53,8 @@ const [CargoData,setCargoData] = useState(null)
     const [amounttypes,setamounttypes] = useState([])
     const [quantitytypes,setquantitytypes] = useState([])
     const [PackageType,setPackageType] = useState([])
+    const [Totalpackagequantitys,setTotalpackagequantitys] = useState([])
+    
 
 
     useEffect(()=>{
@@ -64,6 +67,7 @@ const [CargoData,setCargoData] = useState(null)
       populateamounttypesCodes()
       populatequantitytypesCodes()
       populatePackageTypeCodes()
+      populateTotalpackagequantitysCodes()
 
     },[])
 
@@ -103,8 +107,13 @@ const [CargoData,setCargoData] = useState(null)
       const { data: transportServiceLevelCodes } = await getPackagetypecodes();
       setPackageType(transportServiceLevelCodes)
     }
+    const populateTotalpackagequantitysCodes = async () =>{
+      const { data: transportServiceLevelCodes } = await getTotalpackagequantitys();
+      setTotalpackagequantitys(transportServiceLevelCodes)
+    }
 
-    
+
+    // getTotalpackagequantitys
 
 
   const dropDownOtions = [
@@ -123,31 +132,31 @@ const [CargoData,setCargoData] = useState(null)
     countryOfOriginCode: "", 
     finalDestinationCountry: "",
     totalGrossVolume:'',
-    totalGrossVolumeUnits:"",
+    totalGrossVolumeCodes:"",
     totalGrossWeight: '',
-    totalGrossWeightUnits:'',
+    totalGrossWeightCodes:'',
     totalTransportNetWeight: "",
-    totalTransportNetWeightUnits:"",
+    totalTransportNetWeightCodes:"",
     totalChargeableWeight: "",
-    totalChargeableWeightUnits: "",
+    totalChargeableWeightCodes: "",
     declaredWeightForCustoms: "", 
-    declaredWeightForCustomsUnits: "", 
+    declaredWeightForCustomsCodes: "", 
     totalLoadingLength: "", 
-    totalLoadingLengthUnits: "",
+    totalLoadingLengthCodes: "",
     associatedInvoiceAmount: "",
-    associatedInvoiceAmountUnits: "",
+    associatedInvoiceAmountCodes: "",
     declaredValueForCustoms: "", 
-    declaredValueForCustomsUnits:"",
+    declaredValueForCustomsCodes:"",
     totalPackageQuantity: "",
-    totalPackageQuantityUnits: "",
+    totalPackageQuantityCodes: "",
     totalItemQuantity: "", 
-    totalItemQuantityUnits: "", 
+    totalItemQuantityCodes: "", 
     packageTypeCode: "",
     totalPackageQuantityPT:"",
     totalGrossWeightPT:"",
-    totalGrossWeightPTUnits:"",
+    totalGrossWeightPTCodes:"",
     totalGrossVolumePT:"",
-    totalGrossVolumePTUnits:"",  
+    totalGrossVolumePTCodes:"",  
   }
   const validationSchema =yup.object({
     cargoType: yup.string().required(),
@@ -156,31 +165,31 @@ const [CargoData,setCargoData] = useState(null)
     countryOfOriginCode: yup.string().required(), 
     finalDestinationCountry: yup.string().required(),
     totalGrossVolume: yup.number().required(),
-    totalGrossVolumeUnits:yup.string().required(),
+    totalGrossVolumeCodes:yup.string().required(),
     totalGrossWeight: yup.number().required(),
-    totalGrossWeightUnits:yup.string().required(),
+    totalGrossWeightCodes:yup.string().required(),
     totalTransportNetWeight: yup.number().required(),
-    totalTransportNetWeightUnits:yup.string().required(),
+    totalTransportNetWeightCodes:yup.string().required(),
     totalChargeableWeight: yup.number().required(),
-    totalChargeableWeightUnits: yup.string().required(),
+    totalChargeableWeightCodes: yup.string().required(),
     declaredWeightForCustoms: yup.number().required(), 
-    declaredWeightForCustomsUnits: yup.string().required(), 
+    declaredWeightForCustomsCodes: yup.string().required(), 
     totalLoadingLength: yup.number().required(), 
-    totalLoadingLengthUnits: yup.string().required(),
+    totalLoadingLengthCodes: yup.string().required(),
     associatedInvoiceAmount: yup.number().required(),
-    associatedInvoiceAmountUnits: yup.string().required(),
+    associatedInvoiceAmountCodes: yup.string().required(),
     declaredValueForCustoms: yup.number().required(), 
-    declaredValueForCustomsUnits:yup.string().required(),
+    declaredValueForCustomsCodes:yup.string().required(),
     totalPackageQuantity: yup.number().required(),
-    totalPackageQuantityUnits: yup.string().required(),
+    totalPackageQuantityCodes: yup.string().required(),
     totalItemQuantity: yup.number().required(), 
-    totalItemQuantityUnits: yup.string().required(), 
+    totalItemQuantityCodes: yup.string().required(), 
     packageTypeCode: yup.string().required(),
     totalPackageQuantityPT:yup.string().required(),
     totalGrossWeightPT:yup.number().required(),
-    totalGrossWeightPTUnits:yup.string().required(),
+    totalGrossWeightPTCodes:yup.string().required(),
     totalGrossVolumePT:yup.number().required(),
-    totalGrossVolumePTUnits:yup.string().required(),  
+    totalGrossVolumePTCodes:yup.string().required(),  
   })
  
   console.log(CargoData,"SpaceCargo Data")
@@ -205,41 +214,41 @@ const [CargoData,setCargoData] = useState(null)
                       <div className="card-title my-2">Cargo Characteristics</div>
                       <CRow>
                         <CCol md="6">
-                            <FormicControl  control='select' label='Cargo Type' id='cargoTypeCode' name='cargoType' options={CargoType}  />
+                            <FormicControl  control='select' isRequired="true" label='Cargo Type' id='cargoTypeCode' name='cargoType' options={CargoType}  />
                         </CCol>
                         <CCol md="6">
   
-                            <FormicControl  control='select' label='Harmonized System' id='harmonizedSystemCode' name='harmonizedSystemCode' options={HarmonizedSystem}  />
+                            <FormicControl  control='select' isRequired="true" label='Harmonized System' id='harmonizedSystemCode' name='harmonizedSystemCode' options={HarmonizedSystem}  />
                           
                         </CCol>
                         <CCol md="6">
                         
 
-                          <FormicControl control='select' label='Cargo Type Description' id='cargoTypeDescription' name='cargoTypeDescription' options={CargoTypeDescription} />
+                          <FormicControl control='select' isRequired="true" label='Cargo Type Description' id='cargoTypeDescription' name='cargoTypeDescription' options={CargoTypeDescription} />
                         
                         </CCol>
                         <CCol md="3">
                         
-                           <FormicControl control='select' label='Country Of Origin' id='countryOfOriginCode' name='countryOfOriginCode' options={CountryOfOrigin} />
+                           <FormicControl control='select' isRequired="true" label='Country Of Origin' id='countryOfOriginCode' name='countryOfOriginCode' options={CountryOfOrigin} />
                         </CCol>
                         <CCol md="3">
                         
-                           <FormicControl control='select' label=' Final Destination Country' id='finalDestinationCountry' name='finalDestinationCountry' options={FinalDestinationCountry} />
+                           <FormicControl control='select' isRequired="true" label=' Final Destination Country' id='finalDestinationCountry' name='finalDestinationCountry' options={FinalDestinationCountry} />
                         </CCol>
 
                         <CCol md="6">
                           <CLabel htmlFor="totalGrossVolume" >Total Gross Volume</CLabel>
                           <CInputGroup  style={{marginTop:"-1rem"}}>
-                             <FormicControl  control='input'  placeholder="Enter here..." id='totalGrossVolume' name='totalGrossVolume' />
-                             <FormicControl control='select'  id='totalGrossVolumeUnits' name='totalGrossVolumeUnits' options={measurementtypes} />
+                             <FormicControl  control='input' isRequired="true" styleForgroup="cargoStyle" styleForgroup="cargoStyle" placeholder="Enter here..." id='totalGrossVolume' name='totalGrossVolume' />
+                             <FormicControl control='select'  id='totalGrossVolumeCodes' name='totalGrossVolumeCodes' options={measurementtypes} />
                           </CInputGroup>
                           
                         </CCol>
                         <CCol md="6">
                           <CLabel htmlFor="totalGrossWeight" >Total Gross Weight</CLabel>
                             <CInputGroup  style={{marginTop:"-1rem"}}>
-                              <FormicControl  control='input'  placeholder="Enter here..." id='totalGrossWeight' name='totalGrossWeight' />
-                              <FormicControl control='select'  id='totalGrossWeightUnits' name='totalGrossWeightUnits' options={measurementtypes} />
+                              <FormicControl  control='input' isRequired="true" styleForgroup="cargoStyle" placeholder="Enter here..." id='totalGrossWeight' name='totalGrossWeight' />
+                              <FormicControl control='select'   id='totalGrossWeightCodes' name='totalGrossWeightCodes' options={measurementtypes} />
                             </CInputGroup>
                           </CCol>
 
@@ -247,8 +256,8 @@ const [CargoData,setCargoData] = useState(null)
                          
                            <CLabel htmlFor="totalTransportNetWeight" >Total Transport Net Weight</CLabel>
                             <CInputGroup  style={{marginTop:"-1rem"}}>
-                              <FormicControl control='input'  placeholder="Enter here..." id='totalTransportNetWeight' name='totalTransportNetWeight' />
-                              <FormicControl control='select'  id='totalTransportNetWeightUnits' name='totalTransportNetWeightUnits' options={measurementtypes} />
+                              <FormicControl control='input' isRequired="true" styleForgroup="cargoStyle"  placeholder="Enter here..." id='totalTransportNetWeight' name='totalTransportNetWeight' />
+                              <FormicControl control='select'  id='totalTransportNetWeightCodes' name='totalTransportNetWeightCodes' options={measurementtypes} />
                             </CInputGroup>
                         </CCol>
 
@@ -257,8 +266,8 @@ const [CargoData,setCargoData] = useState(null)
 
                           <CLabel htmlFor="totalChargeableWeight" >Total Chargeable Weight</CLabel>
                             <CInputGroup  style={{marginTop:"-1rem"}}>
-                              <FormicControl control='input'  placeholder="Enter here..." id='totalChargeableWeight' name='totalChargeableWeight' />
-                              <FormicControl control='select'  id='totalChargeableWeightUnits' name='totalChargeableWeightUnits' options={measurementtypes} />
+                              <FormicControl control='input' isRequired="true" styleForgroup="cargoStyle"  placeholder="Enter here..." id='totalChargeableWeight' name='totalChargeableWeight' />
+                              <FormicControl control='select'  id='totalChargeableWeightCodes' name='totalChargeableWeightCodes' options={measurementtypes} />
                             </CInputGroup>
                          
                             
@@ -266,8 +275,8 @@ const [CargoData,setCargoData] = useState(null)
                         <CCol md="6">
                           <CLabel htmlFor="declaredWeightForCustoms" > Declared Weight For Customs</CLabel>
                             <CInputGroup  style={{marginTop:"-1rem"}}>
-                              <FormicControl control='input'  placeholder="Enter here..." id='declaredWeightForCustoms' name='declaredWeightForCustoms' />
-                              <FormicControl control='select'  id='declaredWeightForCustomsUnits' name='declaredWeightForCustomsUnits' options={measurementtypes} />
+                              <FormicControl control='input' isRequired="true" styleForgroup="cargoStyle" placeholder="Enter here..." id='declaredWeightForCustoms' name='declaredWeightForCustoms' />
+                              <FormicControl control='select'   id='declaredWeightForCustomsCodes' name='declaredWeightForCustomsCodes' options={measurementtypes} />
                             </CInputGroup>
                           
                         </CCol>
@@ -275,16 +284,16 @@ const [CargoData,setCargoData] = useState(null)
                         
                           <CLabel htmlFor="totalLoadingLength" >  Total Loading Length</CLabel>
                             <CInputGroup  style={{marginTop:"-1rem"}}>
-                              <FormicControl control='input'  placeholder="Enter here..." id='totalLoadingLength' name='totalLoadingLength' />
-                              <FormicControl control='select'  id='totalLoadingLengthUnits' name='totalLoadingLengthUnits' options={measurementtypes} />
+                              <FormicControl control='input' isRequired="true" styleForgroup="cargoStyle"  placeholder="Enter here..." id='totalLoadingLength' name='totalLoadingLength' />
+                              <FormicControl control='select'  id='totalLoadingLengthCodes' name='totalLoadingLengthCodes' options={measurementtypes} />
                             </CInputGroup>
                         
                         </CCol>
                         <CCol md="6">
                             <CLabel htmlFor="associatedInvoiceAmount" > Associated Invoice Amount</CLabel>
                             <CInputGroup  style={{marginTop:"-1rem"}}>
-                              <FormicControl control='input'  placeholder="Enter here..." id='associatedInvoiceAmount' name='associatedInvoiceAmount' />
-                              <FormicControl control='select'  id='associatedInvoiceAmountUnits' name='associatedInvoiceAmountUnits' options={amounttypes} />
+                              <FormicControl control='input'  isRequired="true"  placeholder="Enter here..." id='associatedInvoiceAmount' name='associatedInvoiceAmount' />
+                              <FormicControl control='select'  id='associatedInvoiceAmountCodes' name='associatedInvoiceAmountCodes' options={amounttypes} />
                             </CInputGroup>
                           
                         </CCol>
@@ -292,8 +301,8 @@ const [CargoData,setCargoData] = useState(null)
                           
                           <CLabel htmlFor="declaredValueForCustoms" >  Declared Value For Customs</CLabel>
                             <CInputGroup  style={{marginTop:"-1rem"}}>
-                              <FormicControl control='input'  placeholder="Enter here..." id='declaredValueForCustoms' name='declaredValueForCustoms' />
-                              <FormicControl control='select'  id='declaredValueForCustomsUnits' name='declaredValueForCustomsUnits' options={amounttypes} />
+                              <FormicControl control='input' isRequired="true" styleForgroup="cargoStyle"  placeholder="Enter here..." id='declaredValueForCustoms' name='declaredValueForCustoms' />
+                              <FormicControl control='select'  id='declaredValueForCustomsCodes' name='declaredValueForCustomsCodes' options={amounttypes} />
                             </CInputGroup>
                           
                         </CCol>
@@ -301,8 +310,8 @@ const [CargoData,setCargoData] = useState(null)
                       
                             <CLabel htmlFor="totalPackageQuantity" >  Total Package Quantity</CLabel>
                             <CInputGroup  style={{marginTop:"-1rem"}}>
-                              <FormicControl control='input'  placeholder="Enter here..." id='totalPackageQuantity' name='totalPackageQuantity' />
-                              <FormicControl control='select'  id='totalPackageQuantityUnits' name='totalPackageQuantityUnits' options={quantitytypes} />
+                              <FormicControl control='input' isRequired="true" styleForgroup="cargoStyle"  placeholder="Enter here..." id='totalPackageQuantity' name='totalPackageQuantity' />
+                              <FormicControl control='select'  id='totalPackageQuantityCodes' name='totalPackageQuantityCodes' options={quantitytypes} />
                             </CInputGroup>
                          
                         </CCol>
@@ -310,8 +319,8 @@ const [CargoData,setCargoData] = useState(null)
                         
                           <CLabel htmlFor="totalItemQuantity" >   Total Item Quantity</CLabel>
                             <CInputGroup  style={{marginTop:"-1rem"}}>
-                              <FormicControl control='input'  placeholder="Enter here..." id='totalItemQuantity' name='totalItemQuantity' />
-                              <FormicControl control='select'  id='totalItemQuantityUnits' name='totalItemQuantityUnits' options={quantitytypes} />
+                              <FormicControl control='input' isRequired="true" styleForgroup="cargoStyle" placeholder="Enter here..." id='totalItemQuantity' name='totalItemQuantity' />
+                              <FormicControl control='select'  id='totalItemQuantityCodes' name='totalItemQuantityCodes' options={quantitytypes} />
                             </CInputGroup>
                           
                         </CCol>
@@ -321,17 +330,17 @@ const [CargoData,setCargoData] = useState(null)
                     
                       <CRow>
                         <CCol md="6">
-                           <FormicControl control='select' label='Package Type' id='packageTypeCode' name='packageTypeCode' options={PackageType} />
+                           <FormicControl control='select' isRequired="true" label='Package Type' id='packageTypeCode' name='packageTypeCode' options={PackageType} />
                         </CCol>
                         <CCol md="6">
-                          <FormicControl control='selectOptional' label='Total Package Quantity' id='totalPackageQuantityPT' name='totalPackageQuantityPT' options={dropDownOtions} />
+                          <FormicControl control='select' isRequired="true" label='Total Package Quantity' id='totalPackageQuantityPT' name='totalPackageQuantityPT' options={Totalpackagequantitys} />
                         </CCol>
                         <CCol md="6">
                         
                             <CLabel htmlFor="totalGrossWeightPT" > Total Gross Weight</CLabel>
                             <CInputGroup  style={{marginTop:"-1rem"}}>
-                              <FormicControl control='input'  placeholder="Enter here..." id='totalGrossWeightPT' name='totalGrossWeightPT' />
-                              <FormicControl control='select'  id='totalGrossWeightPTUnits' name='totalGrossWeightPTUnits' options={measurementtypes} />
+                              <FormicControl control='input' isRequired="true" styleForgroup="cargoStyle" placeholder="Enter here..." id='totalGrossWeightPT' name='totalGrossWeightPT' />
+                              <FormicControl control='select'   id='totalGrossWeightPTCodes' name='totalGrossWeightPTCodes' options={measurementtypes} />
                             </CInputGroup>
                         
                         </CCol>
@@ -339,8 +348,8 @@ const [CargoData,setCargoData] = useState(null)
                      
                           <CLabel htmlFor="totalGrossVolumePT" >Total Gross Volume</CLabel>
                             <CInputGroup  style={{marginTop:"-1rem"}}>
-                              <FormicControl control='input'  placeholder="Enter here..." id='totalGrossVolumePT' name='totalGrossVolumePT' />
-                              <FormicControl control='select'  id='totalGrossVolumePTUnits' name='totalGrossVolumePTUnits' options={measurementtypes} />
+                              <FormicControl control='input' isRequired="true" styleForgroup="cargoStyle" placeholder="Enter here..." id='totalGrossVolumePT' name='totalGrossVolumePT' />
+                              <FormicControl control='select'  id='totalGrossVolumePTCodes' name='totalGrossVolumePTCodes' options={measurementtypes} />
                             </CInputGroup>
                          
                         </CCol>

@@ -96,13 +96,17 @@ const createTransportcapacitybooking =() => {
     console.log(transportServiceLevelCodes,"arrays")
 
     const handleSubmit =()=>{
+      console.log(data,"redux")
+      const schemaObj = {
+        
+      }
       console.log( {...data,SpaceRequirements:{
         totalItemQuantity: {
              Value:data.SpaceRequirements.totalItemQuantity,
              Measurementtype: data.SpaceRequirements.totalItemQuantityUnits,
           
       }}
-    },"From Redux")
+    },"From modified")
   }
     return (
       <div className="transportcapacitybooking">

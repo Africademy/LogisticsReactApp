@@ -128,6 +128,7 @@ function TCBOrderDetails({ setenableNext,optionServiceLevel,ServiceConditionType
 									id="ServiceLevel"
 									name="serviceLevel"
 									typeOfOption = "ServiceLevel"
+									isRequired="true"
 									options={optionServiceLevel}
 								/>
 							</CCol>
