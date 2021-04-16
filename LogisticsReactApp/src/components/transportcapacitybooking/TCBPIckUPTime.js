@@ -24,6 +24,7 @@ import { Form, Formik } from "formik";
 import * as yup from "yup";
 import FormicControl from "../../utils/CoreUI/FormicControl";
 import {} from "./transportcapacitybookingForm.css";
+import Moment from "moment";
 
 import { useDispatch } from "react-redux";
 import { PickUpTimeAction } from "../../actions/TCBActions";
@@ -55,14 +56,25 @@ function TCBPIckUPTime({ setenableNext }) {
 		// EventpickupEndTime: yup.string().required(),
 	});
 
+
+    const getDates =(value)=>{
+        const dateObj1 = Moment(value.pickupStartTime).format("DD-MM-YYYY")
+        const time = Moment(value.pickupStartTime).format(" hh:mm:ss")
+    
+        console.log(dateObj1,time,"date and time")
+
+    }
+
+   
 	return (
 		<CCardBody>
 			<Formik
 				initialValues={initialValues}
-				// validationSchema= {validationSchema}
+				validationSchema= {validationSchema}
 
 				onSubmit={(value) => {
 					console.log(value);
+                    getDates(value)
 					dispatch(PickUpTimeAction(value));
 					setenableNext(true);
 				}}
@@ -116,7 +128,7 @@ function TCBPIckUPTime({ setenableNext }) {
 								className="next-btn"
 								color="primary"
 								style={{ margin: "1rem" }}
-								// disabled={!formik.dirty && formik.errors}
+								disabled={!formik.dirty && formik.errors}
 							>
 								Next
 							</CButton>

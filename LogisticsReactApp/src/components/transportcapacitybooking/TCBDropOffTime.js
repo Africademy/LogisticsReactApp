@@ -62,7 +62,7 @@ function TCBDropOffTime({ setenableNext }) {
 		<CCardBody>
 			<Formik
 				initialValues={initialValues}
-				// validationSchema={validationSchema}
+				validationSchema={validationSchema}
 				onSubmit={(value) => {
 					console.log(value);
 					dispatch(DropOffTimeAction(value))
@@ -104,7 +104,7 @@ function TCBDropOffTime({ setenableNext }) {
 								className="next-btn"
 								color="primary"
 								style={{ margin: "1rem" }}
-								// disabled={!formik.dirty && formik.errors}
+								disabled={!formik.dirty && formik.errors}
 							>
 								Next
 							</CButton>

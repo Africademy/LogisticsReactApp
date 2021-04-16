@@ -12,6 +12,7 @@ import {
 // import CIcon from "@coreui/icons-react";
 import React, { useEffect, useState } from "react";
 import {useSelector} from 'react-redux'
+import Moment from "moment";
 
 // import TCBPlannedPickUp from "./TCBPlannedPickUp";
 // import TCBPlannedDropOff from "./TCBDropOffTime";
@@ -60,6 +61,7 @@ const createTransportcapacitybooking =() => {
   const [TabenableDropTime,setTabenableDropTime] = useState(false)
   const [TabenableCG,setTabenableCG] = useState(false)
   const [TabenableSp,setTabenableSp] = useState(false)
+  const [response,setresponse] = useState (null)
 
   //Order Details
   const [transportServiceCategoryCodes,settransportServiceCategoryCodes]= useState([])
@@ -100,7 +102,7 @@ const createTransportcapacitybooking =() => {
     console.log(data,"redux")
 
   }
-
+  
 
     const handleSubmit =()=>{
       
@@ -141,48 +143,59 @@ const createTransportcapacitybooking =() => {
             communicationChannelName: data.PickUpLocationData && data.PickUpLocationData.communicationChannelName
         },
         PickUpTime: {
-            pickupStartDate: "2021-04-10",
-            pickupStartTime:" 17:58",
-            pickupEndDate: "2021-04-10",
-            pickupEndTime:" 19:58"
+            // pickupStartDate: "2021-04-10",
+            // pickupStartTime:" 17:58",
+            // pickupEndDate: "2021-04-10",
+            // pickupEndTime:" 19:58"
+            
+            pickupStartDate: data.PickUpTime && Moment(data.PickUpTime.pickupStartTime).format("YYYY-MM-DD"),
+            pickupStartTime:data.PickUpTime && Moment(data.PickUpTime.pickupStartTime).format("hh:mm"),
+            pickupEndDate: data.PickUpTime && Moment(data.PickUpTime.pickupEndTime).format("YYYY-MM-DD"),
+            pickupEndTime: data.PickUpTime &&  Moment(data.PickUpTime.pickupEndTime).format("hh:mm")
+
         },
         DropOffLocation: {
            
-          additionalLocationIdentificationCode: data.PickUpLocationData && data.PickUpLocationData.additionalLocationIdentification,
-          sublocationIdentification:data.PickUpLocationData && data.PickUpLocationData.sublocationIdentification ,
-          locationName: data.PickUpLocationData && data.PickUpLocationData.locationName,
-          locationSpecificInstructionsCode: data.PickUpLocationData && data.PickUpLocationData.locationSpecificInstructions,
-          uTCOffset:data.PickUpLocationData && data.PickUpLocationData.uTCOffset ,
-          cityName:data.PickUpLocationData && data.PickUpLocationData.cityName ,
-          countryCode: data.PickUpLocationData && data.PickUpLocationData.country,
-          crossStreet:data.PickUpLocationData && data.PickUpLocationData.crossStreet,
-          currencyOfPartyCode: data.PickUpLocationData && data.PickUpLocationData.currencyOfParty,
-            languageOfthePartyCode: data.PickUpLocationData && data.PickUpLocationData.launguageOftheParty,
-          name:data.PickUpLocationData && data.PickUpLocationData.name ,
-          postBoxNumber: data.PickUpLocationData && data.PickUpLocationData.postBoxNumber,
-          postalCode:data.PickUpLocationData &&  data.PickUpLocationData.postalCode,
-          provinceCode: data.PickUpLocationData &&data.PickUpLocationData.province ,
-          state: data.PickUpLocationData && data.PickUpLocationData.state,
-          streetAddressOne:data.PickUpLocationData &&  data.PickUpLocationData.streetAddressOne,
-          streetAddressTwo: data.PickUpLocationData && data.PickUpLocationData.streetAddressTwo,
-          streetAddressThree:data.PickUpLocationData &&  data.PickUpLocationData.streetAddressThree,
-          latitude: data.PickUpLocationData && data.PickUpLocationData.latitude,
-          longitutue:data.PickUpLocationData && data.PickUpLocationData.longitutue,
-          contactTypeCode: data.PickUpLocationData && data.PickUpLocationData.contactType,
-          personName:data.PickUpLocationData && data.PickUpLocationData.personeName,
-          departmentName:data.PickUpLocationData && data.PickUpLocationData.depormentName ,
-          jobTitle:data.PickUpLocationData && data.PickUpLocationData.jobTitle ,
-          responsibility: data.PickUpLocationData && data.PickUpLocationData.responsibility,
-          communicationChannelCode: data.PickUpLocationData && data.PickUpLocationData.communicationChannelCode,
-          communicationValue: data.PickUpLocationData && data.PickUpLocationData.communicationValue,
-          communicationChannelName: data.PickUpLocationData && data.PickUpLocationData.communicationChannelName
+          additionalLocationIdentificationCode: data.DropOffLocation && data.DropOffLocation.additionalLocationIdentification,
+          sublocationIdentification:data.DropOffLocation && data.DropOffLocation.sublocationIdentification ,
+          locationName: data.DropOffLocation && data.DropOffLocation.locationName,
+          locationSpecificInstructionsCode: data.DropOffLocation && data.DropOffLocation.locationSpecificInstructions,
+          uTCOffset:data.DropOffLocation && data.DropOffLocation.uTCOffset ,
+          cityName:data.DropOffLocation && data.DropOffLocation.cityName ,
+          countryCode: data.DropOffLocation && data.DropOffLocation.country,
+          crossStreet:data.DropOffLocation && data.DropOffLocation.crossStreet,
+          currencyOfPartyCode: data.DropOffLocation && data.DropOffLocation.currencyOfParty,
+            languageOfthePartyCode: data.DropOffLocation && data.DropOffLocation.launguageOftheParty,
+          name:data.DropOffLocation && data.DropOffLocation.name ,
+          postBoxNumber: data.DropOffLocation && data.DropOffLocation.postBoxNumber,
+          postalCode:data.DropOffLocation &&  data.DropOffLocation.postalCode,
+          provinceCode: data.DropOffLocation &&data.DropOffLocation.province ,
+          state: data.DropOffLocation && data.DropOffLocation.state,
+          streetAddressOne:data.DropOffLocation &&  data.DropOffLocation.streetAddressOne,
+          streetAddressTwo: data.DropOffLocation && data.DropOffLocation.streetAddressTwo,
+          streetAddressThree:data.DropOffLocation &&  data.DropOffLocation.streetAddressThree,
+          latitude: data.DropOffLocation && data.DropOffLocation.latitude,
+          longitutue:data.DropOffLocation && data.DropOffLocation.longitutue,
+          contactTypeCode: data.DropOffLocation && data.DropOffLocation.contactType,
+          personName:data.DropOffLocation && data.DropOffLocation.personeName,
+          departmentName:data.DropOffLocation && data.DropOffLocation.depormentName ,
+          jobTitle:data.DropOffLocation && data.DropOffLocation.jobTitle ,
+          responsibility: data.DropOffLocation && data.DropOffLocation.responsibility,
+          communicationChannelCode: data.DropOffLocation && data.DropOffLocation.communicationChannelCode,
+          communicationValue: data.DropOffLocation && data.DropOffLocation.communicationValue,
+          communicationChannelName: data.DropOffLocation && data.DropOffLocation.communicationChannelName
 
         },
         DropOffTime: {
-          dropOffStartDate: "2021-04-10",
-          dropOffStartTime: " 17:58",
-          dropOffEndDate: "2021-04-10",
-          dropOffEndTime: " 19:58"
+          // dropOffStartDate: "2021-04-10",
+          // dropOffStartTime: " 17:58",
+          // dropOffEndDate: "2021-04-10",
+          // dropOffEndTime: " 19:58"
+          dropOffStartDate: data.DropOffTime && Moment(data.DropOffTime.dropOffStartTime).format("YYYY-MM-DD"),
+          dropOffStartTime:data.DropOffTime && Moment(data.DropOffTime.dropOffStartTime).format("hh:mm"),
+          dropOffEndDate: data.DropOffTime && Moment(data.DropOffTime.dropOffEndTime).format("YYYY-MM-DD"),
+          dropOffEndTime: data.DropOffTime &&  Moment(data.DropOffTime.dropOffEndTime).format("hh:mm")
+
         },
         SpaceRequirements: {
             cargoTypeCode: data.SpaceRequirements && data.SpaceRequirements.cargoType,
@@ -219,14 +232,30 @@ const createTransportcapacitybooking =() => {
         }
     }
       console.log( schemaObj,"schemaObj")
-      saveTransportcapacitybooking(schemaObj)
+         saveTransportcapacitybooking(schemaObj).then(
+            response => {
+              setresponse(response.data)
+          console.log(response.data)
+
+            }
+          )
+          
   }
     return (
       <div className="transportcapacitybooking">
         <div className="py-5">
-           <div className="mt-2">
-              <div className="AlertInTCB">
-               <Alert bgcolor="bgBlue" > Welcome To Transport Capacity Booking</Alert>
+               {/* <div className="AlertInTCB">
+                </div> */}
+           <div className="mt-2">  
+           <div className="AlertInTCB">
+              
+               {response && (<Alert bgcolor="bgBlue" > {`Successfully Booking!! Your Booking Id:${response.bookingId}`}</Alert>)}
+
+             </div> 
+           <div className="AlertInTCB">
+              {/*  */}
+
+                <Alert bgcolor="bgBlue" > Welcome To Transport Capacity Booking</Alert>
               </div>
             </div>
           <CContainer>
