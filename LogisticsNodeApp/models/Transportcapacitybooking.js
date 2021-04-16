@@ -10,19 +10,19 @@ const TransportcapacitybookingScheema = mongoose.Schema({
     Transportcargocharacteristicstypes: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Transportcargocharacteristicstypes',
-      required: false
+      required: true
     },
     Packagetotaltypes: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Packagetotaltypes',
-      required: false
+      required: true
     }
   },
   plannedPickUp: {
     Logisticlocation: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Logisticlocationtypes',
-      required: false
+      required: true
     },
     LogisticEventDateTime: {
       type: mongoose.Schema.Types.ObjectId,
@@ -32,14 +32,14 @@ const TransportcapacitybookingScheema = mongoose.Schema({
     LogisticEventPeriod: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Logisticeventperiods',
-      required: false
+      required: true
     }
   },
   plannedDropOff: {
     Logisticlocation: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Logisticlocationtypes',
-      required: false
+      required: true
     },
     LogisticEventDateTime: {
       type: mongoose.Schema.Types.ObjectId,
@@ -49,9 +49,8 @@ const TransportcapacitybookingScheema = mongoose.Schema({
     LogisticEventPeriod: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Logisticeventperiods',
-      required: false
+      required: true
     },
-    required: false
   },
   transportCapacityBookingIdentification: {
     type: String,
@@ -60,7 +59,7 @@ const TransportcapacitybookingScheema = mongoose.Schema({
   transportServiceCategoryCode: {
     Id: {
       type: String,
-      required: false
+      required: true
     },
     Name: {
       type: String,
@@ -70,7 +69,7 @@ const TransportcapacitybookingScheema = mongoose.Schema({
   transportServiceConditionTypeCode: {
     Id: {
       type: String,
-      required: false
+      required: true
     },
     Name: {
       type: String,
@@ -80,7 +79,7 @@ const TransportcapacitybookingScheema = mongoose.Schema({
   transportServiceLevelCode: {
     Id: {
       type: String,
-      required: false
+      required: true
     },
     Name: {
       type: String,

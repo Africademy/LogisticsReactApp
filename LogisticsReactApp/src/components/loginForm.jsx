@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
 import auth from "../services/authService";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import {
   CButton,
   CCard,
@@ -83,7 +83,7 @@ class LoginForm extends Component {
 
     return (
       <div>
-        <CRow className="justify-content-center my-3">
+        <CRow className="justify-content-center">
           <CCol md="6">
             <CCardGroup>
               <CCard className="p-4">
@@ -91,73 +91,99 @@ class LoginForm extends Component {
                   <CForm onSubmit={this.handleSubmit}>
                     <h1>Login</h1>
                     <p className="text-muted">Sign In to your account</p>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupPrepend>
-                        <CInputGroupText>
-                          <i className="cil-user"></i>
-                        </CInputGroupText>
-                      </CInputGroupPrepend>
-                      <CInput
-                        placeholder="Username/Email"
-                        value={this.state.data["email"]}
-                        onChange={this.handleChange}
-                        name="email"
-                        id="email"
-                        type="text"
-                        className="form-control"
-                      />
+                    <div className="mb-3">
+                      <CInputGroup>
+                        <CInputGroupPrepend>
+                          <CInputGroupText>
+                            <i className="cil-user"></i>
+                          </CInputGroupText>
+                        </CInputGroupPrepend>
+                        <CInput
+                          placeholder="Username/Email"
+                          value={this.state.data["email"]}
+                          onChange={this.handleChange}
+                          name="email"
+                          id="email"
+                          type="text"
+                          className="form-control"
+                        />
+                      </CInputGroup>
                       {this.state.errors["email"] && (
                         <CFormText className="help-block error">
                           {this.state.errors["email"]}
                         </CFormText>
                       )}
-                    </CInputGroup>
+                    </div>
 
-                    <CInputGroup className="mb-4">
-                      <CInputGroupPrepend>
-                        <CInputGroupText>
-                          <i className="cil-lock-locked"></i>
-                        </CInputGroupText>
-                      </CInputGroupPrepend>
-                      <CInput
-                        type="password"
-                        placeholder="Password"
-                        autoComplete="current-password"
-                        name="password"
-                        id="password"
-                        className="form-control"
-                        value={this.state.data["password"]}
-                        onChange={this.handleChange}
-                      />
+                    <div className="mb-4">
+                      <CInputGroup>
+                        <CInputGroupPrepend>
+                          <CInputGroupText>
+                            <i className="cil-lock-locked"></i>
+                          </CInputGroupText>
+                        </CInputGroupPrepend>
+                        <CInput
+                          type="password"
+                          placeholder="Password"
+                          autoComplete="current-password"
+                          name="password"
+                          id="password"
+                          className="form-control"
+                          value={this.state.data["password"]}
+                          onChange={this.handleChange}
+                        />
+                      </CInputGroup>
                       {this.state.errors["password"] && (
                         <CFormText className="help-block error">
                           {this.state.errors["password"]}
                         </CFormText>
                       )}
-                    </CInputGroup>
+                    </div>
+
                     <CRow>
                       <CCol xs="3">
-                        <CButton color="primary" type="submit" className="px-4">
+                        <CButton color="success" type="submit" className="px-4">
                           Login
                         </CButton>
                       </CCol>
-                      <CCol xs="9" className="text-right">
+                      <CCol xs="9" className="text-right pt-2">
                         {/* <CButton color="link" className="px-0">
                           Forgot password?
                         </CButton> */}
+                        <span className="px-0">
+                          Don't have account?&nbsp;&nbsp;
+                          <Link to="/register">Register Now!</Link>
+                        </span>
                       </CCol>
+                      {/* <CCol xs="12" className="text-center mt-3">
+                        Don't have account?&nbsp;&nbsp;
+                        <Link to="/register">Register Now!</Link>
+                      </CCol> */}
                     </CRow>
                   </CForm>
                 </CCardBody>
               </CCard>
-              {/* <CCard className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
+              {/* <CCard
+                className="text-white bg-primary py-5 d-md-down-none"
+                style={{ width: "44%" }}
+              >
                 <CCardBody className="text-center">
                   <div>
                     <h2>Sign up</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                      labore et dolore magna aliqua.</p>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua.
+                    </p>
                     <Link to="/register">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>Register Now!</CButton>
+                      <CButton
+                        color="primary"
+                        className="mt-3"
+                        active
+                        tabIndex={-1}
+                      >
+                        Register Now!
+                      </CButton>
                     </Link>
                   </div>
                 </CCardBody>
