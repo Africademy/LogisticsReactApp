@@ -28,6 +28,7 @@ import { getEnumerationlibrarys } from "../../services/enumerationlibraryService
 import { getTransportservicelevelcodes } from "../../services/transportservicelevelcodeService";
 import { getTransportserviceconditiontypecodes } from "../../services/transportserviceconditiontypecodeService";
 import { getTransportservicecategorycodes } from "../../services/transportservicecategorycodeService";
+import { saveTransportcapacitybooking } from "../../services/transportcapacitybookingService";
 
 
 
@@ -43,6 +44,9 @@ const createTransportcapacitybooking =() => {
 
   const data = useSelector((state)=> state.tvbDta)
   
+  useEffect(()=>{
+     getReduxData()
+  },[data])
 
   // const [enableNextOd,setenableNextOd] = useState(false)
   // const [enableNextPp,setenableNextPp] = useState(false)
@@ -92,21 +96,130 @@ const createTransportcapacitybooking =() => {
 
  
 
+  const getReduxData = () =>{
+    console.log(data,"redux")
 
-    console.log(transportServiceLevelCodes,"arrays")
+  }
+
 
     const handleSubmit =()=>{
-      console.log(data,"redux")
+      
       const schemaObj = {
-        
-      }
-      console.log( {...data,SpaceRequirements:{
-        totalItemQuantity: {
-             Value:data.SpaceRequirements.totalItemQuantity,
-             Measurementtype: data.SpaceRequirements.totalItemQuantityUnits,
-          
-      }}
-    },"From modified")
+        ServiceDetailsData: {
+            servicecategoryCode:data.ServiceDetailsData && data.ServiceDetailsData.servicecategory ,
+            serviceConditionTypeCode: data.ServiceDetailsData &&  data.ServiceDetailsData.serviceConditionType,
+            serviceLevelCode: data.ServiceDetailsData && data.ServiceDetailsData.serviceLevel
+        },
+        PickUpLocationData: {
+            additionalLocationIdentificationCode: data.PickUpLocationData && data.PickUpLocationData.additionalLocationIdentification,
+            sublocationIdentification:data.PickUpLocationData && data.PickUpLocationData.sublocationIdentification ,
+            locationName: data.PickUpLocationData && data.PickUpLocationData.locationName,
+            locationSpecificInstructionsCode: data.PickUpLocationData && data.PickUpLocationData.locationSpecificInstructions,
+            uTCOffset:data.PickUpLocationData && data.PickUpLocationData.uTCOffset ,
+            cityName:data.PickUpLocationData && data.PickUpLocationData.cityName ,
+            countryCode: data.PickUpLocationData && data.PickUpLocationData.country,
+            crossStreet:data.PickUpLocationData && data.PickUpLocationData.crossStreet,
+            currencyOfPartyCode: data.PickUpLocationData && data.PickUpLocationData.currencyOfParty,
+            languageOfthePartyCode: data.PickUpLocationData && data.PickUpLocationData.launguageOftheParty,
+            name:data.PickUpLocationData && data.PickUpLocationData.name ,
+            postBoxNumber: data.PickUpLocationData && data.PickUpLocationData.postBoxNumber,
+            postalCode:data.PickUpLocationData &&  data.PickUpLocationData.postalCode,
+            provinceCode: data.PickUpLocationData &&data.PickUpLocationData.province ,
+            state: data.PickUpLocationData && data.PickUpLocationData.state,
+            streetAddressOne:data.PickUpLocationData &&  data.PickUpLocationData.streetAddressOne,
+            streetAddressTwo: data.PickUpLocationData && data.PickUpLocationData.streetAddressTwo,
+            streetAddressThree:data.PickUpLocationData &&  data.PickUpLocationData.streetAddressThree,
+            latitude: data.PickUpLocationData && data.PickUpLocationData.latitude,
+            longitutue:data.PickUpLocationData && data.PickUpLocationData.longitutue,
+            contactTypeCode: data.PickUpLocationData && data.PickUpLocationData.contactType,
+            personName:data.PickUpLocationData && data.PickUpLocationData.personeName,
+            departmentName:data.PickUpLocationData && data.PickUpLocationData.depormentName ,
+            jobTitle:data.PickUpLocationData && data.PickUpLocationData.jobTitle ,
+            responsibility: data.PickUpLocationData && data.PickUpLocationData.responsibility,
+            communicationChannelCode: data.PickUpLocationData && data.PickUpLocationData.communicationChannelCode,
+            communicationValue: data.PickUpLocationData && data.PickUpLocationData.communicationValue,
+            communicationChannelName: data.PickUpLocationData && data.PickUpLocationData.communicationChannelName
+        },
+        PickUpTime: {
+            pickupStartDate: "2021-04-10",
+            pickupStartTime:" 17:58",
+            pickupEndDate: "2021-04-10",
+            pickupEndTime:" 19:58"
+        },
+        DropOffLocation: {
+           
+          additionalLocationIdentificationCode: data.PickUpLocationData && data.PickUpLocationData.additionalLocationIdentification,
+          sublocationIdentification:data.PickUpLocationData && data.PickUpLocationData.sublocationIdentification ,
+          locationName: data.PickUpLocationData && data.PickUpLocationData.locationName,
+          locationSpecificInstructionsCode: data.PickUpLocationData && data.PickUpLocationData.locationSpecificInstructions,
+          uTCOffset:data.PickUpLocationData && data.PickUpLocationData.uTCOffset ,
+          cityName:data.PickUpLocationData && data.PickUpLocationData.cityName ,
+          countryCode: data.PickUpLocationData && data.PickUpLocationData.country,
+          crossStreet:data.PickUpLocationData && data.PickUpLocationData.crossStreet,
+          currencyOfPartyCode: data.PickUpLocationData && data.PickUpLocationData.currencyOfParty,
+            languageOfthePartyCode: data.PickUpLocationData && data.PickUpLocationData.launguageOftheParty,
+          name:data.PickUpLocationData && data.PickUpLocationData.name ,
+          postBoxNumber: data.PickUpLocationData && data.PickUpLocationData.postBoxNumber,
+          postalCode:data.PickUpLocationData &&  data.PickUpLocationData.postalCode,
+          provinceCode: data.PickUpLocationData &&data.PickUpLocationData.province ,
+          state: data.PickUpLocationData && data.PickUpLocationData.state,
+          streetAddressOne:data.PickUpLocationData &&  data.PickUpLocationData.streetAddressOne,
+          streetAddressTwo: data.PickUpLocationData && data.PickUpLocationData.streetAddressTwo,
+          streetAddressThree:data.PickUpLocationData &&  data.PickUpLocationData.streetAddressThree,
+          latitude: data.PickUpLocationData && data.PickUpLocationData.latitude,
+          longitutue:data.PickUpLocationData && data.PickUpLocationData.longitutue,
+          contactTypeCode: data.PickUpLocationData && data.PickUpLocationData.contactType,
+          personName:data.PickUpLocationData && data.PickUpLocationData.personeName,
+          departmentName:data.PickUpLocationData && data.PickUpLocationData.depormentName ,
+          jobTitle:data.PickUpLocationData && data.PickUpLocationData.jobTitle ,
+          responsibility: data.PickUpLocationData && data.PickUpLocationData.responsibility,
+          communicationChannelCode: data.PickUpLocationData && data.PickUpLocationData.communicationChannelCode,
+          communicationValue: data.PickUpLocationData && data.PickUpLocationData.communicationValue,
+          communicationChannelName: data.PickUpLocationData && data.PickUpLocationData.communicationChannelName
+
+        },
+        DropOffTime: {
+          dropOffStartDate: "2021-04-10",
+          dropOffStartTime: " 17:58",
+          dropOffEndDate: "2021-04-10",
+          dropOffEndTime: " 19:58"
+        },
+        SpaceRequirements: {
+            cargoTypeCode: data.SpaceRequirements && data.SpaceRequirements.cargoType,
+            harmonizedSystemCode: data.SpaceRequirements && data.SpaceRequirements.harmonizedSystemCode,
+            cargoTypeDescriptionCode: data.SpaceRequirements && data.SpaceRequirements.cargoTypeDescription,
+            countryOfOriginCode: data.SpaceRequirements && data.SpaceRequirements.countryOfOriginCode,
+            finalDestinationCountryCode: data.SpaceRequirements && data.SpaceRequirements.finalDestinationCountry,
+            totalGrossVolume: data.SpaceRequirements && data.SpaceRequirements.totalGrossVolume,
+            totalGrossVolumeUnits: data.SpaceRequirements && data.SpaceRequirements.totalGrossVolumeCodes,
+            totalGrossWeight: data.SpaceRequirements && data.SpaceRequirements.totalGrossWeight,
+            totalGrossWeightUnits: data.SpaceRequirements && data.SpaceRequirements.totalGrossWeightCodes,
+            totalTransportNetWeight: data.SpaceRequirements && data.SpaceRequirements.totalTransportNetWeight,
+            totalTransportNetWeightUnits: data.SpaceRequirements && data.SpaceRequirements.totalTransportNetWeightCodes,
+            totalChargeableWeight: data.SpaceRequirements && data.SpaceRequirements.totalChargeableWeight,
+            totalChargeableWeightUnits: data.SpaceRequirements && data.SpaceRequirements.totalChargeableWeightCodes,
+            declaredWeightForCustoms: data.SpaceRequirements && data.SpaceRequirements.declaredWeightForCustoms,
+            declaredWeightForCustomsUnits: data.SpaceRequirements && data.SpaceRequirements.declaredWeightForCustomsCodes,
+            totalLoadingLength: data.SpaceRequirements && data.SpaceRequirements.totalLoadingLength,
+            totalLoadingLengthUnits:data.SpaceRequirements && data.SpaceRequirements.totalLoadingLengthCodes,
+            associatedInvoiceAmount: data.SpaceRequirements && data.SpaceRequirements.associatedInvoiceAmount,
+            associatedInvoiceAmountUnits: data.SpaceRequirements && data.SpaceRequirements.associatedInvoiceAmountCodes,
+            declaredValueForCustoms: data.SpaceRequirements && data.SpaceRequirements.declaredValueForCustoms,
+            declaredValueForCustomsUnits: data.SpaceRequirements && data.SpaceRequirements.declaredValueForCustomsCodes,
+            totalPackageQuantity: data.SpaceRequirements && data.SpaceRequirements.totalPackageQuantity,
+            totalPackageQuantityUnits: data.SpaceRequirements && data.SpaceRequirements.totalPackageQuantityCodes,
+            totalItemQuantity: data.SpaceRequirements && data.SpaceRequirements.totalItemQuantity,
+            totalItemQuantityUnits: data.SpaceRequirements && data.SpaceRequirements.totalItemQuantityCodes,
+            packageTypeCode:data.SpaceRequirements && data.SpaceRequirements.packageTypeCode,
+            totalPackageQuantityPT: data.SpaceRequirements && data.SpaceRequirements.totalPackageQuantityPT,
+            totalGrossWeightPT: data.SpaceRequirements && data.SpaceRequirements.totalGrossWeightPT,
+            totalGrossWeightPTUnits: data.SpaceRequirements && data.SpaceRequirements.totalGrossWeightPTCodes,
+            totalGrossVolumePT: data.SpaceRequirements && data.SpaceRequirements.totalGrossVolumePT,
+            totalGrossVolumePTUnits: data.SpaceRequirements && data.SpaceRequirements.totalGrossVolumePTCodes
+        }
+    }
+      console.log( schemaObj,"schemaObj")
+      saveTransportcapacitybooking(schemaObj)
   }
     return (
       <div className="transportcapacitybooking">
@@ -404,4 +517,117 @@ export default createTransportcapacitybooking;
 // totalItemQuantity: {
 //   Value: body.totalItemQuantity.Value,
 //   Measurementtype: body.totalItemQuantity.Measurementtype,
+// }
+
+// {
+//   "ServiceDetailsData": {
+//       "servicecategoryCode": "",
+//       "serviceConditionTypeCode": "606588285723194bb5e18aed",
+//       "serviceLevelCode": "60658a415723194bb5e18afc"
+//   },
+//   "PickUpLocationData": {
+//       "additionalLocationIdentificationCode": "6066bc8ff225027765a0a67f",
+//       "sublocationIdentification": "asfjkhfkljf",
+//       "locationName": "sdfdf",
+//       "locationSpecificInstructionsCode": "6066bd5e9db55078bf0d00f1",
+//       "uTCOffset": "asdf",
+//       "cityName": "dsfds",
+//       "countryCode": "6066bb76f225027765a0a67d",
+//       "crossStreet": "asdfd",
+//       "currencyOfPartyCode": "6066bdf89db55078bf0d00f3",
+//       "languageOfthePartyCode": "6066be5c9db55078bf0d00f8",
+//       "name": "asdfd",
+//       "postBoxNumber": "51654",
+//       "postalCode": "515425",
+//       "provinceCode": "adsfd",
+//       "state": "asdf",
+//       "streetAddressOne": "a",
+//       "streetAddressTwo": "asdfd",
+//       "streetAddressThree": "adsfd",
+//       "latitude": 4654,
+//       "longitutue": 321321,
+//       "contactTypeCode": "6066ba54f225027765a0a679",
+//       "personName": "sdfasdf",
+//       "departmentName": "adsf",
+//       "jobTitle": "asdf",
+//       "responsibility": "606604c84e9e6d6253b5bfb6",
+//       "communicationChannelCode": "606605904e9e6d6253b5bfb9",
+//       "communicationValue": "asdfds",
+//       "communicationChannelName": "asdf"
+//   },
+//   "PickUpTime": {
+//       "pickupStartDate": "2021-05-10",
+//       "pickupStartTime": " 17:58",
+//       "pickupEndDate": "2021-02-10",
+//       "pickupEndTime": " 19:58"
+//   },
+//   "DropOffLocation": {
+//       "additionalLocationIdentificationCode": "6066bc8ff225027765a0a67f",
+//       "sublocationIdentification": "asfjkhfkljf",
+//       "locationName": "sdfdf",
+//       "locationSpecificInstructionsCode": "6066bd5e9db55078bf0d00f1",
+//       "uTCOffset": "asdf",
+//       "cityName": "dsfds",
+//       "countryCode": "6066bb76f225027765a0a67d",
+//       "crossStreet": "asdfd",
+//       "currencyOfPartyCode": "6066bdf89db55078bf0d00f3",
+//       "languageOfthePartyCode": "6066be5c9db55078bf0d00f8",
+//       "name": "asdfd",
+//       "postBoxNumber": "51654",
+//       "postalCode": "515425",
+//       "provinceCode": "adsfd",
+//       "state": "asdf",
+//       "streetAddressOne": "a",
+//       "streetAddressTwo": "asdfd",
+//       "streetAddressThree": "adsfd",
+//       "latitude": 4654,
+//       "longitutue": 321321,
+//       "contactTypeCode": "",
+//       "personName": "sdfasdf",
+//       "departmentName": "adsf",
+//       "jobTitle": "asdf",
+//       "responsibility": "606604c84e9e6d6253b5bfb6",
+//       "communicationChannelCode": "606605904e9e6d6253b5bfb9",
+//       "communicationValue": "asdfds",
+//       "communicationChannelName": "asdf"
+//   },
+//   "DropOffTime": {
+//       "dropOffStartDate": "2021-07-10",
+//       "dropOffStartTime": " 17:58",
+//       "dropOffEndDate": "2021-09-10",
+//       "dropOffEndTime": " 19:58"
+//   },
+//   "SpaceRequirements": {
+//       "cargoTypeCode": "6062ca287ac03a03b5e4a79d",
+//       "harmonizedSystemCode": "6065e82e97b3245cabbd0452",
+//       "cargoTypeDescriptionCode": "6065e87c97b3245cabbd0456",
+//       "countryOfOriginCode": "6065e91c97b3245cabbd0461",
+//       "finalDestinationCountryCode": "6065e8b597b3245cabbd045a",
+//       "totalGrossVolume": "516",
+//       "totalGrossVolumeUnits": "60659f455723194bb5e18b15",
+//       "totalGrossWeight": "21321",
+//       "totalGrossWeightUnits": "60659fc05723194bb5e18b1a",
+//       "totalTransportNetWeight": "54654",
+//       "totalTransportNetWeightUnits": "60659f625723194bb5e18b16",
+//       "totalChargeableWeight": "321321",
+//       "totalChargeableWeightUnits": "60659f625723194bb5e18b16",
+//       "declaredWeightForCustoms": "21",
+//       "declaredWeightForCustomsUnits": "60659fc05723194bb5e18b1a",
+//       "totalLoadingLength": "321321",
+//       "totalLoadingLengthUnits": "60659f625723194bb5e18b16",
+//       "associatedInvoiceAmount": "21321",
+//       "associatedInvoiceAmountUnits": "605db315cfc2c6c738963b4d",
+//       "declaredValueForCustoms": "321321",
+//       "declaredValueForCustomsUnits": "605db31ecfc2c6c738963b4e",
+//       "totalPackageQuantity": "5665",
+//       "totalPackageQuantityUnits": "6065e99997b3245cabbd0465",
+//       "totalItemQuantity": "321321",
+//       "totalItemQuantityUnits": "6065e99197b3245cabbd0464",
+//       "packageTypeCode": "606451381b09402e3c72a156",
+//       "totalPackageQuantityPT": "13321",
+//       "totalGrossWeightPT": "3232",
+//       "totalGrossWeightPTUnits": "60659f795723194bb5e18b17",
+//       "totalGrossVolumePT": "321321",
+//       "totalGrossVolumePTUnits": "60659f625723194bb5e18b16"
+//   }
 // }

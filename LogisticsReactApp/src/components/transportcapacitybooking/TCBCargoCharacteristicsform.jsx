@@ -25,6 +25,7 @@ import { getAmounttypes } from "../../services/amounttypeService";
 import { getQuantitytypes } from "../../services/quantitytypeService";
 import { getPackagetypecodes } from "../../services/packagetypecodeService";
 import { getTotalpackagequantitys } from "../../services/totalpackagequantityService";
+import { getCargotypecodes } from "../../services/cargotypecodeService";
 
 
  const CargoCharacteristicsForm =({setenableNext})=> {
@@ -72,7 +73,7 @@ const [CargoData,setCargoData] = useState(null)
     },[])
 
     const populateCargoTypeCodes = async () =>{
-      const { data: transportServiceLevelCodes } = await getCodetypes();
+      const { data: transportServiceLevelCodes } = await getCargotypecodes();
       setCargoType(transportServiceLevelCodes)
     }
     const populatHarmonizedSystemCodes = async () =>{
@@ -192,7 +193,7 @@ const [CargoData,setCargoData] = useState(null)
     totalGrossVolumePTCodes:yup.string().required(),  
   })
  
-  console.log(CargoData,"SpaceCargo Data")
+  // console.log(CargoData,"SpaceCargo Data")
 
     return (
       <div>
@@ -333,7 +334,7 @@ const [CargoData,setCargoData] = useState(null)
                            <FormicControl control='select' isRequired="true" label='Package Type' id='packageTypeCode' name='packageTypeCode' options={PackageType} />
                         </CCol>
                         <CCol md="6">
-                          <FormicControl control='select' isRequired="true" label='Total Package Quantity' id='totalPackageQuantityPT' name='totalPackageQuantityPT' options={Totalpackagequantitys} />
+                          <FormicControl control='input' isRequired="true" label='Total Package Quantity' id='totalPackageQuantityPT' name='totalPackageQuantityPT' options={Totalpackagequantitys} />
                         </CCol>
                         <CCol md="6">
                         
@@ -390,3 +391,4 @@ export default CargoCharacteristicsForm
         // :"",
         // :"",
         // :"",
+        

@@ -35,15 +35,15 @@ function TCBDropOffLocation({setenableNext}) {
 	const [Resposibilities,setResposibilities]= useState([])
 	const [commmunicationChannel,setcommmunicationChannel]= useState([])
 
-    console.log(AdditionalLocationIdentification,"AdditionalLocationIdentification")
-	console.log(SublocationIdentification,"SublocationIdentification")
-	console.log(LocationSpecificInstructions,"LocationSpecificInstructions")
-    console.log(CurrencyOfParty,"CurrencyOfParty")
-    console.log(LanguageOftheParty,"LanguageOftheParty")
-    console.log(Country,"Country")
-    console.log(ContactType,"ContactType")
-    console.log(Resposibilities,"Resposibilities")
-    console.log(commmunicationChannel,"commmunicationChannel")
+    // console.log(AdditionalLocationIdentification,"AdditionalLocationIdentification")
+	// console.log(SublocationIdentification,"SublocationIdentification")
+	// console.log(LocationSpecificInstructions,"LocationSpecificInstructions")
+    // console.log(CurrencyOfParty,"CurrencyOfParty")
+    // console.log(LanguageOftheParty,"LanguageOftheParty")
+    // console.log(Country,"Country")
+    // console.log(ContactType,"ContactType")
+    // console.log(Resposibilities,"Resposibilities")
+    // console.log(commmunicationChannel,"commmunicationChannel")
 
  useEffect(()=>{
 	populateAdditionalLocationIdentificationCodes();
@@ -211,7 +211,7 @@ const initialValues ={
                     </CCol>
                     <CCol md="4">
                         <FormicControl
-                            control="selectOptional"
+                            control="input"
                             label="Sublocation Identification"
                             id="SublocationIdentification"
                             name="sublocationIdentification"

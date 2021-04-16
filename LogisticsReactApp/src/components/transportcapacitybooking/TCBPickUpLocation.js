@@ -104,9 +104,9 @@ function TCBPickUpLocation({ setenableNext }) {
 		}
 	
 
-  console.log(AdditionalLocationIdentification,"111111")
-	console.log(LocationSpecificInstructions,"22222")
-	console.log(CurrencyOfParty,"333333")
+  // console.log(AdditionalLocationIdentification,"111111")
+	// console.log(LocationSpecificInstructions,"22222")
+	// console.log(CurrencyOfParty,"333333")
 
 	const dropDownOtions = [
 
@@ -212,7 +212,7 @@ function TCBPickUpLocation({ setenableNext }) {
 								 </CCol>
 								 <CCol md="4">
 										 <FormicControl
-												 control="selectOptional"
+												 control="input"
 												 label="Sublocation Identification"
 												 id="SublocationIdentification"
 												 name="sublocationIdentification"
@@ -530,7 +530,7 @@ function TCBPickUpLocation({ setenableNext }) {
 								 className="next-btn"
 								 color="primary"
 								 style={{ margin: "1rem" }}
-								 // disabled={!formik.dirty && formik.errors}
+								 disabled={!formik.dirty && formik.errors}
 						 >
 								 Next
 						 </CButton>
