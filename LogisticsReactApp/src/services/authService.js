@@ -6,7 +6,10 @@ const apiEndPoint = apiUrl + "/user";
 const tokkenKey = "token";
 
 export async function login(email, password) {
-  const { data: jwt } = await myhttp.post(apiEndPoint + "/login", { email, password });
+  const { data: jwt } = await myhttp.post(apiEndPoint + "/login", {
+    email,
+    password,
+  });
   return localStorage.setItem(tokkenKey, jwt);
 }
 
@@ -19,7 +22,7 @@ export function getJwt() {
 }
 
 export function isUserLoggedIn() {
-  return localStorage.getItem(tokkenKey) !== null ? true:false;
+  return localStorage.getItem(tokkenKey) !== null ? true : false;
 }
 
 export function getUserLocalData() {
@@ -32,12 +35,11 @@ export async function getCurrentUser() {
   try {
     const jwt = localStorage.getItem(tokkenKey);
     const user = jwtDecode(jwt);
-    const userDetails = await myhttp.get(apiEndPoint + "/" + user._id); 
-    return  userDetails;
-  
+    const userDetails = await myhttp.get(apiEndPoint + "/" + user._id);
+    return userDetails;
   } catch (ex) {
     return null;
-  } 
+  }
 }
 
 myhttp.setJwt(getJwt());
@@ -47,5 +49,5 @@ export default {
   logout,
   getCurrentUser,
   getJwt,
-  isUserLoggedIn
+  isUserLoggedIn,
 };

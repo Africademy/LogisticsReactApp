@@ -1,10 +1,10 @@
 import axios from "axios";
 
 function setJwt(jwt) {
-  axios.defaults.headers.common["auth-token"] = jwt;
+  axios.defaults.headers.common["Auth-Token"] = jwt;
 }
 
-axios.interceptors.response.use(null, error => {
+axios.interceptors.response.use(null, (error) => {
   const expectedError =
     error.response &&
     error.response.status >= 400 &&
@@ -20,5 +20,5 @@ export default {
   post: axios.post,
   put: axios.put,
   delete: axios.delete,
-  setJwt
+  setJwt,
 };

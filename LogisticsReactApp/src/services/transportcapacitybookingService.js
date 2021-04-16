@@ -1,9 +1,7 @@
 import myhttp from "./httpService";
-import {
-  apiUrl
-} from "../CRUDAppConfigs.json";
+import { apiUrl } from "../CRUDAppConfigs.json";
 
-const apiEndPoint = apiUrl + "/transportcapacitybookings"
+const apiEndPoint = apiUrl + "/transportcapacitybookings";
 
 export function getTransportcapacitybookings() {
   return myhttp.get(apiEndPoint);
@@ -18,13 +16,18 @@ export function getTransportcapacitybooking(id) {
 }
 
 export function filterTransportcapacitybooking(data) {
-  return myhttp.get(`${apiEndPoint}/filter/${data.bookingid}?fromdate=${data.fromdate}&todate=${data.todate}`);
+  const params = {
+    bookingid: data.bookingid ? data.bookingid : "",
+    fromdate: data.fromdate ? data.fromdate : "",
+    todate: data.todate ? data.todate : "",
+  };
+  return myhttp.get(`${apiEndPoint}/filter`, { params: params });
 }
 
 export function saveTransportcapacitybooking(transportcapacitybooking) {
   if (transportcapacitybooking._id) {
     const body = {
-      ...transportcapacitybooking
+      ...transportcapacitybooking,
     };
     delete body._id;
     return myhttp.put(apiEndPoint + "/" + transportcapacitybooking._id, body);
