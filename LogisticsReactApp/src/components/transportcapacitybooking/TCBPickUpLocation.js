@@ -227,7 +227,7 @@ function TCBPickUpLocation({ setenableNext }) {
 												 label="Location Name"
 												 id="LocationName"
 												 name="locationName"
-												 // options={dropDownOtions}
+												 isRequired="true"
 												 
 										 />
 								 </CCol>
@@ -319,6 +319,7 @@ function TCBPickUpLocation({ setenableNext }) {
 												 label=" Post Box Number"
 												 id="PostBoxNumber"
 												 name="postBoxNumber"
+												 isRequired="true"
 												 // options={dropDownOtions}
 										 />
 								 </CCol>
@@ -329,6 +330,7 @@ function TCBPickUpLocation({ setenableNext }) {
 												 label="Postal Code"
 												 id="PostalCode"
 												 name="postalCode"
+												 isRequired="true"
 												 // options={dropDownOtions}
 										 />
 								 </CCol>
@@ -359,6 +361,7 @@ function TCBPickUpLocation({ setenableNext }) {
 												 label=" Street Address One"
 												 id="StreetAddressOne"
 												 name="streetAddressOne"
+												 isRequired="true"
 												 // options={dropDownOtions}
 										 />
 								 </CCol>
@@ -530,7 +533,7 @@ function TCBPickUpLocation({ setenableNext }) {
 								 className="next-btn"
 								 color="primary"
 								 style={{ margin: "1rem" }}
-								 disabled={!formik.dirty && formik.errors}
+								//  disabled={!formik.dirty && formik.errors}
 						 >
 								 Next
 						 </CButton>

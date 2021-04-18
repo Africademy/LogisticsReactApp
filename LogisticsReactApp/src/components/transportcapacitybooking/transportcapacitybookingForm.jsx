@@ -62,6 +62,7 @@ const createTransportcapacitybooking =() => {
   const [TabenableCG,setTabenableCG] = useState(false)
   const [TabenableSp,setTabenableSp] = useState(false)
   const [response,setresponse] = useState (null)
+  const [Error,setError] = useState(null)
 
   //Order Details
   const [transportServiceCategoryCodes,settransportServiceCategoryCodes]= useState([])
@@ -238,7 +239,10 @@ const createTransportcapacitybooking =() => {
           console.log(response.data)
 
             }
-          )
+          ).catch(err => {
+            setError(err)
+            console.log(err)
+          })
           
   }
     return (
@@ -250,7 +254,7 @@ const createTransportcapacitybooking =() => {
            <div className="AlertInTCB">
               
                {response && (<Alert bgcolor="bgBlue" > {`Successfully Booking!! Your Booking Id:${response.bookingId}`}</Alert>)}
-
+                {Error && (<Alert bgcolor="bgBlue" >Not Saved Please CheckForm </Alert>)}
              </div> 
            <div className="AlertInTCB">
               {/*  */}
@@ -470,6 +474,7 @@ const createTransportcapacitybooking =() => {
                   </CCard>
              <div className="finalSubmition">
                 <button disabled={!TabenableSp} className="finalSubmition__btn  disabled" onClick={handleSubmit}>Add Order</button>
+                <button className="finalSubmition__btn  disabled" onClick={()=> setresponse(!response)}>Alert</button>
              </div>
               
             

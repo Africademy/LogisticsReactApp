@@ -570,7 +570,8 @@ class App extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      
+        <div className="AppComponent">
         <div className="navBarcomponet">
           <Navbar user={this.state.user} />
         </div>
@@ -4566,8 +4567,8 @@ class App extends Component {
         </div> */}
 
          </div>
-      
-      </React.Fragment>
+         </div>
+    
     );
   }
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {} from  './Alert.css'
+import ReactDOM from 'react-dom'
 
 function Alert({bgcolor,children}) {
 
@@ -13,9 +14,8 @@ function Alert({bgcolor,children}) {
 
     },[show])
 
-
-    return (
-        <React.Fragment>
+    // root-portals
+    return ReactDOM.createPortal(
             <div className="AlertPopup">
             { show && (
                  
@@ -31,11 +31,8 @@ function Alert({bgcolor,children}) {
              )}
 
             </div>
-         
-
-        </React.Fragment>
        
-    )
+    ,document.getElementById("root-portals"))
 }
 
 export default Alert
