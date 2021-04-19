@@ -138,6 +138,9 @@ class Transportcapacitybookings extends Component {
     const data = { ...this.state.data };
     data[e.currentTarget.name] = e.currentTarget.value;
     this.setState({ data: data });
+    // if (e.currentTarget.name === "bookingid" && e.currentTarget.value === "") {
+    //   this.componentDidMount();
+    // }
   };
 
   handleGetBooking = async (e) => {

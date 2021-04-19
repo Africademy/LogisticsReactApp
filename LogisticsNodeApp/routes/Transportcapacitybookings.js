@@ -28,14 +28,10 @@ router.get("/", verify, async (req, res) => {
       .populate("plannedDropOff.Logisticlocation")
       .populate("plannedDropOff.LogisticEventPeriod")
       .populate("plannedDropOff.contact")
-      // .populate("transportServiceCategoryCode.Id")
-      // .populate("transportServiceConditionTypeCode.Id")
-      // .populate("transportServiceLevelCode.Id")
       .exec((e, r) => {
         if (e) return res.status(400).send(e);
         res.send(r);
       });
-      // res.send(Transportcapacitybookings);
   } catch (ex) {
     res.status(400).json({
       message: ex.message,
@@ -43,53 +39,21 @@ router.get("/", verify, async (req, res) => {
   }
 });
 
-router.get("/:id", verify, async (req, res) => {
+router.get("/filter", verify, async (req, res) => {
+  console.log(req.params.id);
   try {
-    let transportcapacitybookings;
-    transportcapacitybookings = await Transportcapacitybooking.findOne({
-        _id: req.params.id,
-      })
-        .populate(
-          "transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes"
-        )
-        .populate("transportCapacityBookingSpaceRequirements.Packagetotaltypes")
-        .populate("plannedPickUp.Logisticlocation")
-        .populate("plannedPickUp.Logisticlocation.contact")
-        .populate("plannedPickUp.LogisticEventPeriod")
-        .populate("plannedDropOff.Logisticlocation")
-        .populate("plannedDropOff.Logisticlocation.contact")
-        .populate("plannedDropOff.LogisticEventPeriod")
-        .exec(async (e, r) => {
-          if (e) return res.status(400).send(e);
-          console.log(r);
-          res.send(r);
-        });
-    if (transportcapacitybookings && transportcapacitybookings.length === 0)
-      return res.json({
-        message: "No data found",
-      });
-  } catch (ex) {
-    res.status(400).json({
-      message: ex.message,
-    });
-  }
-});
-
-router.get("/filter/:bookingId", verify, async (req, res) => {
-  try {
-    const startDate = req.query.fromdate != undefined
-      ? new Date(Number(req.query.fromdate))
-      : false;
-    const endDate = req.query.todate != undefined
-      ? new Date(Number(req.query.todate))
-      : false;
+    const startDate =
+      req.query.fromdate != "" ? new Date(Number(req.query.fromdate)) : false;
+    const endDate =
+      req.query.todate != "" ? new Date(Number(req.query.todate)) : false;
+    const bookingId = req.query.bookingid ? req.query.bookingid : false;
     let transportcapacitybookings;
 
     console.log(startDate, endDate);
 
-    if (req.params.id != "false" && !startDate && !endDate) {
+    if (bookingId && !startDate && !endDate) {
       transportcapacitybookings = await Transportcapacitybooking.findOne({
-        _id: req.params.id,
+        bookingId: bookingId,
       })
         .populate(
           "transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes"
@@ -97,20 +61,18 @@ router.get("/filter/:bookingId", verify, async (req, res) => {
         .populate("transportCapacityBookingSpaceRequirements.Packagetotaltypes")
         .populate("plannedPickUp.Logisticlocation")
         .populate("plannedPickUp.Logisticlocation.contact")
-        // .populate("plannedPickUp.LogisticEventDateTime")
         .populate("plannedPickUp.LogisticEventPeriod")
         .populate("plannedDropOff.Logisticlocation")
         .populate("plannedDropOff.Logisticlocation.contact")
-        // .populate("plannedDropOff.LogisticEventDateTime")
         .populate("plannedDropOff.LogisticEventPeriod")
         .exec(async (e, r) => {
           if (e) return res.status(400).send(e);
-          console.log(r);
-          const contact = await Contacttype.findById(
-            r.plannedPickUp.Logisticlocation.contact
-          );
-          console.log(contact);
-          r.plannedPickUp.Logisticlocation.contact = contact;
+          // console.log(r);
+          // const contact = await Contacttype.findById(
+          //   r.plannedPickUp.Logisticlocation.contact
+          // );
+          // console.log(contact);
+          // r.plannedPickUp.Logisticlocation.contact = contact;
           const data = [];
           data.push(r);
           res.send(data);
@@ -125,32 +87,75 @@ router.get("/filter/:bookingId", verify, async (req, res) => {
         .populate("transportCapacityBookingSpaceRequirements.Packagetotaltypes")
         .populate("plannedPickUp.Logisticlocation")
         .populate("plannedPickUp.Logisticlocation.contact")
-        // .populate("plannedPickUp.LogisticEventDateTime")
-        .populate("plannedPickUp.LogisticEventPeriod")
+        .populate({
+          path: "plannedPickUp.LogisticEventPeriod",
+          match: {
+            createdAt: {
+              $gte: new Date(startDate),
+              $lte: new Date(endDate),
+            },
+          },
+        })
         .populate("plannedDropOff.Logisticlocation")
         .populate("plannedDropOff.Logisticlocation.contact")
-        // .populate("plannedDropOff.LogisticEventDateTime")
         .populate("plannedDropOff.LogisticEventPeriod")
         // .where({
-        //   "plannedPickUp.LogisticEventDateTime.date": {
-        //     $gte: startDate,
-        //     $lte: endDate,
+        //   "plannedPickUp.LogisticEventPeriod.createdAt": {
+        //     $gte: new Date(startDate),
+        //     $lte: new Date(endDate),
         //   },
         // })
         .exec(async (e, r) => {
           if (e) return res.status(400).send(e);
-          console.log(r);
+          if (!r) {
+            return res.status(200).json({
+              message: "No data found",
+            });
+          }
+
+          // console.log(r);
           // const contact = await Contacttype.findById(
           //   r.plannedPickUp.Logisticlocation.contact
           // );
           // console.log(contact);
           // r.plannedPickUp.Logisticlocation.contact = contact;
-          const data = [];
-          data.push(r);
+          const data = [...r];
           res.send(data);
         });
     }
 
+    if (transportcapacitybookings && transportcapacitybookings.length === 0)
+      return res.json({
+        message: "No data found",
+      });
+  } catch (ex) {
+    res.status(400).json({
+      message: ex.message,
+    });
+  }
+});
+
+router.get("/:id", verify, async (req, res) => {
+  try {
+    let transportcapacitybookings;
+    transportcapacitybookings = await Transportcapacitybooking.findOne({
+      _id: req.params.id,
+    })
+      .populate(
+        "transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes"
+      )
+      .populate("transportCapacityBookingSpaceRequirements.Packagetotaltypes")
+      .populate("plannedPickUp.Logisticlocation")
+      .populate("plannedPickUp.Logisticlocation.contact")
+      .populate("plannedPickUp.LogisticEventPeriod")
+      .populate("plannedDropOff.Logisticlocation")
+      .populate("plannedDropOff.Logisticlocation.contact")
+      .populate("plannedDropOff.LogisticEventPeriod")
+      .exec(async (e, r) => {
+        if (e) return res.status(400).send(e);
+        console.log(r);
+        res.send(r);
+      });
     if (transportcapacitybookings && transportcapacitybookings.length === 0)
       return res.json({
         message: "No data found",
@@ -174,24 +179,37 @@ router.post("/", verify, async (req, res) => {
     const DropOffTime = req.body.DropOffTime;
     const SpaceRequirements = req.body.SpaceRequirements;
 
-    const transportservicecategorycodes = await Transportservicecategorycode.findById(ServiceDetailsData.servicecategoryCode);
-    const transportserviceconditiontypecodes = await Transportserviceconditiontypecode.findById(ServiceDetailsData.serviceConditionTypeCode);
-    const transportservicelevelcodes = await Transportservicelevelcode.findById(ServiceDetailsData.serviceLevelCode);
+    const transportservicecategorycodes = await Transportservicecategorycode.findById(
+      ServiceDetailsData.servicecategoryCode
+    );
+    const transportserviceconditiontypecodes = await Transportserviceconditiontypecode.findById(
+      ServiceDetailsData.serviceConditionTypeCode
+    );
+    const transportservicelevelcodes = await Transportservicelevelcode.findById(
+      ServiceDetailsData.serviceLevelCode
+    );
 
     // const logisticservicesbuyers = await Logisticservicesbuyer.findById(req.body.logisticServicesBuyerId);
     // const logisticservicessellers = await Logisticservicesseller.findById(req.body.logisticServicesSellerId);
-    
-    const transportcargocharacteristicstypes = await saveTransportcargocharacteristicstype(SpaceRequirements);
+
+    const transportcargocharacteristicstypes = await saveTransportcargocharacteristicstype(
+      SpaceRequirements
+    );
+    const savedTransportcargocharacteristicstype = await transportcargocharacteristicstypes.save();
     // Transportcargocharacteristicstype.findById(
     //   SpaceRequirements.cargoType
     // );
 
     const packagetotaltypes = await savePackagetotaltype(SpaceRequirements);
+    const savedPackagetotaltype = await packagetotaltypes.save();
     // Packagetotaltype.findById(
     //   SpaceRequirements.packageTypeCode
     // );
 
-    const plannedPickUplogisticlocationtypes = await saveLogisticlocationtype(PickUpLocationData);
+    const plannedPickUplogisticlocationtypes = await saveLogisticlocationtype(
+      PickUpLocationData
+    );
+    const savedPlannedPickUplogisticlocationtypes = await plannedPickUplogisticlocationtypes.save();
     // Logisticlocationtype.findById(
     //   PickUpLocationData.AdditionalLocationIdentification
     // );
@@ -205,18 +223,22 @@ router.post("/", verify, async (req, res) => {
     //   PickUpTime.pickupStartTime
     // );
 
-    const plannedPickUplogisticeventperiods = new Logisticeventperiod ({
-        beginDate: PickUpTime.pickupStartDate,
-        beginTime: PickUpTime.pickupStartTime,
-        endDate: PickUpTime.pickupEndDate,
-        endTime: PickUpTime.pickupEndTime,
+    const plannedPickUplogisticeventperiods = new Logisticeventperiod({
+      beginDate: PickUpTime.pickupStartDate,
+      beginTime: PickUpTime.pickupStartTime,
+      endDate: PickUpTime.pickupEndDate,
+      endTime: PickUpTime.pickupEndTime,
     });
     const savedLogisticeventperiod = await plannedPickUplogisticeventperiods.save();
     // const plannedPickUplogisticeventperiods = await Logisticeventperiod.findById(
     //   PickUpTime.plannedPickUpLogisticEventPeriodId
     // );
 
-    const plannedDropOfflogisticlocationtypes = await saveLogisticlocationtype(DropOffLocation)//send payload
+    const plannedDropOfflogisticlocationtypes = await saveLogisticlocationtype(
+      DropOffLocation
+    );
+    const savedPlannedDropOfflogisticlocationtypes = await plannedDropOfflogisticlocationtypes.save();
+
     // const plannedDropOfflogisticlocationtypes = await Logisticlocationtype.findById(
     //   DropOffLocation.plannedDropOffLogisticLocationTypeId
     // );
@@ -230,11 +252,11 @@ router.post("/", verify, async (req, res) => {
     //   DropOffTime.plannedDropOffLogisticEventDateTimeId
     // );
 
-    const plannedDropOfflogisticeventperiods = new Logisticeventperiod ({
-        beginDate: DropOffTime.dropOffStartDate,
-        beginTime: DropOffTime.dropOffStartTime,
-        endDate: DropOffTime.dropOffEndDate,
-        endTime: DropOffTime.dropOffEndTime,
+    const plannedDropOfflogisticeventperiods = new Logisticeventperiod({
+      beginDate: DropOffTime.dropOffStartDate,
+      beginTime: DropOffTime.dropOffStartTime,
+      endDate: DropOffTime.dropOffEndDate,
+      endTime: DropOffTime.dropOffEndTime,
     });
     const savedPlannedDropOffLogisticeventperiod = await plannedDropOfflogisticeventperiods.save();
     // const plannedDropOfflogisticeventperiods = await Logisticeventperiod.findById(
@@ -256,16 +278,16 @@ router.post("/", verify, async (req, res) => {
 
       transportCapacityBookingSpaceRequirements: {
         Transportcargocharacteristicstypes:
-          transportcargocharacteristicstypes._id,
-        Packagetotaltypes: packagetotaltypes._id,
+          savedTransportcargocharacteristicstype._id,
+        Packagetotaltypes: savedPackagetotaltype._id,
       },
       plannedPickUp: {
-        Logisticlocation: plannedPickUplogisticlocationtypes._id,
+        Logisticlocation: savedPlannedPickUplogisticlocationtypes._id,
         // LogisticEventDateTime: plannedPickUplogisticeventdatetimes._id,
         LogisticEventPeriod: savedLogisticeventperiod._id,
       },
       plannedDropOff: {
-        Logisticlocation: plannedDropOfflogisticlocationtypes._id,
+        Logisticlocation: savedPlannedDropOfflogisticlocationtypes._id,
         // LogisticEventDateTime: plannedDropOfflogisticeventdatetimes._id,
         LogisticEventPeriod: savedPlannedDropOffLogisticeventperiod._id,
       },
@@ -299,7 +321,7 @@ router.post("/", verify, async (req, res) => {
     await session.abortTransaction();
     session.endSession();
     res.status(400).json({
-      message: ex.message
+      message: ex.message,
     });
   }
 });
@@ -373,71 +395,7 @@ router.put("/:id", verify, async (req, res) => {
             req.body.transportCapacityBookingTransportMovement,
           deliveryTerms: {
             Id: req.body.deliveryterms.id,
-            Name: req.body.deliveryterms.id,
-          },
-          deliveryTerms: {
-            Id: req.body.deliveryterms.id,
-            Name: req.body.deliveryterms.id,
-          },
-          deliveryTerms: {
-            Id: req.body.deliveryterms.id,
             Name: req.body.deliveryterms.qualifierCodeName,
-          },
-          deliveryTerms: {
-            Id: req.body.deliveryterms.id,
-            Name: req.body.deliveryterms.id,
-          },
-          deliveryTerms: {
-            Id: req.body.deliveryterms.id,
-            Name: req.body.deliveryterms.id,
-          },
-          deliveryTerms: {
-            Id: req.body.deliveryterms.id,
-            Name: req.body.deliveryterms.id,
-          },
-          deliveryTerms: {
-            Id: req.body.deliveryterms.id,
-            Name: req.body.deliveryterms.id,
-          },
-          deliveryTerms: {
-            Id: req.body.deliveryterms.id,
-            Name: req.body.deliveryterms.id,
-          },
-          deliveryTerms: {
-            Id: req.body.deliveryterms.id,
-            Name: req.body.deliveryterms.id,
-          },
-          deliveryTerms: {
-            Id: req.body.deliveryterms.id,
-            Name: req.body.deliveryterms.id,
-          },
-          deliveryTerms: {
-            Id: req.body.deliveryterms.id,
-            Name: req.body.deliveryterms.id,
-          },
-          deliveryTerms: {
-            Id: req.body.deliveryterms.id,
-            Name: req.body.deliveryterms.id,
-          },
-          deliveryTerms: {
-            Id: req.body.deliveryterms.id,
-            Name: req.body.deliveryterms.id,
-          },
-          deliveryTerms: {
-            Id: req.body.deliveryterms.id,
-            Name: req.body.deliveryterms.id,
-          },
-          deliveryTerms: {
-            Id: req.body.deliveryterms.id,
-            Name: req.body.deliveryterms.id,
-          },
-          deliveryTerms: {
-            Id: req.body.deliveryterms.id,
-            Name: req.body.deliveryterms.id,
-          },
-          deliveryTerms: {
-            Id: req.body.deliveryterms.id,
-            Name: req.body.deliveryterms.id,
           },
           deliveryTerms: {
             Id: req.body.deliveryterms.id,
@@ -453,8 +411,6 @@ router.put("/:id", verify, async (req, res) => {
     });
   }
 });
-
-function checkError(obj){}
 
 async function saveTransportcargocharacteristicstype(body) {
   const Cargotypecode = require("../models/Cargotypecode");
@@ -541,96 +497,108 @@ async function saveTransportcargocharacteristicstype(body) {
       },
     }
   );
-  return await transportcargocharacteristicstype.save();
+  return await transportcargocharacteristicstype;
 }
 
-async function savePackagetotaltype(body){
+async function savePackagetotaltype(body) {
   const Packagetotaltype = require("../models/Packagetotaltype");
   const Packagetypecode = require("../models/Packagetypecode");
-  
+
   const packagetypecodes = await Packagetypecode.findById(body.packageTypeCode);
 
-    const packagetotaltype = new Packagetotaltype({
-      totalPackageQuantity: body.totalPackageQuantityPT,
-      totalGrossVolume: {
-        Value: body.totalGrossVolumePT,
-        Measurementtype: body.totalGrossVolumePTUnits
-      },
-      totalGrossWeight: {
-        Value: body.totalGrossWeightPT,
-        Measurementtype: body.totalGrossWeightPTUnits
-      },
-      packageTypeCode: {
-        Id: packagetypecodes._id,
-        Name: packagetypecodes.codeListVersion
-      },
-    });
-    return await packagetotaltype.save();
+  const packagetotaltype = new Packagetotaltype({
+    totalPackageQuantity: body.totalPackageQuantityPT,
+    totalGrossVolume: {
+      Value: body.totalGrossVolumePT,
+      Measurementtype: body.totalGrossVolumePTUnits,
+    },
+    totalGrossWeight: {
+      Value: body.totalGrossWeightPT,
+      Measurementtype: body.totalGrossWeightPTUnits,
+    },
+    packageTypeCode: {
+      Id: packagetypecodes._id,
+      Name: packagetypecodes.codeListVersion,
+    },
+  });
+  return await packagetotaltype;
 }
 
-async function saveLogisticlocationtype(body){
-    const Logisticlocationtype = require("../models/Logisticlocationtype");
-    const Operatinghourstype= require("../models/Operatinghourstype");
-    const Specialoperatinghourstype= require("../models/Specialoperatinghourstype");
-    const Countrycode = require("../models/Countrycode");
-    const Currencyofpartycode = require("../models/Currencyofpartycode");
-    const Languageofthepartycode = require("../models/Languageofthepartycode");
-    const Contacttype = require("../models/Contacttype");
-    const Description200type = require("../models/Description200type");
-    const Identifiertype = require("../models/Identifiertype");
+async function saveLogisticlocationtype(body) {
+  const Logisticlocationtype = require("../models/Logisticlocationtype");
+  const Operatinghourstype = require("../models/Operatinghourstype");
+  const Specialoperatinghourstype = require("../models/Specialoperatinghourstype");
+  const Countrycode = require("../models/Countrycode");
+  const Currencyofpartycode = require("../models/Currencyofpartycode");
+  const Languageofthepartycode = require("../models/Languageofthepartycode");
+  const Contacttype = require("../models/Contacttype");
+  const Description200type = require("../models/Description200type");
+  const Identifiertype = require("../models/Identifiertype");
 
-    const locationspecificinstructions = await Description200type.findById(body.locationSpecificInstructionsCode);
-    const additionallocationidentifications = await Identifiertype.findById(body.additionalLocationIdentificationCode);
-    const countrycodes = await Countrycode.findById(body.countryCode);
-    const currencyofpartycodes = await Currencyofpartycode.findById(body.currencyOfPartyCode);
-    const languageofthepartycodes = await Languageofthepartycode.findById(body.languageOfthePartyCode);
-    const contacttypes = await Contacttypecode.findById(body.contactTypeCode);
+  const locationspecificinstructions = await Description200type.findById(
+    body.locationSpecificInstructionsCode
+  );
+  const additionallocationidentifications = await Identifiertype.findById(
+    body.additionalLocationIdentificationCode
+  );
+  const countrycodes = await Countrycode.findById(body.countryCode);
+  const currencyofpartycodes = await Currencyofpartycode.findById(
+    body.currencyOfPartyCode
+  );
+  const languageofthepartycodes = await Languageofthepartycode.findById(
+    body.languageOfthePartyCode
+  );
+  const contacttypes = await Contacttypecode.findById(body.contactTypeCode);
 
-    const logisticlocationtype = new Logisticlocationtype ({
-        unLocationCode: body.unLocationCode,
-        sublocationIdentification: body.sublocationIdentification,
-        locationName: body.locationName,
-        utcOffset: body.utcOffset,
-        locationSpecificInstructions: {
-          Id: locationspecificinstructions._id,
-          Name: locationspecificinstructions.codeListVersion
-        },
-        additionalLocationIdentification: {
-          Id: additionallocationidentifications._id,
-          Name: additionallocationidentifications.identificationSchemeName
-        },
-        contact: contacttypes._id,
-        cityCode: body.cityCode,
-        countryCode: {
-          Id: countrycodes._id,
-          Name: countrycodes.codeListVersion
-        },
-        currencyOfParty: {
-          Id: currencyofpartycodes._id,
-          Name: currencyofpartycodes.codeListVersion
-        },
-        languageOfTheParty: {
-          Id: languageofthepartycodes._id,
-          Name: languageofthepartycodes.codeListVersion
-        },
-        countyCode: body.countyCode,
-        crossStreet: body.crossStreet,
-        name: body.name,
-        pOBoxNumber: body.postBoxNumber,
-        postalCode: body.postalCode,
-        provinceCode: body.province,
-        state: body.state,
-        streetAddressOne: body.streetAddressOne,
-        streetAddressTwo: body.streetAddressTwo,
-        streetAddressThree: body.streetAddressThree,
-        latitude: body.latitude,
-        longitude: body.longitude
-    });
-    return await logisticlocationtype.save();
+  const logisticlocationtype = new Logisticlocationtype({
+    unLocationCode: body.unLocationCode,
+    sublocationIdentification: body.sublocationIdentification,
+    locationName: body.locationName,
+    utcOffset: body.utcOffset,
+    locationSpecificInstructions: {
+      Id: locationspecificinstructions._id,
+      Name: locationspecificinstructions.codeListVersion,
+    },
+    additionalLocationIdentification: {
+      Id: additionallocationidentifications._id,
+      Name: additionallocationidentifications.identificationSchemeName,
+    },
+    contact: contacttypes._id,
+    cityCode: body.cityCode,
+    countryCode: {
+      Id: countrycodes._id,
+      Name: countrycodes.codeListVersion,
+    },
+    currencyOfParty: {
+      Id: currencyofpartycodes._id,
+      Name: currencyofpartycodes.codeListVersion,
+    },
+    languageOfTheParty: {
+      Id: languageofthepartycodes._id,
+      Name: languageofthepartycodes.codeListVersion,
+    },
+    countyCode: body.countyCode,
+    crossStreet: body.crossStreet,
+    name: body.name,
+    pOBoxNumber: body.postBoxNumber,
+    postalCode: body.postalCode,
+    provinceCode: body.province,
+    state: body.state,
+    streetAddressOne: body.streetAddressOne,
+    streetAddressTwo: body.streetAddressTwo,
+    streetAddressThree: body.streetAddressThree,
+    latitude: body.latitude,
+    longitude: body.longitude,
+  });
+  return await logisticlocationtype;
 }
 
-function getRandomNumber(){
-  return Number(Math.floor(10000000000000 + Math.random() * 90000000000000).toString().substr(0,13));
+function getRandomNumber() {
+  return Number(
+    Math.floor(10000000000000 + Math.random() * 90000000000000)
+      .toString()
+      .substr(0, 13)
+  );
 }
 
 module.exports = router;
