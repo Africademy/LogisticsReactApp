@@ -1,44 +1,108 @@
 .card {
-  margin-bottom: 1rem !important;
+	margin-bottom: 0.5rem !important;
 }
 
 .card-header,
 .card-title {
-  font-weight: 700 !important;
+	font-weight: 700 !important;
 }
 
 .card-toggle-header {
-  cursor: pointer;
+	cursor: pointer;
+	background-color: white !important ;
+	/* border-radius: 50%  !important; */
 }
 
 .continue-block {
-  padding: 0.75rem 0;
-  /* border-top: 1px solid; */
-  background-color: #fff;
-  border-color: #d8dbe0;
+	padding: 0.75rem 0;
+	/* border-top: 1px solid; */
+	background-color: #fff;
+	border-color: #d8dbe0;
 }
 
 .next-btn {
-  float: right !important;
+	float: right !important;
 }
 
 .help-block.error {
-  color: rgb(247, 16, 16) !important;
+	color: rgb(247, 16, 16) !important;
 }
 
 label.collapseAddLocation-hide-btn {
-  top: 8px;
-  right: 10px;
-  font-style: italic;
-  position: absolute;
-  cursor: pointer;
+	top: 8px;
+	right: 10px;
+	font-style: italic;
+	position: absolute;
+	cursor: pointer;
 }
 
 button.btn.dropdown-toggle {
-  border-top-left-radius: 0px !important;
-  border-bottom-left-radius: 0px !important;
+	border-top-left-radius: 0px !important;
+	border-bottom-left-radius: 0px !important;
 }
 
 label.mfe-2 {
-  margin-right: 5px;
+	margin-right: 5px;
+}
+.cardheader {
+	/* background-color: rgb(125, 125, 204) !important; */
+	background-color: #5BAC12 !important;
+	/* 5BAC12 */
+}
+.cardFlex {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.calert {
+	position: relative;
+	top: 5rem;
+}
+.cardFlex__header {
+	display: flex;
+	align-items: center;
+}
+.cardFlex__header__span {
+	border: 2px solid rgba(0, 0, 0, 0.288);
+	margin-right: 0.5rem;
+	padding: 0.2rem 0.6rem;
+	border-radius: 50%;
+}
+.cardFlex__header__Icon {
+	/* border: 2px solid rgba(0, 0, 0, 0.288); */
+	margin-right: 0.5rem;
+	padding: 0.1rem 0.2rem;
+	border-radius: 50%;
+	background-color:#5BAC12;
+	margin-bottom: 5px;
+}
+.AlertInTCB {
+	position: absolute !important;
+	left: 40%;
+}
+.AlertInOrder {
+	position: absolute !important;
+	left: 30%;
+}
+.findLocation {
+	padding: 1rem !important;
+}
+.finalSubmition {
+	/* display: flex;
+  justify-content: end;
+  align-items: center; */
+	text-align: end;
+	margin-top: 1rem;
+}
+.finalSubmition__btn {
+	padding: 0.6rem 2.2rem;
+	border-radius: 10px;
+	font-size: 19px;
+	cursor: not-allowed;
+}
+.VolumeCodes {
+	margin-top: 11px;
+}
+.input-group {
+	margin-top: 1rem;
 }

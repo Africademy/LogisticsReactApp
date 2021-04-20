@@ -201,7 +201,7 @@ class Transportcapacitybookings extends Component {
             </CCol>
           )}
           <CCol md="6">
-            <Link to="/transportcapacitybookings/new">
+            <Link to="/transportcapacitybookings/newui">
               <CButton className="btn btn-outline-info custom-btn float-right">
                 New Booking
               </CButton>
@@ -371,7 +371,7 @@ class Transportcapacitybookings extends Component {
                   <td>
                     <div className="action-buttons text-center">
                       <Link
-                        to={`/transportcapacitybookings/${item._id}`}
+                        // to={`/EditTransportcapacitybooking/${item._id}`}
                         className="btn btn-warning btn-sm mx-1 my-sm-1"
                         title="Edit"
                       >

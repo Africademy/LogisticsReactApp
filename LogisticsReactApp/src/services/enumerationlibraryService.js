@@ -4,7 +4,7 @@ import { apiUrl } from "../CRUDAppConfigs.json";
 const apiEndPoint = apiUrl + "/enumerationlibrarys"
 
 export function getEnumerationlibrarys() {
-  return myhttp.get(apiEndPoint);
+  return myhttp.get(apiEndPoint,(res)=> console.log(res,"res"));
 }
 
 export function deleteEnumerationlibrary(id) {

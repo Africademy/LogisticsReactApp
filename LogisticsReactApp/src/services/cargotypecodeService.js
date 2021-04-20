@@ -24,3 +24,4 @@ export function saveCargotypecode(cargotypecode) {
   return myhttp.post(apiEndPoint, cargotypecode);
 }
 
+// http://localhost:5000/api/transportcapacitybookings/

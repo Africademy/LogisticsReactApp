@@ -2,7 +2,7 @@ import { CFormGroup, CFormText, CLabel } from '@coreui/react'
 import { Field, useField } from 'formik'
 import React from 'react'
 
-function CoreSelect(props) {
+function CoreSelectEdit(props) {
     const [field,meta] = useField(props)
     const {label,name,id,options,isRequired,typeOfOption,readOnly, ...rest } = props
     return (
@@ -26,7 +26,6 @@ function CoreSelect(props) {
                       {...rest}
                       {...field}
                           > 
-                          <option defaultValue>Select value</option>
                             
                                  {
                                   options.map( item=>{
@@ -56,29 +55,4 @@ function CoreSelect(props) {
     )
 }
 
-export default CoreSelect
-
-// {typeOfOption === "AdditionalLocationIdentification" && (
-//     <select
-//     className="form-control form-select"
-//     id={id}
-//     {...rest}
-//     {...field}
-//     > 
-//     <option defaultValue>Select value</option>
-//          {
-             
-//               options.map( item=>{
-//                   return (
-                      
-//                       <option key={item.value} value={item._id} >{item.identificationSchemeAgencyCodeCodeListVersion}</option>
-                  
-//                   )
-//               })
-             
-//          }
-      
-    
-//     </select> 
-
-// )}
+export default CoreSelectEdit

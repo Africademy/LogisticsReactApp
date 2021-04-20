@@ -1,0 +1,82 @@
+.AlertPopup {
+  position: fixed;
+  top:10%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  
+  z-index: 1000;
+}
+ 
+  
+ .bgRed {
+  font-size:14px;
+  width:250px;
+  padding:5px 0;
+  /* position:absolute; */
+top:0rem;
+left:50%;
+margin-left:-90px;
+box-sizing:border-box;
+border-radius:25px;
+background-color:rgb(226, 32, 32);
+color:white;
+font-weight: bold;
+text-align: center;
+box-shadow: 0 3px 0 rgba(0,0,0,0.2);
+
+ }
+  
+  .bgBlue {
+      /* display:block; */
+      font-size:14px;
+      width:250px;
+      padding:5px 0;
+      /* position:absolute; */
+    top:0rem;
+    left:50%;
+    margin-left:-90px;
+    box-sizing:border-box;
+    border-radius:25px;
+    background-color:rgb(120, 90, 230);
+    color:white;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.2);
+  }
+  
+  .bgSuccess{
+    /* display:block; */
+    font-size:14px;
+    width:600px;
+    padding:5px 0;
+    /* position:absolute; */
+  /* top:-5rem; */
+  /* left:30%; */
+  margin-left:-90px;
+  box-sizing:border-box;
+  border-radius:25px;
+  background-color:#d4edda;
+  color:black;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.2);
+}
+
+  .animateOpen{
+    animation: moveOpen 4s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+  }
+  /* Safari and Chrome */
+  @keyframes moveOpen 
+      {
+    from {transform: translate(0,-100px);}
+    10% {transform: translate(0,10px);}
+    12% {transform: translate(0,22px);}
+    50% {transform: translate(0,10px);}
+    80% {transform: translate(0,20px);}
+    85% {transform: translate(0,25px);}
+    to {transform: translate(0,-100px);}
+  }
+
+  /* # */
