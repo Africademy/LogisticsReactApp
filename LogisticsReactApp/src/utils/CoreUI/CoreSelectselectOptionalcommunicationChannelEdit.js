@@ -29,7 +29,7 @@ function CoreSelectselectOptionalcommunicationChannelEdit(props) {
                                  {
                                   options.map( item=>{
                                       return (
-                                        <option key={item._id} value={item._id} >{item.communicationChannelName}</option>
+                                        <option key={item._id} value={item.communicationChannelName} >{item.communicationChannelName}</option>
                                       
                                       )
                                   })

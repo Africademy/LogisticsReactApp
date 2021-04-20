@@ -28,7 +28,7 @@ function CoreSelectselectOptionalidentificationEdit(props) {
                                  {
                                   options.map( item=>{
                                       return (
-                                        <option key={item._id} value={item._id} >{item.identificationSchemeAgencyCodeCodeListVersion}</option>
+                                        <option key={item._id} value={item.identificationSchemeAgencyCodeCodeListVersion} >{item.identificationSchemeAgencyCodeCodeListVersion}</option>
                                       
                                       )
                                   })

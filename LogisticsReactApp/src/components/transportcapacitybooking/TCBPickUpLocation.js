@@ -155,7 +155,7 @@ function TCBPickUpLocation({ setenableNext }) {
     sublocationIdentification:yup.string().required(),
     locationName:yup.string().required(),
     locationSpecificInstructions:yup.string().required(),
-    uTCOffset:yup.string().required(),
+    uTCOffset:yup.number().required(),
     cityName:yup.string().required(),
     country:yup.string().required(),
     crossStreet:yup.string(),

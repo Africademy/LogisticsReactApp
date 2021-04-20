@@ -32,25 +32,13 @@ import { getTransportservicecategorycodes } from "../../services/transportservic
 import { saveTransportcapacitybooking } from "../../services/transportcapacitybookingService";
 import { useHistory } from "react-router";
 import {useDispatch} from 'react-redux'
-import { transportServiceCategoryCodesAction, transportServiceConditionTypeCodesAction, transportServiceLevelCodesAction } from "../../actions/ServiceDetailActions";
-import {
-  AdditionalLocationIdentificationCodesAction,
-  LocationSpecificInstructionsCodesAction,
-  CurrencyOfPartyCodesAction,
-  LanguageOfthePartyCodesAction,
-  CountryCodesAction,
-  ContactTypeCodesAction,
-  ResposibilitiesCodesAction,
-  commmunicationChannelCodesAction,
-  SublocationIdentificationCodesAction
 
-} from "../../actions/TCBLocationAction"
 
 
 
 const createTransportcapacitybooking =() => {
   const history = useHistory()
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   const [navigate,setnavigate] = useState(false)
   const [ServiceDetails,setServiceDetails] = useState(false)
@@ -95,21 +83,6 @@ const createTransportcapacitybooking =() => {
   }
 
   useEffect(()=>{
-    dispatch(transportServiceCategoryCodesAction())
-    dispatch(transportServiceConditionTypeCodesAction())
-    dispatch(transportServiceLevelCodesAction())
-    dispatch(AdditionalLocationIdentificationCodesAction())
-    dispatch(LocationSpecificInstructionsCodesAction())
-    dispatch(CurrencyOfPartyCodesAction())
-    dispatch(LanguageOfthePartyCodesAction())
-    dispatch(CountryCodesAction())
-    dispatch(ContactTypeCodesAction())
-    dispatch(ResposibilitiesCodesAction())
-    dispatch(commmunicationChannelCodesAction())
-    dispatch(SublocationIdentificationCodesAction())
-    // dispatch()
-    // dispatch()
-
 
     populatetransportServiceCategoryCodes()
     populatetransportServiceConditionTypeCodes()
