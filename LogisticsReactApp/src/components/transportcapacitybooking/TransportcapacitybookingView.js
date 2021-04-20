@@ -89,7 +89,7 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
 
   return (
     <div>
-      <div style={{textAlign:"end" ,fontSize:"1.2rem",fontWeight:"bold",position:"relative",left:"4rem"}}>Order Id: &nbsp;{id}</div>
+      <div style={{textAlign:"end" ,fontSize:"1.2rem",fontWeight:"bold",position:"relative",left:"4rem"}}>Order Id: &nbsp;{TcbData&& TcbData.data.bookingId}</div>
        {/* Original form */}
 
 
