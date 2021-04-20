@@ -15,6 +15,8 @@ const Logisticeventdatetime = require("../models/Logisticeventdatetime");
 const Logisticeventperiod = require("../models/Logisticeventperiod");
 const Contacttypecode = require("../models/Contacttypecode");
 const Contacttype = require("../models/Contacttype");
+const Communicationchannel = require("../models/Communicationchannel");
+const Description70type = require("../models/Description70type");
 
 router.get("/", verify, async (req, res) => {
   try {
@@ -61,10 +63,10 @@ router.get("/filter", verify, async (req, res) => {
         )
         .populate("transportCapacityBookingSpaceRequirements.Packagetotaltypes")
         .populate("plannedPickUp.Logisticlocation")
-        .populate("plannedPickUp.Logisticlocation.contact")
+        // .populate("plannedPickUp.Logisticlocation.contact") // add in exec method
         .populate("plannedPickUp.LogisticEventPeriod")
         .populate("plannedDropOff.Logisticlocation")
-        .populate("plannedDropOff.Logisticlocation.contact")
+        // .populate("plannedDropOff.Logisticlocation.contact")
         .populate("plannedDropOff.LogisticEventPeriod")
         .exec(async (e, r) => {
           if (e) return res.status(400).send(e);
@@ -278,16 +280,6 @@ router.post("/", verify, async (req, res) => {
     // const plannedDropOfflogisticeventperiods = await Logisticeventperiod.findById(
     //   DropOffTime.plannedDropOffLogisticEventPeriodId
     // );
-
-    // Transportcapacitybooking.pre('save', function(next) {
-    //     var doc = this;
-    //     counter.findByIdAndUpdate({_id: 'entityId'}, {$inc: { seq: 1} }, function(error, counter)   {
-    //         if(error)
-    //             return next(error);
-    //         doc.testvalue = counter.seq;
-    //         next();
-    //     });
-    // });
 
     const transportcapacitybooking = new Transportcapacitybooking({
       bookingId: getRandomNumber(),
@@ -672,7 +664,43 @@ async function saveLogisticlocationtype(body) {
   const languageofthepartycodes = await Languageofthepartycode.findById(
     body.languageOfthePartyCode
   );
-  const contacttypes = await Contacttypecode.findById(body.contactTypeCode);
+  // const contacttypes = await Contacttypecode.findById(body.contactTypeCode);
+  var savedContacttype;
+  try {
+    const communicationchannels = await Communicationchannel.findById(
+      body.communicationChannelCode
+    );
+    const responsibilitys = await Description70type.findById(
+      body.responsibility
+    );
+    const contacttypecodes = await Contacttypecode.findById(
+      body.contactTypeCode
+    );
+
+    const contacttype = new Contacttype({
+      personName: body.personName,
+      departmentName: body.departmentName,
+      jobTitle: body.jobTitle,
+      communicationChannelName: body.communicationChannelName,
+      communicationValue: body.communicationValue,
+      communicationChannelCode: {
+        Id: communicationchannels._id,
+        Name: communicationchannels.communicationChannelName,
+      },
+      responsibility: {
+        Id: responsibilitys._id,
+        Name: responsibilitys.codeListVersion,
+      },
+      contactTypeCode: {
+        Id: contacttypecodes._id,
+        Name: contacttypecodes.codeListVersion,
+      },
+    });
+    savedContacttype = await contacttype.save();
+  } catch (error) {
+    console.log(error)
+    return error;
+  }
 
   const logisticlocationtype = new Logisticlocationtype({
     unLocationCode: body.unLocationCode,
@@ -687,7 +715,7 @@ async function saveLogisticlocationtype(body) {
       Id: additionallocationidentifications._id,
       Name: additionallocationidentifications.identificationSchemeName,
     },
-    contact: contacttypes._id,
+    contact: savedContacttype._id,
     cityCode: body.cityName,
     countryCode: {
       Id: countrycodes._id,
