@@ -14,6 +14,7 @@ const Logisticlocationtype = require("../models/Logisticlocationtype");
 const Logisticeventdatetime = require("../models/Logisticeventdatetime");
 const Logisticeventperiod = require("../models/Logisticeventperiod");
 const Contacttypecode = require("../models/Contacttypecode");
+const Contacttype = require("../models/Contacttype");
 
 router.get("/", verify, async (req, res) => {
   try {
@@ -146,15 +147,30 @@ router.get("/:id", verify, async (req, res) => {
       )
       .populate("transportCapacityBookingSpaceRequirements.Packagetotaltypes")
       .populate("plannedPickUp.Logisticlocation")
-      .populate("plannedPickUp.Logisticlocation.contact")
       .populate("plannedPickUp.LogisticEventPeriod")
       .populate("plannedDropOff.Logisticlocation")
-      .populate("plannedDropOff.Logisticlocation.contact")
       .populate("plannedDropOff.LogisticEventPeriod")
       .exec(async (e, r) => {
         if (e) return res.status(400).send(e);
-        console.log(r);
-        res.send(r);
+
+        try {
+          r.plannedPickUp.Logisticlocation.contact = await Contacttype.findOne({
+            _id: r.plannedPickUp.Logisticlocation.contact,
+          });
+
+          r.plannedDropOff.Logisticlocation.contact = await Contacttype.findOne(
+            {
+              _id: r.plannedDropOff.Logisticlocation.contact,
+            }
+          );
+
+          // console.log(r);
+          res.json(r);
+        } catch (ex) {
+          res.status(400).json({
+            message: ex.message,
+          });
+        }
       });
     if (transportcapacitybookings && transportcapacitybookings.length === 0)
       return res.json({
@@ -342,70 +358,178 @@ router.delete("/:id", verify, async (req, res) => {
 });
 
 router.put("/:id", verify, async (req, res) => {
+  const session = await Transportcapacitybooking.startSession();
+  session.startTransaction();
+
   try {
-    const transportcapacitybookingspacerequirements = await Transportcapacitybookingspacerequirement.findById(
-      req.body.transportCapacityBookingSpaceRequirementsId
-    );
-    const transportcapacitybookingtransportmovement = await Transportcapacitybookingtransportmovementtype.findById(
-      req.body.transportCapacityBookingTransportMovementId
-    );
-    const avplist = await Ecomstringattributevaluepairlist.findById(
-      req.body.avpListId
-    );
-    const documentstatuscode = await Enumerationlibrary.findById(
-      req.body.documentStatusCodeId
-    );
-    const deliveryterms = await Incotermscode.findById(
-      req.body.deliveryTermsId
-    );
-    const updatedTransportcapacitybooking = await Transportcapacitybooking.updateOne(
-      {
-        id: req.params.id,
-      },
-      {
-        $set: {
-          id: req.body.id,
-          creationDateTime: req.body.creationDateTime,
-          documentStatusCode: req.body.documentStatusCode,
-          documentActionCode: req.body.documentActionCode,
-          documentStructureVersion: req.body.documentStructureVersion,
-          lastUpdateDateTime: req.body.lastUpdateDateTime,
-          revisionNumber: req.body.revisionNumber,
-          extension: req.body.extension,
-          documentEffectiveDate: req.body.documentEffectiveDate,
-          avpList: req.body.avpList,
-          transportCapacityBookingIdentification:
-            req.body.transportCapacityBookingIdentification,
-          transportServiceCategoryCode: req.body.transportServiceCategoryCode,
-          transportServiceConditionTypeCode:
-            req.body.transportServiceConditionTypeCode,
-          transportServiceLevelCode: req.body.transportServiceLevelCode,
-          logisticServicesBuyer: req.body.logisticServicesBuyer,
-          logisticServicesSeller: req.body.logisticServicesSeller,
-          pickUpParty: req.body.pickUpParty,
-          dropOffParty: req.body.dropOffParty,
-          plannedPickUp: req.body.plannedPickUp,
-          plannedDropOff: req.body.plannedDropOff,
-          transportReference: req.body.transportReference,
-          deliveryTerms: req.body.deliveryTerms,
-          handlingInstruction: req.body.handlingInstruction,
-          transportCapacityBookingSpaceRequirements:
-            req.body.transportCapacityBookingSpaceRequirements,
-          transportCapacityBookingTransportMovement:
-            req.body.transportCapacityBookingTransportMovement,
-          deliveryTerms: {
-            Id: req.body.deliveryterms.id,
-            Name: req.body.deliveryterms.qualifierCodeName,
-          },
-          deliveryTerms: {
-            Id: req.body.deliveryterms.id,
-            Name: req.body.deliveryterms.codeListVersion,
-          },
-        },
-      }
-    );
-    res.json(updatedTransportcapacitybooking);
+    const ServiceDetailsData = req.body.ServiceDetailsData;
+    const PickUpLocationData = req.body.PickUpLocationData;
+    const PickUpTime = req.body.PickUpTime;
+    const DropOffLocation = req.body.DropOffLocation;
+    const DropOffTime = req.body.DropOffTime;
+    const SpaceRequirements = req.body.SpaceRequirements;
+    const id = req.params.id;
+
+    // const transportservicecategorycodes = await Transportservicecategorycode.findById(
+    //   ServiceDetailsData.servicecategoryCode
+    // );
+    // const transportserviceconditiontypecodes = await Transportserviceconditiontypecode.findById(
+    //   ServiceDetailsData.serviceConditionTypeCode
+    // );
+    // const transportservicelevelcodes = await Transportservicelevelcode.findById(
+    //   ServiceDetailsData.serviceLevelCode
+    // );
+
+    // const transportcargocharacteristicstypes = await saveTransportcargocharacteristicstype(
+    //   SpaceRequirements
+    // );
+    // // const savedTransportcargocharacteristicstype = await transportcargocharacteristicstypes.save();
+
+    // const packagetotaltypes = await savePackagetotaltype(SpaceRequirements);
+    // // const savedPackagetotaltype = await packagetotaltypes.save();
+
+    // const plannedPickUplogisticlocationtypes = await saveLogisticlocationtype(
+    //   PickUpLocationData
+    // );
+    // // const savedPlannedPickUplogisticlocationtypes = await plannedPickUplogisticlocationtypes.save();
+
+    // const plannedPickUplogisticeventperiods = new Logisticeventperiod({
+    //   beginDate: PickUpTime.pickupStartDate,
+    //   beginTime: PickUpTime.pickupStartTime,
+    //   endDate: PickUpTime.pickupEndDate,
+    //   endTime: PickUpTime.pickupEndTime,
+    // });
+    // // const savedLogisticeventperiod = await plannedPickUplogisticeventperiods.save();
+
+    // const plannedDropOfflogisticlocationtypes = await saveLogisticlocationtype(
+    //   DropOffLocation
+    // );
+    // // const savedPlannedDropOfflogisticlocationtypes = await plannedDropOfflogisticlocationtypes.save();
+
+    // const plannedDropOfflogisticeventperiods = new Logisticeventperiod({
+    //   beginDate: DropOffTime.dropOffStartDate,
+    //   beginTime: DropOffTime.dropOffStartTime,
+    //   endDate: DropOffTime.dropOffEndDate,
+    //   endTime: DropOffTime.dropOffEndTime,
+    // });
+    // // const savedPlannedDropOffLogisticeventperiod = await plannedDropOfflogisticeventperiods.save();
+
+    // get all the values but dont save
+
+    // const transportcapacitybooking = await Transportcapacitybooking.updateOne(
+    //   {
+    //     _id: id,
+    //   },
+    //   {
+    //     $set: {
+    //       transportCapacityBookingSpaceRequirements: {
+    //         Transportcargocharacteristicstypes:
+    //           savedTransportcargocharacteristicstype._id,
+    //         Packagetotaltypes: savedPackagetotaltype._id,
+    //       },
+    //       plannedPickUp: {
+    //         Logisticlocation: savedPlannedPickUplogisticlocationtypes._id,
+    //         // LogisticEventDateTime: plannedPickUplogisticeventdatetimes._id,
+    //         LogisticEventPeriod: savedLogisticeventperiod._id,
+    //       },
+    //       plannedDropOff: {
+    //         Logisticlocation: savedPlannedDropOfflogisticlocationtypes._id,
+    //         // LogisticEventDateTime: plannedDropOfflogisticeventdatetimes._id,
+    //         LogisticEventPeriod: savedPlannedDropOffLogisticeventperiod._id,
+    //       },
+    //       transportServiceCategoryCode: {
+    //         Id: transportservicecategorycodes._id,
+    //         Name: transportservicecategorycodes.codeListVersion,
+    //       },
+    //       transportServiceConditionTypeCode: {
+    //         Id: transportserviceconditiontypecodes._id,
+    //         Name: transportserviceconditiontypecodes.codeListVersion,
+    //       },
+    //       transportServiceLevelCode: {
+    //         Id: transportservicelevelcodes._id,
+    //         Name: transportservicelevelcodes.codeListVersion,
+    //       },
+    //       logisticServicesBuyer: {
+    //         Id: 78767,
+    //         Name: "First name",
+    //       },
+    //       logisticServicesSeller: {
+    //         Id: 9865,
+    //         Name: "Last name",
+    //       },
+    //     },
+    //   }
+    // );
+    // const savedTransportcapacitybooking = await transportcapacitybooking.save();
+
+    // await session.commitTransaction();
+    // session.endSession();
+    // res.status(200).json(savedTransportcapacitybooking);
+    // const transportcapacitybookingspacerequirements = await Transportcapacitybookingspacerequirement.findById(
+    //   req.body.transportCapacityBookingSpaceRequirementsId
+    // );
+    // const transportcapacitybookingtransportmovement = await Transportcapacitybookingtransportmovementtype.findById(
+    //   req.body.transportCapacityBookingTransportMovementId
+    // );
+    // const avplist = await Ecomstringattributevaluepairlist.findById(
+    //   req.body.avpListId
+    // );
+    // const documentstatuscode = await Enumerationlibrary.findById(
+    //   req.body.documentStatusCodeId
+    // );
+    // const deliveryterms = await Incotermscode.findById(
+    //   req.body.deliveryTermsId
+    // );
+    // const updatedTransportcapacitybooking = await Transportcapacitybooking.updateOne(
+    //   {
+    //     id: req.params.id,
+    //   },
+    //   {
+    //     $set: {
+    //       id: req.body.id,
+    //       creationDateTime: req.body.creationDateTime,
+    //       documentStatusCode: req.body.documentStatusCode,
+    //       documentActionCode: req.body.documentActionCode,
+    //       documentStructureVersion: req.body.documentStructureVersion,
+    //       lastUpdateDateTime: req.body.lastUpdateDateTime,
+    //       revisionNumber: req.body.revisionNumber,
+    //       extension: req.body.extension,
+    //       documentEffectiveDate: req.body.documentEffectiveDate,
+    //       avpList: req.body.avpList,
+    //       transportCapacityBookingIdentification:
+    //         req.body.transportCapacityBookingIdentification,
+    //       transportServiceCategoryCode: req.body.transportServiceCategoryCode,
+    //       transportServiceConditionTypeCode:
+    //         req.body.transportServiceConditionTypeCode,
+    //       transportServiceLevelCode: req.body.transportServiceLevelCode,
+    //       logisticServicesBuyer: req.body.logisticServicesBuyer,
+    //       logisticServicesSeller: req.body.logisticServicesSeller,
+    //       pickUpParty: req.body.pickUpParty,
+    //       dropOffParty: req.body.dropOffParty,
+    //       plannedPickUp: req.body.plannedPickUp,
+    //       plannedDropOff: req.body.plannedDropOff,
+    //       transportReference: req.body.transportReference,
+    //       deliveryTerms: req.body.deliveryTerms,
+    //       handlingInstruction: req.body.handlingInstruction,
+    //       transportCapacityBookingSpaceRequirements:
+    //         req.body.transportCapacityBookingSpaceRequirements,
+    //       transportCapacityBookingTransportMovement:
+    //         req.body.transportCapacityBookingTransportMovement,
+    //       deliveryTerms: {
+    //         Id: req.body.deliveryterms.id,
+    //         Name: req.body.deliveryterms.qualifierCodeName,
+    //       },
+    //       deliveryTerms: {
+    //         Id: req.body.deliveryterms.id,
+    //         Name: req.body.deliveryterms.codeListVersion,
+    //       },
+    //     },
+    //   }
+    // );
+    // res.json(updatedTransportcapacitybooking);
   } catch (ex) {
+    await session.abortTransaction();
+    session.endSession();
     res.status(400).json({
       message: ex.message,
     });
@@ -554,7 +678,7 @@ async function saveLogisticlocationtype(body) {
     unLocationCode: body.unLocationCode,
     sublocationIdentification: body.sublocationIdentification,
     locationName: body.locationName,
-    utcOffset: body.utcOffset,
+    utcOffset: body.uTCOffset,
     locationSpecificInstructions: {
       Id: locationspecificinstructions._id,
       Name: locationspecificinstructions.codeListVersion,
@@ -564,7 +688,7 @@ async function saveLogisticlocationtype(body) {
       Name: additionallocationidentifications.identificationSchemeName,
     },
     contact: contacttypes._id,
-    cityCode: body.cityCode,
+    cityCode: body.cityName,
     countryCode: {
       Id: countrycodes._id,
       Name: countrycodes.codeListVersion,
@@ -582,7 +706,7 @@ async function saveLogisticlocationtype(body) {
     name: body.name,
     pOBoxNumber: body.postBoxNumber,
     postalCode: body.postalCode,
-    provinceCode: body.province,
+    provinceCode: body.provinceCode,
     state: body.state,
     streetAddressOne: body.streetAddressOne,
     streetAddressTwo: body.streetAddressTwo,
