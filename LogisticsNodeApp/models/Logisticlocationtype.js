@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 
 const LogisticlocationtypeScheema = mongoose.Schema({
-  
   unLocationCode: {
     type: Number,
-    required: false
+    required: false,
   },
   // gln: {
   //   type: String,
@@ -12,127 +11,130 @@ const LogisticlocationtypeScheema = mongoose.Schema({
   // },
   sublocationIdentification: {
     type: String,
-    required: false
+    required: false,
   },
   locationName: {
     type: String,
-    required: false
+    required: false,
   },
   utcOffset: {
     type: Number,
-    required: false
+    required: false,
   },
   contact: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Contacttypes',
-    required: false
+    ref: "Contacttypes",
+    required: false,
   },
   locationSpecificInstructions: {
-      Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
+    Id: {
+      type: String,
+      required: true,
+    },
+    Name: {
+      type: String,
+      required: true,
+    },
   },
   additionalLocationIdentification: {
-      Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
+    Id: {
+      type: String,
+      required: true,
+    },
+    Name: {
+      type: String,
+      required: true,
+    },
   },
   cityCode: {
     type: String,
-    required: false
+    required: false,
   },
   countryCode: {
-      Id:{
-        type: String,
-        required: true
-      },
-      Name:{
-        type: String,
-        required: true
-      }
+    Id: {
+      type: String,
+      required: true,
+    },
+    Name: {
+      type: String,
+      required: true,
+    },
   },
   countyCode: {
     type: String,
-    required: false
+    required: false,
   },
   crossStreet: {
     type: String,
-    required: false
+    required: false,
   },
-  currencyOfParty:{
-      Id:{
-        type: String,
-        required: true
-      },
-      Name:{
-        type: String,
-        required: true
-      }
+  currencyOfParty: {
+    Id: {
+      type: String,
+      required: true,
+    },
+    Name: {
+      type: String,
+      required: true,
+    },
   },
-  languageOfTheParty:{
-      Id:{
-        type: String,
-        required: true
-      },
-      Name:{
-        type: String,
-        required: true
-      }
+  languageOfTheParty: {
+    Id: {
+      type: String,
+      required: true,
+    },
+    Name: {
+      type: String,
+      required: true,
+    },
   },
   name: {
     type: String,
-    required: false
+    required: false,
   },
   pOBoxNumber: {
     type: String,
-    required: false
+    required: false,
   },
   postalCode: {
     type: String,
-    required: false
+    required: false,
   },
   provinceCode: {
     type: String,
-    required: false
+    required: false,
   },
   state: {
     type: String,
-    required: false
+    required: false,
   },
   streetAddressOne: {
     type: String,
-    required: false
+    required: false,
   },
   streetAddressTwo: {
     type: String,
-    required: false
+    required: false,
   },
   streetAddressThree: {
     type: String,
-    required: false
+    required: false,
   },
-  latitude:{
+  latitude: {
     type: String,
-    required: false
+    required: false,
   },
-  longitude:{
+  longitude: {
     type: String,
-    required: false
+    required: false,
   },
-  createdAt:{
+  createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
-module.exports = mongoose.model("Logisticlocationtypes", LogisticlocationtypeScheema);
+module.exports = mongoose.model(
+  "Logisticlocationtypes",
+  LogisticlocationtypeScheema
+);
