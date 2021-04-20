@@ -466,20 +466,16 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                               <div className="card-title mt-3">Time Band</div>
                             </CCol>
 
-                            <CCol md="6">
-                              {/* <CLabel>Start </CLabel> */}
-                             {/* { TcbData &&  Moment(TcbData.data.plannedPickUp.LogisticEventPeriod.endDate ).format("hh:mm")} */}
-                             {/* <CCol md="3"> </CCol>
-                             <CCol md="3"> </CCol> */}
-                             Start Date: <CInput value= { TcbData &&  Moment(TcbData.data.plannedPickUp.LogisticEventPeriod.beginDate ).format("DD-MM-YYYY")} />
-                             Start Time :<CInput value= { TcbData &&  Moment(TcbData.data.plannedPickUp.LogisticEventPeriod.beginDate ).format(" hh:mm")} />
+                            <CCol md="6" style={{fontSize:"1.2rem"}}>
+                              <CLabel>Start at:&nbsp;</CLabel>
+                              {` ${TcbData &&  Moment(TcbData.data.plannedPickUp.LogisticEventPeriod.beginDate ).format("DD-MM-YYYY")} : ${TcbData && TcbData.data.plannedPickUp.LogisticEventPeriod.beginTime} `}
                             
                              
                             </CCol>
-                            <CCol md="6">
-                            {/* <CLabel>Ends at</CLabel> */}
-                            End Date:<CInput value={ TcbData &&  Moment(TcbData.data.plannedPickUp.LogisticEventPeriod.endDate ).format("DD-MM-YYYY")}/>
-                            End Time:<CInput value={ TcbData &&  Moment(TcbData.data.plannedPickUp.LogisticEventPeriod.endDate ).format(" hh:mm")}/>
+                            <CCol md="6" style={{fontSize:"1.2rem"}}>
+                            <CLabel>Ends at:&nbsp;</CLabel>
+                            {`${TcbData &&  Moment(TcbData.data.plannedPickUp.LogisticEventPeriod.endDate ).format("DD-MM-YYYY")} : ${TcbData && TcbData.data.plannedPickUp.LogisticEventPeriod.endTime}`}
+                          
                             </CCol>
                         
                           </CRow>
@@ -798,22 +794,15 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                 </CCol>
 
                                
-                                <CCol md="6">
-
-
-
-                              {/* <CLabel>Starts at</CLabel> */}
-                              Start Date:<CInput value= { TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.beginDate ).format("DD-MM-YYYY ")} />
-                              Start Time:<CInput value= { TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.beginDate ).format("hh:mm")} />
-                             
-                            
+                                <CCol md="6" style={{fontSize:"1.2rem"}}>
+                              <CLabel>Starts at:&nbsp;</CLabel>
+                               {`${TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.beginDate ).format("DD-MM-YYYY ")}: ${TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.beginTime}`}
                              
                             </CCol>
-                            <CCol md="6">
-                            {/* <CLabel>Ends at</CLabel> */}
-                            End Date: <CInput value= { TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.endDate ).format("DD-MM-YYYY ")} />
-                            End Time: <CInput value= { TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.endDate ).format("hh:mm")} />
-                             
+                            <CCol md="6" style={{fontSize:"1.2rem"}}>
+                            <CLabel>Ends at:&nbsp;</CLabel>
+                            {`${ TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.endDate ).format("DD-MM-YYYY ")}: ${TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.endTime}`}
+                           
                             </CCol>
                         
                               </CRow>
