@@ -30,12 +30,29 @@ import { getTransportservicelevelcodes } from "../../services/transportservicele
 import { getTransportserviceconditiontypecodes } from "../../services/transportserviceconditiontypecodeService";
 import { getTransportservicecategorycodes } from "../../services/transportservicecategorycodeService";
 import { saveTransportcapacitybooking } from "../../services/transportcapacitybookingService";
+import { useHistory } from "react-router";
+import {useDispatch} from 'react-redux'
+import { transportServiceCategoryCodesAction, transportServiceConditionTypeCodesAction, transportServiceLevelCodesAction } from "../../actions/ServiceDetailActions";
+import {
+  AdditionalLocationIdentificationCodesAction,
+  LocationSpecificInstructionsCodesAction,
+  CurrencyOfPartyCodesAction,
+  LanguageOfthePartyCodesAction,
+  CountryCodesAction,
+  ContactTypeCodesAction,
+  ResposibilitiesCodesAction,
+  commmunicationChannelCodesAction,
+  SublocationIdentificationCodesAction
 
+} from "../../actions/TCBLocationAction"
 
 
 
 const createTransportcapacitybooking =() => {
+  const history = useHistory()
+  const dispatch = useDispatch()
 
+  const [navigate,setnavigate] = useState(false)
   const [ServiceDetails,setServiceDetails] = useState(false)
   const [PickUpLocation,setPickUpLocation] = useState(false)
   const [pickUPTime,setpickUPTime] = useState(false)
@@ -44,15 +61,19 @@ const createTransportcapacitybooking =() => {
   const [collapseSpecialRequirements,setcollapseSpecialRequirements] =useState(false)
 
   const data = useSelector((state)=> state.tvbDta)
-  
+
+ 
   useEffect(()=>{
      getReduxData()
-  },[data])
+     if(navigate){
+       setTimeout( ()=> {
+         navigateToHome()
+         console.log("navigateToHome()")
+       },1000)
 
-  // const [enableNextOd,setenableNextOd] = useState(false)
-  // const [enableNextPp,setenableNextPp] = useState(false)
-  // const [enableNextPd,setenableNextPd] = useState(false)
-  // const [enableNextCr,setenableNextCr] = useState(false)
+     }
+  },[data,navigate])
+  
 
 
   const [TabenablePL,setTabenablePL] = useState(false)
@@ -69,7 +90,27 @@ const createTransportcapacitybooking =() => {
   const [transportServiceConditionTypeCodes,settransportServiceConditionTypeCodes]= useState([])
   const [transportServiceLevelCodes,settransportServiceLevelCodes]= useState([])
   
+  const navigateToHome = ()=>{
+      history.push('/home')
+  }
+
   useEffect(()=>{
+    dispatch(transportServiceCategoryCodesAction())
+    dispatch(transportServiceConditionTypeCodesAction())
+    dispatch(transportServiceLevelCodesAction())
+    dispatch(AdditionalLocationIdentificationCodesAction())
+    dispatch(LocationSpecificInstructionsCodesAction())
+    dispatch(CurrencyOfPartyCodesAction())
+    dispatch(LanguageOfthePartyCodesAction())
+    dispatch(CountryCodesAction())
+    dispatch(ContactTypeCodesAction())
+    dispatch(ResposibilitiesCodesAction())
+    dispatch(commmunicationChannelCodesAction())
+    dispatch(SublocationIdentificationCodesAction())
+    // dispatch()
+    // dispatch()
+
+
     populatetransportServiceCategoryCodes()
     populatetransportServiceConditionTypeCodes()
     populatetransportServiceLevelCodes()
@@ -100,7 +141,7 @@ const createTransportcapacitybooking =() => {
  
 
   const getReduxData = () =>{
-    console.log(data,"redux")
+    console.log(data," Effect running fecth redux Data")
 
   }
   
@@ -235,16 +276,21 @@ const createTransportcapacitybooking =() => {
       console.log( schemaObj,"schemaObj")
          saveTransportcapacitybooking(schemaObj).then(
             response => {
-              setresponse(response.data)
+              // setresponse(response.data)
           console.log(response.data)
+          // history.push('http://localhost:3000/home')
+          setresponse(true)
+          setnavigate(true)
 
             }
           ).catch(err => {
             setError(err)
             console.log(err)
           })
+         
           
   }
+  // 
     return (
       <div className="transportcapacitybooking">
         <div className="py-5">
@@ -254,7 +300,8 @@ const createTransportcapacitybooking =() => {
            <div className="AlertInTCB">
               
                {response && (<Alert bgcolor="bgBlue" > {`Successfully Booking!! Your Booking Id:${response.bookingId}`}</Alert>)}
-                {Error && (<Alert bgcolor="bgBlue" >Not Saved Please CheckForm </Alert>)}
+             
+                {Error && (<Alert bgcolor="bgRed" >Not Saved Please CheckForm </Alert>)}
              </div> 
            <div className="AlertInTCB">
               {/*  */}
@@ -474,7 +521,12 @@ const createTransportcapacitybooking =() => {
                   </CCard>
              <div className="finalSubmition">
                 <button disabled={!TabenableSp} className="finalSubmition__btn  disabled" onClick={handleSubmit}>Add Order</button>
-                <button className="finalSubmition__btn  disabled" onClick={()=> setresponse(!response)}>Alert</button>
+                {/* <button className="finalSubmition__btn  disabled" onClick={()=>{ 
+                  setresponse(true)
+                  setnavigate(true)
+                  // navigateToHome()
+                
+                  }}>Checking</button> */}
              </div>
               
             

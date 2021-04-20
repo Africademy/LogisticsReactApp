@@ -4,7 +4,7 @@ import React from 'react'
 
 function CoreSelect(props) {
     const [field,meta] = useField(props)
-    const {label,name,id,options,isRequired,typeOfOption, ...rest } = props
+    const {label,name,id,options,isRequired,typeOfOption,readOnly, ...rest } = props
     return (
         <div>
            
@@ -19,10 +19,12 @@ function CoreSelect(props) {
                     {
                         (typeOfOption === "ServiceCategory" || "ServiceCondition" || "ServiceLevel") && (
                             <select
+                            defaultValue
                             className="form-control form-select"
-                            id={id}
-                            {...rest}
-                            {...field}
+                            disabled={readOnly}
+                             id={id}
+                      {...rest}
+                      {...field}
                           > 
                           <option defaultValue>Select value</option>
                             

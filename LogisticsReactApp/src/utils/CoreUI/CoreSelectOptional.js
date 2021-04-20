@@ -4,7 +4,7 @@ import React from 'react'
 
 function CoreSelectOptional(props) {
     const [field,meta] = useField(props)
-    const {label,name,id,options,isRequired,typeOfOption, ...rest } = props
+    const {label,name,id,options,isRequired,typeOfOption,readOnly, ...rest } = props
     return (
         <div>
 
@@ -19,11 +19,12 @@ function CoreSelectOptional(props) {
                        
                             <select
                             className="form-control form-select"
+                            disabled={readOnly}
                             id={id}
                             {...rest}
                             {...field}
                           > 
-                          <option defaultValue>Select value</option>
+                         
                                  {
                                   options.map( item=>{
                                       return (

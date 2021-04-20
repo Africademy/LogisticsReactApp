@@ -2,12 +2,13 @@ import { CFormGroup, CFormText, CLabel } from '@coreui/react'
 import { Field, useField } from 'formik'
 import React from 'react'
 
-function CoreSelectselectOptionalcommunicationChannel(props) {
+function CoreSelectEdit(props) {
     const [field,meta] = useField(props)
     const {label,name,id,options,isRequired,typeOfOption,readOnly, ...rest } = props
     return (
         <div>
-
+           
+           
             <Field name={name}>
             {
                 ({field,form})=>{
@@ -16,25 +17,31 @@ function CoreSelectselectOptionalcommunicationChannel(props) {
                     <CLabel htmlFor={name}>{label}</CLabel>
                     { isRequired && (<span style={{color:"red",fontSize:"1rem",paddingLeft:"2px"}}> *</span>) }
                     {
-                       
+                        (typeOfOption === "ServiceCategory" || "ServiceCondition" || "ServiceLevel") && (
                             <select
-                            disabled={readOnly}
+                            defaultValue
                             className="form-control form-select"
-                            id={id}
-                            {...rest}
-                            {...field}
+                            disabled={readOnly}
+                             id={id}
+                      {...rest}
+                      {...field}
                           > 
-                          <option defaultValue>Select value</option>
+                            
                                  {
                                   options.map( item=>{
                                       return (
-                                        <option key={item._id} value={item._id} >{item.communicationChannelName}</option>
+                                          
+                                          <option key={item.value} value={item._id} >{item.codeListVersion}</option>
                                       
                                       )
                                   })
                                  }
-                          </select>      
-                    }         
+                          </select>
+
+                        )
+                    }
+                   
+                   
                     { meta.touched &&  <CFormText className="help-block error">
                       {form.errors[name]}
                     </CFormText>}
@@ -48,4 +55,4 @@ function CoreSelectselectOptionalcommunicationChannel(props) {
     )
 }
 
-export default CoreSelectselectOptionalcommunicationChannel
+export default CoreSelectEdit

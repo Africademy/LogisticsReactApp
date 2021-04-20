@@ -77,7 +77,7 @@ class Home extends Component {
             <CCardBody>
               <CRow className="buttons">
                 <CCol md="5" className="buttons__btn">
-                  <Link to="/transportcapacitybooking">
+                  <Link to="/transportcapacitybookings/newui">
                     <CButton
                       type="button"
                       className="btn btn-lg btn-link text-info"

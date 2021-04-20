@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
 import NotFound from "./components/notFound";
@@ -549,31 +549,75 @@ import UnlocationcodeDetails from "./components/unlocationcode/unlocationcodeDet
 import Widths from "./components/width/widths";
 import WidthForm from "./components/width/widthForm";
 import WidthDetails from "./components/width/widthDetails";
+import TransportcapacitybookingEdit from "./components/transportcapacitybooking/TransportcapacitybookingEdit";
+import TransportcapacitybookingView from "./components/transportcapacitybooking/TransportcapacitybookingView";
+import {useDispatch} from 'react-redux'
 
-class App extends Component {
 
-  state = {};
+
+import { transportServiceCategoryCodesAction, transportServiceConditionTypeCodesAction, transportServiceLevelCodesAction } from "./actions/ServiceDetailActions";
+import {
+  AdditionalLocationIdentificationCodesAction,
+  LocationSpecificInstructionsCodesAction,
+  CurrencyOfPartyCodesAction,
+  LanguageOfthePartyCodesAction,
+  CountryCodesAction,
+  ContactTypeCodesAction,
+  ResposibilitiesCodesAction,
+  commmunicationChannelCodesAction,
+  SublocationIdentificationCodesAction
+
+} from "./actions/TCBLocationAction"
+// class App extends Component
+function App () {
+
+  const [state,setState] = useState({})
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    getCurrentUser()
+    dispatch(transportServiceCategoryCodesAction())
+    dispatch(transportServiceConditionTypeCodesAction())
+    dispatch(transportServiceLevelCodesAction())
+    dispatch(AdditionalLocationIdentificationCodesAction())
+    dispatch(LocationSpecificInstructionsCodesAction())
+    dispatch(CurrencyOfPartyCodesAction())
+    dispatch(LanguageOfthePartyCodesAction())
+    dispatch(CountryCodesAction())
+    dispatch(ContactTypeCodesAction())
+    dispatch(ResposibilitiesCodesAction())
+    dispatch(commmunicationChannelCodesAction())
+    dispatch(SublocationIdentificationCodesAction())
+
+    console.log("Appp runs the actions")
+
+  },[])
+
+  // state = {};
   //we wanted to show currently loggedin userName to the Navbar so we get user set in state and passed to Navbar component
-  componentDidMount() {
-    this.getCurrentUser();
-  }
+  // componentDidMount() {
+  //   this.getCurrentUser();
+  // }
 
-  getCurrentUser = async () => {
+   const getCurrentUser = async () => {
     try {
       const {data:user} = await auth.getCurrentUser();
-      this.setState({ user });
+      // this.setState({ user });
+      setState({user})
     }
     catch (ex) {
       console.log(ex.message);
     }
   };
 
-  render() {
+ 
+    console.log(state,"current user data")
     return (
       
         <div className="AppComponent">
         <div className="navBarcomponet">
-          <Navbar user={this.state.user} />
+           {/* this.state.user */}
+          <Navbar user={state.user} />
         </div>
          <div className="mainComponent">
          <main role="main" className="container-fluid">
@@ -3959,7 +4003,15 @@ class App extends Component {
                 path="/viewTransportcapacitybooking/:id"
                 render={props => {
                   if (!auth.isUserLoggedIn()) return <Redirect to="/login" />;
-                  return <TransportcapacitybookingDetails {...props} />;
+                  return <TransportcapacitybookingView {...props} />;
+                }}
+            />
+            {/* //new One  */}
+             <Route
+                path="/EditTransportcapacitybooking/:id"
+                render={props => {
+                  if (!auth.isUserLoggedIn()) return <Redirect to="/login" />;
+                  return <TransportcapacitybookingEdit {...props} />;
                 }}
             />
             <Route
@@ -4546,14 +4598,16 @@ class App extends Component {
                 path="/profile"
                 render={props => {
                   if (!auth.isUserLoggedIn()) return <Redirect to="/login" />;
-                  return <ProfileForm {...props} user={this.state.user} />;
+                  return <ProfileForm {...props} user={state.user} />;
+                   {/* this.state.user */}
                 }}
             />
             <Route
                 path="/updatePassword/:id"
                 render={props => {
                   if (!auth.isUserLoggedIn()) return <Redirect to="/login" />;
-                  return <PasswordResetForm {...props} user={this.state.user} />;
+                  return <PasswordResetForm {...props} user={state.user} />;
+                   {/* this.state.user */}
                 }}
             />
             <Route path="/not-found" component={NotFound} />
@@ -4570,7 +4624,7 @@ class App extends Component {
          </div>
     
     );
-  }
+  
 }
 
 export default App;

@@ -1,8 +1,9 @@
+// CoreSelectselectOptionalcommunicationChannelEdit
 import { CFormGroup, CFormText, CLabel } from '@coreui/react'
 import { Field, useField } from 'formik'
 import React from 'react'
 
-function CoreSelectselectOptionalcommunicationChannel(props) {
+function CoreSelectselectOptionalcommunicationChannelEdit(props) {
     const [field,meta] = useField(props)
     const {label,name,id,options,isRequired,typeOfOption,readOnly, ...rest } = props
     return (
@@ -24,7 +25,7 @@ function CoreSelectselectOptionalcommunicationChannel(props) {
                             {...rest}
                             {...field}
                           > 
-                          <option defaultValue>Select value</option>
+                        
                                  {
                                   options.map( item=>{
                                       return (
@@ -48,4 +49,4 @@ function CoreSelectselectOptionalcommunicationChannel(props) {
     )
 }
 
-export default CoreSelectselectOptionalcommunicationChannel
+export default CoreSelectselectOptionalcommunicationChannelEdit

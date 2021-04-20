@@ -19,7 +19,7 @@ function Alert({bgcolor,children}) {
             <div className="AlertPopup">
             { show && (
                  
-                 <div className={`alert fade show transportcapacitybooking__Alert  ${bgcolor === 'bgSuccess' ? 'bgSuccess' : 'nortification' } animateOpen  `} role="alert" autoClose>
+                 <div className={`alert fade show transportcapacitybooking__Alert  ${bgcolor} `} role="alert" autoClose>
             
                    <div className=" ">
                      {children ? children :" A simple primary alert—check it out! " }

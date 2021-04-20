@@ -184,7 +184,7 @@ const initialValues ={
         <CCardBody>
            <Formik
             initialValues={initialValues}
-            // validationSchema={validationSchema}
+            validationSchema={validationSchema}
             onSubmit={(values)=> {
               console.log(values)
               dispatch(DropOffLocationAction(values))
@@ -532,7 +532,7 @@ const initialValues ={
 								 className="next-btn"
 								 color="primary"
 								 style={{ margin: "1rem" }}
-								//  disabled={!formik.dirty && formik.errors}
+								 disabled={!formik.dirty && formik.errors}
 						 >
 								 Next
 						 </CButton>

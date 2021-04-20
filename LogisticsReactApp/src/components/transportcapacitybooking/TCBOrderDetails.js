@@ -20,49 +20,19 @@ function TCBOrderDetails({ setenableNext,optionServiceLevel,ServiceConditionType
 	const [showAlert, setshowAlert] = useState(false);
   const dispatch = useDispatch()
 
-	// useEffect(()=>{
-	//     //cargo
-	//   populatetransportServiceCategoryCodes()
-	//   populatetransportServiceConditionTypeCodes()
-	//   populatetransportServiceLevelCodes()
 
-	// },[])
-
-	/// Transport 12
-
-	// const [transportServiceCategoryCodes,settransportServiceCategoryCodes] = useState([])
-	// const [transportServiceConditionTypeCodes,settransportServiceConditionTypeCodes] = useState([])
-	// const [transportServiceLevelCodes,settransportServiceLevelCodes] = useState([])
-
-	// const  populatetransportServiceCategoryCodes= async () =>{
-	//   const { data: transportServiceCategoryCodes } = await getTransportservicecategorycodes();
-	//   // this.setState({ transportServiceCategoryCodes: transportServiceCategoryCodes });
-	//   settransportServiceCategoryCodes([...transportServiceCategoryCodes])
-	//   }
-
-	//   const populatetransportServiceConditionTypeCodes = async () => {
-	//   const { data: transportServiceConditionTypeCodes } = await getTransportserviceconditiontypecodes();
-	//   // this.setState({ transportServiceConditionTypeCodes: transportServiceConditionTypeCodes });
-	//   settransportServiceConditionTypeCodes([...transportServiceConditionTypeCodes])
-	//   }
-
-	//   const populatetransportServiceLevelCodes = async () => {
-	//   const { data: transportServiceLevelCodes } = await getTransportservicelevelcodes();
-	//   // this.setState({ transportServiceLevelCodes: transportServiceLevelCodes });
-	//   settransportServiceLevelCodes([...transportServiceLevelCodes])
-	//   }
 
 	const initialValues = {
 		servicecategory: "",
 		serviceConditionType: "",
 		serviceLevel: "",
 	};
-	// const dropDownOtions = [
-	// 	{ key: "select value", value: "" },
-	// 	{ key: "option1", value: "option1" },
-	// 	{ key: "option2", value: "option2" },
-	// 	{ key: "option3", value: "option3" },
-	// ];
+	const dropDownOtions = [
+		
+		{ key: "option1", value: "option1" },
+		{ key: "option2", value: "option2" },
+		{ key: "option3", value: "option3" },
+	];
 	const validationSchema = yup.object({
 		servicecategory: yup.string().required(),
 		serviceConditionType: yup.string().required(),
@@ -73,7 +43,7 @@ function TCBOrderDetails({ setenableNext,optionServiceLevel,ServiceConditionType
 		<CCardBody>
 			<Formik
 				initialValues={initialValues}
-				// validationSchema={validationSchema}
+				validationSchema={validationSchema}
 				onSubmit={(values) => {
 					console.log(values);
 					setenableNext(true);
@@ -100,11 +70,13 @@ function TCBOrderDetails({ setenableNext,optionServiceLevel,ServiceConditionType
 								<FormicControl
 									placeholder="Service category"
 									control="select"
+									// control="selectOptional"
 									label="Service category"
 									id="Servicecategory"
 									name="servicecategory"
 									typeOfOption = "ServiceCategory"
 									options={ServiceCategoryCodes}
+									// options={dropDownOtions}
 									isRequired="true"
 								/>
 							</CCol>
@@ -112,11 +84,14 @@ function TCBOrderDetails({ setenableNext,optionServiceLevel,ServiceConditionType
 								<FormicControl
 									placeholder="Service Condition Type"
 									control="select"
+									// control="selectOptional"
+
 									label="ServiceConditionType"
 									id="ServiceConditionType"
 									name="serviceConditionType"
 									typeOfOption = "ServiceCondition"
 									options={ServiceConditionTypeCodes}
+									// options={dropDownOtions}
 									isRequired="true"
 								/>
 							</CCol>
@@ -124,12 +99,14 @@ function TCBOrderDetails({ setenableNext,optionServiceLevel,ServiceConditionType
 								<FormicControl
 									placeholder="Service Level"
 									control="select"
+									// control="selectOptional"
 									label="Service Level"
 									id="ServiceLevel"
 									name="serviceLevel"
 									typeOfOption = "ServiceLevel"
 									isRequired="true"
 									options={optionServiceLevel}
+									// options={dropDownOtions}
 								/>
 							</CCol>
 						</CRow>
@@ -138,7 +115,7 @@ function TCBOrderDetails({ setenableNext,optionServiceLevel,ServiceConditionType
 							className="next-btn"
 							color="primary"
 							style={{ margin: "1rem" }}
-							// disabled={!formik.dirty && formik.errors}
+							disabled={!formik.dirty && formik.errors}
 							// && !formik.isValid
 							// console.log(formik.isValid,"valid")
 						>

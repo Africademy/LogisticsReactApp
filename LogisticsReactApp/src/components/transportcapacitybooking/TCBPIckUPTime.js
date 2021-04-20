@@ -70,7 +70,7 @@ function TCBPIckUPTime({ setenableNext }) {
 		<CCardBody>
 			<Formik
 				initialValues={initialValues}
-				// validationSchema= {validationSchema}
+				validationSchema= {validationSchema}
 
 				onSubmit={(value) => {
 					console.log(value);
@@ -106,20 +106,7 @@ function TCBPIckUPTime({ setenableNext }) {
 									isRequired="true"
 								/>
 							</CCol>
-							{/* 
-                                    <CCol md="12">
-                                        <div className="card-title mt-3">Event Time</div>
-                                    </CCol>
-
-                                    <CCol md="6">
-                                        
-                                        <FormicControl label="Start time"  control='input' type="time"   id='EventpickupStartTime' name='EventpickupStartTime' />
-                                        
-                                    </CCol>
-                                    <CCol md="6">
-                                      
-                                            <FormicControl label="End time"  control='input' type="time"   id='EventpickupEndTime' name='EventpickupEndTime' />
-                                    </CCol> */}
+					
 						</CRow>
 
 						<div className="col-md continue-block">
@@ -128,7 +115,7 @@ function TCBPIckUPTime({ setenableNext }) {
 								className="next-btn"
 								color="primary"
 								style={{ margin: "1rem" }}
-								// disabled={!formik.dirty && formik.errors}
+								disabled={!formik.dirty && formik.errors}
 							>
 								Next
 							</CButton>
