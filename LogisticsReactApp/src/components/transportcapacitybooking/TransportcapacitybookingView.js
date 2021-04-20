@@ -472,14 +472,14 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                              {/* <CCol md="3"> </CCol>
                              <CCol md="3"> </CCol> */}
                              Start Date: <CInput value= { TcbData &&  Moment(TcbData.data.plannedPickUp.LogisticEventPeriod.beginDate ).format("DD-MM-YYYY")} />
-                             Start Time :<CInput value= { TcbData &&  Moment(TcbData.data.plannedPickUp.LogisticEventPeriod.beginTime ).format("hh:mm")} />
+                             Start Time :<CInput value= { TcbData &&  Moment(TcbData.data.plannedPickUp.LogisticEventPeriod.beginDate ).format(" hh:mm")} />
                             
                              
                             </CCol>
                             <CCol md="6">
                             {/* <CLabel>Ends at</CLabel> */}
                             End Date:<CInput value={ TcbData &&  Moment(TcbData.data.plannedPickUp.LogisticEventPeriod.endDate ).format("DD-MM-YYYY")}/>
-                            End Time:<CInput value={ TcbData &&  Moment(TcbData.data.plannedPickUp.LogisticEventPeriod.endTime ).format("hh:mm")}/>
+                            End Time:<CInput value={ TcbData &&  Moment(TcbData.data.plannedPickUp.LogisticEventPeriod.endDate ).format(" hh:mm")}/>
                             </CCol>
                         
                           </CRow>
@@ -804,7 +804,7 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
 
                               {/* <CLabel>Starts at</CLabel> */}
                               Start Date:<CInput value= { TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.beginDate ).format("DD-MM-YYYY ")} />
-                              Start Time:<CInput value= { TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.beginTime ).format("hh:mm")} />
+                              Start Time:<CInput value= { TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.beginDate ).format("hh:mm")} />
                              
                             
                              
@@ -812,7 +812,7 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                             <CCol md="6">
                             {/* <CLabel>Ends at</CLabel> */}
                             End Date: <CInput value= { TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.endDate ).format("DD-MM-YYYY ")} />
-                            End Time: <CInput value= { TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.endTime ).format("hh:mm")} />
+                            End Time: <CInput value= { TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.endDate ).format("hh:mm")} />
                              
                             </CCol>
                         
