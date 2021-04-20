@@ -225,15 +225,15 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                   <CCol md="4">
                                     
                                   < CLabel>UTC Offset</CLabel>
-                                     <CInput disabled/>
-                                    {/* <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.UtcOffSet} /> */}
+                                     
+                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.utcOffset} />
   
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>City</CLabel>
-                                  <CInput disabled/>
-                                    {/* <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.City} /> */}
+                                  
+                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.cityCode} />
                              
                                   </CCol>
 
@@ -285,8 +285,8 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                   <CCol md="4">
                                     
                                   <CLabel>Province</CLabel>
-                                  <CInput disabled/>
-                                    {/* <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.province} /> */}
+                                  
+                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.provinceCode} />
                              
                                    
                                   </CCol>
@@ -329,8 +329,8 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                   <CCol md="4">
                                     
                                   <CLabel>Longitude</CLabel>
-                                  <CInput disabled/>
-                                    {/* <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.longitude} /> */}
+                                  
+                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.longitude} />
                              
                                    
                                   </CCol>
@@ -348,36 +348,36 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                               <CCol md="4">
                                                 
                                     <CLabel>Contact Type</CLabel>
-                                    <CInput disabled/>
-                                    {/* <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact} /> */}
+                                    
+                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact.contactTypeCode.Name} />
                               
                                               </CCol>
                                               <CCol md="4">
                                                 
                                     <CLabel>Person Name</CLabel>
-                                    <CInput  disabled/>
-                                    {/* <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.personeName} /> */}
+                                   
+                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact.personName} />
                                  
                                               </CCol>
                                               <CCol md="4">
                                                 
                                     <CLabel>Department Name</CLabel>
-                                    <CInput disabled />
-                                    {/* <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.depormentName} /> */}
+                                    
+                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact.departmentName} />
                              
                                               </CCol>
                                               <CCol md="4">
                                                 
                                     <CLabel>Job Title</CLabel>
-                                    <CInput disabled/>
-                                    {/* <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.jobTitle} /> */}
+                                    
+                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact.jobTitle} />
                              
                                               </CCol>
                                               <CCol md="4">
                                                 
                                     <CLabel>Responsibility</CLabel>
-                                    <CInput  disabled/>
-                                    {/* <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.responsibility.Name} /> */}
+                                   
+                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact.responsibility.Name} />
                              
                                               </CCol>
                                               <CCol md="12">
@@ -388,22 +388,20 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                               <CCol md="4">
                                                 
                                     <CLabel>Communication Channel Code</CLabel>
-                                    <CInput disabled />
-                                    {/* <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.communicationChannelCode.Name} /> */}
+                                    
+                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact.communicationChannelCode.Name} />
                        
                                               </CCol>
                                               <CCol md="4">
                                                 
                                     <CLabel>Communication Value</CLabel>
-                                    <CInput disabled />
-                                    {/* <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.communicationValue} /> */}
+                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact.communicationValue} />
                              
                                               </CCol>
                                               <CCol md="4">
                                                 
                                     <CLabel>Communication Channel Name</CLabel>
-                                    <CInput disabled />
-                                    {/* <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.communicationChannelName} /> */}
+                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact.communicationChannelName} />
                              
                                                
                                               </CCol>
@@ -553,15 +551,15 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                   <CCol md="4">
                                     
                                   < CLabel>UTC Offset</CLabel>
-                                     <CInput disabled/>
-                                    {/* <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.UtcOffSet} /> */}
+                                     
+                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.utcOffset} />
   
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>City</CLabel>
-                                  <CInput disabled/>
-                                    {/* <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.City} /> */}
+                                  
+                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.cityCode} />
                              
                                   </CCol>
 
@@ -613,8 +611,8 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                   <CCol md="4">
                                     
                                   <CLabel>Province</CLabel>
-                                  <CInput disabled/>
-                                    {/* <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.province} /> */}
+                                  
+                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.provinceCode} />
                              
                                    
                                   </CCol>
@@ -657,8 +655,8 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                   <CCol md="4">
                                     
                                   <CLabel>Longitude</CLabel>
-                                  <CInput disabled/>
-                                    {/* <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.longitude} /> */}
+                                  
+                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.longitude} />
                              
                                    
                                   </CCol>
@@ -676,36 +674,36 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                               <CCol md="4">
                                                 
                                     <CLabel>Contact Type</CLabel>
-                                    <CInput disabled/>
-                                    {/* <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact} /> */}
+                                    
+                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact.contactTypeCode.Name} />
                               
                                               </CCol>
                                               <CCol md="4">
                                                 
                                     <CLabel>Person Name</CLabel>
-                                    <CInput  disabled/>
-                                    {/* <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.personeName} /> */}
+                                   
+                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact.personName} />
                                  
                                               </CCol>
                                               <CCol md="4">
                                                 
                                     <CLabel>Department Name</CLabel>
-                                    <CInput disabled />
-                                    {/* <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.depormentName} /> */}
+                                    
+                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact.departmentName} />
                              
                                               </CCol>
                                               <CCol md="4">
                                                 
                                     <CLabel>Job Title</CLabel>
-                                    <CInput disabled/>
-                                    {/* <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.jobTitle} /> */}
+                                    
+                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact.jobTitle} />
                              
                                               </CCol>
                                               <CCol md="4">
                                                 
                                     <CLabel>Responsibility</CLabel>
-                                    <CInput  disabled/>
-                                    {/* <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.responsibility.Name} /> */}
+                                   
+                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact.responsibility.Name} />
                              
                                               </CCol>
                                               <CCol md="12">
@@ -716,22 +714,22 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                               <CCol md="4">
                                                 
                                     <CLabel>Communication Channel Code</CLabel>
-                                    <CInput disabled />
-                                    {/* <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.communicationChannelCode.Name} /> */}
+                                    
+                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact.communicationChannelCode.Name} />
                        
                                               </CCol>
                                               <CCol md="4">
                                                 
                                     <CLabel>Communication Value</CLabel>
-                                    <CInput disabled />
-                                    {/* <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.communicationValue} /> */}
+                                    
+                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact.communicationValue} />
                              
                                               </CCol>
                                               <CCol md="4">
                                                 
                                     <CLabel>Communication Channel Name</CLabel>
-                                    <CInput disabled />
-                                    {/* <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.communicationChannelName} /> */}
+                                    
+                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact.communicationChannelName} />
                              
                                                
                                               </CCol>
