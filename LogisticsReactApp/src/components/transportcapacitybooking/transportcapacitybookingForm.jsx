@@ -207,7 +207,7 @@ const createTransportcapacitybooking =() => {
           countryCode: data.DropOffLocation && data.DropOffLocation.country,
           crossStreet:data.DropOffLocation && data.DropOffLocation.crossStreet,
           currencyOfPartyCode: data.DropOffLocation && data.DropOffLocation.currencyOfParty,
-            languageOfthePartyCode: data.DropOffLocation && data.DropOffLocation.launguageOftheParty,
+          languageOfthePartyCode: data.DropOffLocation && data.DropOffLocation.launguageOftheParty,
           name:data.DropOffLocation && data.DropOffLocation.name ,
           postBoxNumber: data.DropOffLocation && data.DropOffLocation.postBoxNumber,
           postalCode:data.DropOffLocation &&  data.DropOffLocation.postalCode,
