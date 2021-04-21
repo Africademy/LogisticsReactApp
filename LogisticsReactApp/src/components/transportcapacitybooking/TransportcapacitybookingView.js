@@ -28,11 +28,13 @@ function TransportcapacitybookingView() {
   // 605db31ecfc2c6c738963b4e   
   console.log( (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Measurementtype),"Measurementtype111")
   const declaredValueForCustoms =localData&& localData.tvbDta.amounttypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Measurementtype) )
-  const totalPackageQuantity = 'localData.tvbDta.amounttypesCodes.filter((item)=> item._id === "605db31ecfc2c6c738963b4e" )'
+  // const totalPackageQuantity = 'localData.tvbDta.amounttypesCodes.filter((item)=> item._id === "605db31ecfc2c6c738963b4e" )'
   const totalItemQuantity = localData&& localData.tvbDta.quantitytypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalItemQuantity.Measurementtype) )
   const totalGrossVolume = localData&& localData.tvbDta.measurementtypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossVolume.Measurementtype) )
   const totalGrossWeight =localData&& localData.tvbDta.measurementtypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossWeight.Measurementtype) )
   
+
+  const totalPackageQuantity = localData&& localData.tvbDta.amounttypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalPackageQuantity.Measurementtype) )
 
  
  
@@ -1012,8 +1014,9 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
 
                           <CInputGroup  style={{marginTop:"-0.5rem"}}>
                                     <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalPackageQuantity.Value} />
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalPackageQuantity.Measurementtype} />
-                             
+                                    {/* <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalPackageQuantity.Measurementtype} /> */}
+                                    {/* totalPackageQuantity */}
+                                    {isArray(totalPackageQuantity) && (totalPackageQuantity[0] && <CInput value={totalPackageQuantity[0].codeListVersion} />)}
                             
                             </CInputGroup>
                          
