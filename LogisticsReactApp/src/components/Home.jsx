@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState ,useEffect } from "react";
 import "../App.css";
 import { Link } from "react-router-dom";
 import {
@@ -14,46 +14,90 @@ import {
   CCarouselCaption,
   CCarouselControl,
 } from "@coreui/react";
+import {useDispatch} from 'react-redux'
+import { transportServiceCategoryCodesAction, transportServiceConditionTypeCodesAction, transportServiceLevelCodesAction } from "../actions/ServiceDetailActions";
+import {
+  AdditionalLocationIdentificationCodesAction,
+  LocationSpecificInstructionsCodesAction,
+  CurrencyOfPartyCodesAction,
+  LanguageOfthePartyCodesAction,
+  CountryCodesAction,
+  ContactTypeCodesAction,
+  ResposibilitiesCodesAction,
+  commmunicationChannelCodesAction,
+  SublocationIdentificationCodesAction
 
-class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.props = props;
-    this.state = {
+} from "../actions/TCBLocationAction"
+import { amounttypesCodesAction, CargoTypeCodesAction, CargoTypeDescriptionCodesAction, CountryOfOriginCodesAction, FinalDestinationCountryCodesAction, HarmonizedSystemCodesAction, measurementtypesCodesAction, PackageTypeCodesAction, quantitytypesCodesAction, TotalpackagequantitysCodesAction } from "../actions/CargoTcbAction";
+ 
+
+const Home = ()=> {
+
+     const dispatch = useDispatch()
+
+     useEffect(()=>{
+      dispatch(transportServiceCategoryCodesAction())
+      dispatch(transportServiceConditionTypeCodesAction())
+      dispatch(transportServiceLevelCodesAction())
+      dispatch(AdditionalLocationIdentificationCodesAction())
+      dispatch(LocationSpecificInstructionsCodesAction())
+      dispatch(CurrencyOfPartyCodesAction())
+      dispatch(LanguageOfthePartyCodesAction())
+      dispatch(CountryCodesAction())
+      dispatch(ContactTypeCodesAction())
+      dispatch(ResposibilitiesCodesAction())
+      dispatch(commmunicationChannelCodesAction())
+      dispatch(SublocationIdentificationCodesAction())
+      //cargo
+      dispatch(CargoTypeCodesAction())
+      dispatch(HarmonizedSystemCodesAction())
+      dispatch(CargoTypeDescriptionCodesAction())
+      dispatch(CountryOfOriginCodesAction())
+      dispatch(FinalDestinationCountryCodesAction())
+      dispatch(measurementtypesCodesAction())
+      dispatch(amounttypesCodesAction())
+      dispatch(quantitytypesCodesAction())
+      dispatch(PackageTypeCodesAction())
+      dispatch(TotalpackagequantitysCodesAction())
+
+     },[])
+
+
+     const [state,setState] = useState({
       activeIndex: 0,
       slides: [
-        {
-          src: "https://www.layoutit.com/img/sports-q-c-1600-500-2.jpg",
-          description:
-            " Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
-          heading: "First Thumbnail label",
-        },
-        {
-          src: "https://www.layoutit.com/img/sports-q-c-1600-500-3.jpg",
-          description:
-            " Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
-          heading: "Second Thumbnail label",
-        },
-        {
-          src: "https://www.layoutit.com/img/sports-q-c-1600-500-1.jpg",
-          description:
-            " Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
-          heading: "Three Thumbnail label",
-        },
-      ],
-    };
-  }
+                  {
+                    src: "https://www.layoutit.com/img/sports-q-c-1600-500-2.jpg",
+                    description:
+                      " Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
+                    heading: "First Thumbnail label",
+                  },
+                  {
+                    src: "https://www.layoutit.com/img/sports-q-c-1600-500-3.jpg",
+                    description:
+                      " Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
+                    heading: "Second Thumbnail label",
+                  },
+                  {
+                    src: "https://www.layoutit.com/img/sports-q-c-1600-500-1.jpg",
+                    description:
+                      " Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
+                    heading: "Three Thumbnail label",
+                  },
+               ],
+ 
+      })
 
-  render() {
+
     return (
       <div className="wrapper">
         <div className="container-fluid">
           <CRow>
             <CCol sm={12}>
-              <CCarousel animate activeIndex={this.state.activeIndex}>
+              <CCarousel animate activeIndex={state.activeIndex}>
                 <CCarouselIndicators />
                 <CCarouselInner className="rounded-top rounded-bottom">
-                  {this.state.slides.map((slide) => (
+                  {state.slides.map((slide) => (
                     <CCarouselItem>
                       <img
                         className="d-block w-100"
@@ -103,6 +147,6 @@ class Home extends Component {
       </div>
     );
   }
-}
+
 
 export default Home;

@@ -151,16 +151,16 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                           <CRow className="justify-content-center">
                             <CCol md="4"> 
                               <CLabel>Service category</CLabel>
-                              <CInput value={TcbData && TcbData.data.transportServiceCategoryCode.Name} />
+                              <CInput disabled value={TcbData && TcbData.data.transportServiceCategoryCode.Name} />
                             </CCol>
                             <CCol md="4">
                               <CLabel>Service Condition Type</CLabel>
-                              <CInput value={TcbData && TcbData.data.transportServiceConditionTypeCode.Name} />
+                              <CInput disabled value={TcbData && TcbData.data.transportServiceConditionTypeCode.Name} />
                               
                             </CCol>
                             <CCol md="4">
                                <CLabel>Service Level</CLabel>
-                              <CInput value={TcbData && TcbData.data.transportServiceLevelCode.Name} />
+                              <CInput disabled value={TcbData && TcbData.data.transportServiceLevelCode.Name} />
                              
                             
                             </CCol>
@@ -210,121 +210,124 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                   {/* {showAlert && (<Alert bgcolor="bgSuccess"> Successfully Submited The Order Details! Please Go Head Planned Details </Alert>)} */}
                               </div>
                               <CRow className="justify-content-center">
-                                  <CCol md="4">
+                                  {/* <CCol md="4">
                                   <CLabel>Additional Location Identification</CLabel>
-                                  <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.additionalLocationIdentification.Name} />
+                                  <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.additionalLocationIdentification.Name} />
                              
-                                  </CCol>
+                                  </CCol> */}
                                   <CCol md="4">
                                   <CLabel>Sublocation Identification</CLabel>
-                                  <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.sublocationIdentification} />
+                                  <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.sublocationIdentification} />
                              
                                     
                                   </CCol>
                                   <CCol md="4">
                                   <CLabel>Location Name</CLabel>
-                                  <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.locationName} />
+                                  <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.locationName} />
                              
                                   
                                   </CCol>
-                                  <CCol md="4">
+                                  {/* <CCol md="4">
                                     <CLabel>ALocation Specific Instructions</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.locationSpecificInstructions.Name} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.locationSpecificInstructions.Name} />
                              
                             
-                                  </CCol>
+                                  </CCol> */}
                                   <CCol md="4">
                                     
                                   < CLabel>UTC Offset</CLabel>
                                      
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.utcOffset} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.utcOffset} />
   
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>City</CLabel>
                                   
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.cityCode} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.cityCode} />
                              
                                   </CCol>
 
                                   <CCol md="4">
                                     
                                   <CLabel>Country</CLabel>
-                                    <CInput value={TcbData &&  TcbData.data.plannedPickUp.Logisticlocation.countryCode.Name} />
+                                    <CInput disabled value={TcbData &&  TcbData.data.plannedPickUp.Logisticlocation.countryCode.Name} />
                              
                                       
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>Cross Street</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.crossStreet} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.crossStreet} />
                              
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>Currency Of Party</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.currencyOfParty.Name} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.currencyOfParty.Name} />
                              
                                     
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>Language Of the Party</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.languageOfTheParty.Name} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.languageOfTheParty.Name} />
                              
                                      
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>Name</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.name} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.name} />
                              
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>Post Box Number</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.pOBoxNumber} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.pOBoxNumber} />
                              
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>Postal Code</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.postalCode} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.postalCode} />
                              
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>Province</CLabel>
                                   
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.provinceCode} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.provinceCode} />
                              
                                    
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>State</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.state} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.state} />
                              
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>Street Address One</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.streetAddressOne} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.streetAddressOne} />
                              
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>Street Address Two</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.streetAddressTwo} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.streetAddressTwo} />
                              
                                   </CCol>
-                                  <CCol md="4">
+                                  
+                              </CRow>
+                              <CRow>
+                              <CCol md="4">
                                     
-                                  <CLabel>Street Address Three</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.streetAddressThree} />
-                             
-                                  </CCol>
+                                    <CLabel>Street Address Three</CLabel>
+                                      <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.streetAddressThree} />
+                               
+                                    </CCol>
                               </CRow>
 
                               <div className="card-title mt-3">Geological Coordinates</div>
@@ -334,14 +337,14 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                   <CCol md="4">
                                     
                                   <CLabel>Latitude</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.latitude} />
+                                    <CInput disabled  value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.latitude} />
                              
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>Longitude</CLabel>
                                   
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.longitude} />
+                                    <CInput disabled  value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.longitude} />
                              
                                    
                                   </CCol>
@@ -360,37 +363,37 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                                 
                                     <CLabel>Contact Type</CLabel>
                                     
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact && TcbData.data.plannedPickUp.Logisticlocation.contact.contactTypeCode.Name} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact && TcbData.data.plannedPickUp.Logisticlocation.contact.contactTypeCode.Name} />
                               
                                               </CCol>
                                               <CCol md="4">
                                                 
                                     <CLabel>Person Name</CLabel>
                                    
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact && TcbData.data.plannedPickUp.Logisticlocation.contact.personName} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact && TcbData.data.plannedPickUp.Logisticlocation.contact.personName} />
                                  
                                               </CCol>
                                               <CCol md="4">
                                                 
                                     <CLabel>Department Name</CLabel>
                                     
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact && TcbData.data.plannedPickUp.Logisticlocation.contact.departmentName} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact && TcbData.data.plannedPickUp.Logisticlocation.contact.departmentName} />
                              
                                               </CCol>
                                               <CCol md="4">
                                                 
                                     <CLabel>Job Title</CLabel>
                                     
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact && TcbData.data.plannedPickUp.Logisticlocation.contact.jobTitle} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact && TcbData.data.plannedPickUp.Logisticlocation.contact.jobTitle} />
                              
                                               </CCol>
-                                              <CCol md="4">
+                                              {/* <CCol md="4">
                                                 
-                                    <CLabel>Responsibility</CLabel>
-                                   
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact && TcbData.data.plannedPickUp.Logisticlocation.contact.responsibility.Name} />
-                             
-                                              </CCol>
+                                                  <CLabel>Responsibility</CLabel>
+                                                
+                                                  <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact && TcbData.data.plannedPickUp.Logisticlocation.contact.responsibility.Name} />
+                                          
+                                              </CCol> */}
                                               <CCol md="12">
                                                   <div className="card-title mt-3">
                                                       Communication Channel
@@ -400,19 +403,19 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                                 
                                     <CLabel>Communication Channel Code</CLabel>
                                     
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact && TcbData.data.plannedPickUp.Logisticlocation.contact.communicationChannelCode.Name} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact && TcbData.data.plannedPickUp.Logisticlocation.contact.communicationChannelCode.Name} />
                        
                                               </CCol>
                                               <CCol md="4">
                                                 
                                     <CLabel>Communication Value</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact && TcbData.data.plannedPickUp.Logisticlocation.contact.communicationValue} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact && TcbData.data.plannedPickUp.Logisticlocation.contact.communicationValue} />
                              
                                               </CCol>
                                               <CCol md="4">
                                                 
                                     <CLabel>Communication Channel Name</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact && TcbData.data.plannedPickUp.Logisticlocation.contact.communicationChannelName} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact && TcbData.data.plannedPickUp.Logisticlocation.contact.communicationChannelName} />
                              
                                                
                                               </CCol>
@@ -536,122 +539,123 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                   {/* {showAlert && (<Alert bgcolor="bgSuccess"> Successfully Submited The Order Details! Please Go Head Planned Details </Alert>)} */}
                               </div>
                               <CRow className="justify-content-center">
-                                  <CCol md="4">
+                                  {/* <CCol md="4">
                                   <CLabel>Additional Location Identification</CLabel>
-                                  <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.additionalLocationIdentification.Name} />
+                                  <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.additionalLocationIdentification.Name} />
                              
-                                  </CCol>
+                                  </CCol> */}
                                   <CCol md="4">
                                   <CLabel>Sublocation Identification</CLabel>
-                                  <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.sublocationIdentification} />
+                                  <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.sublocationIdentification} />
                              
                                     
                                   </CCol>
                                   <CCol md="4">
                                   <CLabel>Location Name</CLabel>
-                                  <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.locationName} />
+                                  <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.locationName} />
                              
                                   
                                   </CCol>
-                                  <CCol md="4">
+                                  {/* <CCol md="4">
                                     <CLabel>ALocation Specific Instructions</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.locationSpecificInstructions.Name} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.locationSpecificInstructions.Name} />
                              
                             
-                                  </CCol>
+                                  </CCol> */}
                                   <CCol md="4">
                                     
                                   < CLabel>UTC Offset</CLabel>
                                      
-                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.utcOffset} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.utcOffset} />
   
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>City</CLabel>
                                   
-                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.cityCode} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.cityCode} />
                              
                                   </CCol>
 
                                   <CCol md="4">
                                     
                                   <CLabel>Country</CLabel>
-                                    <CInput value={TcbData &&  TcbData.data.plannedDropOff.Logisticlocation.countryCode.Name} />
+                                    <CInput disabled value={TcbData &&  TcbData.data.plannedDropOff.Logisticlocation.countryCode.Name} />
                              
                                       
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>Cross Street</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.crossStreet} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.crossStreet} />
                              
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>Currency Of Party</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.currencyOfParty.Name} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.currencyOfParty.Name} />
                              
                                     
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>Language Of the Party</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.languageOfTheParty.Name} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.languageOfTheParty.Name} />
                              
                                      
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>Name</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.name} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.name} />
                              
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>Post Box Number</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.pOBoxNumber} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.pOBoxNumber} />
                              
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>Postal Code</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.postalCode} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.postalCode} />
                              
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>Province</CLabel>
                                   
-                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.provinceCode} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.provinceCode} />
                              
                                    
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>State</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.state} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.state} />
                              
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>Street Address One</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.streetAddressOne} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.streetAddressOne} />
                              
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>Street Address Two</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.streetAddressTwo} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.streetAddressTwo} />
                              
                                   </CCol>
-                                  <CCol md="4">
-                                    
-                                  <CLabel>Street Address Three</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.streetAddressThree} />
-                             
-                                  </CCol>
+                                 
                               </CRow>
+                              <CRow> <CCol md="4">
+                                    
+                                    <CLabel>Street Address Three</CLabel>
+                                      <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.streetAddressThree} />
+                               
+                                    </CCol></CRow>
 
                               <div className="card-title mt-3">Geological Coordinates</div>
 
@@ -660,14 +664,14 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                   <CCol md="4">
                                     
                                   <CLabel>Latitude</CLabel>
-                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.latitude} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.latitude} />
                              
                                   </CCol>
                                   <CCol md="4">
                                     
                                   <CLabel>Longitude</CLabel>
                                   
-                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.longitude} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.longitude} />
                              
                                    
                                   </CCol>
@@ -686,37 +690,37 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                                 
                                     <CLabel>Contact Type</CLabel>
                                     
-                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact && TcbData.data.plannedDropOff.Logisticlocation.contact.contactTypeCode.Name} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact && TcbData.data.plannedDropOff.Logisticlocation.contact.contactTypeCode.Name} />
                               
                                               </CCol>
                                               <CCol md="4">
                                                 
                                     <CLabel>Person Name</CLabel>
                                    
-                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact && TcbData.data.plannedDropOff.Logisticlocation.contact.personName} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact && TcbData.data.plannedDropOff.Logisticlocation.contact.personName} />
                                  
                                               </CCol>
                                               <CCol md="4">
                                                 
                                     <CLabel>Department Name</CLabel>
                                     
-                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact && TcbData.data.plannedDropOff.Logisticlocation.contact.departmentName} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact && TcbData.data.plannedDropOff.Logisticlocation.contact.departmentName} />
                              
                                               </CCol>
                                               <CCol md="4">
                                                 
                                     <CLabel>Job Title</CLabel>
                                     
-                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact && TcbData.data.plannedDropOff.Logisticlocation.contact.jobTitle} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact && TcbData.data.plannedDropOff.Logisticlocation.contact.jobTitle} />
                              
                                               </CCol>
-                                              <CCol md="4">
+                                              {/* <CCol md="4">
                                                 
-                                    <CLabel>Responsibility</CLabel>
-                                   
-                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact && TcbData.data.plannedDropOff.Logisticlocation.contact.responsibility.Name} />
-                             
-                                              </CCol>
+                                              <CLabel>Responsibility</CLabel>
+                                            
+                                              <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact && TcbData.data.plannedDropOff.Logisticlocation.contact.responsibility.Name} />
+                                      
+                                              </CCol> */}
                                               <CCol md="12">
                                                   <div className="card-title mt-3">
                                                       Communication Channel
@@ -726,21 +730,21 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                                 
                                     <CLabel>Communication Channel Code</CLabel>
                                     
-                                    <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact && TcbData.data.plannedDropOff.Logisticlocation.contact.communicationChannelCode.Name} />
+                                    <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact && TcbData.data.plannedDropOff.Logisticlocation.contact.communicationChannelCode.Name} />
                        
                                               </CCol>
                                               <CCol md="4">
                                                 
                                         <CLabel>Communication Value</CLabel>
-                                             {TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact ?(<CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact && TcbData.data.plannedDropOff.Logisticlocation.contact.communicationValue} />):<CInput disabled="true"></CInput>}
+                                             {TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact ?(<CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact && TcbData.data.plannedDropOff.Logisticlocation.contact.communicationValue} />):<CInput disabled disabled="true"></CInput>}
   
                                               </CCol>
                                               <CCol md="4">
                                                 
                                     <CLabel>Communication Channel Name</CLabel>
                                     {TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact ?(
-                                      <CInput value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact && TcbData.data.plannedDropOff.Logisticlocation.contact.communicationChannelName} />
-                                    ):<CInput disabled="true"></CInput>}
+                                      <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact && TcbData.data.plannedDropOff.Logisticlocation.contact.communicationChannelName} />
+                                    ):<CInput disabled disabled="true"></CInput>}
                                     
                              
                                                
@@ -820,13 +824,13 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                
                                 <CCol md="6" style={{fontSize:"1.2rem"}}>
                               <CLabel>Starts at:&nbsp;</CLabel>
-                                {/* <CInput type="datetime-local" value={`${TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.beginDate ).format("YYYY-MM-DD")}T${TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.beginTime}`}/> */}
+                                {/* <CInput disabled type="datetime-local" value={`${TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.beginDate ).format("YYYY-MM-DD")}T${TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.beginTime}`}/> */}
                                {`${TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.beginDate ).format("DD-MM-YYYY ")}: ${TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.beginTime}`}
                              
                               </CCol>
                               <CCol md="6" style={{fontSize:"1.2rem"}}>
                               <CLabel>Ends at:&nbsp;</CLabel>
-                              {/* <CInput type="datetime-local" value={`${TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.endDate ).format("YYYY-MM-DD")}T${TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.endTime}`}/> */}
+                              {/* <CInput disabled type="datetime-local" value={`${TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.endDate ).format("YYYY-MM-DD")}T${TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.endTime}`}/> */}
                               {`${ TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.endDate ).format("YYYY-MM-DD")}: ${TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.endTime}`}
                             
                             </CCol>
@@ -881,27 +885,25 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                       <CRow>
                         <CCol md="6">
                                     <CLabel>Cargo Type</CLabel>
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.cargoTypeCode.Name} />
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.cargoTypeCode.Name} />
                              
                            
                             {/* <FormicControl readOnly = "true"  control='select'  label='Cargo Type' id='cargoTypeCode' name='cargoType' options={dropDownOtions }  /> */}
                         </CCol>
-                        <CCol md="6">
+                        {/* <CCol md="6">
                                  <CLabel>Harmonized System</CLabel>
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.harmonizedSystemCode.Name} />
-                         {/* <FormicControl readOnly = "true"  control='select'  label='Harmonized System' id='harmonizedSystemCode' name='harmonizedSystemCode' options={dropDownOtions }  /> */}
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.harmonizedSystemCode.Name} />
                           
-                        </CCol>
-                        <CCol md="6">
+                        </CCol> */}
+                        {/* <CCol md="6">
                                     <CLabel>Cargo Type Description</CLabel>
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.cargoTypeDescription.Name} />
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.cargoTypeDescription.Name} />
                              
-                            {/* <FormicControl readOnly = "true" control='select'  label='Cargo Type Description' id='cargoTypeDescription' name='cargoTypeDescription' options={dropDownOtions } /> */}
                         
-                        </CCol>
+                        </CCol> */}
                         <CCol md="3">
                                     <CLabel>Country Of Origin</CLabel>
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.countryOfOriginCode.Name} />
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.countryOfOriginCode.Name} />
                              
                           
                         
@@ -909,7 +911,7 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                         </CCol>
                         <CCol md="3">
                         <CLabel>Final Destination Country</CLabel>
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.finalDestinationCountry.Name} />
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.finalDestinationCountry.Name} />
                              
                         
                            {/* <FormicControl readOnly = "true" control='select'  label='Final Destination Country' id='finalDestinationCountry' name='finalDestinationCountry' options={dropDownOtions } /> */}
@@ -919,8 +921,8 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
 
                           <CLabel>Total Gross Volume : &nbsp;</CLabel>
                           <CInputGroup style={{marginTop:"-0.5rem"}} >
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossVolume.Value} />
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossVolume.Measurementtype} />                         
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossVolume.Value} />
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossVolume.Measurementtype} />                         
                                  {/* <CInput value={ totalGrossVolume && totalGrossVolume[0].codeListVersion} /> */}
                           </CInputGroup>
                           
@@ -929,8 +931,8 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                         <CLabel>Total Gross Weight : &nbsp;</CLabel>
 
                             <CInputGroup  style={{marginTop:"-0.5rem"}}>
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossWeight.Value} />
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossWeight.Measurementtype} />
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossWeight.Value} />
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossWeight.Measurementtype} />
                                     {/* <CInput value={totalGrossWeight && totalGrossWeight[0].codeListVersion} /> */}
                             </CInputGroup>
                           </CCol>
@@ -939,8 +941,8 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                              <CLabel>Total Transport Net Weight: &nbsp;</CLabel>
                          
                               <CInputGroup  style={{marginTop:"-0.5rem"}}>
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalTransportNetWeight.Value} />
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalTransportNetWeight.Measurementtype} />
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalTransportNetWeight.Value} />
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalTransportNetWeight.Measurementtype} />
                              
                               <div className="VolumeCodes">
                              
@@ -952,8 +954,8 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                               <CLabel>Total Chargeable Weight: &nbsp;</CLabel>
                               <CInputGroup  style={{marginTop:"-0.5rem"}}>
                            
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalChargeableWeight.Value} />
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalChargeableWeight.Measurementtype} />
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalChargeableWeight.Value} />
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalChargeableWeight.Measurementtype} />
                              
                              
                             </CInputGroup>
@@ -964,8 +966,8 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                             <CLabel>Declared Weight For Customs: &nbsp;</CLabel>
 
                             <CInputGroup  style={{marginTop:"-0.5rem"}}>
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredWeightForCustoms.Value} />
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredWeightForCustoms.Measurementtype} />
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredWeightForCustoms.Value} />
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredWeightForCustoms.Measurementtype} />
                              
                            
                             </CInputGroup>
@@ -976,8 +978,8 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                              <CLabel>Total Loading Length: &nbsp;</CLabel>
                         
                              <CInputGroup  style={{marginTop:"-0.5rem"}}>
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalLoadingLength.Value} />
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalLoadingLength.Measurementtype} />
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalLoadingLength.Value} />
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalLoadingLength.Measurementtype} />
                              
                               
                             </CInputGroup>
@@ -987,8 +989,8 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                         <CLabel>Associated Invoice Amount: &nbsp;</CLabel>
 
                           <CInputGroup  style={{marginTop:"-0.5rem"}}>
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.associatedInvoiceAmount.Value} />
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.associatedInvoiceAmount.Measurementtype} />
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.associatedInvoiceAmount.Value} />
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.associatedInvoiceAmount.Measurementtype} />
                              
                             </CInputGroup>
                           
@@ -997,9 +999,9 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                         <CLabel>Declared Value For Customs: &nbsp;</CLabel>
 
                           <CInputGroup  style={{marginTop:"-0.5rem"}}>
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Value} />
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Value} />
                                    
-                                    {isArray(declaredValueForCustoms) && (declaredValueForCustoms[0] && <CInput value={declaredValueForCustoms[0].codeListVersion} />)}
+                                    {isArray(declaredValueForCustoms) && (declaredValueForCustoms[0] && <CInput disabled value={declaredValueForCustoms[0].codeListVersion} />)}
                                   
                                     
 
@@ -1013,10 +1015,10 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                         <CLabel>Total Package Quantity: &nbsp;</CLabel>
 
                           <CInputGroup  style={{marginTop:"-0.5rem"}}>
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalPackageQuantity.Value} />
+                                    <CInput  disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalPackageQuantity.Value} />
                                     {/* <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalPackageQuantity.Measurementtype} /> */}
                                     {/* totalPackageQuantity */}
-                                    {isArray(totalPackageQuantity) && (totalPackageQuantity[0] && <CInput value={totalPackageQuantity[0].codeListVersion} />)}
+                                    {isArray(totalPackageQuantity) && (totalPackageQuantity[0] && <CInput disabled value={totalPackageQuantity[0].codeListVersion} />)}
                             
                             </CInputGroup>
                          
@@ -1025,12 +1027,12 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                         <CLabel>Total Item Quantity: &nbsp;</CLabel>
                           
                           <CInputGroup  style={{marginTop:"-0.5rem"}}>
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalItemQuantity.Value} />
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalItemQuantity.Value} />
                                     {/* <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalItemQuantity.Measurementtype} /> */}
                                     
                                     {/* <CInput value={ totalItemQuantity && totalItemQuantity[0].codeListVersion}/> */}
                                     
-                                    {isArray(totalItemQuantity) && (totalItemQuantity[0] && <CInput value={totalItemQuantity[0].codeListVersion} />)}
+                                    {isArray(totalItemQuantity) && (totalItemQuantity[0] && <CInput disabled value={totalItemQuantity[0].codeListVersion} />)}
                             </CInputGroup>
                           
                         </CCol>
@@ -1043,7 +1045,7 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                       <CLabel>TPackage Type: &nbsp;</CLabel>
 
                           <CInputGroup  style={{marginTop:"-0.5rem"}}>
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.packageTypeCode.Name} />
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.packageTypeCode.Name} />
                                     {/* <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.} /> */}
                             
                             </CInputGroup>
@@ -1053,7 +1055,7 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                         <CLabel>Total Package Quantity: &nbsp;</CLabel>
 
                           <CInputGroup  style={{marginTop:"-0.5rem"}}>
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalPackageQuantity} />
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalPackageQuantity} />
                                     {/* <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.} /> */}
                             
                             </CInputGroup>
@@ -1063,9 +1065,9 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                         <CLabel>Total Gross Weight: &nbsp;</CLabel>
 
                           <CInputGroup  style={{marginTop:"-0.5rem"}}>
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossWeight.Value} />
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossWeight.Value} />
                                     {/* <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossWeight.Measurementtype} /> */}
-                                    {isArray(totalGrossWeight) && (totalGrossWeight[0] && <CInput value={totalGrossWeight[0].codeListVersion} />)}
+                                    {isArray(totalGrossWeight) && (totalGrossWeight[0] && <CInput disabled value={totalGrossWeight[0].codeListVersion} />)}
                             </CInputGroup>
                           
                         </CCol>
@@ -1073,9 +1075,9 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                         <CLabel>Total Gross Volume: &nbsp;</CLabel>
 
                           <CInputGroup  style={{marginTop:"-0.5rem"}}>
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossVolume.Value} />
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossVolume.Value} />
                                     {/* <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossVolume.Measurementtype} /> */}
-                                    {isArray(totalGrossVolume) && (totalGrossVolume[0] && <CInput value={totalGrossVolume[0].codeListVersion} />)}
+                                    {isArray(totalGrossVolume) && (totalGrossVolume[0] && <CInput disabled value={totalGrossVolume[0].codeListVersion} />)}
                                     {/* {isArray(declaredValueForCustoms) && (declaredValueForCustoms[0] && <CInput value={declaredValueForCustoms[0].codeListVersion} />)} */}
                             </CInputGroup>
                           
@@ -1083,10 +1085,6 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                     
                       </CRow>
                   
-
-                   
-                 
-
 
                     
                     </Form>

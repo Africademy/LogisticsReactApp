@@ -128,10 +128,10 @@ const createTransportcapacitybooking =() => {
             serviceLevelCode: data.ServiceDetailsData && data.ServiceDetailsData.serviceLevel
         },
         PickUpLocationData: {
-            additionalLocationIdentificationCode: data.PickUpLocationData && data.PickUpLocationData.additionalLocationIdentification,
+            additionalLocationIdentificationCode: "6066bc8ff225027765a0a67f" ,
             sublocationIdentification:data.PickUpLocationData && data.PickUpLocationData.sublocationIdentification ,
             locationName: data.PickUpLocationData && data.PickUpLocationData.locationName,
-            locationSpecificInstructionsCode: data.PickUpLocationData && data.PickUpLocationData.locationSpecificInstructions,
+            locationSpecificInstructionsCode: "6066bd5e9db55078bf0d00f1",
             uTCOffset:data.PickUpLocationData && data.PickUpLocationData.uTCOffset ,
             cityName:data.PickUpLocationData && data.PickUpLocationData.cityName ,
             countryCode: data.PickUpLocationData && data.PickUpLocationData.country,
@@ -152,7 +152,7 @@ const createTransportcapacitybooking =() => {
             personName:data.PickUpLocationData && data.PickUpLocationData.personeName,
             departmentName:data.PickUpLocationData && data.PickUpLocationData.depormentName ,
             jobTitle:data.PickUpLocationData && data.PickUpLocationData.jobTitle ,
-            responsibility: data.PickUpLocationData && data.PickUpLocationData.responsibility,
+            responsibility:"606604c84e9e6d6253b5bfb6" ,
             communicationChannelCode: data.PickUpLocationData && data.PickUpLocationData.communicationChannelCode,
             communicationValue: data.PickUpLocationData && data.PickUpLocationData.communicationValue,
             communicationChannelName: data.PickUpLocationData && data.PickUpLocationData.communicationChannelName
@@ -171,10 +171,10 @@ const createTransportcapacitybooking =() => {
         },
         DropOffLocation: {
            
-          additionalLocationIdentificationCode: data.DropOffLocation && data.DropOffLocation.additionalLocationIdentification,
+          additionalLocationIdentificationCode:"6066bc8ff225027765a0a67f" ,
           sublocationIdentification:data.DropOffLocation && data.DropOffLocation.sublocationIdentification ,
           locationName: data.DropOffLocation && data.DropOffLocation.locationName,
-          locationSpecificInstructionsCode: data.DropOffLocation && data.DropOffLocation.locationSpecificInstructions,
+          locationSpecificInstructionsCode: "6066bd5e9db55078bf0d00f1",
           uTCOffset:data.DropOffLocation && data.DropOffLocation.uTCOffset ,
           cityName:data.DropOffLocation && data.DropOffLocation.cityName ,
           countryCode: data.DropOffLocation && data.DropOffLocation.country,
@@ -195,7 +195,7 @@ const createTransportcapacitybooking =() => {
           personName:data.DropOffLocation && data.DropOffLocation.personeName,
           departmentName:data.DropOffLocation && data.DropOffLocation.depormentName ,
           jobTitle:data.DropOffLocation && data.DropOffLocation.jobTitle ,
-          responsibility: data.DropOffLocation && data.DropOffLocation.responsibility,
+          responsibility: "606604c84e9e6d6253b5bfb6" ,
           communicationChannelCode: data.DropOffLocation && data.DropOffLocation.communicationChannelCode,
           communicationValue: data.DropOffLocation && data.DropOffLocation.communicationValue,
           communicationChannelName: data.DropOffLocation && data.DropOffLocation.communicationChannelName
@@ -214,8 +214,8 @@ const createTransportcapacitybooking =() => {
         },
         SpaceRequirements: {
             cargoTypeCode: data.SpaceRequirements && data.SpaceRequirements.cargoType,
-            harmonizedSystemCode: data.SpaceRequirements && data.SpaceRequirements.harmonizedSystemCode,
-            cargoTypeDescriptionCode: data.SpaceRequirements && data.SpaceRequirements.cargoTypeDescription,
+            harmonizedSystemCode: "6065e82897b3245cabbd0451",
+            cargoTypeDescriptionCode: "6065e87597b3245cabbd0455",
             countryOfOriginCode: data.SpaceRequirements && data.SpaceRequirements.countryOfOriginCode,
             finalDestinationCountryCode: data.SpaceRequirements && data.SpaceRequirements.finalDestinationCountry,
             totalGrossVolume: data.SpaceRequirements && data.SpaceRequirements.totalGrossVolume,

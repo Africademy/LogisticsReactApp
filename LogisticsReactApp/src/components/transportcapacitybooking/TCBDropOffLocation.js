@@ -114,10 +114,10 @@ function TCBDropOffLocation({setenableNext}) {
       ]
 
 const initialValues ={
-    additionalLocationIdentification:"",
+    // additionalLocationIdentification:"",
     sublocationIdentification:"",
     locationName:"",
-    locationSpecificInstructions:"",
+    // locationSpecificInstructions:"",
     uTCOffset:"",
     cityName:"",
     country:"",
@@ -139,7 +139,7 @@ const initialValues ={
     personeName:"",
     depormentName:"",
     jobTitle:"",
-    responsibility:"",
+    // responsibility:"",
     communicationChannelCode:"",
     communicationValue:"",
     communicationChannelName:"",
@@ -148,10 +148,10 @@ const initialValues ={
   const validationSchema = yup.object({
     
    
-    additionalLocationIdentification:yup.string().required(),
+    // additionalLocationIdentification:yup.string().required(),
     sublocationIdentification:yup.string().required(),
     locationName:yup.string().required(),
-    locationSpecificInstructions:yup.string().required(),
+    // locationSpecificInstructions:yup.string().required(),
     uTCOffset:yup.number().required(),
     cityName:yup.string().required(),
     country:yup.string().required(),
@@ -174,7 +174,7 @@ const initialValues ={
     personeName:yup.string().required(),
     depormentName:yup.string(),
     jobTitle:yup.string(),
-    responsibility:yup.string().required(),
+    // responsibility:yup.string().required(),
     communicationChannelCode:yup.string().required(),
     communicationValue:yup.string().required(),
     communicationChannelName:yup.string(),
@@ -198,7 +198,7 @@ const initialValues ={
 								 {/* {showAlert && (<Alert bgcolor="bgSuccess"> Successfully Submited The Order Details! Please Go Head Planned Details </Alert>)} */}
 						 </div>
 						 <CRow className="justify-content-center">
-								 <CCol md="4">
+								 {/* <CCol md="4">
 										 <FormicControl
 												 control="selectOptionalidentificationScheme"
 												 label="Additional Location Identification"
@@ -208,7 +208,7 @@ const initialValues ={
 												 isRequired="true"
 												 options={AdditionalLocationIdentification}
 										 />
-								 </CCol>
+								 </CCol> */}
 								 <CCol md="4">
 										 <FormicControl
 												 control="input"
@@ -230,7 +230,7 @@ const initialValues ={
 												 
 										 />
 								 </CCol>
-								 <CCol md="4">
+								 {/* <CCol md="4">
 										 <FormicControl
 												 control="select"
 												 label="Location Specific Instructions"
@@ -239,7 +239,7 @@ const initialValues ={
 												 options={LocationSpecificInstructions}
 												 isRequired="true"
 										 />
-								 </CCol>
+								 </CCol> */}
 								 <CCol md="4">
 										 <FormicControl
 												 control="input"
@@ -247,6 +247,7 @@ const initialValues ={
 												 label="UTC Offset"
 												 id="UTCOffset"
 												 name="uTCOffset"
+												 isRequired="true"
 												 // options={dropDownOtions}
 										 />
 								 </CCol>
@@ -374,7 +375,10 @@ const initialValues ={
 												 // options={dropDownOtions}
 										 />
 								 </CCol>
-								 <CCol md="4">
+								
+						 </CRow>
+						 <CRow>
+						 <CCol md="4">
 										 <FormicControl
 												 control="input"
 												 placeholder="Enter here..."
@@ -398,6 +402,7 @@ const initialValues ={
 												 label="Latitude"
 												 id="Latitude"
 												 name="latitude"
+												 isRequired="true"
 												 // options={dropDownOtions}
 										 />
 								 </CCol>
@@ -409,6 +414,7 @@ const initialValues ={
 												 label="Longitude"
 												 id="Longitutue"
 												 name="longitutue"
+												 isRequired="true"
 												 // options={dropDownOtions}
 										 />
 								 </CCol>
@@ -473,7 +479,7 @@ const initialValues ={
 																		 // options={dropDownOtions}
 																 />
 														 </CCol>
-														 <CCol md="4">
+														 {/* <CCol md="4">
 																 <FormicControl
 																		 control="select"
 																		 placeholder="Enter here..."
@@ -483,7 +489,7 @@ const initialValues ={
 																		 options={Resposibilities}
 																		 isRequired="true"
 																 />
-														 </CCol>
+														 </CCol> */}
 														 <CCol md="12">
 																 <div className="card-title mt-3">
 																		 Communication Channel
