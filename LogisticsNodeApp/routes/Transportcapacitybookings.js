@@ -17,6 +17,7 @@ const Contacttypecode = require("../models/Contacttypecode");
 const Contacttype = require("../models/Contacttype");
 const Communicationchannel = require("../models/Communicationchannel");
 const Description70type = require("../models/Description70type");
+const Measurementtype = require("../models/Measurementtype");
 
 router.get("/", verify, async (req, res) => {
   try {
@@ -166,6 +167,63 @@ router.get("/:id", verify, async (req, res) => {
             }
           );
 
+          r.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossVolume.Measurementtype = await getMeasurementType(
+            r.transportCapacityBookingSpaceRequirements
+              .Transportcargocharacteristicstypes.totalGrossVolume
+              .Measurementtype
+          );
+
+          r.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossWeight.Measurementtype = await getMeasurementType(
+            r.transportCapacityBookingSpaceRequirements
+              .Transportcargocharacteristicstypes.totalGrossWeight
+              .Measurementtype
+          );
+          r.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalTransportNetWeight.Measurementtype = await getMeasurementType(
+            r.transportCapacityBookingSpaceRequirements
+              .Transportcargocharacteristicstypes.totalTransportNetWeight
+              .Measurementtype
+          );
+          r.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalChargeableWeight.Measurementtype = await getMeasurementType(
+            r.transportCapacityBookingSpaceRequirements
+              .Transportcargocharacteristicstypes.totalChargeableWeight
+              .Measurementtype
+          );
+          r.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredWeightForCustoms.Measurementtype = await getMeasurementType(
+            r.transportCapacityBookingSpaceRequirements
+              .Transportcargocharacteristicstypes.declaredWeightForCustoms
+              .Measurementtype
+          );
+          r.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalLoadingLength.Measurementtype = await getMeasurementType(
+            r.transportCapacityBookingSpaceRequirements
+              .Transportcargocharacteristicstypes.totalLoadingLength
+              .Measurementtype
+          );
+          r.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.associatedInvoiceAmount.Measurementtype = await getMeasurementType(
+            r.transportCapacityBookingSpaceRequirements
+              .Transportcargocharacteristicstypes.associatedInvoiceAmount
+              .Measurementtype
+          );
+          // r.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Measurementtype = await getMeasurementType(
+          //   r.transportCapacityBookingSpaceRequirements
+          //     .Transportcargocharacteristicstypes.declaredValueForCustoms
+          //     .Measurementtype
+          // );
+          // r.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalItemQuantity.Measurementtype = await getMeasurementType(
+          //   r.transportCapacityBookingSpaceRequirements
+          //     .Transportcargocharacteristicstypes.totalItemQuantity
+          //     .Measurementtype
+          // );
+          // r.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossVolume.Measurementtype = await getMeasurementType(
+          //   r.transportCapacityBookingSpaceRequirements
+          //     .Transportcargocharacteristicstypes.declaredValueForCustoms
+          //     .Measurementtype
+          // );
+          // r.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossWeight.Measurementtype = await getMeasurementType(
+          //   r.transportCapacityBookingSpaceRequirements
+          //     .Transportcargocharacteristicstypes.declaredValueForCustoms
+          //     .Measurementtype
+          // );
+
           // console.log(r);
           res.json(r);
         } catch (ex) {
@@ -184,6 +242,13 @@ router.get("/:id", verify, async (req, res) => {
     });
   }
 });
+
+async function getMeasurementType(id) {
+  let data = await Measurementtype.findOne({
+    _id: id,
+  });
+  return await data.codeListVersion;
+}
 
 router.post("/", verify, async (req, res) => {
   const session = await Transportcapacitybooking.startSession();
@@ -698,7 +763,7 @@ async function saveLogisticlocationtype(body) {
     });
     savedContacttype = await contacttype.save();
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return error;
   }
 
