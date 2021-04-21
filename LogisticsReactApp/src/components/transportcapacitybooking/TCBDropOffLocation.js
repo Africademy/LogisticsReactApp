@@ -114,10 +114,10 @@ function TCBDropOffLocation({setenableNext}) {
       ]
 
 const initialValues ={
-    additionalLocationIdentification:"",
+    // additionalLocationIdentification:"",
     sublocationIdentification:"",
     locationName:"",
-    locationSpecificInstructions:"",
+    // locationSpecificInstructions:"",
     uTCOffset:"",
     cityName:"",
     country:"",
@@ -139,7 +139,7 @@ const initialValues ={
     personeName:"",
     depormentName:"",
     jobTitle:"",
-    responsibility:"",
+    // responsibility:"",
     communicationChannelCode:"",
     communicationValue:"",
     communicationChannelName:"",
@@ -148,10 +148,10 @@ const initialValues ={
   const validationSchema = yup.object({
     
    
-    additionalLocationIdentification:yup.string().required(),
+    // additionalLocationIdentification:yup.string().required(),
     sublocationIdentification:yup.string().required(),
     locationName:yup.string().required(),
-    locationSpecificInstructions:yup.string().required(),
+    // locationSpecificInstructions:yup.string().required(),
     uTCOffset:yup.number().required(),
     cityName:yup.string().required(),
     country:yup.string().required(),
@@ -174,7 +174,7 @@ const initialValues ={
     personeName:yup.string().required(),
     depormentName:yup.string(),
     jobTitle:yup.string(),
-    responsibility:yup.string().required(),
+    // responsibility:yup.string().required(),
     communicationChannelCode:yup.string().required(),
     communicationValue:yup.string().required(),
     communicationChannelName:yup.string(),
@@ -247,6 +247,7 @@ const initialValues ={
 												 label="UTC Offset"
 												 id="UTCOffset"
 												 name="uTCOffset"
+												 isRequired="true"
 												 // options={dropDownOtions}
 										 />
 								 </CCol>
@@ -401,6 +402,7 @@ const initialValues ={
 												 label="Latitude"
 												 id="Latitude"
 												 name="latitude"
+												 isRequired="true"
 												 // options={dropDownOtions}
 										 />
 								 </CCol>
@@ -412,6 +414,7 @@ const initialValues ={
 												 label="Longitude"
 												 id="Longitutue"
 												 name="longitutue"
+												 isRequired="true"
 												 // options={dropDownOtions}
 										 />
 								 </CCol>

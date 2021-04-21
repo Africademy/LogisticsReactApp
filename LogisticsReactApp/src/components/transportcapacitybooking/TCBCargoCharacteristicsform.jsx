@@ -128,8 +128,8 @@ const [CargoData,setCargoData] = useState(null)
 
   const initialValues = {
     cargoType :'',
-    harmonizedSystemCode: "", 
-    cargoTypeDescription: "", 
+    // harmonizedSystemCode: "", 
+    // cargoTypeDescription: "", 
     countryOfOriginCode: "", 
     finalDestinationCountry: "",
     totalGrossVolume:'',
@@ -161,8 +161,8 @@ const [CargoData,setCargoData] = useState(null)
   }
   const validationSchema =yup.object({
     cargoType: yup.string().required(),
-    harmonizedSystemCode: yup.string().required(),
-    cargoTypeDescription: yup.string().required(), 
+    // harmonizedSystemCode: yup.string().required(),
+    // cargoTypeDescription: yup.string().required(), 
     countryOfOriginCode: yup.string().required(), 
     finalDestinationCountry: yup.string().required(),
     totalGrossVolume: yup.number().required(),
