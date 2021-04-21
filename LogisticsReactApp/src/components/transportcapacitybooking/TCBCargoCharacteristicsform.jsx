@@ -217,17 +217,17 @@ const [CargoData,setCargoData] = useState(null)
                         <CCol md="6">
                             <FormicControl  control='select' isRequired="true" label='Cargo Type' id='cargoTypeCode' name='cargoType' options={CargoType}  />
                         </CCol>
-                        <CCol md="6">
+                        {/* <CCol md="6">
   
                             <FormicControl  control='select' isRequired="true" label='Harmonized System' id='harmonizedSystemCode' name='harmonizedSystemCode' options={HarmonizedSystem}  />
                           
-                        </CCol>
-                        <CCol md="6">
+                        </CCol> */}
+                        {/* <CCol md="6">
                         
 
                           <FormicControl control='select' isRequired="true" label='Cargo Type Description' id='cargoTypeDescription' name='cargoTypeDescription' options={CargoTypeDescription} />
                         
-                        </CCol>
+                        </CCol> */}
                         <CCol md="3">
                         
                            <FormicControl control='select' isRequired="true" label='Country Of Origin' id='countryOfOriginCode' name='countryOfOriginCode' options={CountryOfOrigin} />

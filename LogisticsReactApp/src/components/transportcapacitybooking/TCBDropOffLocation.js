@@ -198,7 +198,7 @@ const initialValues ={
 								 {/* {showAlert && (<Alert bgcolor="bgSuccess"> Successfully Submited The Order Details! Please Go Head Planned Details </Alert>)} */}
 						 </div>
 						 <CRow className="justify-content-center">
-								 <CCol md="4">
+								 {/* <CCol md="4">
 										 <FormicControl
 												 control="selectOptionalidentificationScheme"
 												 label="Additional Location Identification"
@@ -208,7 +208,7 @@ const initialValues ={
 												 isRequired="true"
 												 options={AdditionalLocationIdentification}
 										 />
-								 </CCol>
+								 </CCol> */}
 								 <CCol md="4">
 										 <FormicControl
 												 control="input"
@@ -230,7 +230,7 @@ const initialValues ={
 												 
 										 />
 								 </CCol>
-								 <CCol md="4">
+								 {/* <CCol md="4">
 										 <FormicControl
 												 control="select"
 												 label="Location Specific Instructions"
@@ -239,7 +239,7 @@ const initialValues ={
 												 options={LocationSpecificInstructions}
 												 isRequired="true"
 										 />
-								 </CCol>
+								 </CCol> */}
 								 <CCol md="4">
 										 <FormicControl
 												 control="input"
@@ -374,7 +374,10 @@ const initialValues ={
 												 // options={dropDownOtions}
 										 />
 								 </CCol>
-								 <CCol md="4">
+								
+						 </CRow>
+						 <CRow>
+						 <CCol md="4">
 										 <FormicControl
 												 control="input"
 												 placeholder="Enter here..."
@@ -473,7 +476,7 @@ const initialValues ={
 																		 // options={dropDownOtions}
 																 />
 														 </CCol>
-														 <CCol md="4">
+														 {/* <CCol md="4">
 																 <FormicControl
 																		 control="select"
 																		 placeholder="Enter here..."
@@ -483,7 +486,7 @@ const initialValues ={
 																		 options={Resposibilities}
 																		 isRequired="true"
 																 />
-														 </CCol>
+														 </CCol> */}
 														 <CCol md="12">
 																 <div className="card-title mt-3">
 																		 Communication Channel
