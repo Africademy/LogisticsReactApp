@@ -3,10 +3,10 @@ const mongoose = require("mongoose");
 const createService = require("./services/sampleRecord");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const config = require('./config.js')
-const path = require('path');
+const config = require("./config.js");
+const path = require("path");
 
-const authRoute = require('./routes/auth');
+const authRoute = require("./routes/auth");
 const AdditionalconsignmentidentificationtypesRoute = require("./routes/Additionalconsignmentidentificationtypes");
 const AdditionalindividualassetidentificationsRoute = require("./routes/Additionalindividualassetidentifications");
 const AdditionallocationidentificationsRoute = require("./routes/Additionallocationidentifications");
@@ -191,20 +191,47 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, "build")));
 
 //Your API ENDPOINTS
-app.use('/api/user', authRoute);
-app.use("/api/additionalconsignmentidentificationtypes", AdditionalconsignmentidentificationtypesRoute);
-app.use("/api/additionalindividualassetidentifications", AdditionalindividualassetidentificationsRoute);
-app.use("/api/additionallocationidentifications", AdditionallocationidentificationsRoute);
-app.use("/api/additionallogisticunitidentificationtypes", AdditionallogisticunitidentificationtypesRoute);
-app.use("/api/additionalpartyidentifications", AdditionalpartyidentificationsRoute);
-app.use("/api/additionalpartyidentificationtypes", AdditionalpartyidentificationtypesRoute);
-app.use("/api/additionalreturnableassetidentifications", AdditionalreturnableassetidentificationsRoute);
-app.use("/api/additionalshipmentidentificationtypes", AdditionalshipmentidentificationtypesRoute);
+app.use("/api/user", authRoute);
+app.use(
+  "/api/additionalconsignmentidentificationtypes",
+  AdditionalconsignmentidentificationtypesRoute
+);
+app.use(
+  "/api/additionalindividualassetidentifications",
+  AdditionalindividualassetidentificationsRoute
+);
+app.use(
+  "/api/additionallocationidentifications",
+  AdditionallocationidentificationsRoute
+);
+app.use(
+  "/api/additionallogisticunitidentificationtypes",
+  AdditionallogisticunitidentificationtypesRoute
+);
+app.use(
+  "/api/additionalpartyidentifications",
+  AdditionalpartyidentificationsRoute
+);
+app.use(
+  "/api/additionalpartyidentificationtypes",
+  AdditionalpartyidentificationtypesRoute
+);
+app.use(
+  "/api/additionalreturnableassetidentifications",
+  AdditionalreturnableassetidentificationsRoute
+);
+app.use(
+  "/api/additionalshipmentidentificationtypes",
+  AdditionalshipmentidentificationtypesRoute
+);
 app.use("/api/addresss", AddresssRoute);
-app.use("/api/afterhourscommunicationchannels", AfterhourscommunicationchannelsRoute);
+app.use(
+  "/api/afterhourscommunicationchannels",
+  AfterhourscommunicationchannelsRoute
+);
 app.use("/api/alternatedeliverytermscodes", AlternatedeliverytermscodesRoute);
 app.use("/api/amounttypes", AmounttypesRoute);
 app.use("/api/associatedinvoiceamounts", AssociatedinvoiceamountsRoute);
@@ -216,7 +243,10 @@ app.use("/api/codetypes", CodetypesRoute);
 app.use("/api/communicationchannels", CommunicationchannelsRoute);
 app.use("/api/communicationchannelcodes", CommunicationchannelcodesRoute);
 app.use("/api/communicationchanneltypes", CommunicationchanneltypesRoute);
-app.use("/api/consignmentidentificationtypes", ConsignmentidentificationtypesRoute);
+app.use(
+  "/api/consignmentidentificationtypes",
+  ConsignmentidentificationtypesRoute
+);
 app.use("/api/contactinformations", ContactinformationsRoute);
 app.use("/api/contacttypes", ContacttypesRoute);
 app.use("/api/contacttypecodes", ContacttypecodesRoute);
@@ -227,8 +257,14 @@ app.use("/api/countryoforigincodes", CountryoforigincodesRoute);
 app.use("/api/currencyofpartycodes", CurrencyofpartycodesRoute);
 app.use("/api/currentholderregistrations", CurrentholderregistrationsRoute);
 app.use("/api/dangerousgoodsattributetypes", DangerousgoodsattributetypesRoute);
-app.use("/api/dangerousgoodsinformationtypes", DangerousgoodsinformationtypesRoute);
-app.use("/api/dangerousgoodsregulationinformationtypes", DangerousgoodsregulationinformationtypesRoute);
+app.use(
+  "/api/dangerousgoodsinformationtypes",
+  DangerousgoodsinformationtypesRoute
+);
+app.use(
+  "/api/dangerousgoodsregulationinformationtypes",
+  DangerousgoodsregulationinformationtypesRoute
+);
 app.use("/api/dateoptionaltimetypes", DateoptionaltimetypesRoute);
 app.use("/api/datetimerangetypes", DatetimerangetypesRoute);
 app.use("/api/declaredvalueforcustomss", DeclaredvalueforcustomssRoute);
@@ -253,18 +289,33 @@ app.use("/api/dutyfeetaxregistrations", DutyfeetaxregistrationsRoute);
 app.use("/api/dutyfeetaxregistrationids", DutyfeetaxregistrationidsRoute);
 app.use("/api/dutyfeetaxregistrationtypes", DutyfeetaxregistrationtypesRoute);
 app.use("/api/dutyfeetaxtypecodes", DutyfeetaxtypecodesRoute);
-app.use("/api/ecom_attributevaluepairlisttypes", Ecom_attributevaluepairlisttypesRoute);
-app.use("/api/ecomstringattributevaluepairlists", EcomstringattributevaluepairlistsRoute);
+app.use(
+  "/api/ecom_attributevaluepairlisttypes",
+  Ecom_attributevaluepairlisttypesRoute
+);
+app.use(
+  "/api/ecomstringattributevaluepairlists",
+  EcomstringattributevaluepairlistsRoute
+);
 app.use("/api/entityidentificationtypes", EntityidentificationtypesRoute);
 app.use("/api/enumerationlibrarys", EnumerationlibrarysRoute);
 app.use("/api/finaldestinationcountrys", FinaldestinationcountrysRoute);
 app.use("/api/financialaccounts", FinancialaccountsRoute);
-app.use("/api/financialaccountnumbertypecodes", FinancialaccountnumbertypecodesRoute);
+app.use(
+  "/api/financialaccountnumbertypecodes",
+  FinancialaccountnumbertypecodesRoute
+);
 app.use("/api/financialaccounttypes", FinancialaccounttypesRoute);
-app.use("/api/financialinstitutioninformationtypes", FinancialinstitutioninformationtypesRoute);
+app.use(
+  "/api/financialinstitutioninformationtypes",
+  FinancialinstitutioninformationtypesRoute
+);
 app.use("/api/financialroutingnumbers", FinancialroutingnumbersRoute);
 app.use("/api/financialroutingnumbertypes", FinancialroutingnumbertypesRoute);
-app.use("/api/financialroutingnumbertypecodes", FinancialroutingnumbertypecodesRoute);
+app.use(
+  "/api/financialroutingnumbertypecodes",
+  FinancialroutingnumbertypecodesRoute
+);
 app.use("/api/geographicalcoordinatess", GeographicalcoordinatessRoute);
 app.use("/api/handlinginstructioncodes", HandlinginstructioncodesRoute);
 app.use("/api/handlinginstructiontexts", HandlinginstructiontextsRoute);
@@ -278,14 +329,23 @@ app.use("/api/identitydocumenttypes", IdentitydocumenttypesRoute);
 app.use("/api/includedtransportequipments", IncludedtransportequipmentsRoute);
 app.use("/api/includedtransportmeanss", IncludedtransportmeanssRoute);
 app.use("/api/incotermscodes", IncotermscodesRoute);
-app.use("/api/individualassetidentifications", IndividualassetidentificationsRoute);
-app.use("/api/individualreturnableassetidentifications", IndividualreturnableassetidentificationsRoute);
+app.use(
+  "/api/individualassetidentifications",
+  IndividualassetidentificationsRoute
+);
+app.use(
+  "/api/individualreturnableassetidentifications",
+  IndividualreturnableassetidentificationsRoute
+);
 app.use("/api/issuedcapitals", IssuedcapitalsRoute);
 app.use("/api/languageofthepartycodes", LanguageofthepartycodesRoute);
 app.use("/api/legalregistrations", LegalregistrationsRoute);
 app.use("/api/legalregistrationtypes", LegalregistrationtypesRoute);
 app.use("/api/legalstructures", LegalstructuresRoute);
-app.use("/api/locationspecificinstructionss", LocationspecificinstructionssRoute);
+app.use(
+  "/api/locationspecificinstructionss",
+  LocationspecificinstructionssRoute
+);
 app.use("/api/logisticeventdatetimes", LogisticeventdatetimesRoute);
 app.use("/api/logisticeventdurations", LogisticeventdurationsRoute);
 app.use("/api/logisticeventperiods", LogisticeventperiodsRoute);
@@ -296,7 +356,10 @@ app.use("/api/logisticlocationtypes", LogisticlocationtypesRoute);
 app.use("/api/logisticservicesbuyers", LogisticservicesbuyersRoute);
 app.use("/api/logisticservicessellers", LogisticservicessellersRoute);
 app.use("/api/logisticservicetypes", LogisticservicetypesRoute);
-app.use("/api/logisticunitidentificationtypes", LogisticunitidentificationtypesRoute);
+app.use(
+  "/api/logisticunitidentificationtypes",
+  LogisticunitidentificationtypesRoute
+);
 app.use("/api/logisticunittypes", LogisticunittypesRoute);
 app.use("/api/manifests", ManifestsRoute);
 app.use("/api/manifestitems", ManifestitemsRoute);
@@ -325,8 +388,14 @@ app.use("/api/printinginstructioncodes", PrintinginstructioncodesRoute);
 app.use("/api/quantitytypes", QuantitytypesRoute);
 app.use("/api/regularoperatinghourss", RegularoperatinghourssRoute);
 app.use("/api/responsibilitys", ResponsibilitysRoute);
-app.use("/api/returnableassetidentifications", ReturnableassetidentificationsRoute);
-app.use("/api/returnableassettypeidentifications", ReturnableassettypeidentificationsRoute);
+app.use(
+  "/api/returnableassetidentifications",
+  ReturnableassetidentificationsRoute
+);
+app.use(
+  "/api/returnableassettypeidentifications",
+  ReturnableassettypeidentificationsRoute
+);
 app.use("/api/returnablepackagings", ReturnablepackagingsRoute);
 app.use("/api/returnablepackagingtypes", ReturnablepackagingtypesRoute);
 app.use("/api/routeids", RouteidsRoute);
@@ -336,7 +405,10 @@ app.use("/api/shipmentidentificationtypes", ShipmentidentificationtypesRoute);
 app.use("/api/specialdatenames", SpecialdatenamesRoute);
 app.use("/api/specialoperatinghourss", SpecialoperatinghourssRoute);
 app.use("/api/specialoperatinghourstypes", SpecialoperatinghourstypesRoute);
-app.use("/api/standardbusinessdocumentheaders", StandardbusinessdocumentheadersRoute);
+app.use(
+  "/api/standardbusinessdocumentheaders",
+  StandardbusinessdocumentheadersRoute
+);
 app.use("/api/temperaturerangetypes", TemperaturerangetypesRoute);
 app.use("/api/timemeasurementtypes", TimemeasurementtypesRoute);
 app.use("/api/totalchargeableweights", TotalchargeableweightsRoute);
@@ -348,19 +420,49 @@ app.use("/api/totalpackagequantitys", TotalpackagequantitysRoute);
 app.use("/api/totaltransportnetweights", TotaltransportnetweightsRoute);
 app.use("/api/transactionalpartytypes", TransactionalpartytypesRoute);
 app.use("/api/transportcapacitybookings", TransportcapacitybookingsRoute);
-app.use("/api/transportcapacitybookingidentifications", TransportcapacitybookingidentificationsRoute);
-app.use("/api/transportcapacitybookingresponses", TransportcapacitybookingresponsesRoute);
-app.use("/api/transportcapacitybookingresponseidentifications", TransportcapacitybookingresponseidentificationsRoute);
-app.use("/api/transportcapacitybookingspacerequirements", TransportcapacitybookingspacerequirementsRoute);
-app.use("/api/transportcapacitybookingtransportmovementtypes", TransportcapacitybookingtransportmovementtypesRoute);
-app.use("/api/transportcargocharacteristicstypes", TransportcargocharacteristicstypesRoute);
+app.use(
+  "/api/transportcapacitybookingidentifications",
+  TransportcapacitybookingidentificationsRoute
+);
+app.use(
+  "/api/transportcapacitybookingresponses",
+  TransportcapacitybookingresponsesRoute
+);
+app.use(
+  "/api/transportcapacitybookingresponseidentifications",
+  TransportcapacitybookingresponseidentificationsRoute
+);
+app.use(
+  "/api/transportcapacitybookingspacerequirements",
+  TransportcapacitybookingspacerequirementsRoute
+);
+app.use(
+  "/api/transportcapacitybookingtransportmovementtypes",
+  TransportcapacitybookingtransportmovementtypesRoute
+);
+app.use(
+  "/api/transportcargocharacteristicstypes",
+  TransportcargocharacteristicstypesRoute
+);
 app.use("/api/transportequipmenttypes", TransportequipmenttypesRoute);
 app.use("/api/transportequipmenttypecodes", TransportequipmenttypecodesRoute);
 app.use("/api/transportequipmentweights", TransportequipmentweightsRoute);
-app.use("/api/transportinstructionconsignmentitemtypes", TransportinstructionconsignmentitemtypesRoute);
-app.use("/api/transportinstructiontermstypes", TransportinstructiontermstypesRoute);
-app.use("/api/transportinstructiontransportequipmenttypes", TransportinstructiontransportequipmenttypesRoute);
-app.use("/api/transportinstructiontransportmovementtypes", TransportinstructiontransportmovementtypesRoute);
+app.use(
+  "/api/transportinstructionconsignmentitemtypes",
+  TransportinstructionconsignmentitemtypesRoute
+);
+app.use(
+  "/api/transportinstructiontermstypes",
+  TransportinstructiontermstypesRoute
+);
+app.use(
+  "/api/transportinstructiontransportequipmenttypes",
+  TransportinstructiontransportequipmenttypesRoute
+);
+app.use(
+  "/api/transportinstructiontransportmovementtypes",
+  TransportinstructiontransportmovementtypesRoute
+);
 app.use("/api/transportmeansids", TransportmeansidsRoute);
 app.use("/api/transportmeanstypes", TransportmeanstypesRoute);
 app.use("/api/transportmodecodes", TransportmodecodesRoute);
@@ -368,8 +470,14 @@ app.use("/api/transportreferences", TransportreferencesRoute);
 app.use("/api/transportreferencetypes", TransportreferencetypesRoute);
 app.use("/api/transportreferencetypecodes", TransportreferencetypecodesRoute);
 app.use("/api/transportsealtypes", TransportsealtypesRoute);
-app.use("/api/transportservicecategorycodes", TransportservicecategorycodesRoute);
-app.use("/api/transportserviceconditiontypecodes", TransportserviceconditiontypecodesRoute);
+app.use(
+  "/api/transportservicecategorycodes",
+  TransportservicecategorycodesRoute
+);
+app.use(
+  "/api/transportserviceconditiontypecodes",
+  TransportserviceconditiontypecodesRoute
+);
 app.use("/api/transportservicelevelcodes", TransportservicelevelcodesRoute);
 app.use("/api/unitmeasurementtypes", UnitmeasurementtypesRoute);
 app.use("/api/unlocationcodes", UnlocationcodesRoute);
@@ -379,14 +487,17 @@ app.use("/api/widths", WidthsRoute);
 mongoose
   .connect(config.DB_CONNECTION, {
     useUnifiedTopology: true,
-    useNewUrlParser: true
+    useNewUrlParser: true,
   })
-  .then(() => console.log("Connected to your MongoDB."))
-  .catch(err => {
+  .then(() => {
+    mongoose.set("useFindAndModify", false);
+    console.log("Connected to your MongoDB.");
+  })
+  .catch((err) => {
     console.log("Failed to connected to DB Error: " + err.message);
   });
 
 let createServiceObj = null;
 createServiceObj = createService.getInstance();
 createServiceObj.createSampleUser();
-app.listen(5000, () => console.log('listening on port 5000'));
+app.listen(5000, () => console.log("listening on port 5000"));
