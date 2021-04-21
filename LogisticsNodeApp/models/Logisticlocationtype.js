@@ -18,7 +18,7 @@ const LogisticlocationtypeScheema = mongoose.Schema({
     required: false,
   },
   utcOffset: {
-    type: Number,
+    type: String,
     required: false,
   },
   contact: {
