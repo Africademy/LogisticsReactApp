@@ -4,7 +4,7 @@ import React from 'react'
 
 function CoreSelectEdit(props) {
     const [field,meta] = useField(props)
-    const {label,name,id,options,isRequired,typeOfOption,readOnly, ...rest } = props
+    const {label,name,id,options,isRequired,typeOfOption,readOnly,selectedId,selectedName, ...rest } = props
     return (
         <div>
            
@@ -19,7 +19,8 @@ function CoreSelectEdit(props) {
                     {
                         (typeOfOption === "ServiceCategory" || "ServiceCondition" || "ServiceLevel") && (
                             <select
-                            defaultValue
+                            // defaultValue={selectedId}
+                            // selected={selectedName}
                             className="form-control form-select"
                             disabled={readOnly}
                              id={id}
@@ -29,9 +30,9 @@ function CoreSelectEdit(props) {
                             
                                  {
                                   options.map( item=>{
-                                      return (
-                                          
-                                          <option key={item.value} value={item.codeListVersion} >{item.codeListVersion}</option>
+                                      return ( 
+                                       
+                                          <option  key={item._id} value= {item.codeListVersion} >{item.codeListVersion}</option>
                                       
                                       )
                                   })

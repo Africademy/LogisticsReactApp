@@ -1,4 +1,4 @@
-const db_ip = "65.0.20.103";
+const db_ip = "15.207.113.224";
 const db_port = "4542";
 const DB = {
   localhost: {

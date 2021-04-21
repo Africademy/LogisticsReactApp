@@ -11,6 +11,7 @@ import { useParams } from 'react-router'
 import FormicControl from '../../utils/CoreUI/FormicControl';
 import { getTransportcapacitybooking } from '../../services/transportcapacitybookingService';
 import Moment from "moment";
+import { isArray } from 'lodash';
 // import {useSelector} from 'react-redux'
 
 
@@ -19,25 +20,33 @@ function TransportcapacitybookingView() {
   const [TcbData,setTcbData] = useState('')
   let { id } = useParams();
 
-  // useEffect(()=>{
-  //   console.log("effect runnning")
-  //   const localData = localStorage.getItem('state')
-  //   // console.log(localData)
-  //   setTcbData(JSON.parse(localData))
-  //   getDataFromTcB()
-  // },[])
 
-  // const getDataFromTcB = async ()=>{
+  const [localData, setlocalData] = useState(JSON.parse(localStorage.getItem('state')));
 
-  //    const getData = await getTransportcapacitybooking(id)
-  //    console.log(getData,"getTransportcapacitybooking")
-  // }
+ 
+  
+  // 605db31ecfc2c6c738963b4e   
+  console.log( (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Measurementtype),"Measurementtype111")
+  const declaredValueForCustoms =localData&& localData.tvbDta.amounttypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Measurementtype) )
+  const totalPackageQuantity = 'localData.tvbDta.amounttypesCodes.filter((item)=> item._id === "605db31ecfc2c6c738963b4e" )'
+  const totalItemQuantity = localData&& localData.tvbDta.quantitytypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalItemQuantity.Measurementtype) )
+  const totalGrossVolume = localData&& localData.tvbDta.measurementtypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossVolume.Measurementtype) )
+  const totalGrossWeight =localData&& localData.tvbDta.measurementtypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossWeight.Measurementtype) )
+  
 
-  // console.log(id,"id")
+ 
+ 
+  console.log(totalGrossWeight,"totalGrossWeight")
+
+  
+  //   // const declaredValueForCustoms = ''
+  // const totalPackageQuantity = ''
+  // const totalItemQuantity = ''
+  // const totalGrossVolume = ''
+  // const totalGrossWeight =''
 
 
-
-
+   //declaredData[0].codeListVersion
    
   // const initialValues = {
   //   servicecategory: TcbData && TcbData.tvbDta.ServiceDetailsData.servicecategory,
@@ -791,17 +800,33 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                 <CCol md="12">
                                   <div className="card-title mt-3">Time Band</div>
                                 </CCol>
+                                {/* //PickupTime DD-MM-YYYY 
+      pickupStartTime: "2012-05-12T10:56",
+      pickupEndTime: "2012-05-12T10:56",
+      //Dropoff Time
+      dropOffStartTime: "2012-05-12T10:56",
+      dropOffEndTime: "2012-05-12T10:56", 
+      
+        pickupStartDate: data.PickUpTime && Moment(data.PickUpTime.pickupStartTime).format("YYYY-MM-DD"),
+            pickupStartTime:data.PickUpTime && Moment(data.PickUpTime.pickupStartTime).format("hh:mm"),
+            pickupEndDate: data.PickUpTime && Moment(data.PickUpTime.pickupEndTime).format("YYYY-MM-DD"),
+            pickupEndTime: data.PickUpTime &&  Moment(data.PickUpTime.pickupEndTime).format("hh:mm")
+
+      */}
+
 
                                
                                 <CCol md="6" style={{fontSize:"1.2rem"}}>
                               <CLabel>Starts at:&nbsp;</CLabel>
+                                {/* <CInput type="datetime-local" value={`${TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.beginDate ).format("YYYY-MM-DD")}T${TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.beginTime}`}/> */}
                                {`${TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.beginDate ).format("DD-MM-YYYY ")}: ${TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.beginTime}`}
                              
-                            </CCol>
-                            <CCol md="6" style={{fontSize:"1.2rem"}}>
-                            <CLabel>Ends at:&nbsp;</CLabel>
-                            {`${ TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.endDate ).format("DD-MM-YYYY ")}: ${TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.endTime}`}
-                           
+                              </CCol>
+                              <CCol md="6" style={{fontSize:"1.2rem"}}>
+                              <CLabel>Ends at:&nbsp;</CLabel>
+                              {/* <CInput type="datetime-local" value={`${TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.endDate ).format("YYYY-MM-DD")}T${TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.endTime}`}/> */}
+                              {`${ TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.endDate ).format("YYYY-MM-DD")}: ${TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.endTime}`}
+                            
                             </CCol>
                         
                               </CRow>
@@ -894,6 +919,7 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                           <CInputGroup style={{marginTop:"-0.5rem"}} >
                                     <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossVolume.Value} />
                                     <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossVolume.Measurementtype} />                         
+                                 {/* <CInput value={ totalGrossVolume && totalGrossVolume[0].codeListVersion} /> */}
                           </CInputGroup>
                           
                         </CCol>
@@ -903,7 +929,7 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                             <CInputGroup  style={{marginTop:"-0.5rem"}}>
                                     <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossWeight.Value} />
                                     <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossWeight.Measurementtype} />
- 
+                                    {/* <CInput value={totalGrossWeight && totalGrossWeight[0].codeListVersion} /> */}
                             </CInputGroup>
                           </CCol>
 
@@ -970,7 +996,12 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
 
                           <CInputGroup  style={{marginTop:"-0.5rem"}}>
                                     <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Value} />
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Measurementtype} />
+                                   
+                                    {isArray(declaredValueForCustoms) && (declaredValueForCustoms[0] && <CInput value={declaredValueForCustoms[0].codeListVersion} />)}
+                                  
+                                    
+
+                                 
                              
                              
                             </CInputGroup>
@@ -992,8 +1023,11 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                           
                           <CInputGroup  style={{marginTop:"-0.5rem"}}>
                                     <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalItemQuantity.Value} />
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalItemQuantity.Measurementtype} />
-                            
+                                    {/* <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalItemQuantity.Measurementtype} /> */}
+                                    
+                                    {/* <CInput value={ totalItemQuantity && totalItemQuantity[0].codeListVersion}/> */}
+                                    
+                                    {isArray(totalItemQuantity) && (totalItemQuantity[0] && <CInput value={totalItemQuantity[0].codeListVersion} />)}
                             </CInputGroup>
                           
                         </CCol>
@@ -1027,8 +1061,8 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
 
                           <CInputGroup  style={{marginTop:"-0.5rem"}}>
                                     <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossWeight.Value} />
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossWeight.Measurementtype} />
-                            
+                                    {/* <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossWeight.Measurementtype} /> */}
+                                    {isArray(totalGrossWeight) && (totalGrossWeight[0] && <CInput value={totalGrossWeight[0].codeListVersion} />)}
                             </CInputGroup>
                           
                         </CCol>
@@ -1037,8 +1071,9 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
 
                           <CInputGroup  style={{marginTop:"-0.5rem"}}>
                                     <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossVolume.Value} />
-                                    <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossVolume.Measurementtype} />
-                            
+                                    {/* <CInput value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossVolume.Measurementtype} /> */}
+                                    {isArray(totalGrossVolume) && (totalGrossVolume[0] && <CInput value={totalGrossVolume[0].codeListVersion} />)}
+                                    {/* {isArray(declaredValueForCustoms) && (declaredValueForCustoms[0] && <CInput value={declaredValueForCustoms[0].codeListVersion} />)} */}
                             </CInputGroup>
                           
                         </CCol>

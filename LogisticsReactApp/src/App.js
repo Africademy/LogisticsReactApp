@@ -568,6 +568,7 @@ import {
   SublocationIdentificationCodesAction
 
 } from "./actions/TCBLocationAction"
+import { amounttypesCodesAction, CargoTypeCodesAction, CargoTypeDescriptionCodesAction, CountryOfOriginCodesAction, FinalDestinationCountryCodesAction, HarmonizedSystemCodesAction, measurementtypesCodesAction, PackageTypeCodesAction, quantitytypesCodesAction, TotalpackagequantitysCodesAction } from "./actions/CargoTcbAction";
 // class App extends Component
 function App () {
 
@@ -588,6 +589,17 @@ function App () {
     dispatch(ResposibilitiesCodesAction())
     dispatch(commmunicationChannelCodesAction())
     dispatch(SublocationIdentificationCodesAction())
+    //cargo
+    dispatch(CargoTypeCodesAction())
+    dispatch(HarmonizedSystemCodesAction())
+    dispatch(CargoTypeDescriptionCodesAction())
+    dispatch(CountryOfOriginCodesAction())
+    dispatch(FinalDestinationCountryCodesAction())
+    dispatch(measurementtypesCodesAction())
+    dispatch(amounttypesCodesAction())
+    dispatch(quantitytypesCodesAction())
+    dispatch(PackageTypeCodesAction())
+    dispatch(TotalpackagequantitysCodesAction())
 
     console.log("Appp runs the actions")
 

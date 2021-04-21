@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable no-lone-blocks */
 import {
 	CButton,
@@ -37,6 +38,8 @@ function TransportcapacitybookingEdit() {
 	const [TcbData, setTcbData] = useState("");
 	const [FormValues, setFormValues] = useState(null);
   const [localData, setlocalData] = useState(JSON.parse(localStorage.getItem('state')));
+  const [tcbFinalData,settcbFinalData] = useState(null)
+  const [ABCLoacal,setABCLoacal] = useState(null)
 
 //   const formreduxData =  useSelector((state)=> state.tvbDta)
 // console.log(formreduxData,"Redux00000")
@@ -76,10 +79,37 @@ function TransportcapacitybookingEdit() {
   }
 
 	console.log(TcbData, "TcbData");
+  console.log(tcbFinalData,"tcbFinalData9999999");
+  console.log(localData.tvbDta.transportServiceCategoryCodes,"options1")
+  console.log(localData.tvbDta.transportServiceConditionTypeCodes,"options2")
+  // transportServiceConditionTypeCodes
 
 
+  
+  // const ABC = localData.tvbDta.transportServiceCategoryCodes.filter((item) => item.codeListVersion === tcbFinalData.servicecategory)
+  
+  // useEffect(()=>{
+  //   if(tcbFinalData){
+  //     setABCLoacal(localData.tvbDta.transportServiceCategoryCodes.filter((item) => item.codeListVersion === tcbFinalData.servicecategory))
+  //   }
+  //   if(ABCLoacal){
+  //     getCallAbc()
+  //   }
+  // },[tcbFinalData,ABCLoacal])
+ 
 
-	const initialValuesServiceDetail = {
+  // console.log(ABCLoacal,"abcdefghijklmn")
+
+  // const getCallAbc = ()=>{
+  //   // console.log(ABCLoacal[0]._id,"getCallAbc")
+  //   if(ABCLoacal && ABCLoacal[0]._id){
+  //     settcbFinalData({...tcbFinalData,servicecategory : ABCLoacal[0]._id})
+
+  //   }
+  // }
+
+
+	const initialValues = {
 		servicecategory:"",
 		serviceConditionType: "",
 		serviceLevel: "",
@@ -145,9 +175,47 @@ function TransportcapacitybookingEdit() {
     responsibilityDp:"",
     communicationChannelCodeDp:"",
     communicationValueDp:"",
-    communicationChannelNameDp:""
+    communicationChannelNameDp:"",
 
-
+   // Cargo Values
+      cargoType :'',
+      harmonizedSystemCode: "", 
+      cargoTypeDescription: "", 
+      countryOfOriginCode: "", 
+      finalDestinationCountry: "",
+      totalGrossVolume:'',
+      totalGrossVolumeCodes:"",
+      totalGrossWeight: '',
+      totalGrossWeightCodes:'',
+      totalTransportNetWeight: "",
+      totalTransportNetWeightCodes:"",
+      totalChargeableWeight: "",
+      totalChargeableWeightCodes: "",
+      declaredWeightForCustoms: "", 
+      declaredWeightForCustomsCodes: "", 
+      totalLoadingLength: "", 
+      totalLoadingLengthCodes: "",
+      associatedInvoiceAmount: "",
+      associatedInvoiceAmountCodes: "",
+      declaredValueForCustoms: "", 
+      declaredValueForCustomsCodes:"",
+      totalPackageQuantity: "",
+      totalPackageQuantityCodes: "",
+      totalItemQuantity: "", 
+      totalItemQuantityCodes: "", 
+      packageTypeCode: "",
+      totalPackageQuantityPT:"",
+      totalGrossWeightPT:"",
+      totalGrossWeightPTCodes:"",
+      totalGrossVolumePT:"",
+      totalGrossVolumePTCodes:"",  
+      //PickupTime
+      pickupStartTime: "",
+      pickupEndTime: "",
+      //Dropoff Time
+      dropOffStartTime: "",
+      dropOffEndTime: "",
+      
 
 
 
@@ -253,10 +321,10 @@ function TransportcapacitybookingEdit() {
     totalGrossVolumePTCodes:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossVolume.Measurementtype,  
   }
 	const newinitialValues = {
-		servicecategory: TcbData && TcbData.data.transportServiceCategoryCode.Name,
-    // servicecategory:'option3',
-		serviceConditionType:
-			TcbData && TcbData.data.transportServiceConditionTypeCode.Name,
+		// servicecategory: TcbData && TcbData.data.transportServiceCategoryCode.Name,
+    servicecategory:'Road transport',
+		// serviceConditionType:TcbData && TcbData.data.transportServiceConditionTypeCode.Name,
+    serviceConditionType :'AVC conditions',
 		serviceLevel: TcbData && TcbData.data.transportServiceLevelCode.Name,
 
     /// pickupLocation
@@ -328,8 +396,48 @@ function TransportcapacitybookingEdit() {
       // communicationChannelCodeDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.communicationChannelCode.Name,
       communicationChannelCodeDp:'',
       communicationValueDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.communicationValue,
-      communicationChannelNameDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.communicationChannelName
+      communicationChannelNameDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.communicationChannelName,
 
+      //Cargo values
+
+      cargoType :TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.cargoTypeCode.Name,
+      harmonizedSystemCode: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.harmonizedSystemCode.Name, 
+      cargoTypeDescription: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.cargoTypeDescription.Name, 
+      countryOfOriginCode: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.countryOfOriginCode.Name, 
+      finalDestinationCountry: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.finalDestinationCountry.Name,
+      totalGrossVolume:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossVolume.Value,
+      totalGrossVolumeCodes:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossVolume.Measurementtype,
+      totalGrossWeight: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossWeight.Value,
+      totalGrossWeightCodes:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossWeight.Measurementtype,
+      totalTransportNetWeight: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalTransportNetWeight.Value,
+      totalTransportNetWeightCodes:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalTransportNetWeight.Measurementtype,
+      totalChargeableWeight: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalChargeableWeight.Value,
+      totalChargeableWeightCodes: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalChargeableWeight.Measurementtype,
+      declaredWeightForCustoms: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredWeightForCustoms.Value, 
+      declaredWeightForCustomsCodes: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredWeightForCustoms.Measurementtype, 
+      totalLoadingLength: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalLoadingLength.Value, 
+      totalLoadingLengthCodes: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalLoadingLength.Measurementtype,
+      associatedInvoiceAmount: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.associatedInvoiceAmount.Value,
+      associatedInvoiceAmountCodes: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.associatedInvoiceAmount.Measurementtype,
+      declaredValueForCustoms: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Value, 
+      declaredValueForCustomsCodes:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Measurementtype,
+      totalPackageQuantity: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalPackageQuantity.Value,
+      totalPackageQuantityCodes: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalPackageQuantity.Measurementtype,
+      totalItemQuantity: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalItemQuantity.Value, 
+      totalItemQuantityCodes: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalItemQuantity.Measurementtype, 
+      packageTypeCode: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.packageTypeCode.Name,
+      totalPackageQuantityPT:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalPackageQuantity,
+      totalGrossWeightPT:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossWeight.Value,
+      totalGrossWeightPTCodes:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossWeight.Measurementtype,
+      totalGrossVolumePT:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossVolume.Value,
+      totalGrossVolumePTCodes:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossVolume.Measurementtype,  
+
+      //PickupTime DD-MM-YYYY 
+      pickupStartTime: "2012-05-12T10:56",
+      pickupEndTime: "2012-05-12T10:56",
+      //Dropoff Time
+      dropOffStartTime: "2012-05-12T10:56",
+      dropOffEndTime: "2012-05-12T10:56",
 	};
 
 	///  newForm State
@@ -355,7 +463,12 @@ function TransportcapacitybookingEdit() {
 	  { key: "option2", value: "option2" },
 	  { key: "option3", value: "option3" },
 	];
-
+  const servicecategoryFn = (values)=>{
+    return localData.tvbDta.transportServiceCategoryCodes.filter((item) => item.codeListVersion === values.servicecategory)
+  }
+  const serviceConditionTypeFn = (values)=>{
+    return localData.tvbDta.transportServiceConditionTypeCodes.filter((item) => item.codeListVersion === values.serviceConditionType)
+  }
 	return (
 		<div>
        <div style={{textAlign:"end" ,fontSize:"1.2rem",fontWeight:"bold",position:"relative",left:"4rem"}}>Order Id: &nbsp;{TcbData&& TcbData.data.bookingId}</div>
@@ -377,11 +490,20 @@ function TransportcapacitybookingEdit() {
 								<CCardBody>
 
 									<Formik
-										initialValues={FormValues || initialValuesServiceDetail} 
+										initialValues={FormValues || initialValues} 
 										enableReinitialize
 										// validationSchema={validationSchema}
 										onSubmit={(values) => {
-											console.log(values,"initialValuesServiceDetail");
+                      const servicecategory = servicecategoryFn(values)
+                      const serviceConditionType = serviceConditionTypeFn(values)
+                      console.log(servicecategory &&  servicecategory[0]._id,"00000000000000")
+                      settcbFinalData({...values,
+                        servicecategory : servicecategory[0]._id ,
+                        serviceConditionType : serviceConditionType[0]._id
+                      })
+                      // settcbFinalData(values)
+                      // getCallAbc()
+
 										}}
 									>
 										{(formik) => (
@@ -421,6 +543,8 @@ function TransportcapacitybookingEdit() {
 															id="servicecategory"
 															name="servicecategory"
 															typeOfOption="servicecategory"
+                              selectedId = {TcbData && TcbData.data.transportServiceCategoryCode.Id}
+                              selectedName = {TcbData && TcbData.data.transportServiceCategoryCode.Name}
 															options={localData.tvbDta.transportServiceCategoryCodes}
                               // options={dropDownOtions}
 														
@@ -436,6 +560,8 @@ function TransportcapacitybookingEdit() {
 															id="ServiceConditionType"
 															name="serviceConditionType"
 															typeOfOption="ServiceCondition"
+                              selectedId = {TcbData && TcbData.data.transportServiceConditionTypeCode.Id}
+                              selectedName = {TcbData && TcbData.data.transportServiceConditionTypeCode.Name}
 															options={localData.tvbDta.transportServiceConditionTypeCodes}
 														
 															// isRequired="true"
@@ -450,6 +576,8 @@ function TransportcapacitybookingEdit() {
 															id="ServiceLevel"
 															name="serviceLevel"
 															typeOfOption="ServiceLevel"
+                              selectedId = {TcbData && TcbData.data.transportServiceLevelCode.Id}
+                              selectedName = {TcbData && TcbData.data.transportServiceLevelCode.Name}
 															// isRequired="true"
 															options={localData.tvbDta.transportServiceLevelCodes}
 														
@@ -825,6 +953,62 @@ function TransportcapacitybookingEdit() {
                                 </CCollapse>
                                 )}
                             </CCard>
+                             {/*333333 Pick Up Time */}
+
+                            <CCard>
+                            <CCardHeader
+                                  className={ `card-toggle-header ${true ? "cardheader": ""}` }
+                                
+                                >
+                                
+                                  <div className="cardFlex">
+                                      
+                                      <div className="cardFlex__header">
+                                      <span className="cardFlex__header__Icon"> <AiOutlineCheck /></span>
+                                        <h6>Pickup Time</h6>
+                                      </div>
+                                      { true ?  <AiOutlineDown />: <AiOutlineRight />}
+
+                                    </div>
+                                    </CCardHeader>
+                                    {(
+                                      <CCollapse show={true}>
+                                       	<CRow className="justify-content-center" style={{padding:"1rem"}}>
+                                          <CCol md="12">
+                                            <div className="card-title mt-3">Time Band</div>
+                                          </CCol>
+
+                                          <CCol md="6">
+                                            <FormicControl
+                                              label="Starts at"
+                                              control="input"
+                                              type="datetime-local"
+                                              id="pickupStartTime"
+                                              name="pickupStartTime"
+                                              isRequired="true"
+                                            />
+                                          </CCol>
+                                            <CCol md="6">
+                                              <FormicControl
+                                                label="Ends at"
+                                                control="input"
+                                                type="datetime-local"
+                                                id="pickupEndTime"
+                                                name="pickupEndTime"
+                                                isRequired="true"
+                                              />
+                                            </CCol>
+                                        
+                                          </CRow>
+
+                                      </CCollapse>
+                                )}
+
+                            </CCard>
+
+
+
+
                              {/* 44444 DropOff Location */}
 
                              <CCard >
@@ -1185,137 +1369,99 @@ function TransportcapacitybookingEdit() {
                                 </CCollapse>
                                 )}
                             </CCard>
+                               {/* 555555  DropOff Time */}
+                             <CCard>
+                             <CCardHeader
+                                  className={ `card-toggle-header ${ true ? "cardheader": ""}` }
+                                
+                                  >
+                                
+                                    <div className="cardFlex">
+                                        
+                                        <div className="cardFlex__header">
+                                        <span className="cardFlex__header__Icon"> <AiOutlineCheck /></span>
+                                          <h6> Drop-Off Time</h6>
+                                        </div>
+                                        { true ?  <AiOutlineDown />: <AiOutlineRight />}
 
+                                      </div>
+                                  </CCardHeader>
+                                  <CCollapse show={true}>
+                                  <CRow className="justify-content-center" style={{padding:"1rem"}}>
+                                    <CCol md="12">
+                                      <div className="card-title mt-3">Time Band</div>
+                                    </CCol>
 
-                            <CButton
-                                type="submit"
-                                className="next-btn"
-                                color="primary"
-                                style={{ margin: "1rem" }}
-                                // disabled={!formik.dirty && formik.errors}
+                                    <CCol md="6">
+                                      <FormicControl
+                                        label="Starts at"
+                                        control="input"
+                                        type="datetime-local"
+                                        id="pickupStartTime"
+                                        name="dropOffStartTime"
+                                        isRequired="true"
+                                      />
+                                    </CCol>
+                                    <CCol md="6">
+                                      <FormicControl
+                                        label="Ends at"
+                                        control="input"
+                                        type="datetime-local"
+                                        id="pickupEndTime"
+                                        name="dropOffEndTime"
+                                        isRequired="true"
+                                      />
+                                    </CCol>
+                                  </CRow>
+
+                                  </CCollapse>
+
+                             </CCard>
+
+                            
+                            {/* 6666666 cargo TCB */}
+                            
+                             <CCard>
+                              <CCardHeader
+
+                                  className={ `card-toggle-header  ${ true ? "cardheader": ""}` } 
                               >
-                                Next
-                              </CButton>
+                                <div className="cardFlex">
+                              
+                                <div className="cardFlex__header">
+                                <span className="cardFlex__header__Icon"> <AiOutlineCheck /></span>
+                                  <h6>  Space Requirements</h6>
+                                </div>
+                                { true ?  <AiOutlineDown />: <AiOutlineRight />}
 
-											</Form>
-										)}
-									</Formik>
-								</CCardBody>
-							</CCollapse>
-						</CCard>
-					
-					
-             {/*333333 Pick Up Time */}
-
-             <CCard>
-                <CCardHeader
-                  className={ `card-toggle-header ${true ? "cardheader": ""}` }
-                 
-                >
-                
-                   <div className="cardFlex">
-                       
-                       <div className="cardFlex__header">
-                       <span className="cardFlex__header__Icon"> <AiOutlineCheck /></span>
-                        <h6>Pickup Time</h6>
-                      </div>
-                       { true ?  <AiOutlineDown />: <AiOutlineRight />}
-
-                    </div>
-                    </CCardHeader>
-                    {(
-                      <CCollapse show={true}>
-                        {/* <TCBPickUpTime setenableNext={setenableNextPp} /> */}
-                        <TCBPIckUPTime  setenableNext={setTabenableDl} />
-                      </CCollapse>
-                )}
-              </CCard>
-              
-            
-              
-
-              
-              {/* 555555  DropOff Time */}
-              <CCard>
-                <CCardHeader
-                className={ `card-toggle-header ${ true ? "cardheader": ""}` }
-               
-                >
-               
-                   <div className="cardFlex">
-                       
-                       <div className="cardFlex__header">
-                       <span className="cardFlex__header__Icon"> <AiOutlineCheck /></span>
-                        <h6> Drop-Off Time</h6>
-                      </div>
-                       { true ?  <AiOutlineDown />: <AiOutlineRight />}
-
-                    </div>
-                </CCardHeader>
-                  {(
-                     <CCollapse show={true}>
-                     {/* <TCBPlannedDropOff setenableNext={setenableNextPd} /> */}
-                     <TCBDropOffTime  setenableNext={setTabenableCG}/>
-     
-                  </CCollapse>
-                  )}
-              </CCard>
-              
-              {/*6666666  CargoCharacterstic */}
-              <CCard>
-                    <CCardHeader
-                        className={ `card-toggle-header  ${ true ? "cardheader": ""}` } 
-                    >
-                      <div className="cardFlex">
-                     
-                       <div className="cardFlex__header">
-                       <span className="cardFlex__header__Icon"> <AiOutlineCheck /></span>
-                        <h6>  Space Requirements</h6>
-                      </div>
-                       { true ?  <AiOutlineDown />: <AiOutlineRight />}
-
-                    </div>
-                    </CCardHeader>
-                    
-                         <CCollapse show={true}>
-                            {/* <CargoCharacteristicsForm  setenableNext={setTabenableSp}/> */}
-                            <CCardBody>
-                              <Formik 
-                                  initialValues= {initialValuesCargo}
-                                  // validationSchema= {validationSchema}
-                                  
-                                  onSubmit={value => {
-                                    console.log(value)
-                                  }}
-                                >
-                                    { formik => (
-                                      
-                                      <Form onSubmit={formik.handleSubmit} >
-                                          
-                                        <div className="card-title my-2">Cargo Characteristics</div>
+                              </div>
+                              </CCardHeader>
+                              <CCollapse show={true}>
+                                <CCardBody>
+                                <div className="card-title my-2">Cargo Characteristics</div>
                                         <CRow>
                                           <CCol md="6">
                                           {/* options={CargoType}  */}
-                                              <FormicControl  control='selectedit' isRequired="true" label='Cargo Type' id='cargoTypeCode' name='cargoType'  options={dropDownOtions} /> 
+                                              <FormicControl  control='selectedit' isRequired="true" label='Cargo Type' id='cargoTypeCode' name='cargoType'  options={localData.tvbDta.CargoTypeCodes} /> 
                                           </CCol>
                                           <CCol md="6">
                     
-                                              <FormicControl  control='selectedit' isRequired="true" label='Harmonized System' id='harmonizedSystemCode' name='harmonizedSystemCode' options={dropDownOtions}   />
+                                              <FormicControl  control='selectedit' isRequired="true" label='Harmonized System' id='harmonizedSystemCode' name='harmonizedSystemCode' options={localData.tvbDta.HarmonizedSystemCodes}   />
                                             
                                           </CCol>
                                           <CCol md="6">
                                           
 
-                                            <FormicControl control='selectedit' isRequired="true" label='Cargo Type Description' id='cargoTypeDescription' name='cargoTypeDescription' options={dropDownOtions}  />
+                                            <FormicControl control='selectedit' isRequired="true" label='Cargo Type Description' id='cargoTypeDescription' name='cargoTypeDescription' options={localData.tvbDta.CargoTypeDescriptionCodes}  />
                                           
                                           </CCol>
                                           <CCol md="3">
                                           
-                                            <FormicControl control='selectedit' isRequired="true" label='Country Of Origin' id='countryOfOriginCode' name='countryOfOriginCode' options={dropDownOtions}  />
+                                            <FormicControl control='selectedit' isRequired="true" label='Country Of Origin' id='countryOfOriginCode' name='countryOfOriginCode' options={localData.tvbDta.CountryOfOriginCodes}  />
                                           </CCol>
                                           <CCol md="3">
                                           
-                                            <FormicControl control='selectedit' isRequired="true" label='Final Destination Country' id='finalDestinationCountry' name='finalDestinationCountry' options={dropDownOtions} />
+                                            <FormicControl control='selectedit' isRequired="true" label='Final Destination Country' id='finalDestinationCountry' name='finalDestinationCountry' options={localData.tvbDta.FinalDestinationCountryCodes} />
                                           </CCol>
 
                                           <CCol md="6">
@@ -1324,7 +1470,7 @@ function TransportcapacitybookingEdit() {
                                             <FormicControl label="Total Gross Volume"  control='input' isRequired="true"  placeholder="Enter here..." id='totalGrossVolume' name='totalGrossVolume' />
 
                                               <div className="VolumeCodes">
-                                                  <FormicControl control='selectedit'  id='totalGrossVolumeCodes' name='totalGrossVolumeCodes' options={dropDownOtions} />
+                                                  <FormicControl control='selectedit'  id='totalGrossVolumeCodes' name='totalGrossVolumeCodes' options={localData.tvbDta.measurementtypesCodes} /> 
                                               </div>
                                             </CInputGroup>
                                             
@@ -1333,7 +1479,7 @@ function TransportcapacitybookingEdit() {
                                               <CInputGroup  style={{marginTop:"0.7rem"}}>
                                                 <FormicControl  control='input' label='Total Gross Weight' isRequired="true"  placeholder="Enter here..." id='totalGrossWeight' name='totalGrossWeight' />
                                                 <div className="VolumeCodes">
-                                                <FormicControl control='selectedit'   id='totalGrossWeightCodes' name='totalGrossWeightCodes' options={dropDownOtions}  />
+                                                <FormicControl control='selectedit'   id='totalGrossWeightCodes' name='totalGrossWeightCodes' options={localData.tvbDta.measurementtypesCodes}  />
 
                                                 </div>
                                               </CInputGroup>
@@ -1344,7 +1490,7 @@ function TransportcapacitybookingEdit() {
                                               <CInputGroup  style={{marginTop:"0.7rem"}}>
                                                 <FormicControl control='input' isRequired="true" label="Total Transport Net Weight"   placeholder="Enter here..." id='totalTransportNetWeight' name='totalTransportNetWeight' />
                                                 <div className="VolumeCodes">
-                                                <FormicControl control='selectedit'  id='totalTransportNetWeightCodes' name='totalTransportNetWeightCodes' options={dropDownOtions}  />
+                                                <FormicControl control='selectedit'  id='totalTransportNetWeightCodes' name='totalTransportNetWeightCodes' options={localData.tvbDta.measurementtypesCodes}  />
                                                   
                                                 </div>
                                               </CInputGroup>
@@ -1356,7 +1502,7 @@ function TransportcapacitybookingEdit() {
                                               <CInputGroup  style={{marginTop:"0.7rem"}}>
                                                 <FormicControl control='input' isRequired="true" label="Total Chargeable Weight"  placeholder="Enter here..." id='totalChargeableWeight' name='totalChargeableWeight' />
                                                 <div className="VolumeCodes">
-                                                <FormicControl control='selectedit'  id='totalChargeableWeightCodes' name='totalChargeableWeightCodes' options={dropDownOtions}  />
+                                                <FormicControl control='selectedit'  id='totalChargeableWeightCodes' name='totalChargeableWeightCodes' options={localData.tvbDta.measurementtypesCodes}  />
                                                   
                                                   </div>
                                               </CInputGroup>
@@ -1367,7 +1513,7 @@ function TransportcapacitybookingEdit() {
                                               <CInputGroup  style={{marginTop:"0.7rem"}}>
                                                 <FormicControl control='input' label="Declared Weight For Customs" isRequired="true"  placeholder="Enter here..." id='declaredWeightForCustoms' name='declaredWeightForCustoms' />
                                                 <div className="VolumeCodes">
-                                                <FormicControl control='selectedit'   id='declaredWeightForCustomsCodes' name='declaredWeightForCustomsCodes' options={dropDownOtions}  />
+                                                <FormicControl control='selectedit'   id='declaredWeightForCustomsCodes' name='declaredWeightForCustomsCodes' options={localData.tvbDta.measurementtypesCodes}  />
                                                   
                                                   </div>
                                               </CInputGroup>
@@ -1378,7 +1524,7 @@ function TransportcapacitybookingEdit() {
                                               <CInputGroup  style={{marginTop:"0.7rem"}}>
                                                 <FormicControl control='input' isRequired="true" label="Total Loading Length"   placeholder="Enter here..." id='totalLoadingLength' name='totalLoadingLength' />
                                                 <div className="VolumeCodes">
-                                                <FormicControl control='selectedit'  id='totalLoadingLengthCodes' name='totalLoadingLengthCodes' options={dropDownOtions}  />
+                                                <FormicControl control='selectedit'  id='totalLoadingLengthCodes' name='totalLoadingLengthCodes' options={localData.tvbDta.measurementtypesCodes}  />
                                                   
                                                   </div>
                                               </CInputGroup>
@@ -1388,7 +1534,7 @@ function TransportcapacitybookingEdit() {
                                               <CInputGroup  style={{marginTop:"0.7rem"}}>
                                                 <FormicControl control='input'  isRequired="true" label="Associated Invoice Amount" placeholder="Enter here..." id='associatedInvoiceAmount' name='associatedInvoiceAmount' />
                                                 <div className="VolumeCodes">
-                                                <FormicControl control='selectedit'  id='associatedInvoiceAmountCodes' name='associatedInvoiceAmountCodes' options={dropDownOtions}  />
+                                                <FormicControl control='selectedit'  id='associatedInvoiceAmountCodes' name='associatedInvoiceAmountCodes' options={localData.tvbDta.amounttypesCodes}  />
                                                   
                                                   </div>
                                               </CInputGroup>
@@ -1399,7 +1545,7 @@ function TransportcapacitybookingEdit() {
                                               <CInputGroup  style={{marginTop:"0.7rem"}}>
                                                 <FormicControl control='input' isRequired="true" label="Declared Value For Customs"  placeholder="Enter here..." id='declaredValueForCustoms' name='declaredValueForCustoms' />
                                                 <div className="VolumeCodes">
-                                                <FormicControl control='selectedit'  id='declaredValueForCustomsCodes' name='declaredValueForCustomsCodes' options={dropDownOtions}  />
+                                                <FormicControl control='selectedit'  id='declaredValueForCustomsCodes' name='declaredValueForCustomsCodes' options={localData.tvbDta.amounttypesCodes}  />
                                                   
                                                   </div>
                                               </CInputGroup>
@@ -1410,7 +1556,7 @@ function TransportcapacitybookingEdit() {
                                               <CInputGroup  style={{marginTop:"0.7rem"}}>
                                                 <FormicControl control='input' isRequired="true" label="Total Package Quantity"  placeholder="Enter here..." id='totalPackageQuantity' name='totalPackageQuantity' />
                                                 <div className="VolumeCodes">
-                                                <FormicControl control='selectedit'  id='totalPackageQuantityCodes' name='totalPackageQuantityCodes' options={dropDownOtions}  />
+                                                <FormicControl control='selectedit'  id='totalPackageQuantityCodes' name='totalPackageQuantityCodes' options={localData.tvbDta.quantitytypesCodes}  />
                                                   
                                                   </div>
                                               </CInputGroup>
@@ -1421,7 +1567,7 @@ function TransportcapacitybookingEdit() {
                                               <CInputGroup  style={{marginTop:"0.7rem"}}>
                                                 <FormicControl control='input' isRequired="true" label="Total Item Quantity" placeholder="Enter here..." id='totalItemQuantity' name='totalItemQuantity' />
                                                 <div className="VolumeCodes">
-                                                <FormicControl control='selectedit'  id='totalItemQuantityCodes' name='totalItemQuantityCodes' options={dropDownOtions}  />
+                                                <FormicControl control='selectedit'  id='totalItemQuantityCodes' name='totalItemQuantityCodes' options={localData.tvbDta.quantitytypesCodes}  />
                                                   
                                                   </div>
                                               </CInputGroup>
@@ -1433,17 +1579,17 @@ function TransportcapacitybookingEdit() {
                                       
                                         <CRow>
                                           <CCol md="6">
-                                            <FormicControl control='selectedit' isRequired="true" label='Package Type' id='packageTypeCode' name='packageTypeCode' options={dropDownOtions}  />
+                                            <FormicControl control='selectedit' isRequired="true" label='Package Type' id='packageTypeCode' name='packageTypeCode' options={localData.tvbDta.PackageTypeCodes}  />
                                           </CCol>
                                           <CCol md="6">
-                                            <FormicControl control='input' isRequired="true" label='Total Package Quantity' id='totalPackageQuantityPT' name='totalPackageQuantityPT' options={dropDownOtions}  />
+                                            <FormicControl control='input' isRequired="true" label='Total Package Quantity' id='totalPackageQuantityPT' name='totalPackageQuantityPT'  />
                                           </CCol>
                                           <CCol md="6">
                                           
                                               <CInputGroup  style={{marginTop:"0.7rem"}}>
                                                 <FormicControl control='input' isRequired="true" label="Total Gross Weight" placeholder="Enter here..." id='totalGrossWeightPT' name='totalGrossWeightPT' />
                                                 <div className="VolumeCodes">
-                                                <FormicControl control='selectedit'   id='totalGrossWeightPTCodes' name='totalGrossWeightPTCodes' options={dropDownOtions}  />
+                                                <FormicControl control='selectedit'   id='totalGrossWeightPTCodes' name='totalGrossWeightPTCodes' options={localData.tvbDta.measurementtypesCodes}  />
                                                   
                                                   </div>
                                               </CInputGroup>
@@ -1454,7 +1600,7 @@ function TransportcapacitybookingEdit() {
                                               <CInputGroup  style={{marginTop:"0.7rem"}}>
                                                 <FormicControl control='input' isRequired="true" label="Total Gross Volume" placeholder="Enter here..." id='totalGrossVolumePT' name='totalGrossVolumePT' />
                                                 <div className="VolumeCodes">
-                                                  <FormicControl control='selectedit'  id='totalGrossVolumePTCodes' name='totalGrossVolumePTCodes' options={dropDownOtions}  />
+                                                  <FormicControl control='selectedit'  id='totalGrossVolumePTCodes' name='totalGrossVolumePTCodes' options={localData.tvbDta.measurementtypesCodes}  />
                                                   
                                                   </div>
                                               </CInputGroup>
@@ -1463,31 +1609,30 @@ function TransportcapacitybookingEdit() {
                                         </CRow>
                                     
 
-                                    
-                                    <CButton
-                                          type="submit"
-                                          className="next-btn"
-                                          color="primary"
-                                          style={{margin:"1rem"}}
-                                          disabled={!formik.dirty && formik.errors}
-                                        >
-                                          Next
-                                        </CButton>
+                                  
+                                </CCardBody>
+                              
+                              </CCollapse>
+                           </CCard>
 
+                            <CButton
+                                type="submit"
+                                className="next-btn"
+                                color="primary"
+                                style={{ margin: "1rem" }}
+                                // disabled={!formik.dirty && formik.errors}
+                              >
+                                Submit Changes
+                              </CButton>
 
-                                      
-                                      </Form>
-                                    )}
-                                </Formik>
-
-                            </CCardBody>
-                      
-
-                         </CCollapse>
-                        
-                  
-                  </CCard>
-           
+											</Form>
+										)}
+									</Formik>
+								</CCardBody>
+							</CCollapse>
+						</CCard>
+	
+            {/* <button onClick={getCallAbc}>getCallAbc</button> */}
 
 						{/* Form Ends here */}
             <div className="finalSubmition">
