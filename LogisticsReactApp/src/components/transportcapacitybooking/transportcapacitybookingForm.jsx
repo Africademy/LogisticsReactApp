@@ -272,7 +272,7 @@ const createTransportcapacitybooking =() => {
            <div className="mt-2">  
            <div className="AlertInTCB">
               
-               {response && (<Alert bgcolor="bgBlue" > {`Successfully Booking!! Your Booking Id:${response.bookingId}`}</Alert>)}
+               {response && (<Alert bgcolor="bgBlue" > {`Successfully Booking The Order !! `}</Alert>)}
              
                 {Error && (<Alert bgcolor="bgRed" >Not Saved Please CheckForm </Alert>)}
              </div> 
