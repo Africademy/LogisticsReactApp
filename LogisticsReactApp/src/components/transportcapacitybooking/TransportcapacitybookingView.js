@@ -30,15 +30,15 @@ function TransportcapacitybookingView() {
   const declaredValueForCustoms =localData&& localData.tvbDta.amounttypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Measurementtype) )
   // const totalPackageQuantity = 'localData.tvbDta.amounttypesCodes.filter((item)=> item._id === "605db31ecfc2c6c738963b4e" )'
   const totalItemQuantity = localData&& localData.tvbDta.quantitytypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalItemQuantity.Measurementtype) )
-  const totalGrossVolume = localData&& localData.tvbDta.measurementtypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossVolume.Measurementtype) )
-  const totalGrossWeight =localData&& localData.tvbDta.measurementtypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossWeight.Measurementtype) )
+  const totalGrossVolume = localData&& localData.tvbDta.measurementtypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossVolume.Measurementtype) )
+  const totalGrossWeight =localData&& localData.tvbDta.measurementtypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossWeight.Measurementtype) )
   
 
   const totalPackageQuantity = localData&& localData.tvbDta.amounttypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalPackageQuantity.Measurementtype) )
 
  
  
-  console.log(totalGrossWeight,"totalGrossWeight")
+  console.log(totalGrossVolume,"totalGrossWeight")
 
   
   //   // const declaredValueForCustoms = ''
