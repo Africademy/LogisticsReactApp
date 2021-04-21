@@ -497,6 +497,7 @@ function TransportcapacitybookingEdit() {
                       const servicecategory = servicecategoryFn(values)
                       const serviceConditionType = serviceConditionTypeFn(values)
                       console.log(servicecategory &&  servicecategory[0]._id,"00000000000000")
+                        
                       settcbFinalData({...values,
                         servicecategory : servicecategory[0]._id ,
                         serviceConditionType : serviceConditionType[0]._id
