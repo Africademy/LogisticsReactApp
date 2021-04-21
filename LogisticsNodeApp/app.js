@@ -4,6 +4,7 @@ const createService = require("./services/sampleRecord");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const config = require('./config.js')
+const path = require('path');
 
 const authRoute = require('./routes/auth');
 const AdditionalconsignmentidentificationtypesRoute = require("./routes/Additionalconsignmentidentificationtypes");
@@ -189,6 +190,8 @@ const WidthsRoute = require("./routes/Widths");
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+
+app.use(express.static(path.join(__dirname, 'build')));
 
 //Your API ENDPOINTS
 app.use('/api/user', authRoute);
