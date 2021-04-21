@@ -190,6 +190,8 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+app.use(express.static(path.join(__dirname, 'build')));
+
 //Your API ENDPOINTS
 app.use('/api/user', authRoute);
 app.use("/api/additionalconsignmentidentificationtypes", AdditionalconsignmentidentificationtypesRoute);
