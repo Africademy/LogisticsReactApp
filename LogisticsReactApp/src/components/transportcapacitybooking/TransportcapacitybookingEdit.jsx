@@ -403,7 +403,7 @@ function TransportcapacitybookingEdit() {
 
   //Cargo
   const CargoTypeCodesFn = (values)=>{
-    return localData.tvbDta.CargoTypeCodes.filter((item) => item.codeListVersion === values.xyz)
+    return localData.tvbDta.CargoTypeCodes.filter((item) => item.codeListVersion === values.cargoType)
   }
   const HarmonizedSystemCodesFn = (values)=>{
     return localData.tvbDta.HarmonizedSystemCodes.filter((item) => item.codeListVersion === values.xyz)
@@ -412,26 +412,67 @@ function TransportcapacitybookingEdit() {
     return localData.tvbDta.CargoTypeDescriptionCodes.filter((item) => item.codeListVersion === values.xyz)
   }
   const CountryOfOriginCodesFn = (values)=>{
-    return localData.tvbDta.CountryOfOriginCodes.filter((item) => item.codeListVersion === values.xyz)
+    return localData.tvbDta.CountryOfOriginCodes.filter((item) => item.codeListVersion === values.countryOfOriginCode)
   }
   const FinalDestinationCountryCodesFn = (values)=>{
-    return localData.tvbDta.FinalDestinationCountryCodes.filter((item) => item.codeListVersion === values.xyz)
+    return localData.tvbDta.FinalDestinationCountryCodes.filter((item) => item.codeListVersion === values.finalDestinationCountry)
   }
-  const measurementtypesCodesFn = (values)=>{
-    return localData.tvbDta.measurementtypesCodes.filter((item) => item.codeListVersion === values.xyz)
+  const measurementtypesCodesTGVFn = (values)=>{
+    return localData.tvbDta.measurementtypesCodes.filter((item) => item.codeListVersion === values.totalGrossVolumeCodes)
   }
-  const amounttypesCodesFn = (values)=>{
-    return localData.tvbDta.amounttypesCodes.filter((item) => item.codeListVersion === values.xyz)
+  const totalGrossWeightCodesTGWFn = (values)=>{
+    return localData.tvbDta.measurementtypesCodes.filter((item) => item.codeListVersion === values.totalGrossWeightCodes)
   }
-  const quantitytypesCodesFn = (values)=>{
-    return localData.tvbDta.quantitytypesCodes.filter((item) => item.codeListVersion === values.xyz)
+
+  // totalTransportNetWeightCodesFn
+  const totalTransportNetWeightCodesFn = (values)=>{
+    return localData.tvbDta.measurementtypesCodes.filter((item) => item.codeListVersion === values.totalTransportNetWeightCodes)
   }
-  const PackageTypeCodesFn = (values)=>{
-    return localData.tvbDta.PackageTypeCodes.filter((item) => item.codeListVersion === values.xyz)
+  // totalChargeableWeightCodesFn
+  const totalChargeableWeightCodesFn = (values)=>{
+    return localData.tvbDta.measurementtypesCodes.filter((item) => item.codeListVersion === values.totalChargeableWeightCodes)
   }
-  const TotalpackagequantitysCodesFn = (values)=>{
-    return localData.tvbDta.TotalpackagequantitysCodes.filter((item) => item.codeListVersion === values.xyz)
+  // declaredWeightForCustomsCodesFn
+  const declaredWeightForCustomsCodesFn = (values)=>{
+    return localData.tvbDta.measurementtypesCodes.filter((item) => item.codeListVersion === values.declaredWeightForCustomsCodes)
   }
+  // totalLoadingLengthCodesFn
+  const totalLoadingLengthCodesFn = (values)=>{
+    return localData.tvbDta.measurementtypesCodes.filter((item) => item.codeListVersion === values.totalLoadingLengthCodes)
+  }
+  // totalGrossWeightPTCodesFn
+  const totalGrossWeightPTCodesFn = (values)=>{
+    return localData.tvbDta.measurementtypesCodes.filter((item) => item.codeListVersion === values.totalGrossWeightPTCodes)
+  }
+  // totalGrossVolumePTCodesFn
+  const totalGrossVolumePTCodesFn = (values)=>{
+    return localData.tvbDta.measurementtypesCodes.filter((item) => item.codeListVersion === values.totalGrossVolumePTCodes)
+  }
+
+
+ // associatedInvoiceAmountCodesFn
+  const associatedInvoiceAmountCodesFn = (values)=>{
+    return localData.tvbDta.amounttypesCodes.filter((item) => item.codeListVersion === values.associatedInvoiceAmountCodes)
+  }
+  // declaredValueForCustomsCodesFn
+  const declaredValueForCustomsCodesFn = (values)=>{
+    return localData.tvbDta.amounttypesCodes.filter((item) => item.codeListVersion === values.declaredValueForCustomsCodes)
+  }
+  // totalPackageQuantityCodesFn
+  const totalPackageQuantityCodesFn = (values)=>{
+    return localData.tvbDta.quantitytypesCodes.filter((item) => item.codeListVersion === values.totalPackageQuantityCodes)
+  }
+  // totalItemQuantityCodesFn
+  const totalItemQuantityCodesFn = (values)=>{
+    return localData.tvbDta.quantitytypesCodes.filter((item) => item.codeListVersion === values.totalItemQuantityCodes)
+  }
+  // packageTypeCodeFn
+  const packageTypeCodeFn = (values)=>{
+    return localData.tvbDta.PackageTypeCodes.filter((item) => item.codeListVersion === values.packageTypeCode)
+  }
+  // const TotalpackagequantitysCodesFn = (values)=>{
+  //   return localData.tvbDta.TotalpackagequantitysCodes.filter((item) => item.codeListVersion === values.xyz)
+  // }
 
       
     
@@ -580,12 +621,29 @@ function TransportcapacitybookingEdit() {
                      const contactTypeDp =contactTypeDpFn(values)
                      const communicationChannelCodeDp =communicationChannelCodeDpFn(values)
 
-                      //  const CargoTypeCodes = CargoTypeCodesFn(values)
+                       const CargoTypeCodes = CargoTypeCodesFn(values)
                       //  const HarmonizedSystemCodes = HarmonizedSystemCodesFn(values)
                       //  const CargoTypeDescriptionCodes = CargoTypeDescriptionCodesFn(values)
-                      // const CountryOfOriginCodes =CountryOfOriginCodesFn(values)
-                      // const FinalDestinationCountryCodes =FinalDestinationCountryCodesFn(values)
-                      // const measurementtypesCodes = measurementtypesCodesFn(values)
+                      const CountryOfOriginCodes =CountryOfOriginCodesFn(values)
+                      const FinalDestinationCountryCodes =FinalDestinationCountryCodesFn(values)
+                      const measurementtypesCodesTGV = measurementtypesCodesTGVFn(values)
+                      const totalGrossWeightCodesTGW = totalGrossWeightCodesTGWFn(values)
+                      const totalTransportNetWeightCodes =totalTransportNetWeightCodesFn(values)
+                      const totalChargeableWeightCodes = totalChargeableWeightCodesFn(values)
+                      const declaredWeightForCustomsCodes = declaredWeightForCustomsCodesFn(values)
+                      const totalLoadingLengthCodes = totalLoadingLengthCodesFn(values)
+
+                      const totalGrossWeightPTCodes = totalGrossWeightPTCodesFn(values)
+                      const totalGrossVolumePTCodes = totalGrossVolumePTCodesFn(values)
+
+                      const associatedInvoiceAmountCodes = associatedInvoiceAmountCodesFn(values)
+                      const declaredValueForCustomsCodes = declaredValueForCustomsCodesFn(values)
+
+                      const totalPackageQuantityCodes = totalPackageQuantityCodesFn(values)
+                      const totalItemQuantityCodes = totalItemQuantityCodesFn(values)
+                      const packageTypeCode = packageTypeCodeFn(values)
+
+
                       // const amounttypesCodes = amounttypesCodesFn(values)
                       // const quantitytypesCodes = quantitytypesCodesFn(values)
                       // const PackageTypeCodes = PackageTypeCodesFn(values)
@@ -607,6 +665,28 @@ function TransportcapacitybookingEdit() {
                         launguageOfthePartyDp:languageOfthePartyDp[0]._id,
                         contactTypeDp: contactTypeDp[0]._id,
                         communicationChannelCodeDp: communicationChannelCodeDp[0]._id,
+
+                        cargoType:CargoTypeCodes[0]._id,
+                        countryOfOriginCode :CountryOfOriginCodes[0]._id,
+                        finalDestinationCountry:FinalDestinationCountryCodes[0]._id,
+
+                        totalGrossVolumeCodes:measurementtypesCodesTGV[0]._id,
+                        totalGrossWeightCodes:totalGrossWeightCodesTGW[0]._id,
+                        totalTransportNetWeightCodes:totalTransportNetWeightCodes[0]._id,
+                        totalChargeableWeightCodes:totalChargeableWeightCodes[0]._id,
+                        declaredWeightForCustomsCodes:declaredWeightForCustomsCodes[0]._id,
+                        totalLoadingLengthCodes:totalLoadingLengthCodes[0]._id,
+
+                        totalGrossWeightPTCodes:totalGrossWeightPTCodes[0]._id,
+                        totalGrossVolumePTCodes:totalGrossVolumePTCodes[0]._id,
+                        
+                        // associatedInvoiceAmountCodes:associatedInvoiceAmountCodes[0]._id,
+                        declaredValueForCustomsCodes: declaredValueForCustomsCodes[0]._id,
+
+                        totalPackageQuantityCodes: totalPackageQuantityCodes[0]._id,
+                        totalItemQuantityCodes: totalItemQuantityCodes[0]._id,
+
+                        packageTypeCode :packageTypeCode[0]._id
 
 
 
