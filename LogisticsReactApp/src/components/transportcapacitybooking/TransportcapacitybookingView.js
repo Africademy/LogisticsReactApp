@@ -17,7 +17,7 @@ import { isArray } from 'lodash';
 
 function TransportcapacitybookingView() {
   // const data = useSelector((state)=> state.tvbDta)
-  const [TcbData,setTcbData] = useState('')
+  const [TcbData,setTcbData] = useState(null)
   let { id } = useParams();
 
 
@@ -27,18 +27,18 @@ function TransportcapacitybookingView() {
   
   // 605db31ecfc2c6c738963b4e   
   console.log( (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Measurementtype),"Measurementtype111")
-  const declaredValueForCustoms =localData&& localData.tvbDta.amounttypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Measurementtype) )
-  // const totalPackageQuantity = 'localData.tvbDta.amounttypesCodes.filter((item)=> item._id === "605db31ecfc2c6c738963b4e" )'
-  const totalItemQuantity = localData&& localData.tvbDta.quantitytypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalItemQuantity.Measurementtype) )
-  const totalGrossVolume = localData&& localData.tvbDta.measurementtypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossVolume.Measurementtype) )
-  const totalGrossWeight =localData&& localData.tvbDta.measurementtypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossWeight.Measurementtype) )
+  const declaredValueForCustoms = TcbData && (localData&& localData.tvbDta.amounttypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Measurementtype) ))
+  const totalItemQuantity = TcbData && (localData&& localData.tvbDta.quantitytypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalItemQuantity.Measurementtype) ))
+  const totalPackageQuantity = TcbData && (localData&& localData.tvbDta.quantitytypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalPackageQuantity.Measurementtype) ))
+ 
+  const totalGrossVolume = TcbData && (localData&& localData.tvbDta.measurementtypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossVolume.Measurementtype) ))
+  const totalGrossWeight = TcbData && (localData&& localData.tvbDta.measurementtypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossWeight.Measurementtype) ))
   
 
-  const totalPackageQuantity = localData&& localData.tvbDta.amounttypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalPackageQuantity.Measurementtype) )
 
  
- 
-  console.log(totalGrossVolume,"totalGrossWeight")
+  console.log(localData,"localData")
+  console.log(totalPackageQuantity,"totalPackageQuantity123")
 
   
   //   // const declaredValueForCustoms = ''
@@ -67,8 +67,8 @@ function TransportcapacitybookingView() {
   useEffect(()=>{
 
   },[TcbData])
-const getDataFromTcB = async ()=>{
 
+const getDataFromTcB = async ()=>{
    const getData = await getTransportcapacitybooking(id)
    console.log(getData,"getTransportcapacitybooking")
    setTcbData(getData)

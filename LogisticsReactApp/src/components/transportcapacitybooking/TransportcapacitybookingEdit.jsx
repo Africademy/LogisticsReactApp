@@ -32,10 +32,12 @@ import { getTransportservicelevelcodes } from "../../services/transportservicele
 import { getTransportservicecategorycodes } from "../../services/transportservicecategorycodeService";
 import { getTransportserviceconditiontypecodes } from "../../services/transportserviceconditiontypecodeService";
 import {useSelector} from 'react-redux'
+import { isArray } from "lodash";
+import Moment from "moment";
 
 function TransportcapacitybookingEdit() {
 	// const data = useSelector((state)=> state.tvbDta)
-	const [TcbData, setTcbData] = useState("");
+	const [TcbData, setTcbData] = useState(null);
 	const [FormValues, setFormValues] = useState(null);
   const [localData, setlocalData] = useState(JSON.parse(localStorage.getItem('state')));
   const [tcbFinalData,settcbFinalData] = useState(null)
@@ -50,20 +52,14 @@ function TransportcapacitybookingEdit() {
 
 	useEffect(() => {
 		console.log("effect runnning");
-    // const localData = localStorage.getItem('state')
-    // // console.log(JSON.parse(localData),"Edit123123")
-    // setlocalData(JSON.parse(localData))
-  
 		getDataFromTcB();
      
 	}, []);
 
 
-  console.log(localData.tvbDta.transportServiceCategoryCodes,"Edit123123")
+  // console.log(localData.tvbDta.transportServiceCategoryCodes,"Edit123123") rm
   useEffect(()=>{
-
-  loadValuesFn()
-
+     loadValuesFn()
   },[TcbData])
 
 	const getDataFromTcB = async () => {
@@ -73,40 +69,27 @@ function TransportcapacitybookingEdit() {
 		setTcbData(getData);
 	};
   const loadValuesFn =()=>{
-    setFormValues(newinitialValues)
-    console.log(newinitialValues,"newinitialValues")
-
+        setFormValues(newinitialValues)
+        console.log(newinitialValues,"newinitialValues")
   }
 
 	console.log(TcbData, "TcbData");
   console.log(tcbFinalData,"tcbFinalData9999999");
-  console.log(localData.tvbDta.transportServiceCategoryCodes,"options1")
-  console.log(localData.tvbDta.transportServiceConditionTypeCodes,"options2")
+  // console.log(localData.tvbDta.transportServiceCategoryCodes,"options1") rm
+  // console.log(localData.tvbDta.transportServiceConditionTypeCodes,"options2") rm
   // transportServiceConditionTypeCodes
 
 
-  
-  // const ABC = localData.tvbDta.transportServiceCategoryCodes.filter((item) => item.codeListVersion === tcbFinalData.servicecategory)
-  
-  // useEffect(()=>{
-  //   if(tcbFinalData){
-  //     setABCLoacal(localData.tvbDta.transportServiceCategoryCodes.filter((item) => item.codeListVersion === tcbFinalData.servicecategory))
-  //   }
-  //   if(ABCLoacal){
-  //     getCallAbc()
-  //   }
-  // },[tcbFinalData,ABCLoacal])
+  //measurments
+  console.log( (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Measurementtype),"Measurementtype111in EditPage")
+  const declaredValueForCustoms = TcbData && (localData&& localData.tvbDta.amounttypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Measurementtype) ))
+  const totalItemQuantity = TcbData && (localData&& localData.tvbDta.quantitytypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalItemQuantity.Measurementtype) ))
+  const totalPackageQuantity = TcbData && (localData&& localData.tvbDta.quantitytypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalPackageQuantity.Measurementtype) ))
  
-
-  // console.log(ABCLoacal,"abcdefghijklmn")
-
-  // const getCallAbc = ()=>{
-  //   // console.log(ABCLoacal[0]._id,"getCallAbc")
-  //   if(ABCLoacal && ABCLoacal[0]._id){
-  //     settcbFinalData({...tcbFinalData,servicecategory : ABCLoacal[0]._id})
-
-  //   }
-  // }
+  const totalGrossVolume = TcbData && (localData&& localData.tvbDta.measurementtypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossVolume.Measurementtype) ))
+  const totalGrossWeight = TcbData && (localData&& localData.tvbDta.measurementtypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossWeight.Measurementtype) ))
+  
+  
 
 
 	const initialValues = {
@@ -115,10 +98,10 @@ function TransportcapacitybookingEdit() {
 		serviceLevel: "",
   //  pickUpLoaction
 
-      additionalLocationIdentification:"",
+      // additionalLocationIdentification:"",
       sublocationIdentification:"",
       locationName:"",
-      locationSpecificInstructions:"",
+      // locationSpecificInstructions:"",
       uTCOffset:"",
       cityName:"",
       country:"",
@@ -140,17 +123,17 @@ function TransportcapacitybookingEdit() {
       personeName:"",
       depormentName:"",
       jobTitle:"",
-      responsibility:"",
+      // responsibility:"",
       communicationChannelCode:"",
       communicationValue:"",
       communicationChannelName:"",
 
       //DropOff Location
       
-    additionalLocationIdentificationDp:"",
+    // additionalLocationIdentificationDp:"",
     sublocationIdentificationDp:"",
     locationNameDp:"",
-    locationSpecificInstructionsDp:"",
+    // locationSpecificInstructionsDp:"",
     uTCOffsetDp:"",
     cityNameDp:"",
     countryDp:"",
@@ -172,15 +155,15 @@ function TransportcapacitybookingEdit() {
     personeNameDp:"",
     depormentNameDp:"",
     jobTitleDp:"",
-    responsibilityDp:"",
+    // responsibilityDp:"",
     communicationChannelCodeDp:"",
     communicationValueDp:"",
     communicationChannelNameDp:"",
 
    // Cargo Values
       cargoType :'',
-      harmonizedSystemCode: "", 
-      cargoTypeDescription: "", 
+      // harmonizedSystemCode: "", 
+      // cargoTypeDescription: "", 
       countryOfOriginCode: "", 
       finalDestinationCountry: "",
       totalGrossVolume:'',
@@ -198,7 +181,7 @@ function TransportcapacitybookingEdit() {
       associatedInvoiceAmount: "",
       associatedInvoiceAmountCodes: "",
       declaredValueForCustoms: "", 
-      declaredValueForCustomsCodes:"",
+      declaredValueForCustomsCodes: '',
       totalPackageQuantity: "",
       totalPackageQuantityCodes: "",
       totalItemQuantity: "", 
@@ -220,129 +203,30 @@ function TransportcapacitybookingEdit() {
 
 
 	};
-  const initialValuesPickupL = {
-    additionalLocationIdentification:TcbData && TcbData.data.plannedPickUp.Logisticlocation.additionalLocationIdentification.Name,
-    sublocationIdentification:TcbData && TcbData.data.plannedPickUp.Logisticlocation.sublocationIdentification,
-    // sublocationIdentification:'Anantapur',
-    locationName:TcbData && TcbData.data.plannedPickUp.Logisticlocation.locationName,
-    locationSpecificInstructions:TcbData && TcbData.data.plannedPickUp.Logisticlocation.locationSpecificInstructions.Name,
-    uTCOffset:TcbData && TcbData.data.plannedPickUp.Logisticlocation.UtcOffSet,
-    cityName:TcbData && TcbData.data.plannedPickUp.Logisticlocation.City,
-    country:TcbData &&  TcbData.data.plannedPickUp.Logisticlocation.countryCode.Name,
-    crossStreet:TcbData && TcbData.data.plannedPickUp.Logisticlocation.crossStreet,
-    currencyOfParty:TcbData && TcbData.data.plannedPickUp.Logisticlocation.currencyOfParty.Name,
-    launguageOftheParty:TcbData && TcbData.data.plannedPickUp.Logisticlocation.languageOfTheParty.Name,
-    name:TcbData && TcbData.data.plannedPickUp.Logisticlocation.name,
-    postBoxNumber:TcbData && TcbData.data.plannedPickUp.Logisticlocation.pOBoxNumber,
-    postalCode:TcbData && TcbData.data.plannedPickUp.Logisticlocation.postalCode,
-    province:TcbData && TcbData.data.plannedPickUp.Logisticlocation.province,
-    state:TcbData && TcbData.data.plannedPickUp.Logisticlocation.state,
-    streetAddressOne:TcbData && TcbData.data.plannedPickUp.Logisticlocation.streetAddressOne,
-    streetAddressTwo:TcbData && TcbData.data.plannedPickUp.Logisticlocation.streetAddressTwo,
-    streetAddressThree:TcbData && TcbData.data.plannedPickUp.Logisticlocation.streetAddressThree,
-    latitude:TcbData && TcbData.data.plannedPickUp.Logisticlocation.latitude,
-    longitutue:TcbData && TcbData.data.plannedPickUp.Logisticlocation.longitude,
-
-    contactType:TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact,
-    personeName:TcbData && TcbData.data.plannedPickUp.Logisticlocation.personeName,
-    depormentName:TcbData && TcbData.data.plannedPickUp.Logisticlocation.depormentName,
-    jobTitle:TcbData && TcbData.data.plannedPickUp.Logisticlocation.jobTitle,
-    // responsibility:TcbData && TcbData.data.plannedPickUp.Logisticlocation.responsibility.Name,
-    responsibility:'',
-    // communicationChannelCode:TcbData && TcbData.data.plannedPickUp.Logisticlocation.communicationChannelCode.Name,
-    communicationChannelCode:'',
-    communicationValue:TcbData && TcbData.data.plannedPickUp.Logisticlocation.communicationValue,
-    communicationChannelName:TcbData && TcbData.data.plannedPickUp.Logisticlocation.communicationChannelName
-  }
-  const initialValuesDropoffL = {
-    additionalLocationIdentification:TcbData && TcbData.data.plannedDropOff.Logisticlocation.additionalLocationIdentification.Name,
-    sublocationIdentification:TcbData && TcbData.data.plannedDropOff.Logisticlocation.sublocationIdentification,
-    locationName:TcbData && TcbData.data.plannedDropOff.Logisticlocation.locationName,
-    locationSpecificInstructions:TcbData && TcbData.data.plannedDropOff.Logisticlocation.locationSpecificInstructions.Name,
-    uTCOffset:TcbData && TcbData.data.plannedDropOff.Logisticlocation.UtcOffSet,
-    cityName:TcbData && TcbData.data.plannedDropOff.Logisticlocation.City,
-    country:TcbData &&  TcbData.data.plannedDropOff.Logisticlocation.countryCode.Name,
-    crossStreet:TcbData && TcbData.data.plannedDropOff.Logisticlocation.crossStreet,
-    currencyOfParty:TcbData && TcbData.data.plannedDropOff.Logisticlocation.currencyOfParty.Name,
-    launguageOftheParty:TcbData && TcbData.data.plannedDropOff.Logisticlocation.languageOfTheParty.Name,
-    name:TcbData && TcbData.data.plannedDropOff.Logisticlocation.name,
-    postBoxNumber:TcbData && TcbData.data.plannedDropOff.Logisticlocation.pOBoxNumber,
-    postalCode:TcbData && TcbData.data.plannedDropOff.Logisticlocation.postalCode,
-    province:TcbData && TcbData.data.plannedDropOff.Logisticlocation.province,
-    state:TcbData && TcbData.data.plannedDropOff.Logisticlocation.state,
-    streetAddressOne:TcbData && TcbData.data.plannedDropOff.Logisticlocation.streetAddressOne,
-    streetAddressTwo:TcbData && TcbData.data.plannedDropOff.Logisticlocation.streetAddressTwo,
-    streetAddressThree:TcbData && TcbData.data.plannedDropOff.Logisticlocation.streetAddressThree,
-    latitude:TcbData && TcbData.data.plannedDropOff.Logisticlocation.latitude,
-    longitutue:TcbData && TcbData.data.plannedDropOff.Logisticlocation.longitude,
-
-    contactType:TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact,
-    personeName:TcbData && TcbData.data.plannedDropOff.Logisticlocation.personeName,
-    depormentName:TcbData && TcbData.data.plannedDropOff.Logisticlocation.depormentName,
-    jobTitle:TcbData && TcbData.data.plannedDropOff.Logisticlocation.jobTitle,
-    // responsibility:TcbData && TcbData.data.plannedDropOff.Logisticlocation.responsibility.Name,
-    responsibility:'',
-    // communicationChannelCode:TcbData && TcbData.data.plannedDropOff.Logisticlocation.communicationChannelCode.Name,
-    communicationChannelCode:'',
-    communicationValue:TcbData && TcbData.data.plannedDropOff.Logisticlocation.communicationValue,
-    communicationChannelName:TcbData && TcbData.data.plannedDropOff.Logisticlocation.communicationChannelName
-  }
-  const initialValuesCargo = {
-    cargoType :TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.cargoTypeCode.Name,
-    harmonizedSystemCode: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.harmonizedSystemCode.Name, 
-    cargoTypeDescription: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.cargoTypeDescription.Name, 
-    countryOfOriginCode: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.countryOfOriginCode.Name, 
-    finalDestinationCountry: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.finalDestinationCountry.Name,
-    totalGrossVolume:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossVolume.Value,
-    totalGrossVolumeCodes:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossVolume.Measurementtype,
-    totalGrossWeight: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossWeight.Value,
-    totalGrossWeightCodes:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossWeight.Measurementtype,
-    totalTransportNetWeight: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalTransportNetWeight.Value,
-    totalTransportNetWeightCodes:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalTransportNetWeight.Measurementtype,
-    totalChargeableWeight: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalChargeableWeight.Value,
-    totalChargeableWeightCodes: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalChargeableWeight.Measurementtype,
-    declaredWeightForCustoms: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredWeightForCustoms.Value, 
-    declaredWeightForCustomsCodes: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredWeightForCustoms.Measurementtype, 
-    totalLoadingLength: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalLoadingLength.Value, 
-    totalLoadingLengthCodes: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalLoadingLength.Measurementtype,
-    associatedInvoiceAmount: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.associatedInvoiceAmount.Value,
-    associatedInvoiceAmountCodes: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.associatedInvoiceAmount.Measurementtype,
-    declaredValueForCustoms: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Value, 
-    declaredValueForCustomsCodes:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Measurementtype,
-    totalPackageQuantity: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalPackageQuantity.Value,
-    totalPackageQuantityCodes: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalPackageQuantity.Measurementtype,
-    totalItemQuantity: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalItemQuantity.Value, 
-    totalItemQuantityCodes: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalItemQuantity.Measurementtype, 
-    packageTypeCode: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.packageTypeCode.Name,
-    totalPackageQuantityPT:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalPackageQuantity,
-    totalGrossWeightPT:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossWeight.Value,
-    totalGrossWeightPTCodes:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossWeight.Measurementtype,
-    totalGrossVolumePT:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossVolume.Value,
-    totalGrossVolumePTCodes:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossVolume.Measurementtype,  
-  }
+ 
 	const newinitialValues = {
-		// servicecategory: TcbData && TcbData.data.transportServiceCategoryCode.Name,
-    servicecategory:'Road transport',
-		// serviceConditionType:TcbData && TcbData.data.transportServiceConditionTypeCode.Name,
-    serviceConditionType :'AVC conditions',
+		servicecategory: TcbData && TcbData.data.transportServiceCategoryCode.Name,
+    // servicecategory:'Road transport',
+		serviceConditionType:TcbData && TcbData.data.transportServiceConditionTypeCode.Name,
+    // serviceConditionType :'AVC conditions',
 		serviceLevel: TcbData && TcbData.data.transportServiceLevelCode.Name,
 
     /// pickupLocation
-    additionalLocationIdentification:TcbData && TcbData.data.plannedPickUp.Logisticlocation.additionalLocationIdentification.Name,
+
+    // additionalLocationIdentification:TcbData && TcbData.data.plannedPickUp.Logisticlocation.additionalLocationIdentification.Name,
     sublocationIdentification:TcbData && TcbData.data.plannedPickUp.Logisticlocation.sublocationIdentification,
-    // sublocationIdentification:'Anantapur',
     locationName:TcbData && TcbData.data.plannedPickUp.Logisticlocation.locationName,
-    locationSpecificInstructions:TcbData && TcbData.data.plannedPickUp.Logisticlocation.locationSpecificInstructions.Name,
-    uTCOffset:TcbData && TcbData.data.plannedPickUp.Logisticlocation.UtcOffSet,
-    cityName:TcbData && TcbData.data.plannedPickUp.Logisticlocation.City,
-    country:TcbData &&  TcbData.data.plannedPickUp.Logisticlocation.countryCode.Name,
+    // locationSpecificInstructions:TcbData && TcbData.data.plannedPickUp.Logisticlocation.locationSpecificInstructions.Name,
+    uTCOffset:TcbData && TcbData.data.plannedPickUp.Logisticlocation.utcOffset,
+    cityName:TcbData && TcbData.data.plannedPickUp.Logisticlocation.cityCode,
+    country:TcbData && TcbData.data.plannedPickUp.Logisticlocation.countryCode.Name,
     crossStreet:TcbData && TcbData.data.plannedPickUp.Logisticlocation.crossStreet,
     currencyOfParty:TcbData && TcbData.data.plannedPickUp.Logisticlocation.currencyOfParty.Name,
     launguageOftheParty:TcbData && TcbData.data.plannedPickUp.Logisticlocation.languageOfTheParty.Name,
     name:TcbData && TcbData.data.plannedPickUp.Logisticlocation.name,
     postBoxNumber:TcbData && TcbData.data.plannedPickUp.Logisticlocation.pOBoxNumber,
     postalCode:TcbData && TcbData.data.plannedPickUp.Logisticlocation.postalCode,
-    province:TcbData && TcbData.data.plannedPickUp.Logisticlocation.province,
+    province:TcbData && TcbData.data.plannedPickUp.Logisticlocation.postalCode,
     state:TcbData && TcbData.data.plannedPickUp.Logisticlocation.state,
     streetAddressOne:TcbData && TcbData.data.plannedPickUp.Logisticlocation.streetAddressOne,
     streetAddressTwo:TcbData && TcbData.data.plannedPickUp.Logisticlocation.streetAddressTwo,
@@ -350,28 +234,29 @@ function TransportcapacitybookingEdit() {
     latitude:TcbData && TcbData.data.plannedPickUp.Logisticlocation.latitude,
     longitutue:TcbData && TcbData.data.plannedPickUp.Logisticlocation.longitude,
 
-    contactType:TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact,
-    personeName:TcbData && TcbData.data.plannedPickUp.Logisticlocation.personeName,
-    depormentName:TcbData && TcbData.data.plannedPickUp.Logisticlocation.depormentName,
-    jobTitle:TcbData && TcbData.data.plannedPickUp.Logisticlocation.jobTitle,
-    // responsibility:TcbData && TcbData.data.plannedPickUp.Logisticlocation.responsibility.Name,
-    responsibility:'',
-    // communicationChannelCode:TcbData && TcbData.data.plannedPickUp.Logisticlocation.communicationChannelCode.Name,
-    communicationChannelCode:'',
-    communicationValue:TcbData && TcbData.data.plannedPickUp.Logisticlocation.communicationValue,
-    communicationChannelName:TcbData && TcbData.data.plannedPickUp.Logisticlocation.communicationChannelName,
+    contactType:TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact.contactTypeCode.Name,
+    personeName:TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact.personName,
+    depormentName:TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact.departmentName,
+    jobTitle:TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact.jobTitle,
+    // responsibility:TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact.responsibility.Name,
+    // responsibility:'',
+    communicationChannelCode:TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact.communicationChannelCode.Name,
+    // communicationChannelCode:'',
+    communicationValue:TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact.communicationValue,
+    communicationChannelName:TcbData && TcbData.data.plannedPickUp.Logisticlocation.contact.communicationChannelName,
 
 
 
 
           
       /// DropOffLocation
-      additionalLocationIdentificationDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.additionalLocationIdentification.Name,
+
+      // additionalLocationIdentificationDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.additionalLocationIdentification.Name,
       sublocationIdentificationDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.sublocationIdentification,
       locationNameDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.locationName,
-      locationSpecificInstructionsDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.locationSpecificInstructions.Name,
-      uTCOffsetDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.UtcOffSet,
-      cityNameDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.City,
+      // locationSpecificInstructionsDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.locationSpecificInstructions.Name,
+      uTCOffsetDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.utcOffset,
+      cityNameDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.cityCode,
       countryDp:TcbData &&  TcbData.data.plannedDropOff.Logisticlocation.countryCode.Name,
       crossStreetDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.crossStreet,
       currencyOfPartyDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.currencyOfParty.Name,
@@ -379,7 +264,7 @@ function TransportcapacitybookingEdit() {
       nameDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.name,
       postBoxNumberDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.pOBoxNumber,
       postalCodeDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.postalCode,
-      provinceDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.province,
+      provinceDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.postalCode,
       stateDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.state,
       streetAddressOneDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.streetAddressOne,
       streetAddressTwoDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.streetAddressTwo,
@@ -387,22 +272,22 @@ function TransportcapacitybookingEdit() {
       latitudeDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.latitude,
       longitutueDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.longitude,
 
-      contactTypeDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact,
-      personeNameDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.personeName,
-      depormentNameDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.depormentName,
-      jobTitleDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.jobTitle,
+      contactTypeDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact.contactTypeCode.Name,
+      personeNameDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact.personName,
+      depormentNameDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact.departmentName,
+      jobTitleDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact.jobTitle,
       // responsibilityDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.responsibility.Name,
-      responsibilityDp:'',
-      // communicationChannelCodeDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.communicationChannelCode.Name,
-      communicationChannelCodeDp:'',
-      communicationValueDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.communicationValue,
-      communicationChannelNameDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.communicationChannelName,
+      // responsibilityDp:'',
+      communicationChannelCodeDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact.communicationChannelCode.Name,
+      // communicationChannelCodeDp:'',
+      communicationValueDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact.communicationValue,
+      communicationChannelNameDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact.communicationChannelName,
 
       //Cargo values
 
       cargoType :TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.cargoTypeCode.Name,
-      harmonizedSystemCode: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.harmonizedSystemCode.Name, 
-      cargoTypeDescription: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.cargoTypeDescription.Name, 
+      // harmonizedSystemCode: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.harmonizedSystemCode.Name, 
+      // cargoTypeDescription: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.cargoTypeDescription.Name, 
       countryOfOriginCode: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.countryOfOriginCode.Name, 
       finalDestinationCountry: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.finalDestinationCountry.Name,
       totalGrossVolume:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalGrossVolume.Value,
@@ -420,17 +305,18 @@ function TransportcapacitybookingEdit() {
       associatedInvoiceAmount: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.associatedInvoiceAmount.Value,
       associatedInvoiceAmountCodes: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.associatedInvoiceAmount.Measurementtype,
       declaredValueForCustoms: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Value, 
-      declaredValueForCustomsCodes:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Measurementtype,
+      declaredValueForCustomsCodes:(isArray(declaredValueForCustoms) && declaredValueForCustoms[0].codeListVersion),
       totalPackageQuantity: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalPackageQuantity.Value,
-      totalPackageQuantityCodes: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalPackageQuantity.Measurementtype,
+      totalPackageQuantityCodes: (isArray(totalPackageQuantity) && totalPackageQuantity[0].codeListVersion),
       totalItemQuantity: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalItemQuantity.Value, 
-      totalItemQuantityCodes: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalItemQuantity.Measurementtype, 
+      // 
+      totalItemQuantityCodes: (isArray(totalItemQuantity) && totalItemQuantity[0].codeListVersion), 
       packageTypeCode: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.packageTypeCode.Name,
       totalPackageQuantityPT:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalPackageQuantity,
       totalGrossWeightPT:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossWeight.Value,
-      totalGrossWeightPTCodes:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossWeight.Measurementtype,
+      totalGrossWeightPTCodes:(isArray(totalGrossWeight) && totalGrossWeight[0].codeListVersion),
       totalGrossVolumePT:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossVolume.Value,
-      totalGrossVolumePTCodes:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossVolume.Measurementtype,  
+      totalGrossVolumePTCodes:(isArray(totalGrossVolume) && totalGrossVolume[0].codeListVersion),  
 
       //PickupTime DD-MM-YYYY 
       pickupStartTime: "2012-05-12T10:56",
@@ -469,6 +355,190 @@ function TransportcapacitybookingEdit() {
   const serviceConditionTypeFn = (values)=>{
     return localData.tvbDta.transportServiceConditionTypeCodes.filter((item) => item.codeListVersion === values.serviceConditionType)
   }
+  const serviceLevelFn = (values)=>{
+    return localData.tvbDta.transportServiceLevelCodes.filter((item) => item.codeListVersion === values.serviceLevel)
+  }
+
+  //LoactionsDropandPickup
+  const countryFn = (values)=>{
+    return localData.tvbDta.CountryCodes.filter((item) => item.codeListVersion === values.country)
+  }
+  const currencyOfPartyFn = (values)=>{
+    return localData.tvbDta.CurrencyOfPartyCodes.filter((item) => item.codeListVersion === values.currencyOfParty)
+  }
+  const languageOfthePartyFn = (values)=>{
+    return localData.tvbDta.LanguageOfthePartyCodes.filter((item) => item.codeListVersion === values.launguageOftheParty)
+  }
+  const contactTypeFn = (values)=>{
+    return localData.tvbDta.ContactTypeCodes.filter((item) => item.codeListVersion === values.contactType)
+  }
+  const communicationChannelCodeFn = (values)=>{
+    return localData.tvbDta.commmunicationChannelCodes.filter((item) => item.communicationChannelName === values.communicationChannelCode)
+  }
+
+  //countryDpFn
+  const countryDpFn = (values)=>{
+    return localData.tvbDta.CountryCodes.filter((item) => item.codeListVersion === values.countryDp)
+  }
+  //currencyOfPartyDpFn
+  const currencyOfPartyDpFn = (values)=>{
+    return localData.tvbDta.CurrencyOfPartyCodes.filter((item) => item.codeListVersion === values.currencyOfPartyDp)
+  }
+
+  // languageOfthePartyDpFn
+  const languageOfthePartyDpFn = (values)=>{
+    return localData.tvbDta.LanguageOfthePartyCodes.filter((item) => item.codeListVersion === values.launguageOfthePartyDp)
+  }
+  //contactTypeDpFn
+  const contactTypeDpFn = (values)=>{
+    return localData.tvbDta.ContactTypeCodes.filter((item) => item.codeListVersion === values.contactTypeDp)
+  }
+  //communicationChannelCodeDpFn
+  const communicationChannelCodeDpFn = (values)=>{
+    return localData.tvbDta.commmunicationChannelCodes.filter((item) => item.communicationChannelName === values.communicationChannelCodeDp)
+  }
+
+
+  //****locations ****//
+
+  //Cargo
+  const CargoTypeCodesFn = (values)=>{
+    return localData.tvbDta.CargoTypeCodes.filter((item) => item.codeListVersion === values.xyz)
+  }
+  const HarmonizedSystemCodesFn = (values)=>{
+    return localData.tvbDta.HarmonizedSystemCodes.filter((item) => item.codeListVersion === values.xyz)
+  }
+  const CargoTypeDescriptionCodesFn = (values)=>{
+    return localData.tvbDta.CargoTypeDescriptionCodes.filter((item) => item.codeListVersion === values.xyz)
+  }
+  const CountryOfOriginCodesFn = (values)=>{
+    return localData.tvbDta.CountryOfOriginCodes.filter((item) => item.codeListVersion === values.xyz)
+  }
+  const FinalDestinationCountryCodesFn = (values)=>{
+    return localData.tvbDta.FinalDestinationCountryCodes.filter((item) => item.codeListVersion === values.xyz)
+  }
+  const measurementtypesCodesFn = (values)=>{
+    return localData.tvbDta.measurementtypesCodes.filter((item) => item.codeListVersion === values.xyz)
+  }
+  const amounttypesCodesFn = (values)=>{
+    return localData.tvbDta.amounttypesCodes.filter((item) => item.codeListVersion === values.xyz)
+  }
+  const quantitytypesCodesFn = (values)=>{
+    return localData.tvbDta.quantitytypesCodes.filter((item) => item.codeListVersion === values.xyz)
+  }
+  const PackageTypeCodesFn = (values)=>{
+    return localData.tvbDta.PackageTypeCodes.filter((item) => item.codeListVersion === values.xyz)
+  }
+  const TotalpackagequantitysCodesFn = (values)=>{
+    return localData.tvbDta.TotalpackagequantitysCodes.filter((item) => item.codeListVersion === values.xyz)
+  }
+
+      
+    
+
+
+  //Cargo
+
+  useEffect(()=>{
+    if(tcbFinalData){
+      getApiCall()
+      
+    }
+  })
+
+  const getApiCall =  ()=>{
+    const SchemaObj = {
+         
+        ServiceDetailsData: {
+              servicecategoryCode: tcbFinalData.servicecategory,
+              serviceConditionTypeCode: tcbFinalData.serviceConditionType,
+              serviceLevelCode: tcbFinalData.serviceLevel
+        },
+        PickUpLocationData:{
+              additionalLocationIdentificationCode: "6066bc8ff225027765a0a67f",
+              sublocationIdentification: tcbFinalData.sublocationIdentification,
+              locationName: tcbFinalData.locationName,
+              locationSpecificInstructionsCode: "6066bd5e9db55078bf0d00f1",
+              uTCOffset: tcbFinalData.uTCOffset,
+              cityName: tcbFinalData.cityName,
+              countryCode: tcbFinalData.country,
+              crossStreet: tcbFinalData.crossStreet,
+              currencyOfPartyCode: tcbFinalData.currencyOfParty,
+              languageOfthePartyCode: tcbFinalData.launguageOftheParty,
+              name: tcbFinalData.name,
+              postBoxNumber: tcbFinalData.postBoxNumber,
+              postalCode: tcbFinalData.postalCode,
+              provinceCode: tcbFinalData.province,
+              state: tcbFinalData.state,
+              streetAddressOne: tcbFinalData.streetAddressOne,
+              streetAddressTwo: tcbFinalData.streetAddressTwo,
+              streetAddressThree: tcbFinalData.streetAddressThree,
+              latitude: tcbFinalData.latitude,
+              longitude: tcbFinalData.longitutue,
+              contactTypeCode: tcbFinalData.contactType,
+              personName: tcbFinalData.personeName,
+              departmentName: tcbFinalData.depormentName,
+              jobTitle: tcbFinalData.jobTitle,
+              responsibility: "606604c84e9e6d6253b5bfb6",
+              communicationChannelCode: tcbFinalData.communicationChannelCode,
+              communicationValue: tcbFinalData.communicationValue,
+              communicationChannelName: tcbFinalData.communicationChannelName,
+              contactId: TcbData.data.plannedPickUp.Logisticlocation.contact._id,
+              logisticLocationId:TcbData.data.plannedPickUp.Logisticlocation._id
+        },
+        PickUpTime:{
+              pickupStartDate: Moment(tcbFinalData.pickupStartTime).format("YYYY-MM-DD") ,
+              pickupStartTime: Moment(tcbFinalData.pickupStartTime).format("hh:mm"),
+              pickupEndDate:Moment(tcbFinalData.pickupEndTime).format("YYYY-MM-DD") ,
+              pickupEndTime: Moment(tcbFinalData.pickupEndTime).format("hh:mm"),
+              id: TcbData.data.plannedPickUp.LogisticEventPeriod._id
+        },
+        DropOffLocation:{
+          additionalLocationIdentificationCode: "6066bc8ff225027765a0a67f",
+          sublocationIdentification: tcbFinalData.sublocationIdentificationDp,
+          locationName: tcbFinalData.locationNameDp,
+          locationSpecificInstructionsCode: "6066bd5e9db55078bf0d00f1",
+          uTCOffset: tcbFinalData.uTCOffsetDp,
+          cityName: tcbFinalData.cityNameDp,
+          countryCode: tcbFinalData.countryDp,
+          crossStreet: tcbFinalData.crossStreetDp,
+          currencyOfPartyCode: tcbFinalData.currencyOfPartyDp,
+          languageOfthePartyCode: tcbFinalData.launguageOfthePartyDp,
+          name: tcbFinalData.nameDp,
+          postBoxNumber: tcbFinalData.postBoxNumberDp,
+          postalCode: tcbFinalData.postalCodeDp,
+          provinceCode: tcbFinalData.provinceDp,
+          state: tcbFinalData.stateDp,
+          streetAddressOne: tcbFinalData.streetAddressOneDp,
+          streetAddressTwo: tcbFinalData.streetAddressTwoDp,
+          streetAddressThree: tcbFinalData.streetAddressThreeDp,
+          latitude: tcbFinalData.latitudeDp,
+          longitude: tcbFinalData.longitutueDp,
+          contactTypeCode: tcbFinalData.contactTypeDp,
+          personName: tcbFinalData.personeNameDp,
+          departmentName: tcbFinalData.depormentNameDp,
+          jobTitle: tcbFinalData.jobTitleDp,
+          responsibility: "606604c84e9e6d6253b5bfb6",
+          communicationChannelCode: tcbFinalData.communicationChannelCodeDp,
+          communicationValue: tcbFinalData.communicationValueDp,
+          communicationChannelName: tcbFinalData.communicationChannelNameDp,
+          contactId: TcbData.data.plannedDropOff.Logisticlocation.contact._id,
+          logisticLocationId:TcbData.data.plannedDropOff.Logisticlocation._id
+    },
+        DropOffTime:{
+              dropOffStartDate:  Moment(tcbFinalData.dropOffStartTime).format("YYYY-MM-DD") ,
+              dropOffStartTime:  Moment(tcbFinalData.dropOffStartTime).format("hh:mm"),
+              dropOffEndDate:  Moment( tcbFinalData.dropOffEndTime).format("YYYY-MM-DD") ,
+              dropOffEndTime:   Moment( tcbFinalData.dropOffEndTime).format("hh:mm"),
+              id: TcbData.data.plannedDropOff.LogisticEventPeriod._id
+        },
+        SpaceRequirements:{}
+
+    }
+  
+    console.log(SchemaObj,"SchemaObj && getApiCall")
+    console.log(tcbFinalData,"tcbFinalData")
+  }
 	return (
 		<div>
        <div style={{textAlign:"end" ,fontSize:"1.2rem",fontWeight:"bold",position:"relative",left:"4rem"}}>Order Id: &nbsp;{TcbData&& TcbData.data.bookingId}</div>
@@ -496,15 +566,55 @@ function TransportcapacitybookingEdit() {
 										onSubmit={(values) => {
                       const servicecategory = servicecategoryFn(values)
                       const serviceConditionType = serviceConditionTypeFn(values)
-                      console.log(servicecategory &&  servicecategory[0]._id,"00000000000000")
+                      const serviceLevel =serviceLevelFn(values)
+                      
+                      const country = countryFn(values)
+                      const currencyOfParty = currencyOfPartyFn(values)
+                      const languageOftheParty = languageOfthePartyFn(values)
+                      const contactType = contactTypeFn(values)
+                      const communicationChannelCode =communicationChannelCodeFn(values)
+
+                     const countryDp = countryDpFn(values)
+                     const currencyOfPartyDp= currencyOfPartyDpFn(values)
+                      const languageOfthePartyDp = languageOfthePartyDpFn(values)
+                     const contactTypeDp =contactTypeDpFn(values)
+                     const communicationChannelCodeDp =communicationChannelCodeDpFn(values)
+
+                      //  const CargoTypeCodes = CargoTypeCodesFn(values)
+                      //  const HarmonizedSystemCodes = HarmonizedSystemCodesFn(values)
+                      //  const CargoTypeDescriptionCodes = CargoTypeDescriptionCodesFn(values)
+                      // const CountryOfOriginCodes =CountryOfOriginCodesFn(values)
+                      // const FinalDestinationCountryCodes =FinalDestinationCountryCodesFn(values)
+                      // const measurementtypesCodes = measurementtypesCodesFn(values)
+                      // const amounttypesCodes = amounttypesCodesFn(values)
+                      // const quantitytypesCodes = quantitytypesCodesFn(values)
+                      // const PackageTypeCodes = PackageTypeCodesFn(values)
+                      // const TotalpackagequantitysCodes = TotalpackagequantitysCodesFn(values)
+
+
                         
                       settcbFinalData({...values,
                         servicecategory : servicecategory[0]._id ,
-                        serviceConditionType : serviceConditionType[0]._id
+                        serviceConditionType : serviceConditionType[0]._id,
+                        serviceLevel : serviceLevel[0]._id,
+                        country: country[0]._id,
+                        currencyOfParty: currencyOfParty[0]._id,
+                        launguageOftheParty: languageOftheParty[0]._id,
+                        contactType: contactType[0]._id,
+                        communicationChannelCode: communicationChannelCode[0]._id, 
+                        countryDp: countryDp[0]._id,
+                        currencyOfPartyDp: currencyOfPartyDp[0]._id,
+                        launguageOfthePartyDp:languageOfthePartyDp[0]._id,
+                        contactTypeDp: contactTypeDp[0]._id,
+                        communicationChannelCodeDp: communicationChannelCodeDp[0]._id,
+
+
+
+
                       })
                       // settcbFinalData(values)
                       // getCallAbc()
-
+                      // getApiCall()
 										}}
 									>
 										{(formik) => (
@@ -616,7 +726,7 @@ function TransportcapacitybookingEdit() {
                                     {/* <TCBPickUpLocation setenableNext={setTabenablePickTime}  /> */}
                                     <CCardBody>
                                             <CRow className="justify-content-center">
-                                                <CCol md="4">
+                                                {/* <CCol md="4">
                                                     <FormicControl
                                                         control="selectOptionalidentificationSchemeedit"
                                                         label="Additional Location Identification"
@@ -627,7 +737,7 @@ function TransportcapacitybookingEdit() {
                                                         options={localData.tvbDta.AdditionalLocationIdentificationCodes}
                                                         // options={dropDownOtions}
                                                     />
-                                                </CCol>
+                                                </CCol> */}
                                                 <CCol md="4">
                                                     <FormicControl
                                                         control="input"
@@ -649,7 +759,7 @@ function TransportcapacitybookingEdit() {
                                                         
                                                     />
                                                 </CCol>
-                                                <CCol md="4">
+                                                {/* <CCol md="4">
                                                     <FormicControl
                                                         control="selectedit"
                                                         label="Location Specific Instructions"
@@ -659,7 +769,7 @@ function TransportcapacitybookingEdit() {
                                                         options={localData.tvbDta.LocationSpecificInstructionsCodes}
                                                         isRequired="true"
                                                     />
-                                                </CCol>
+                                                </CCol> */}
                                                 <CCol md="4">
                                                     <FormicControl
                                                         control="input"
@@ -799,7 +909,10 @@ function TransportcapacitybookingEdit() {
                                                         // options={dropDownOtions}
                                                     />
                                                 </CCol>
-                                                <CCol md="4">
+                                              
+                                            </CRow>
+                                            <CRow>
+                                            <CCol md="4">
                                                     <FormicControl
                                                         control="input"
                                                         placeholder="Enter here..."
@@ -890,7 +1003,7 @@ function TransportcapacitybookingEdit() {
                                                                     // options={dropDownOtions}
                                                                 />
                                                             </CCol>
-                                                            <CCol md="4">
+                                                            {/* <CCol md="4">
                                                                 <FormicControl
                                                                     control="selectedit"
                                                                     placeholder="Enter here..."
@@ -902,7 +1015,7 @@ function TransportcapacitybookingEdit() {
 
                                                                     isRequired="true"
                                                                 />
-                                                            </CCol>
+                                                            </CCol> */}
                                                             <CCol md="12">
                                                                 <div className="card-title mt-3">
                                                                     Communication Channel
@@ -1032,7 +1145,7 @@ function TransportcapacitybookingEdit() {
                                     {/* <TCBPickUpLocation setenableNext={setTabenablePickTime}  /> */}
                                     <CCardBody>
                                             <CRow className="justify-content-center">
-                                                <CCol md="4">
+                                                {/* <CCol md="4">
                                                     <FormicControl
                                                         control="selectOptionalidentificationSchemeedit"
                                                         label="Additional Location Identification"
@@ -1043,7 +1156,7 @@ function TransportcapacitybookingEdit() {
                                                         options={localData.tvbDta.AdditionalLocationIdentificationCodes}
                                                         // options={dropDownOtions}
                                                     />
-                                                </CCol>
+                                                </CCol> */}
                                                 <CCol md="4">
                                                     <FormicControl
                                                         control="input"
@@ -1065,7 +1178,7 @@ function TransportcapacitybookingEdit() {
                                                         
                                                     />
                                                 </CCol>
-                                                <CCol md="4">
+                                                {/* <CCol md="4">
                                                     <FormicControl
                                                         control="selectedit"
                                                         label="Location Specific Instructions"
@@ -1075,7 +1188,7 @@ function TransportcapacitybookingEdit() {
                                                         options={localData.tvbDta.LocationSpecificInstructionsCodes}
                                                         isRequired="true"
                                                     />
-                                                </CCol>
+                                                </CCol> */}
                                                 <CCol md="4">
                                                     <FormicControl
                                                         control="input"
@@ -1100,7 +1213,7 @@ function TransportcapacitybookingEdit() {
                                                     <FormicControl
                                                         control="selectedit"
                                                         label="Country"
-                                                        id="Country"
+                                                        id="countryDp"
                                                         name="countryDp"
                                                         // options={Country}
                                                         options={localData.tvbDta.CountryCodes}
@@ -1215,7 +1328,10 @@ function TransportcapacitybookingEdit() {
                                                         // options={dropDownOtions}
                                                     />
                                                 </CCol>
-                                                <CCol md="4">
+                                                
+                                            </CRow>
+                                            <CRow>
+                                            <CCol md="4">
                                                     <FormicControl
                                                         control="input"
                                                         placeholder="Enter here..."
@@ -1306,7 +1422,7 @@ function TransportcapacitybookingEdit() {
                                                                     // options={dropDownOtions}
                                                                 />
                                                             </CCol>
-                                                            <CCol md="4">
+                                                            {/* <CCol md="4">
                                                                 <FormicControl
                                                                     control="selectedit"
                                                                     placeholder="Enter here..."
@@ -1318,7 +1434,7 @@ function TransportcapacitybookingEdit() {
 
                                                                     isRequired="true"
                                                                 />
-                                                            </CCol>
+                                                            </CCol> */}
                                                             <CCol md="12">
                                                                 <div className="card-title mt-3">
                                                                     Communication Channel
@@ -1445,17 +1561,17 @@ function TransportcapacitybookingEdit() {
                                           {/* options={CargoType}  */}
                                               <FormicControl  control='selectedit' isRequired="true" label='Cargo Type' id='cargoTypeCode' name='cargoType'  options={localData.tvbDta.CargoTypeCodes} /> 
                                           </CCol>
-                                          <CCol md="6">
+                                          {/* <CCol md="6">
                     
                                               <FormicControl  control='selectedit' isRequired="true" label='Harmonized System' id='harmonizedSystemCode' name='harmonizedSystemCode' options={localData.tvbDta.HarmonizedSystemCodes}   />
                                             
-                                          </CCol>
-                                          <CCol md="6">
+                                          </CCol> */}
+                                          {/* <CCol md="6">
                                           
 
                                             <FormicControl control='selectedit' isRequired="true" label='Cargo Type Description' id='cargoTypeDescription' name='cargoTypeDescription' options={localData.tvbDta.CargoTypeDescriptionCodes}  />
                                           
-                                          </CCol>
+                                          </CCol> */}
                                           <CCol md="3">
                                           
                                             <FormicControl control='selectedit' isRequired="true" label='Country Of Origin' id='countryOfOriginCode' name='countryOfOriginCode' options={localData.tvbDta.CountryOfOriginCodes}  />
@@ -1615,16 +1731,17 @@ function TransportcapacitybookingEdit() {
                               
                               </CCollapse>
                            </CCard>
-
-                            <CButton
+                           <div className="finalSubmition">
+                            <button
                                 type="submit"
-                                className="next-btn"
+                                className="finalSubmition__btn"
                                 color="primary"
                                 style={{ margin: "1rem" }}
                                 // disabled={!formik.dirty && formik.errors}
                               >
                                 Submit Changes
-                              </CButton>
+                              </button>
+                              </div>
 
 											</Form>
 										)}
@@ -1637,13 +1754,13 @@ function TransportcapacitybookingEdit() {
 
 						{/* Form Ends here */}
             <div className="finalSubmition">
-							<button
+							{/* <button
 								disabled={!TabenableSp}
 								className="finalSubmition__btn  disabled"
 								onClick={() => {}}
 							>
 								Update Order
-							</button>
+							</button> */}
 						</div>
 					</CContainer>
 				</div>

@@ -29,7 +29,7 @@ function CoreSelectEdit(props) {
                           > 
                             
                                  {
-                                  options.map( item=>{
+                                   options.map( item=>{
                                       return ( 
                                        
                                           <option  key={item._id} value= {item.codeListVersion} >{item.codeListVersion}</option>
