@@ -156,9 +156,9 @@ const initialValues ={
     cityName:yup.string().required(),
     country:yup.string().required(),
     crossStreet:yup.string(),
-    currencyOfParty:yup.string(),
-    launguageOftheParty:yup.string(),
-    name:yup.string().required(),
+    currencyOfParty:yup.string().required(),
+    launguageOftheParty:yup.string().required(),
+    name:yup.string(),
     postBoxNumber:yup.number().required(),
     postalCode:yup.number().required(),
     province:yup.string().required(),
@@ -166,8 +166,8 @@ const initialValues ={
     streetAddressOne:yup.string().required(),
     streetAddressTwo:yup.string(),
     streetAddressThree:yup.string(),
-    latitude:yup.number(),
-    longitutue:yup.number(),
+    latitude:yup.number().required(),
+    longitutue:yup.number().required(),
 
 
     contactType:yup.string().required(),
@@ -258,6 +258,7 @@ const initialValues ={
 												 label="City"
 												 id="CityName"
 												 name="cityName"
+												 isRequired="true"
 												 options={dropDownOtions}
 										 />
 								 </CCol>
@@ -341,6 +342,7 @@ const initialValues ={
 												 label="Province"
 												 id="Province"
 												 name="province"
+												 isRequired="true"
 												 // options={dropDownOtions}
 										 />
 								 </CCol>
@@ -456,6 +458,7 @@ const initialValues ={
 																		 label="Person Name"
 																		 id="PersoneName"
 																		 name="personeName"
+																		 isRequired="true"
 																		 // options={dropDownOtions}
 																 />
 														 </CCol>
@@ -514,6 +517,7 @@ const initialValues ={
 																		 id="CommunicationValue"
 																		 name="communicationValue"
 																		 // options={dropDownOtions}
+																		 isRequired="true"
 																 />
 														 </CCol>
 														 <CCol md="4">

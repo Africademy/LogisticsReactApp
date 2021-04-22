@@ -159,9 +159,9 @@ function TCBPickUpLocation({ setenableNext }) {
     cityName:yup.string().required(),
     country:yup.string().required(),
     crossStreet:yup.string(),
-    currencyOfParty:yup.string(),
-    launguageOftheParty:yup.string(),
-    name:yup.string().required(),
+    currencyOfParty:yup.string().required(),
+    launguageOftheParty:yup.string().required(),
+    name:yup.string(),
     postBoxNumber:yup.number().required(),
     postalCode:yup.number().required(),
     province:yup.string().required(),
@@ -259,6 +259,7 @@ function TCBPickUpLocation({ setenableNext }) {
 												 label="City"
 												 id="CityName"
 												 name="cityName"
+												 isRequired="true"
 												 options={dropDownOtions}
 										 />
 								 </CCol>
@@ -342,6 +343,7 @@ function TCBPickUpLocation({ setenableNext }) {
 												 label="Province"
 												 id="Province"
 												 name="province"
+												 isRequired="true"
 												 // options={dropDownOtions}
 										 />
 								 </CCol>
@@ -352,6 +354,7 @@ function TCBPickUpLocation({ setenableNext }) {
 												 label="State"
 												 id="State"
 												 name="state"
+												 isRequired="true"
 												 // options={dropDownOtions}
 										 />
 								 </CCol>
@@ -457,6 +460,7 @@ function TCBPickUpLocation({ setenableNext }) {
 																		 label="Person Name"
 																		 id="PersoneName"
 																		 name="personeName"
+																		 isRequired="true"
 																		 // options={dropDownOtions}
 																 />
 														 </CCol>
@@ -514,6 +518,7 @@ function TCBPickUpLocation({ setenableNext }) {
 																		 label="Communication Value"
 																		 id="CommunicationValue"
 																		 name="communicationValue"
+																		 isRequired="true"
 																		 // options={dropDownOtions}
 																 />
 														 </CCol>
