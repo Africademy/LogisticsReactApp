@@ -147,7 +147,8 @@ const createTransportcapacitybooking =() => {
             streetAddressTwo: data.PickUpLocationData && data.PickUpLocationData.streetAddressTwo,
             streetAddressThree:data.PickUpLocationData &&  data.PickUpLocationData.streetAddressThree,
             latitude: data.PickUpLocationData && data.PickUpLocationData.latitude,
-            longitutue:data.PickUpLocationData && data.PickUpLocationData.longitutue,
+          
+            longitude:data.PickUpLocationData && data.PickUpLocationData.longitutue,
             contactTypeCode: data.PickUpLocationData && data.PickUpLocationData.contactType,
             personName:data.PickUpLocationData && data.PickUpLocationData.personeName,
             departmentName:data.PickUpLocationData && data.PickUpLocationData.depormentName ,
@@ -190,7 +191,7 @@ const createTransportcapacitybooking =() => {
           streetAddressTwo: data.DropOffLocation && data.DropOffLocation.streetAddressTwo,
           streetAddressThree:data.DropOffLocation &&  data.DropOffLocation.streetAddressThree,
           latitude: data.DropOffLocation && data.DropOffLocation.latitude,
-          longitutue:data.DropOffLocation && data.DropOffLocation.longitutue,
+          longitude:data.DropOffLocation && data.DropOffLocation.longitutue,
           contactTypeCode: data.DropOffLocation && data.DropOffLocation.contactType,
           personName:data.DropOffLocation && data.DropOffLocation.personeName,
           departmentName:data.DropOffLocation && data.DropOffLocation.depormentName ,
