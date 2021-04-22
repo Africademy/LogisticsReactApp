@@ -11,13 +11,14 @@ const Transportservicelevelcode = require("../models/Transportservicelevelcode")
 const Transportcargocharacteristicstype = require("../models/Transportcargocharacteristicstype");
 const Packagetotaltype = require("../models/Packagetotaltype");
 const Logisticlocationtype = require("../models/Logisticlocationtype");
-const Logisticeventdatetime = require("../models/Logisticeventdatetime");
+// const Logisticeventdatetime = require("../models/Logisticeventdatetime");
 const Logisticeventperiod = require("../models/Logisticeventperiod");
 const Contacttypecode = require("../models/Contacttypecode");
 const Contacttype = require("../models/Contacttype");
 const Communicationchannel = require("../models/Communicationchannel");
 const Description70type = require("../models/Description70type");
 const Measurementtype = require("../models/Measurementtype");
+const Amounttype = require("../models/Amounttype");
 
 router.get("/", verify, async (req, res) => {
   try {
@@ -188,26 +189,26 @@ router.get("/:id", verify, async (req, res) => {
               .Transportcargocharacteristicstypes.totalChargeableWeight
               .Measurementtype
           );
-          r.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredWeightForCustoms.Measurementtype = await getMeasurementType(
-            r.transportCapacityBookingSpaceRequirements
-              .Transportcargocharacteristicstypes.declaredWeightForCustoms
-              .Measurementtype
-          );
           r.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalLoadingLength.Measurementtype = await getMeasurementType(
             r.transportCapacityBookingSpaceRequirements
               .Transportcargocharacteristicstypes.totalLoadingLength
               .Measurementtype
           );
-          r.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.associatedInvoiceAmount.Measurementtype = await getMeasurementType(
+          r.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredWeightForCustoms.Measurementtype = await getMeasurementType(
+            r.transportCapacityBookingSpaceRequirements
+              .Transportcargocharacteristicstypes.declaredWeightForCustoms
+              .Measurementtype
+          );
+          r.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.associatedInvoiceAmount.Measurementtype = await getAmountType(
             r.transportCapacityBookingSpaceRequirements
               .Transportcargocharacteristicstypes.associatedInvoiceAmount
               .Measurementtype
           );
-          // r.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Measurementtype = await getMeasurementType(
-          //   r.transportCapacityBookingSpaceRequirements
-          //     .Transportcargocharacteristicstypes.declaredValueForCustoms
-          //     .Measurementtype
-          // );
+          r.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Measurementtype = await getAmountType(
+            r.transportCapacityBookingSpaceRequirements
+              .Transportcargocharacteristicstypes.declaredValueForCustoms
+              .Measurementtype
+          );
           // r.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalItemQuantity.Measurementtype = await getMeasurementType(
           //   r.transportCapacityBookingSpaceRequirements
           //     .Transportcargocharacteristicstypes.totalItemQuantity
@@ -215,12 +216,12 @@ router.get("/:id", verify, async (req, res) => {
           // );
           // r.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossVolume.Measurementtype = await getMeasurementType(
           //   r.transportCapacityBookingSpaceRequirements
-          //     .Transportcargocharacteristicstypes.declaredValueForCustoms
+          //     .Transportcargocharacteristicstypes.totalGrossVolume
           //     .Measurementtype
           // );
           // r.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossWeight.Measurementtype = await getMeasurementType(
           //   r.transportCapacityBookingSpaceRequirements
-          //     .Transportcargocharacteristicstypes.declaredValueForCustoms
+          //     .Transportcargocharacteristicstypes.totalGrossWeight
           //     .Measurementtype
           // );
 
@@ -245,6 +246,13 @@ router.get("/:id", verify, async (req, res) => {
 
 async function getMeasurementType(id) {
   let data = await Measurementtype.findOne({
+    _id: id,
+  });
+  return await data.codeListVersion;
+}
+
+async function getAmountType(id) {
+  let data = await Amounttype.findOne({
     _id: id,
   });
   return await data.codeListVersion;
@@ -717,12 +725,12 @@ async function saveTransportcargocharacteristicstype(body, res) {
       Measurementtype: body.totalLoadingLengthUnits,
     },
     associatedInvoiceAmount: {
-      Value: body.totalGrossWeight,
-      Measurementtype: body.totalGrossWeightUnits,
-    },
-    declaredValueForCustoms: {
       Value: body.associatedInvoiceAmount,
       Measurementtype: body.associatedInvoiceAmountUnits,
+    },
+    declaredValueForCustoms: {
+      Value: body.declaredValueForCustoms,
+      Measurementtype: body.declaredValueForCustomsUnits,
     },
     totalPackageQuantity: {
       Value: body.totalPackageQuantity,
