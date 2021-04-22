@@ -402,19 +402,133 @@ router.post("/", verify, async (req, res) => {
 });
 
 router.delete("/:id", verify, async (req, res) => {
+  const session = await Transportcapacitybooking.startSession();
+  session.startTransaction();
+  const id = req.params.id;
+
   try {
-    const removedTransportcapacitybooking = await Transportcapacitybooking.deleteOne(
+    var resData = {};
+    const tcb = await Transportcapacitybooking.findById(req.params.id);
+
+    // transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes
+    resData[
+      "removedTransportcargocharacteristicstypes"
+    ] = await Transportcapacitybookingspacerequirement.deleteOne({
+      _id:
+        tcb.transportCapacityBookingSpaceRequirements
+          .Transportcargocharacteristicstypes._id,
+    });
+
+    // transportCapacityBookingSpaceRequirements.Packagetotaltypes
+    resData[
+      "removedPackagetotaltypes"
+    ] = await Packagetotaltype.findOneAndDelete(
       {
-        _id: req.params.id,
+        _id:
+          tcb.transportCapacityBookingSpaceRequirements.Packagetotaltypes._id,
+      },
+      function (err, doc) {
+        sendError(err, doc, res);
       }
     );
-    res.json(removedTransportcapacitybooking);
+
+    // plannedPickUp.Logisticlocation.contact
+    const plannedPickUpLogisticlocation = await Logisticlocationtype.findById(
+      tcb.plannedPickUp.Logisticlocation
+    );
+
+    resData[
+      "removePlannedPickUpLogisticlocationContact"
+    ] = await Contacttype.findOneAndDelete(
+      { _id: plannedPickUpLogisticlocation.contact },
+      function (err, doc) {
+        sendError(err, doc, res);
+      }
+    );
+
+    // plannedPickUp.Logisticlocation
+    resData[
+      "removedPlannedPickUpLogisticlocation"
+    ] = await Logisticlocationtype.findOneAndDelete(
+      { _id: plannedPickUpLogisticlocation._id },
+      function (err, doc) {
+        sendError(err, doc, res);
+      }
+    );
+
+    // plannedPickUp.LogisticEventPeriod
+    resData[
+      "removedPlannedPickUpLogisticEventPeriod"
+    ] = await Logisticeventperiod.findOneAndDelete(
+      { _id: tcb.plannedPickUp.LogisticEventPeriod },
+      function (err, doc) {
+        sendError(err, doc, res);
+      }
+    );
+
+    // plannedDropOff.Logisticlocation.contact
+    const plannedDropOffLogisticlocation = await Logisticlocationtype.findById(
+      tcb.plannedDropOff.Logisticlocation
+    );
+
+    resData[
+      "removePlannedDropOffLogisticlocationContact"
+    ] = await Contacttype.findOneAndDelete(
+      { _id: plannedDropOffLogisticlocation.contact },
+      function (err, doc) {
+        sendError(err, doc, res);
+      }
+    );
+
+    // plannedDropOff.Logisticlocation
+    resData[
+      "removedPlannedDropOffLogisticlocation"
+    ] = await Logisticlocationtype.findOneAndDelete(
+      { _id: plannedDropOffLogisticlocation._id },
+      function (err, doc) {
+        sendError(err, doc, res);
+      }
+    );
+
+    // plannedDropOff.LogisticEventPeriod
+    resData[
+      "removedPlannedDropOffLogisticEventPeriod"
+    ] = await Logisticeventperiod.findOneAndDelete(
+      { _id: tcb.plannedDropOff.LogisticEventPeriod },
+      function (err, doc) {
+        sendError(err, doc, res);
+      }
+    );
+
+    // transportcapacitybooking
+    resData[
+      "removedTransportcapacitybooking"
+    ] = await Transportcapacitybooking.findOneAndDelete(
+      {
+        _id: id,
+      },
+      function (err, doc) {
+        sendError(err, doc, res);
+      }
+    );
+    console.log(resData);
+
+    await session.abortTransaction();
+    session.endSession();
+
+    res.json(resData);
   } catch (ex) {
     res.status(400).json({
       message: ex.message,
     });
   }
 });
+
+function sendError(err, doc, res, callback) {
+  if (err) return res.send(err);
+  if (callback) return callback(doc);
+  return doc;
+}
 
 router.put("/:id", verify, async (req, res) => {
   const session = await Transportcapacitybooking.startSession();
@@ -680,7 +794,7 @@ async function savePackagetotaltype(body, res) {
     }
   } catch (error) {
     console.log(error);
-    res.status(400).send(error);
+    return res.status(400).send(error);
   }
   return await packagetotaltype;
 }
@@ -743,9 +857,8 @@ async function saveLogisticlocationtype(body, res) {
     };
 
     if (!body.contactId) {
-      savedContacttype = await new Contacttype({
-        contactTypeData,
-      }).save();
+      savedContacttype = new Contacttype(contactTypeData);
+      await savedContacttype.save();
     } else {
       savedContacttype = await Contacttype.findOneAndUpdate(body.contactId, {
         $set: contactTypeData,
@@ -753,7 +866,7 @@ async function saveLogisticlocationtype(body, res) {
     }
   } catch (error) {
     console.log(error);
-    res.status(400).send(error);
+    return res.status(400).send(error);
   }
 
   const locationTypeData = {
@@ -812,7 +925,7 @@ async function saveLogisticlocationtype(body, res) {
     }
   } catch (error) {
     console.log(error);
-    res.status(400).send(error);
+    return res.status(400).send(error);
   }
 
   return await logisticlocationtype;

@@ -1,62 +1,60 @@
 const mongoose = require("mongoose");
 
 const ContacttypeScheema = mongoose.Schema({
-
   personName: {
     type: String,
-    required: false
+    required: false,
   },
   departmentName: {
     type: String,
-    required: false
+    required: false,
   },
   jobTitle: {
     type: String,
-    required: false
+    required: false,
   },
   communicationValue: {
     type: String,
-    required: false
+    required: false,
   },
   communicationChannelName: {
     type: String,
-    required: false
+    required: false,
   },
   communicationChannelCode: {
-      Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         }
+    Id: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+    },
+    Name: {
+      type: String,
+      required: true,
+    },
   },
   responsibility: {
-      Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
-
+    Id: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+    },
+    Name: {
+      type: String,
+      required: true,
+    },
   },
   contactTypeCode: {
-      Id: {
-         type: String,
-         required: true
-         },
-      Name:{
-         type: String,
-         required: true
-         },
+    Id: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+    },
+    Name: {
+      type: String,
+      required: true,
+    },
   },
-  createdAt:{
+  createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model("Contacttypes", ContacttypeScheema);
