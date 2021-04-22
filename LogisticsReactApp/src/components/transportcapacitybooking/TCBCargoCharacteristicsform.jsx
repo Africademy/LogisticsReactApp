@@ -214,7 +214,7 @@ const [CargoData,setCargoData] = useState(null)
                          
                       <div className="card-title my-2">Cargo Characteristics</div>
                       <CRow>
-                        <CCol md="6">
+                        <CCol md="4">
                             <FormicControl  control='select' isRequired="true" label='Cargo Type' id='cargoTypeCode' name='cargoType' options={CargoType}  />
                         </CCol>
                         {/* <CCol md="6">
@@ -228,31 +228,32 @@ const [CargoData,setCargoData] = useState(null)
                           <FormicControl control='select' isRequired="true" label='Cargo Type Description' id='cargoTypeDescription' name='cargoTypeDescription' options={CargoTypeDescription} />
                         
                         </CCol> */}
-                        <CCol md="3">
-                        
-                           <FormicControl control='select' isRequired="true" label='Country Of Origin' id='countryOfOriginCode' name='countryOfOriginCode' options={CountryOfOrigin} />
-                        </CCol>
-                        <CCol md="3">
-                        
-                           <FormicControl control='select' isRequired="true" label='Final Destination Country' id='finalDestinationCountry' name='finalDestinationCountry' options={FinalDestinationCountry} />
-                        </CCol>
+                         <CCol md="4">
+                                <FormicControl control='select' isRequired="true" label='Country Of Origin' id='countryOfOriginCode' name='countryOfOriginCode' options={CountryOfOrigin} />
+                            
+                         </CCol>
+                         <CCol md="4">
+                            <FormicControl control='select' isRequired="true" label='Final Destination Country' id='finalDestinationCountry' name='finalDestinationCountry' options={FinalDestinationCountry} />
+
+                         </CCol>
+                       
 
                         <CCol md="6">
                           
                           <CInputGroup  style={{marginTop:"0.7rem",display:"flex"}}>
-                          <FormicControl label="Total Gross Volume"  control='input' isRequired="true"  placeholder="Enter here..." id='totalGrossVolume' name='totalGrossVolume' />
+                          <FormicControl style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}} label="Total Gross Volume"  control='input' isRequired="true"  placeholder="Enter here..." id='totalGrossVolume' name='totalGrossVolume' />
 
                              <div className="VolumeCodes">
-                                <FormicControl control='select'  id='totalGrossVolumeCodes' name='totalGrossVolumeCodes' options={measurementtypes} />
+                                <FormicControl  style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}} control='select'  id='totalGrossVolumeCodes' name='totalGrossVolumeCodes' options={measurementtypes} />
                              </div>
                           </CInputGroup>
                           
                         </CCol>
                         <CCol md="6">
                             <CInputGroup  style={{marginTop:"0.7rem"}}>
-                              <FormicControl  control='input' label='Total Gross Weight' isRequired="true"  placeholder="Enter here..." id='totalGrossWeight' name='totalGrossWeight' />
+                              <FormicControl style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}}  control='input' label='Total Gross Weight' isRequired="true"  placeholder="Enter here..." id='totalGrossWeight' name='totalGrossWeight' />
                               <div className="VolumeCodes">
-                              <FormicControl control='select'   id='totalGrossWeightCodes' name='totalGrossWeightCodes' options={measurementtypes} />
+                              <FormicControl style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}} control='select'   id='totalGrossWeightCodes' name='totalGrossWeightCodes' options={measurementtypes} />
 
                               </div>
                             </CInputGroup>
@@ -261,9 +262,9 @@ const [CargoData,setCargoData] = useState(null)
                         <CCol md="6">
                          
                             <CInputGroup  style={{marginTop:"0.7rem"}}>
-                              <FormicControl control='input' isRequired="true" label="Total Transport Net Weight"   placeholder="Enter here..." id='totalTransportNetWeight' name='totalTransportNetWeight' />
+                              <FormicControl control='input' style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}} isRequired="true" label="Total Transport Net Weight"   placeholder="Enter here..." id='totalTransportNetWeight' name='totalTransportNetWeight' />
                               <div className="VolumeCodes">
-                              <FormicControl control='select'  id='totalTransportNetWeightCodes' name='totalTransportNetWeightCodes' options={measurementtypes} />
+                              <FormicControl control='select'  style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}}  id='totalTransportNetWeightCodes' name='totalTransportNetWeightCodes' options={measurementtypes} />
                                 
                               </div>
                             </CInputGroup>
@@ -273,9 +274,9 @@ const [CargoData,setCargoData] = useState(null)
                         <CCol md="6">
 
                             <CInputGroup  style={{marginTop:"0.7rem"}}>
-                              <FormicControl control='input' isRequired="true" label="Total Chargeable Weight"  placeholder="Enter here..." id='totalChargeableWeight' name='totalChargeableWeight' />
+                              <FormicControl control='input' style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}} isRequired="true" label="Total Chargeable Weight"  placeholder="Enter here..." id='totalChargeableWeight' name='totalChargeableWeight' />
                               <div className="VolumeCodes">
-                              <FormicControl control='select'  id='totalChargeableWeightCodes' name='totalChargeableWeightCodes' options={measurementtypes} />
+                              <FormicControl control='select'  style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}}  id='totalChargeableWeightCodes' name='totalChargeableWeightCodes' options={measurementtypes} />
                                 
                                 </div>
                             </CInputGroup>
@@ -284,9 +285,9 @@ const [CargoData,setCargoData] = useState(null)
                         </CCol>
                         <CCol md="6">
                             <CInputGroup  style={{marginTop:"0.7rem"}}>
-                              <FormicControl control='input' label="Declared Weight For Customs" isRequired="true"  placeholder="Enter here..." id='declaredWeightForCustoms' name='declaredWeightForCustoms' />
+                              <FormicControl control='input' style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}} label="Declared Weight For Customs" isRequired="true"  placeholder="Enter here..." id='declaredWeightForCustoms' name='declaredWeightForCustoms' />
                               <div className="VolumeCodes">
-                              <FormicControl control='select'   id='declaredWeightForCustomsCodes' name='declaredWeightForCustomsCodes' options={measurementtypes} />
+                              <FormicControl control='select'  style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}}   id='declaredWeightForCustomsCodes' name='declaredWeightForCustomsCodes' options={measurementtypes} />
                                 
                                 </div>
                             </CInputGroup>
@@ -295,9 +296,9 @@ const [CargoData,setCargoData] = useState(null)
                         <CCol md="6">
                         
                             <CInputGroup  style={{marginTop:"0.7rem"}}>
-                              <FormicControl control='input' isRequired="true" label="Total Loading Length"   placeholder="Enter here..." id='totalLoadingLength' name='totalLoadingLength' />
+                              <FormicControl control='input' style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}} isRequired="true" label="Total Loading Length"   placeholder="Enter here..." id='totalLoadingLength' name='totalLoadingLength' />
                               <div className="VolumeCodes">
-                              <FormicControl control='select'  id='totalLoadingLengthCodes' name='totalLoadingLengthCodes' options={measurementtypes} />
+                              <FormicControl control='select'  style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}}  id='totalLoadingLengthCodes' name='totalLoadingLengthCodes' options={measurementtypes} />
                                 
                                 </div>
                             </CInputGroup>
@@ -305,9 +306,9 @@ const [CargoData,setCargoData] = useState(null)
                         </CCol>
                         <CCol md="6">
                             <CInputGroup  style={{marginTop:"0.7rem"}}>
-                              <FormicControl control='input'  isRequired="true" label="Associated Invoice Amount" placeholder="Enter here..." id='associatedInvoiceAmount' name='associatedInvoiceAmount' />
+                              <FormicControl control='input' style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}}  isRequired="true" label="Associated Invoice Amount" placeholder="Enter here..." id='associatedInvoiceAmount' name='associatedInvoiceAmount' />
                               <div className="VolumeCodes">
-                              <FormicControl control='select'  id='associatedInvoiceAmountCodes' name='associatedInvoiceAmountCodes' options={amounttypes} />
+                              <FormicControl control='select'  style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}}  id='associatedInvoiceAmountCodes' name='associatedInvoiceAmountCodes' options={amounttypes} />
                                 
                                 </div>
                             </CInputGroup>
@@ -316,9 +317,9 @@ const [CargoData,setCargoData] = useState(null)
                         <CCol md="6">
                           
                             <CInputGroup  style={{marginTop:"0.7rem"}}>
-                              <FormicControl control='input' isRequired="true" label="Declared Value For Customs"  placeholder="Enter here..." id='declaredValueForCustoms' name='declaredValueForCustoms' />
+                              <FormicControl control='input' style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}} isRequired="true" label="Declared Value For Customs"  placeholder="Enter here..." id='declaredValueForCustoms' name='declaredValueForCustoms' />
                               <div className="VolumeCodes">
-                              <FormicControl control='select'  id='declaredValueForCustomsCodes' name='declaredValueForCustomsCodes' options={amounttypes} />
+                              <FormicControl control='select'  style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}}  id='declaredValueForCustomsCodes' name='declaredValueForCustomsCodes' options={amounttypes} />
                                 
                                 </div>
                             </CInputGroup>
@@ -327,9 +328,9 @@ const [CargoData,setCargoData] = useState(null)
                         <CCol md="6">
                       
                             <CInputGroup  style={{marginTop:"0.7rem"}}>
-                              <FormicControl control='input' isRequired="true" label="Total Package Quantity"  placeholder="Enter here..." id='totalPackageQuantity' name='totalPackageQuantity' />
+                              <FormicControl control='input' style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}} isRequired="true" label="Total Package Quantity"  placeholder="Enter here..." id='totalPackageQuantity' name='totalPackageQuantity' />
                               <div className="VolumeCodes">
-                              <FormicControl control='select'  id='totalPackageQuantityCodes' name='totalPackageQuantityCodes' options={quantitytypes} />
+                              <FormicControl control='select'  style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}}  id='totalPackageQuantityCodes' name='totalPackageQuantityCodes' options={quantitytypes} />
                                 
                                 </div>
                             </CInputGroup>
@@ -338,9 +339,9 @@ const [CargoData,setCargoData] = useState(null)
                         <CCol md="6">
                         
                             <CInputGroup  style={{marginTop:"0.7rem"}}>
-                              <FormicControl control='input' isRequired="true" label="Total Item Quantity" placeholder="Enter here..." id='totalItemQuantity' name='totalItemQuantity' />
+                              <FormicControl control='input' style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}} isRequired="true" label="Total Item Quantity" placeholder="Enter here..." id='totalItemQuantity' name='totalItemQuantity' />
                               <div className="VolumeCodes">
-                              <FormicControl control='select'  id='totalItemQuantityCodes' name='totalItemQuantityCodes' options={quantitytypes} />
+                              <FormicControl control='select'  style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}}  id='totalItemQuantityCodes' name='totalItemQuantityCodes' options={quantitytypes} />
                                 
                                 </div>
                             </CInputGroup>
@@ -352,7 +353,7 @@ const [CargoData,setCargoData] = useState(null)
                     
                       <CRow>
                         <CCol md="6">
-                           <FormicControl control='select' isRequired="true" label='Package Type' id='packageTypeCode' name='packageTypeCode' options={PackageType} />
+                           <FormicControl control='select'   isRequired="true" label='Package Type' id='packageTypeCode' name='packageTypeCode' options={PackageType} />
                         </CCol>
                         <CCol md="6">
                           <FormicControl control='input' isRequired="true" label='Total Package Quantity' id='totalPackageQuantityPT' name='totalPackageQuantityPT' options={Totalpackagequantitys} />
@@ -360,9 +361,10 @@ const [CargoData,setCargoData] = useState(null)
                         <CCol md="6">
                         
                             <CInputGroup  style={{marginTop:"0.7rem"}}>
-                              <FormicControl control='input' isRequired="true" label="Total Gross Weight" placeholder="Enter here..." id='totalGrossWeightPT' name='totalGrossWeightPT' />
+                              <FormicControl control='input' 
+style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}}  isRequired="true" label="Total Gross Weight" placeholder="Enter here..." id='totalGrossWeightPT' name='totalGrossWeightPT' />
                               <div className="VolumeCodes">
-                              <FormicControl control='select'   id='totalGrossWeightPTCodes' name='totalGrossWeightPTCodes' options={measurementtypes} />
+                              <FormicControl control='select' style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}}  id='totalGrossWeightPTCodes' name='totalGrossWeightPTCodes' options={measurementtypes} />
                                 
                                 </div>
                             </CInputGroup>
@@ -371,9 +373,10 @@ const [CargoData,setCargoData] = useState(null)
                         <CCol md="6">
                      
                             <CInputGroup  style={{marginTop:"0.7rem"}}>
-                              <FormicControl control='input' isRequired="true" label="Total Gross Volume" placeholder="Enter here..." id='totalGrossVolumePT' name='totalGrossVolumePT' />
+                              <FormicControl control='input' 
+style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}} isRequired="true" label="Total Gross Volume" placeholder="Enter here..." id='totalGrossVolumePT' name='totalGrossVolumePT' />
                               <div className="VolumeCodes">
-                                <FormicControl control='select'  id='totalGrossVolumePTCodes' name='totalGrossVolumePTCodes' options={measurementtypes} />
+                                <FormicControl control='select' style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}} id='totalGrossVolumePTCodes' name='totalGrossVolumePTCodes' options={measurementtypes} />
                                 
                                 </div>
                             </CInputGroup>
