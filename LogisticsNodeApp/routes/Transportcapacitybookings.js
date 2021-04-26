@@ -297,11 +297,11 @@ router.post("/", verify, async (req, res) => {
     //   SpaceRequirements.packageTypeCode
     // );
 
-    const plannedPickUplogisticlocationtypes = await saveLogisticlocationtype(
+    const savedPlannedPickUplogisticlocationtypes = await saveLogisticlocationtype(
       PickUpLocationData,
       res
     );
-    const savedPlannedPickUplogisticlocationtypes = await plannedPickUplogisticlocationtypes.save();
+    // const savedPlannedPickUplogisticlocationtypes = await plannedPickUplogisticlocationtypes.save();
     // Logisticlocationtype.findById(
     //   PickUpLocationData.AdditionalLocationIdentification
     // );
@@ -326,11 +326,11 @@ router.post("/", verify, async (req, res) => {
     //   PickUpTime.plannedPickUpLogisticEventPeriodId
     // );
 
-    const plannedDropOfflogisticlocationtypes = await saveLogisticlocationtype(
+    const savedPlannedDropOfflogisticlocationtypes = await saveLogisticlocationtype(
       DropOffLocation,
       res
     );
-    const savedPlannedDropOfflogisticlocationtypes = await plannedDropOfflogisticlocationtypes.save();
+    // const savedPlannedDropOfflogisticlocationtypes = await plannedDropOfflogisticlocationtypes.save();
 
     // const plannedDropOfflogisticlocationtypes = await Logisticlocationtype.findById(
     //   DropOffLocation.plannedDropOffLogisticLocationTypeId
@@ -571,7 +571,7 @@ router.put("/:id", verify, async (req, res) => {
       res
     );
 
-    const plannedPickUplogisticlocationtypes = await saveLogisticlocationtype(
+    const plannedPickUplogisticlocationtypes = await savePlannedPickupLogisticlocationtype(
       PickUpLocationData,
       res
     );
@@ -593,7 +593,7 @@ router.put("/:id", verify, async (req, res) => {
       res
     );
 
-    const plannedDropOfflogisticeventperiods = await Logisticeventperiod.findOneAndUpdate(
+    const plannedDropOfflogisticeventperiods = await Logisticeventperiod.findByIdAndUpdate(
       DropOffTime.id,
       {
         $set: {
@@ -793,7 +793,7 @@ async function savePackagetotaltype(body, res) {
     if (!body.packagetotaltypeId) {
       packagetotaltype = new Packagetotaltype(packagetotalData);
     } else {
-      packagetotaltype = await Packagetotaltype.findOneAndUpdate(
+      packagetotaltype = await Packagetotaltype.findByIdAndUpdate(
         body.packagetotaltypeId,
         {
           $set: packagetotalData,
@@ -807,10 +807,8 @@ async function savePackagetotaltype(body, res) {
   return await packagetotaltype;
 }
 
-async function saveLogisticlocationtype(body, res) {
+async function savePlannedPickupLogisticlocationtype(body, res) {
   const Logisticlocationtype = require("../models/Logisticlocationtype");
-  const Operatinghourstype = require("../models/Operatinghourstype");
-  const Specialoperatinghourstype = require("../models/Specialoperatinghourstype");
   const Countrycode = require("../models/Countrycode");
   const Currencyofpartycode = require("../models/Currencyofpartycode");
   const Languageofthepartycode = require("../models/Languageofthepartycode");
@@ -831,7 +829,7 @@ async function saveLogisticlocationtype(body, res) {
   const languageofthepartycodes = await Languageofthepartycode.findById(
     body.languageOfthePartyCode
   );
-  // const contacttypes = await Contacttypecode.findById(body.contactTypeCode);
+
   var savedContacttype;
   try {
     const communicationchannels = await Communicationchannel.findById(
@@ -868,7 +866,7 @@ async function saveLogisticlocationtype(body, res) {
       savedContacttype = new Contacttype(contactTypeData);
       await savedContacttype.save();
     } else {
-      savedContacttype = await Contacttype.findOneAndUpdate(body.contactId, {
+      savedContacttype = await Contacttype.findByIdAndUpdate(body.contactId, {
         $set: contactTypeData,
       });
     }
@@ -918,13 +916,147 @@ async function saveLogisticlocationtype(body, res) {
     longitude: body.longitude,
   };
 
-  var logisticlocationtype;
+  var logisticlocationtype = null;
 
   try {
     if (!body.logisticLocationId) {
-      logisticlocationtype = await new Logisticlocationtype(locationTypeData);
+      logisticlocationtype = new Logisticlocationtype(locationTypeData);
+      await logisticlocationtype.save();
     } else {
-      logisticlocationtype = await Logisticlocationtype.findOneAndUpdate(
+      logisticlocationtype = await Logisticlocationtype.findByIdAndUpdate(
+        body.logisticLocationId,
+        {
+          $set: locationTypeData,
+        }
+      );
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send(error);
+  }
+
+  return await logisticlocationtype;
+}
+
+async function saveLogisticlocationtype(body, res) {
+  const Logisticlocationtype = require("../models/Logisticlocationtype");
+  // const Operatinghourstype = require("../models/Operatinghourstype");
+  // const Specialoperatinghourstype = require("../models/Specialoperatinghourstype");
+  const Countrycode = require("../models/Countrycode");
+  const Currencyofpartycode = require("../models/Currencyofpartycode");
+  const Languageofthepartycode = require("../models/Languageofthepartycode");
+  const Contacttype = require("../models/Contacttype");
+  const Description200type = require("../models/Description200type");
+  const Identifiertype = require("../models/Identifiertype");
+
+  const locationspecificinstructions = await Description200type.findById(
+    body.locationSpecificInstructionsCode
+  );
+  const additionallocationidentifications = await Identifiertype.findById(
+    body.additionalLocationIdentificationCode
+  );
+  const countrycodes = await Countrycode.findById(body.countryCode);
+  const currencyofpartycodes = await Currencyofpartycode.findById(
+    body.currencyOfPartyCode
+  );
+  const languageofthepartycodes = await Languageofthepartycode.findById(
+    body.languageOfthePartyCode
+  );
+
+  var savedContacttype;
+  try {
+    const communicationchannels = await Communicationchannel.findById(
+      body.communicationChannelCode
+    );
+    const responsibilitys = await Description70type.findById(
+      body.responsibility
+    );
+    const contacttypecodes = await Contacttypecode.findById(
+      body.contactTypeCode
+    );
+
+    const contactTypeData = {
+      personName: body.personName,
+      departmentName: body.departmentName,
+      jobTitle: body.jobTitle,
+      communicationChannelName: body.communicationChannelName,
+      communicationValue: body.communicationValue,
+      communicationChannelCode: {
+        Id: communicationchannels._id,
+        Name: communicationchannels.communicationChannelName,
+      },
+      responsibility: {
+        Id: responsibilitys._id,
+        Name: responsibilitys.codeListVersion,
+      },
+      contactTypeCode: {
+        Id: contacttypecodes._id,
+        Name: contacttypecodes.codeListVersion,
+      },
+    };
+
+    if (!body.contactId) {
+      savedContacttype = new Contacttype(contactTypeData);
+      await savedContacttype.save();
+    } else {
+      savedContacttype = await Contacttype.findByIdAndUpdate(body.contactId, {
+        $set: contactTypeData,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send(error);
+  }
+
+  const locationTypeData = {
+    unLocationCode: body.unLocationCode,
+    sublocationIdentification: body.sublocationIdentification,
+    locationName: body.locationName,
+    utcOffset: body.uTCOffset,
+    locationSpecificInstructions: {
+      Id: locationspecificinstructions._id,
+      Name: locationspecificinstructions.codeListVersion,
+    },
+    additionalLocationIdentification: {
+      Id: additionallocationidentifications._id,
+      Name: additionallocationidentifications.identificationSchemeName,
+    },
+    contact: savedContacttype._id,
+    cityCode: body.cityName,
+    countryCode: {
+      Id: countrycodes._id,
+      Name: countrycodes.codeListVersion,
+    },
+    currencyOfParty: {
+      Id: currencyofpartycodes._id,
+      Name: currencyofpartycodes.codeListVersion,
+    },
+    languageOfTheParty: {
+      Id: languageofthepartycodes._id,
+      Name: languageofthepartycodes.codeListVersion,
+    },
+    countyCode: body.countyCode,
+    crossStreet: body.crossStreet,
+    name: body.name,
+    pOBoxNumber: body.postBoxNumber,
+    postalCode: body.postalCode,
+    provinceCode: body.provinceCode,
+    state: body.state,
+    streetAddressOne: body.streetAddressOne,
+    streetAddressTwo: body.streetAddressTwo,
+    streetAddressThree: body.streetAddressThree,
+    latitude: body.latitude,
+    longitude: body.longitude,
+  };
+
+  var logisticlocationtype = null;
+
+  try {
+    if (!body.logisticLocationId) {
+      logisticlocationtype = new Logisticlocationtype(locationTypeData);
+      await logisticlocationtype.save();
+    } else {
+      logisticlocationtype = await Logisticlocationtype.findByIdAndUpdate(
         body.logisticLocationId,
         {
           $set: locationTypeData,
@@ -940,7 +1072,7 @@ async function saveLogisticlocationtype(body, res) {
 }
 
 const getRandomNumber = () => {
-  return +Math.floor(10000000000000 + Math.random() * 90000000000000)
+  return +Math.floor(10000000000000 + Math.random() * 987654321000)
     .toString()
     .substr(0, 13);
 };
