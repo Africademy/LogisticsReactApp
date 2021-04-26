@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable no-lone-blocks */
 import {
@@ -18,7 +19,7 @@ import { Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { IconContext } from "react-icons";
 import { AiOutlineCheck, AiOutlineDown, AiOutlineRight } from "react-icons/ai";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import Alert from "../../utils/Alert/Alert";
 import FormicControl from "../../utils/CoreUI/FormicControl";
 import CargoCharacteristicsForm from "./TCBCargoCharacteristicsform";
@@ -27,13 +28,14 @@ import TCBDropOffTime from "./TCBDropOffTime";
 import TCBOrderDetails from "./TCBOrderDetails";
 import TCBPickUpLocation from "./TCBPickUpLocation";
 import TCBPIckUPTime from "./TCBPIckUPTime";
-import { getTransportcapacitybooking } from "../../services/transportcapacitybookingService";
+import { getTransportcapacitybooking, saveTransportcapacitybooking } from "../../services/transportcapacitybookingService";
 import { getTransportservicelevelcodes } from "../../services/transportservicelevelcodeService";
 import { getTransportservicecategorycodes } from "../../services/transportservicecategorycodeService";
 import { getTransportserviceconditiontypecodes } from "../../services/transportserviceconditiontypecodeService";
 import {useSelector} from 'react-redux'
-import { isArray } from "lodash";
+import { isArray, trim } from "lodash";
 import Moment from "moment";
+import Swal from 'sweetalert2'
 
 function TransportcapacitybookingEdit() {
 	// const data = useSelector((state)=> state.tvbDta)
@@ -42,6 +44,10 @@ function TransportcapacitybookingEdit() {
   const [localData, setlocalData] = useState(JSON.parse(localStorage.getItem('state')));
   const [tcbFinalData,settcbFinalData] = useState(null)
   const [ABCLoacal,setABCLoacal] = useState(null)
+  const [Success,setSuccess] = useState('')
+  const [Loading,setLoading] = useState(false)
+  const [Error1, setError] = useState(false);
+  const history = useHistory()
 
 //   const formreduxData =  useSelector((state)=> state.tvbDta)
 // console.log(formreduxData,"Redux00000")
@@ -55,7 +61,9 @@ function TransportcapacitybookingEdit() {
 		getDataFromTcB();
      
 	}, []);
+  
 
+    console.log(Response,"Response from server")
 
   // console.log(localData.tvbDta.transportServiceCategoryCodes,"Edit123123") rm
   useEffect(()=>{
@@ -89,8 +97,29 @@ function TransportcapacitybookingEdit() {
   const totalGrossVolume = TcbData && (localData&& localData.tvbDta.measurementtypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossVolume.Measurementtype) ))
   const totalGrossWeight = TcbData && (localData&& localData.tvbDta.measurementtypesCodes.filter((item)=> item._id === (TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes.totalGrossWeight.Measurementtype) ))
   
-  
 
+  ///   LoctionTimings  
+  const DatepickupStarts = TcbData && Moment(TcbData.data.plannedPickUp.LogisticEventPeriod.beginDate ).format("YYYY-MM-DD")
+  const timepickupStarts = trim(TcbData && TcbData.data.plannedPickUp.LogisticEventPeriod.beginTime)
+  
+  const DatepickupEnds = TcbData && Moment(TcbData.data.plannedPickUp.LogisticEventPeriod.endDate ).format("YYYY-MM-DD")
+  const timepickupEnds = trim(TcbData && TcbData.data.plannedPickUp.LogisticEventPeriod.endTime)
+
+   
+   const pickupUpTimeLocal = `${DatepickupStarts}T${timepickupStarts}`
+   const pickupUpTimeLoacalEnd = `${DatepickupEnds}T${timepickupEnds}`
+
+
+  const DateDropStarts = TcbData && Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.beginDate ).format("YYYY-MM-DD")
+  const timeDropStarts = trim(TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.beginTime)
+  
+  const DateDropEnds = TcbData && Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.endDate ).format("YYYY-MM-DD")
+  const timeDropEnds = trim(TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.endTime)
+
+   
+   const DropOffTimeLocal = `${DateDropStarts}T${timeDropStarts}`
+   const DropOffTimeLoacalEnd = `${DateDropEnds}T${timeDropEnds}`
+  
 
 	const initialValues = {
 		servicecategory:"",
@@ -305,7 +334,7 @@ function TransportcapacitybookingEdit() {
       associatedInvoiceAmount: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.associatedInvoiceAmount.Value,
       associatedInvoiceAmountCodes: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.associatedInvoiceAmount.Measurementtype,
       declaredValueForCustoms: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Value, 
-      declaredValueForCustomsCodes:(isArray(declaredValueForCustoms) && declaredValueForCustoms[0].codeListVersion),
+      declaredValueForCustomsCodes:TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Measurementtype,
       totalPackageQuantity: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalPackageQuantity.Value,
       totalPackageQuantityCodes: (isArray(totalPackageQuantity) && totalPackageQuantity[0].codeListVersion),
       totalItemQuantity: TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.totalItemQuantity.Value, 
@@ -319,11 +348,12 @@ function TransportcapacitybookingEdit() {
       totalGrossVolumePTCodes:(isArray(totalGrossVolume) && totalGrossVolume[0].codeListVersion),  
 
       //PickupTime DD-MM-YYYY 
-      pickupStartTime: "2012-05-12T10:56",
-      pickupEndTime: "2012-05-12T10:56",
+      // {`${TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.beginDate ).format("YYYY-MM-DD")}T${TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.beginTime}`}
+      pickupStartTime: pickupUpTimeLocal,
+      pickupEndTime: pickupUpTimeLoacalEnd,
       //Dropoff Time
-      dropOffStartTime: "2012-05-12T10:56",
-      dropOffEndTime: "2012-05-12T10:56",
+      dropOffStartTime: DropOffTimeLocal,
+      dropOffEndTime: DropOffTimeLoacalEnd,
 	};
 
 	///  newForm State
@@ -333,9 +363,9 @@ function TransportcapacitybookingEdit() {
 	const [TabenableDropTime, setTabenableDropTime] = useState(false);
 	const [TabenableCG, setTabenableCG] = useState(false);
 	const [TabenableSp, setTabenableSp] = useState(false);
-	const [response, setresponse] = useState(null);
-	const [Error, setError] = useState(null);
-	const [navigate, setnavigate] = useState(false);
+	// const [response, setResponse] = useState(null);
+
+	const [navigate,setnavigate] = useState(false)
 	const [ServiceDetails, setServiceDetails] = useState(false);
 	const [PickUpLocation, setPickUpLocation] = useState(false);
 	const [pickUPTime, setpickUPTime] = useState(false);
@@ -472,20 +502,33 @@ function TransportcapacitybookingEdit() {
   }
   // const TotalpackagequantitysCodesFn = (values)=>{
   //   return localData.tvbDta.TotalpackagequantitysCodes.filter((item) => item.codeListVersion === values.xyz)
-  // }
-
-      
-    
-
+  // 
 
   //Cargo
+  useEffect(()=>{
+
+    if(navigate){
+      setTimeout( ()=> {
+        // navigateToHome()
+        console.log("navigateToHome()")
+      },1000)
+
+    }
+ },[navigate])
+   
+
+
+
+  const navigateToHome = ()=>{
+    history.push('/home')
+}
 
   useEffect(()=>{
     if(tcbFinalData){
       getApiCall()
       
     }
-  })
+  },[tcbFinalData])
 
   const getApiCall =  ()=>{
     const SchemaObj = {
@@ -529,9 +572,9 @@ function TransportcapacitybookingEdit() {
         },
         PickUpTime:{
               pickupStartDate: Moment(tcbFinalData.pickupStartTime).format("YYYY-MM-DD") ,
-              pickupStartTime: Moment(tcbFinalData.pickupStartTime).format("hh:mm"),
+              pickupStartTime: Moment(tcbFinalData.pickupStartTime).format("HH:MM"),
               pickupEndDate:Moment(tcbFinalData.pickupEndTime).format("YYYY-MM-DD") ,
-              pickupEndTime: Moment(tcbFinalData.pickupEndTime).format("hh:mm"),
+              pickupEndTime: Moment(tcbFinalData.pickupEndTime).format("HH:MM"),
               id: TcbData.data.plannedPickUp.LogisticEventPeriod._id
         },
         DropOffLocation:{
@@ -555,6 +598,7 @@ function TransportcapacitybookingEdit() {
           streetAddressThree: tcbFinalData.streetAddressThreeDp,
           latitude: tcbFinalData.latitudeDp,
           longitude: tcbFinalData.longitutueDp,
+          // longitude:1231321,
           contactTypeCode: tcbFinalData.contactTypeDp,
           personName: tcbFinalData.personeNameDp,
           departmentName: tcbFinalData.depormentNameDp,
@@ -568,20 +612,80 @@ function TransportcapacitybookingEdit() {
     },
         DropOffTime:{
               dropOffStartDate:  Moment(tcbFinalData.dropOffStartTime).format("YYYY-MM-DD") ,
-              dropOffStartTime:  Moment(tcbFinalData.dropOffStartTime).format("hh:mm"),
+              dropOffStartTime:  Moment(tcbFinalData.dropOffStartTime).format("HH:MM"),
               dropOffEndDate:  Moment( tcbFinalData.dropOffEndTime).format("YYYY-MM-DD") ,
-              dropOffEndTime:   Moment( tcbFinalData.dropOffEndTime).format("hh:mm"),
+              dropOffEndTime:   Moment( tcbFinalData.dropOffEndTime).format("HH:MM"),
               id: TcbData.data.plannedDropOff.LogisticEventPeriod._id
         },
-        SpaceRequirements:{}
+        SpaceRequirements:{ 
+          cargoTypeCode: tcbFinalData.cargoType,
+          harmonizedSystemCode: "6065e82e97b3245cabbd0452",
+          cargoTypeDescriptionCode: "6065e87c97b3245cabbd0456",
+          countryOfOriginCode: tcbFinalData.countryOfOriginCode,
+          finalDestinationCountryCode: tcbFinalData.finalDestinationCountry,
+          totalGrossVolume: tcbFinalData.totalGrossVolume,
+          totalGrossVolumeUnits: tcbFinalData.totalGrossVolumeCodes,
+          totalGrossWeight: tcbFinalData.totalGrossWeight,
+          totalGrossWeightUnits: tcbFinalData.totalGrossWeightCodes,
+          totalTransportNetWeight: tcbFinalData.totalTransportNetWeight,
+          totalTransportNetWeightUnits: tcbFinalData.totalTransportNetWeightCodes,
+          totalChargeableWeight: tcbFinalData.totalChargeableWeight,
+          totalChargeableWeightUnits: tcbFinalData.totalChargeableWeightCodes,
+          declaredWeightForCustoms: tcbFinalData.declaredWeightForCustoms,
+          declaredWeightForCustomsUnits: tcbFinalData.declaredWeightForCustomsCodes,
+          totalLoadingLength: tcbFinalData.totalLoadingLength,
+          totalLoadingLengthUnits: tcbFinalData.totalLoadingLengthCodes,
+          associatedInvoiceAmount: tcbFinalData.associatedInvoiceAmount,
+          associatedInvoiceAmountUnits: tcbFinalData.associatedInvoiceAmountCodes,
+          declaredValueForCustoms: tcbFinalData.declaredValueForCustoms,
+          declaredValueForCustomsUnits: tcbFinalData.declaredValueForCustomsCodes,
+          totalPackageQuantity: tcbFinalData.totalPackageQuantity,
+          totalPackageQuantityUnits: tcbFinalData.totalPackageQuantityCodes,
+          totalItemQuantity: tcbFinalData.totalItemQuantity,
+          totalItemQuantityUnits: tcbFinalData.totalItemQuantityCodes,
+          packageTypeCode: tcbFinalData.packageTypeCode,
+          totalPackageQuantityPT: tcbFinalData.totalPackageQuantityPT,
+          totalGrossWeightPT: tcbFinalData.totalGrossWeightPT,
+          totalGrossWeightPTUnits: tcbFinalData.totalGrossWeightPTCodes,
+          totalGrossVolumePT: tcbFinalData.totalGrossVolumePT,
+          totalGrossVolumePTUnits: tcbFinalData.totalGrossVolumePTCodes,
+          packagetotaltypeId: TcbData.data.transportCapacityBookingSpaceRequirements.Packagetotaltypes._id,
+          transportcargocharacteristicstypeId: TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes._id
+        },
+        _id:TcbData.data._id
 
     }
-  
+    console.log(SchemaObj.PickUpTime.pickupStartTime,"local time")
     console.log(SchemaObj,"SchemaObj && getApiCall")
-    console.log(tcbFinalData,"tcbFinalData")
+    console.log(tcbFinalData,"tcbFinalData ")
+    setLoading(true)
+    saveTransportcapacitybooking(SchemaObj).then(
+       res => { 
+        setSuccess(res.status)
+        setLoading(false)
+        setnavigate(true)
+         console.log(res.status,"response")
+        } ).catch(err => {
+          // setResponse(err)
+          setError(true)
+          setLoading(false)
+          console.log(err.status,"Error while updateing Orderid")
+        })
+      
   }
+  { Success && Swal.fire("Good Job","SuccessFully Update the Order Details !!","success").then((result) => {
+    if (result.isConfirmed) {
+      navigateToHome()
+    }
+  })}
+   {Error1  && Swal.fire('Oops...', 'Something went wrong!', 'error')}
 	return (
 		<div>
+         {Loading && <Alert bgcolor="bgBlue" >  Please wait updating.... </Alert> }
+         {/* { Error1 === 400 && <Alert bgcolor="bgRed" > Update is Failed !!!! </Alert>} */}
+         {/* { Success === 200 && <Alert bgcolor="bgBlue" >  SuccessFully Update the Order Details !! </Alert>} */}
+       
+
        <div style={{textAlign:"end" ,fontSize:"1.2rem",fontWeight:"bold",position:"relative",left:"4rem"}}>Order Id: &nbsp;{TcbData&& TcbData.data.bookingId}</div>
 			{/* <div style={{textAlign:"end" ,fontSize:"1.2rem",fontWeight:"bold",position:"relative",left:"4rem"}}>Order Id: &nbsp;{id}</div> */}
 			{/* <h3>{TcbData && TcbData.data.transportServiceCategoryCode.Name}</h3> */}
@@ -680,7 +784,7 @@ function TransportcapacitybookingEdit() {
                         totalGrossWeightPTCodes:totalGrossWeightPTCodes[0]._id,
                         totalGrossVolumePTCodes:totalGrossVolumePTCodes[0]._id,
                         
-                        // associatedInvoiceAmountCodes:associatedInvoiceAmountCodes[0]._id,
+                        associatedInvoiceAmountCodes:associatedInvoiceAmountCodes[0]._id,
                         declaredValueForCustomsCodes: declaredValueForCustomsCodes[0]._id,
 
                         totalPackageQuantityCodes: totalPackageQuantityCodes[0]._id,
@@ -1200,9 +1304,6 @@ function TransportcapacitybookingEdit() {
 
                             </CCard>
 
-
-
-
                              {/* 44444 DropOff Location */}
 
                              <CCard >
@@ -1664,19 +1765,19 @@ function TransportcapacitybookingEdit() {
                                           <CCol md="6">
                                             
                                             <CInputGroup  style={{marginTop:"0.7rem",display:"flex"}}>
-                                            <FormicControl label="Total Gross Volume"  control='input' isRequired="true"  placeholder="Enter here..." id='totalGrossVolume' name='totalGrossVolume' />
+                                            <FormicControl label="Total Gross Volume"  control='input' style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}} isRequired="true"  placeholder="Enter here..." id='totalGrossVolume' name='totalGrossVolume' />
 
                                               <div className="VolumeCodes">
-                                                  <FormicControl control='selectedit'  id='totalGrossVolumeCodes' name='totalGrossVolumeCodes' options={localData.tvbDta.measurementtypesCodes} /> 
+                                                  <FormicControl control='selectedit' style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}}  id='totalGrossVolumeCodes' name='totalGrossVolumeCodes' options={localData.tvbDta.measurementtypesCodes} /> 
                                               </div>
                                             </CInputGroup>
                                             
                                           </CCol>
                                           <CCol md="6">
                                               <CInputGroup  style={{marginTop:"0.7rem"}}>
-                                                <FormicControl  control='input' label='Total Gross Weight' isRequired="true"  placeholder="Enter here..." id='totalGrossWeight' name='totalGrossWeight' />
+                                                <FormicControl  control='input' style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}} label='Total Gross Weight' isRequired="true"  placeholder="Enter here..." id='totalGrossWeight' name='totalGrossWeight' />
                                                 <div className="VolumeCodes">
-                                                <FormicControl control='selectedit'   id='totalGrossWeightCodes' name='totalGrossWeightCodes' options={localData.tvbDta.measurementtypesCodes}  />
+                                                <FormicControl control='selectedit' style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}}   id='totalGrossWeightCodes' name='totalGrossWeightCodes' options={localData.tvbDta.measurementtypesCodes}  />
 
                                                 </div>
                                               </CInputGroup>
@@ -1685,9 +1786,9 @@ function TransportcapacitybookingEdit() {
                                           <CCol md="6">
                                           
                                               <CInputGroup  style={{marginTop:"0.7rem"}}>
-                                                <FormicControl control='input' isRequired="true" label="Total Transport Net Weight"   placeholder="Enter here..." id='totalTransportNetWeight' name='totalTransportNetWeight' />
+                                                <FormicControl control='input' style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}} isRequired="true" label="Total Transport Net Weight"   placeholder="Enter here..." id='totalTransportNetWeight' name='totalTransportNetWeight' />
                                                 <div className="VolumeCodes">
-                                                <FormicControl control='selectedit'  id='totalTransportNetWeightCodes' name='totalTransportNetWeightCodes' options={localData.tvbDta.measurementtypesCodes}  />
+                                                <FormicControl control='selectedit' style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}}  id='totalTransportNetWeightCodes' name='totalTransportNetWeightCodes' options={localData.tvbDta.measurementtypesCodes}  />
                                                   
                                                 </div>
                                               </CInputGroup>
@@ -1697,9 +1798,9 @@ function TransportcapacitybookingEdit() {
                                           <CCol md="6">
 
                                               <CInputGroup  style={{marginTop:"0.7rem"}}>
-                                                <FormicControl control='input' isRequired="true" label="Total Chargeable Weight"  placeholder="Enter here..." id='totalChargeableWeight' name='totalChargeableWeight' />
+                                                <FormicControl control='input' style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}} isRequired="true" label="Total Chargeable Weight"  placeholder="Enter here..." id='totalChargeableWeight' name='totalChargeableWeight' />
                                                 <div className="VolumeCodes">
-                                                <FormicControl control='selectedit'  id='totalChargeableWeightCodes' name='totalChargeableWeightCodes' options={localData.tvbDta.measurementtypesCodes}  />
+                                                <FormicControl control='selectedit' style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}}  id='totalChargeableWeightCodes' name='totalChargeableWeightCodes' options={localData.tvbDta.measurementtypesCodes}  />
                                                   
                                                   </div>
                                               </CInputGroup>
@@ -1708,9 +1809,9 @@ function TransportcapacitybookingEdit() {
                                           </CCol>
                                           <CCol md="6">
                                               <CInputGroup  style={{marginTop:"0.7rem"}}>
-                                                <FormicControl control='input' label="Declared Weight For Customs" isRequired="true"  placeholder="Enter here..." id='declaredWeightForCustoms' name='declaredWeightForCustoms' />
+                                                <FormicControl control='input' style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}} label="Declared Weight For Customs" isRequired="true"  placeholder="Enter here..." id='declaredWeightForCustoms' name='declaredWeightForCustoms' />
                                                 <div className="VolumeCodes">
-                                                <FormicControl control='selectedit'   id='declaredWeightForCustomsCodes' name='declaredWeightForCustomsCodes' options={localData.tvbDta.measurementtypesCodes}  />
+                                                <FormicControl control='selectedit' style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}}   id='declaredWeightForCustomsCodes' name='declaredWeightForCustomsCodes' options={localData.tvbDta.measurementtypesCodes}  />
                                                   
                                                   </div>
                                               </CInputGroup>
@@ -1719,9 +1820,9 @@ function TransportcapacitybookingEdit() {
                                           <CCol md="6">
                                           
                                               <CInputGroup  style={{marginTop:"0.7rem"}}>
-                                                <FormicControl control='input' isRequired="true" label="Total Loading Length"   placeholder="Enter here..." id='totalLoadingLength' name='totalLoadingLength' />
+                                                <FormicControl control='input' style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}} isRequired="true" label="Total Loading Length"   placeholder="Enter here..." id='totalLoadingLength' name='totalLoadingLength' />
                                                 <div className="VolumeCodes">
-                                                <FormicControl control='selectedit'  id='totalLoadingLengthCodes' name='totalLoadingLengthCodes' options={localData.tvbDta.measurementtypesCodes}  />
+                                                <FormicControl control='selectedit' style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}}  id='totalLoadingLengthCodes' name='totalLoadingLengthCodes' options={localData.tvbDta.measurementtypesCodes}  />
                                                   
                                                   </div>
                                               </CInputGroup>
@@ -1729,9 +1830,9 @@ function TransportcapacitybookingEdit() {
                                           </CCol>
                                           <CCol md="6">
                                               <CInputGroup  style={{marginTop:"0.7rem"}}>
-                                                <FormicControl control='input'  isRequired="true" label="Associated Invoice Amount" placeholder="Enter here..." id='associatedInvoiceAmount' name='associatedInvoiceAmount' />
+                                                <FormicControl control='input' style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}}  isRequired="true" label="Associated Invoice Amount" placeholder="Enter here..." id='associatedInvoiceAmount' name='associatedInvoiceAmount' />
                                                 <div className="VolumeCodes">
-                                                <FormicControl control='selectedit'  id='associatedInvoiceAmountCodes' name='associatedInvoiceAmountCodes' options={localData.tvbDta.amounttypesCodes}  />
+                                                <FormicControl control='selectedit' style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}}  id='associatedInvoiceAmountCodes' name='associatedInvoiceAmountCodes' options={localData.tvbDta.amounttypesCodes}  />
                                                   
                                                   </div>
                                               </CInputGroup>
@@ -1740,9 +1841,9 @@ function TransportcapacitybookingEdit() {
                                           <CCol md="6">
                                             
                                               <CInputGroup  style={{marginTop:"0.7rem"}}>
-                                                <FormicControl control='input' isRequired="true" label="Declared Value For Customs"  placeholder="Enter here..." id='declaredValueForCustoms' name='declaredValueForCustoms' />
+                                                <FormicControl control='input' style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}} isRequired="true" label="Declared Value For Customs"  placeholder="Enter here..." id='declaredValueForCustoms' name='declaredValueForCustoms' />
                                                 <div className="VolumeCodes">
-                                                <FormicControl control='selectedit'  id='declaredValueForCustomsCodes' name='declaredValueForCustomsCodes' options={localData.tvbDta.amounttypesCodes}  />
+                                                <FormicControl control='selectedit' style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}}  id='declaredValueForCustomsCodes' name='declaredValueForCustomsCodes' options={localData.tvbDta.amounttypesCodes}  />
                                                   
                                                   </div>
                                               </CInputGroup>
@@ -1751,9 +1852,9 @@ function TransportcapacitybookingEdit() {
                                           <CCol md="6">
                                         
                                               <CInputGroup  style={{marginTop:"0.7rem"}}>
-                                                <FormicControl control='input' isRequired="true" label="Total Package Quantity"  placeholder="Enter here..." id='totalPackageQuantity' name='totalPackageQuantity' />
+                                                <FormicControl control='input' style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}} isRequired="true" label="Total Package Quantity"  placeholder="Enter here..." id='totalPackageQuantity' name='totalPackageQuantity' />
                                                 <div className="VolumeCodes">
-                                                <FormicControl control='selectedit'  id='totalPackageQuantityCodes' name='totalPackageQuantityCodes' options={localData.tvbDta.quantitytypesCodes}  />
+                                                <FormicControl control='selectedit' style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}}  id='totalPackageQuantityCodes' name='totalPackageQuantityCodes' options={localData.tvbDta.quantitytypesCodes}  />
                                                   
                                                   </div>
                                               </CInputGroup>
@@ -1762,9 +1863,9 @@ function TransportcapacitybookingEdit() {
                                           <CCol md="6">
                                           
                                               <CInputGroup  style={{marginTop:"0.7rem"}}>
-                                                <FormicControl control='input' isRequired="true" label="Total Item Quantity" placeholder="Enter here..." id='totalItemQuantity' name='totalItemQuantity' />
+                                                <FormicControl control='input' style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}} isRequired="true" label="Total Item Quantity" placeholder="Enter here..." id='totalItemQuantity' name='totalItemQuantity' />
                                                 <div className="VolumeCodes">
-                                                <FormicControl control='selectedit'  id='totalItemQuantityCodes' name='totalItemQuantityCodes' options={localData.tvbDta.quantitytypesCodes}  />
+                                                <FormicControl control='selectedit' style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}}  id='totalItemQuantityCodes' name='totalItemQuantityCodes' options={localData.tvbDta.quantitytypesCodes}  />
                                                   
                                                   </div>
                                               </CInputGroup>
@@ -1776,7 +1877,7 @@ function TransportcapacitybookingEdit() {
                                       
                                         <CRow>
                                           <CCol md="6">
-                                            <FormicControl control='selectedit' isRequired="true" label='Package Type' id='packageTypeCode' name='packageTypeCode' options={localData.tvbDta.PackageTypeCodes}  />
+                                            <FormicControl control='selectedit'  isRequired="true" label='Package Type' id='packageTypeCode' name='packageTypeCode' options={localData.tvbDta.PackageTypeCodes}  />
                                           </CCol>
                                           <CCol md="6">
                                             <FormicControl control='input' isRequired="true" label='Total Package Quantity' id='totalPackageQuantityPT' name='totalPackageQuantityPT'  />
@@ -1784,9 +1885,9 @@ function TransportcapacitybookingEdit() {
                                           <CCol md="6">
                                           
                                               <CInputGroup  style={{marginTop:"0.7rem"}}>
-                                                <FormicControl control='input' isRequired="true" label="Total Gross Weight" placeholder="Enter here..." id='totalGrossWeightPT' name='totalGrossWeightPT' />
+                                                <FormicControl control='input' style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}} isRequired="true" label="Total Gross Weight" placeholder="Enter here..." id='totalGrossWeightPT' name='totalGrossWeightPT' />
                                                 <div className="VolumeCodes">
-                                                <FormicControl control='selectedit'   id='totalGrossWeightPTCodes' name='totalGrossWeightPTCodes' options={localData.tvbDta.measurementtypesCodes}  />
+                                                <FormicControl control='selectedit' style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}}   id='totalGrossWeightPTCodes' name='totalGrossWeightPTCodes' options={localData.tvbDta.measurementtypesCodes}  />
                                                   
                                                   </div>
                                               </CInputGroup>
@@ -1795,9 +1896,9 @@ function TransportcapacitybookingEdit() {
                                           <CCol md="6">
                                       
                                               <CInputGroup  style={{marginTop:"0.7rem"}}>
-                                                <FormicControl control='input' isRequired="true" label="Total Gross Volume" placeholder="Enter here..." id='totalGrossVolumePT' name='totalGrossVolumePT' />
+                                                <FormicControl control='input' style={{borderTopRightRadius:"0",borderBottomRightRadius:"0"}} isRequired="true" label="Total Gross Volume" placeholder="Enter here..." id='totalGrossVolumePT' name='totalGrossVolumePT' />
                                                 <div className="VolumeCodes">
-                                                  <FormicControl control='selectedit'  id='totalGrossVolumePTCodes' name='totalGrossVolumePTCodes' options={localData.tvbDta.measurementtypesCodes}  />
+                                                  <FormicControl control='selectedit' style={{borderTopLeftRadius:"0",borderBottomLeftRadius:"0",marginTop:"-0.8px"}}  id='totalGrossVolumePTCodes' name='totalGrossVolumePTCodes' options={localData.tvbDta.measurementtypesCodes}  />
                                                   
                                                   </div>
                                               </CInputGroup>

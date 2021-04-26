@@ -1,6 +1,6 @@
 import React, { Component, useState ,useEffect } from "react";
 import "../App.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   CButton,
   CCard,
@@ -34,6 +34,7 @@ import { amounttypesCodesAction, CargoTypeCodesAction, CargoTypeDescriptionCodes
 const Home = ()=> {
 
      const dispatch = useDispatch()
+     const history = useHistory()
 
      useEffect(()=>{
       dispatch(transportServiceCategoryCodesAction())
@@ -124,21 +125,22 @@ const Home = ()=> {
                   <Link to="/transportcapacitybookings/newui">
                     <CButton
                       type="button"
-                      className="btn btn-lg btn-link text-info"
+                      className="btn btn-lg  text-info"
                     >
                       New Booking
                     </CButton>
                   </Link>
                 </CCol>
                 <CCol md="5" className="buttons__btn">
-                  <Link to="/transportcapacitybookings">
-                    <CButton
-                      type="button"
-                      className="btn btn-lg btn-link text-info"
+               
+                    <button
+                      type="submit"
+                      onClick={()=> history.push("/transportcapacitybookings")}
+                      className="btn btn-lg  text-info"
                     >
                       View Booking
-                    </CButton>
-                  </Link>
+                    </button>
+               
                 </CCol>
               </CRow>
             </CCardBody>

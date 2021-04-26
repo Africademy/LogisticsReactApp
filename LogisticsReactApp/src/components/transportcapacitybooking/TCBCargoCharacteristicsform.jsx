@@ -186,7 +186,7 @@ const [CargoData,setCargoData] = useState(null)
     totalItemQuantity: yup.number().required(), 
     totalItemQuantityCodes: yup.string().required(), 
     packageTypeCode: yup.string().required(),
-    totalPackageQuantityPT:yup.string().required(),
+    totalPackageQuantityPT:yup.number().required(),
     totalGrossWeightPT:yup.number().required(),
     totalGrossWeightPTCodes:yup.string().required(),
     totalGrossVolumePT:yup.number().required(),

@@ -184,7 +184,7 @@ const initialValues ={
         <CCardBody>
            <Formik
             initialValues={initialValues}
-            validationSchema={validationSchema}
+            // validationSchema={validationSchema}
             onSubmit={(values)=> {
               console.log(values)
               dispatch(DropOffLocationAction(values))

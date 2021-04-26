@@ -72,6 +72,7 @@ const createTransportcapacitybooking =() => {
   const [TabenableSp,setTabenableSp] = useState(false)
   const [response,setresponse] = useState (null)
   const [Error,setError] = useState(null)
+  const [Loading,setLoading] = useState(false)
 
   //Order Details
   const [transportServiceCategoryCodes,settransportServiceCategoryCodes]= useState([])
@@ -165,9 +166,9 @@ const createTransportcapacitybooking =() => {
             // pickupEndTime:" 19:58"
             
             pickupStartDate: data.PickUpTime && Moment(data.PickUpTime.pickupStartTime).format("YYYY-MM-DD"),
-            pickupStartTime:data.PickUpTime && Moment(data.PickUpTime.pickupStartTime).format("hh:mm"),
+            pickupStartTime:data.PickUpTime && Moment(data.PickUpTime.pickupStartTime).format("HH:MM"),
             pickupEndDate: data.PickUpTime && Moment(data.PickUpTime.pickupEndTime).format("YYYY-MM-DD"),
-            pickupEndTime: data.PickUpTime &&  Moment(data.PickUpTime.pickupEndTime).format("hh:mm")
+            pickupEndTime: data.PickUpTime &&  Moment(data.PickUpTime.pickupEndTime).format("HH:MM")
 
         },
         DropOffLocation: {
@@ -208,9 +209,9 @@ const createTransportcapacitybooking =() => {
           // dropOffEndDate: "2021-04-10",
           // dropOffEndTime: " 19:58"
           dropOffStartDate: data.DropOffTime && Moment(data.DropOffTime.dropOffStartTime).format("YYYY-MM-DD"),
-          dropOffStartTime:data.DropOffTime && Moment(data.DropOffTime.dropOffStartTime).format("hh:mm"),
+          dropOffStartTime:data.DropOffTime && Moment(data.DropOffTime.dropOffStartTime).format("HH:MM"),
           dropOffEndDate: data.DropOffTime && Moment(data.DropOffTime.dropOffEndTime).format("YYYY-MM-DD"),
-          dropOffEndTime: data.DropOffTime &&  Moment(data.DropOffTime.dropOffEndTime).format("hh:mm")
+          dropOffEndTime: data.DropOffTime &&  Moment(data.DropOffTime.dropOffEndTime).format("HH:MM")
 
         },
         SpaceRequirements: {
@@ -248,17 +249,20 @@ const createTransportcapacitybooking =() => {
         }
     }
       console.log( schemaObj,"schemaObj")
+      setLoading(true)
          saveTransportcapacitybooking(schemaObj).then(
             response => {
               // setresponse(response.data)
-          console.log(response.data)
+          console.log(response.data,"response Data")
           // history.push('http://localhost:3000/home')
           setresponse(true)
+          setLoading(false)
           setnavigate(true)
 
             }
           ).catch(err => {
             setError(err)
+            setLoading(false)
             console.log(err)
           })
          
@@ -272,7 +276,8 @@ const createTransportcapacitybooking =() => {
                 </div> */}
            <div className="mt-2">  
            <div className="AlertInTCB">
-              
+
+               {Loading && <Alert bgcolor="bgBlue" >  Please wait updating.... </Alert> } 
                {response && (<Alert bgcolor="bgBlue" > {`Successfully Booking The Order !! `}</Alert>)}
              
                 {Error && (<Alert bgcolor="bgRed" >Not Saved Please CheckForm </Alert>)}

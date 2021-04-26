@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-lone-blocks */
 import { CButton, CCard, CCardBody, CCardHeader, CCol, CCollapse, CContainer, CInput, CInputGroup, CLabel, CRow } from '@coreui/react';
 import {} from "./transportcapacitybookingForm.css";
@@ -11,7 +12,9 @@ import { useParams } from 'react-router'
 import FormicControl from '../../utils/CoreUI/FormicControl';
 import { getTransportcapacitybooking } from '../../services/transportcapacitybookingService';
 import Moment from "moment";
-import { isArray } from 'lodash';
+import { isArray, result, trim } from 'lodash';
+import Swal from 'sweetalert2'   
+import { Alert } from 'bootstrap';
 // import {useSelector} from 'react-redux'
 
 
@@ -20,9 +23,10 @@ function TransportcapacitybookingView() {
   const [TcbData,setTcbData] = useState(null)
   let { id } = useParams();
 
-
+   const [loading,setloading] = useState(true)
   const [localData, setlocalData] = useState(JSON.parse(localStorage.getItem('state')));
-
+  const [Error,setError] = useState(false)
+const [count,setcount] =useState(0)
  
   
   // 605db31ecfc2c6c738963b4e   
@@ -61,17 +65,29 @@ function TransportcapacitybookingView() {
 
   
  useEffect(()=>{
+  // setcount((value)=> value+1)
   console.log("effect runnning")
   getDataFromTcB()
 },[])
   useEffect(()=>{
-
+    setcount((value)=> value+1)
   },[TcbData])
-
+ console.log(count ,"count is ")
 const getDataFromTcB = async ()=>{
-   const getData = await getTransportcapacitybooking(id)
-   console.log(getData,"getTransportcapacitybooking")
-   setTcbData(getData)
+    
+  try {
+
+    const getData = await getTransportcapacitybooking(id)
+    console.log(getData,"getTransportcapacitybooking")
+   
+    setTcbData(getData)
+    setloading(false)
+
+  }catch(err){
+    console.log(err)
+    setError(true)
+  }
+  
 }
 
 console.log(TcbData,"TcbData")
@@ -93,23 +109,58 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
   //   { key: "option2", value: "option2" },
   //   { key: "option3", value: "option3" },
   // ];
+  const DatepickupStarts = TcbData && Moment(TcbData.data.plannedPickUp.LogisticEventPeriod.beginDate ).format("YYYY-MM-DD")
+  const timepickupStarts = trim(TcbData && TcbData.data.plannedPickUp.LogisticEventPeriod.beginTime)
+  
+  const DatepickupEnds = TcbData && Moment(TcbData.data.plannedPickUp.LogisticEventPeriod.endDate ).format("YYYY-MM-DD")
+  const timepickupEnds = trim(TcbData && TcbData.data.plannedPickUp.LogisticEventPeriod.endTime)
+
+   
+   const pickupOffTimeLocal = `${DatepickupStarts}T${timepickupStarts}`
+   const pickupOffTimeLoacalEnd = `${DatepickupEnds}T${timepickupEnds}`
 
 
 
+  const DateDropStarts = TcbData && Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.beginDate ).format("YYYY-MM-DD")
+  const timeDropStarts = trim(TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.beginTime)
+  
+  const DateDropEnds = TcbData && Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.endDate ).format("YYYY-MM-DD")
+  const timeDropEnds = trim(TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.endTime)
+
+   
+   const DropOffTimeLocal = `${DateDropStarts}T${timeDropStarts}`
+   const DropOffTimeLoacalEnd = `${DateDropEnds}T${timeDropEnds}`
+
+    
+   
  
-
+ 
+  {loading && count === 0 && Swal.fire({
+   
+    title: '....Loading please wait !',
+    showConfirmButton: false,
+    timer: 500
+  })} 
+   
+  { Error && Swal.fire('Oops...', 'Something went wrong!', 'error')}
+ 
+   
+  
   return (
     <div>
+        
       <div style={{textAlign:"end" ,fontSize:"1.2rem",fontWeight:"bold",position:"relative",left:"4rem"}}>Order Id: &nbsp;{TcbData&& TcbData.data.bookingId}</div>
        {/* Original form */}
+      
 
-
+     
        <div className="transportcapacitybooking">
         <div className="py-5">
                {/* <div className="AlertInTCB">
                 </div> */}
           
           <CContainer>
+            
         
             {/*1111111111  Service Details */}
             <CCard >
@@ -480,13 +531,14 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
 
                             <CCol md="6" style={{fontSize:"1.2rem"}}>
                               <CLabel>Start at:&nbsp;</CLabel>
-                              {` ${TcbData &&  Moment(TcbData.data.plannedPickUp.LogisticEventPeriod.beginDate ).format("DD-MM-YYYY")} : ${TcbData && TcbData.data.plannedPickUp.LogisticEventPeriod.beginTime} `}
+                              <CInput disabled type="datetime-local" value={pickupOffTimeLocal}/>
+                              {/* {` ${TcbData &&  Moment(TcbData.data.plannedPickUp.LogisticEventPeriod.beginDate ).format("DD-MM-YYYY")} : ${TcbData && TcbData.data.plannedPickUp.LogisticEventPeriod.beginTime} `} */}
                             
-                             
                             </CCol>
                             <CCol md="6" style={{fontSize:"1.2rem"}}>
                             <CLabel>Ends at:&nbsp;</CLabel>
-                            {`${TcbData &&  Moment(TcbData.data.plannedPickUp.LogisticEventPeriod.endDate ).format("DD-MM-YYYY")} : ${TcbData && TcbData.data.plannedPickUp.LogisticEventPeriod.endTime}`}
+                            <CInput disabled type="datetime-local" value={pickupOffTimeLoacalEnd}/>
+                            {/* {`${TcbData &&  Moment(TcbData.data.plannedPickUp.LogisticEventPeriod.endDate ).format("DD-MM-YYYY")} : ${TcbData && TcbData.data.plannedPickUp.LogisticEventPeriod.endTime}`} */}
                           
                             </CCol>
                         
@@ -744,7 +796,7 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                     <CLabel>Communication Channel Name</CLabel>
                                     {TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact ?(
                                       <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact && TcbData.data.plannedDropOff.Logisticlocation.contact.communicationChannelName} />
-                                    ):<CInput disabled disabled="true"></CInput>}
+                                    ):<CInput disabled ></CInput>}
                                     
                              
                                                
@@ -820,18 +872,19 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
 
       */}
 
-
                                
-                                <CCol md="6" style={{fontSize:"1.2rem"}}>
+                               
+                              <CCol md="6" style={{fontSize:"1.2rem"}}>
                               <CLabel>Starts at:&nbsp;</CLabel>
-                                {/* <CInput disabled type="datetime-local" value={`${TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.beginDate ).format("YYYY-MM-DD")}T${TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.beginTime}`}/> */}
-                               {`${TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.beginDate ).format("DD-MM-YYYY ")}: ${TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.beginTime}`}
-                             
+                                <CInput disabled type="datetime-local" value={DropOffTimeLocal}/>
+                               {/* {`${TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.beginDate ).format("DD-MM-YYYY ")}: ${TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.beginTime}`} */}
+ 
+                             {/* {console.log({`${TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.beginDate ).format("YYYY-MM-DD")}T${TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.beginTime}`},"data")} */}
                               </CCol>
                               <CCol md="6" style={{fontSize:"1.2rem"}}>
                               <CLabel>Ends at:&nbsp;</CLabel>
-                              {/* <CInput disabled type="datetime-local" value={`${TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.endDate ).format("YYYY-MM-DD")}T${TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.endTime}`}/> */}
-                              {`${ TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.endDate ).format("YYYY-MM-DD")}: ${TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.endTime}`}
+                              <CInput disabled type="datetime-local" value={DropOffTimeLoacalEnd}/>
+                              {/* {`${ TcbData &&  Moment(TcbData.data.plannedDropOff.LogisticEventPeriod.endDate ).format("YYYY-MM-DD")}: ${TcbData && TcbData.data.plannedDropOff.LogisticEventPeriod.endTime}`} */}
                             
                             </CCol>
                         
@@ -1000,8 +1053,8 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
 
                           <CInputGroup  style={{marginTop:"-0.5rem"}}>
                                     <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Value} />
-                                   
-                                    {isArray(declaredValueForCustoms) && (declaredValueForCustoms[0] && <CInput disabled value={declaredValueForCustoms[0].codeListVersion} />)}
+                                    <CInput disabled value={TcbData && TcbData.data.transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes.declaredValueForCustoms.Measurementtype} />
+                                    {/* {isArray(declaredValueForCustoms) && (declaredValueForCustoms[0] && <CInput disabled value={declaredValueForCustoms[0].codeListVersion} />)} */}
                                   
                                     
 
@@ -1105,6 +1158,7 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
           </CContainer>
         </div>
       </div>
+
   
     </div>
   )

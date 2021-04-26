@@ -186,7 +186,7 @@ function TCBPickUpLocation({ setenableNext }) {
 		<CCardBody>
 			<Formik
 				initialValues={initialValues}
-				validationSchema={validationSchema}
+				// validationSchema={validationSchema}
 				onSubmit={(values) => {
 					console.log(values);
 					setenableNext(true);

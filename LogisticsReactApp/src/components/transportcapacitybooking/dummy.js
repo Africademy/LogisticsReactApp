@@ -1,103 +1,129 @@
-// const data :{
-//     additionalLocationIdentificationDp:"",
-//       sublocationIdentificationDp:"",
-//       locationNameDp:"",
-//       locationSpecificInstructionsDp:"",
-//       uTCOffsetDp:"",
-//       cityNameDp:"",
-//       countryDp:"",
-//       crossStreetDp:"",
-//       currencyOfPartyDp:"",
-//       launguageOfthePartyDp:"",
-//       nameDp:"",
-//       postBoxNumberDp:"",
-//       postalCodeDp:"",
-//       provinceDp:"",
-//       stateDp:"",
-//       streetAddressOneDp:"",
-//       streetAddressTwoDp:"",
-//       streetAddressThreeDp:"",
-//       latitudeDp:"",
-//       longitutueDp:"",
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/jsx-no-undef */
+const usersData = [
+  {id: 0, name: 'John Doe', registered: '2018/01/01', role: 'Guest', status: 'Pending'},
+  {id: 1, name: 'Samppa Nori', registered: '2018/01/01', role: 'Member', status: 'Active'},
+  {id: 2, name: 'Estavan Lykos', registered: '2018/02/01', role: 'Staff', status: 'Banned'},
+  {id: 3, name: 'Chetan Mohamed', registered: '2018/02/01', role: 'Admin', status: 'Inactive'},
+  {id: 4, name: 'Derick Maximinus', registered: '2018/03/01', role: 'Member', status: 'Pending'},
+  {id: 5, name: 'Friderik Dávid', registered: '2018/01/21', role: 'Staff', status: 'Active'},
+  {id: 6, name: 'Yiorgos Avraamu', registered: '2018/01/01', role: 'Member', status: 'Active'},
+  {id: 7, name: 'Avram Tarasios', registered: '2018/02/01', role: 'Staff', status: 'Banned'},
+  {id: 8, name: 'Quintin Ed', registered: '2018/02/01', role: 'Admin', status: 'Inactive'},
+  {id: 9, name: 'Enéas Kwadwo', registered: '2018/03/01', role: 'Member', status: 'Pending'},
+  {id: 10, name: 'Agapetus Tadeáš', registered: '2018/01/21', role: 'Staff', status: 'Active'},
+  {id: 11, name: 'Carwyn Fachtna', registered: '2018/01/01', role: 'Member', status: 'Active'},
+  {id: 12, name: 'Nehemiah Tatius', registered: '2018/02/01', role: 'Staff', status: 'Banned'},
+  {id: 13, name: 'Ebbe Gemariah', registered: '2018/02/01', role: 'Admin', status: 'Inactive'},
+  {id: 14, name: 'Eustorgios Amulius', registered: '2018/03/01', role: 'Member', status: 'Pending'},
+  {id: 15, name: 'Leopold Gáspár', registered: '2018/01/21', role: 'Staff', status: 'Active'},
+  {id: 16, name: 'Pompeius René', registered: '2018/01/01', role: 'Member', status: 'Active'},
+  {id: 17, name: 'Paĉjo Jadon', registered: '2018/02/01', role: 'Staff', status: 'Banned'},
+  {id: 18, name: 'Micheal Mercurius', registered: '2018/02/01', role: 'Admin', status: 'Inactive'},
+  {id: 19, name: 'Ganesha Dubhghall', registered: '2018/03/01', role: 'Member', status: 'Pending'},
+  {id: 20, name: 'Hiroto Šimun', registered: '2018/01/21', role: 'Staff', status: 'Active'},
+  {id: 21, name: 'Vishnu Serghei', registered: '2018/01/01', role: 'Member', status: 'Active'},
+  {id: 22, name: 'Zbyněk Phoibos', registered: '2018/02/01', role: 'Staff', status: 'Banned'},
+  {id: 23, name: 'Aulus Agmundr', registered: '2018/01/01', role: 'Member', status: 'Pending'},
+  {id: 42, name: 'Ford Prefect', registered: '2001/05/25', role: 'Alien', status: 'Don\'t panic!'}
+]
 
-//       contactTypeDp:"",
-//       personeNameDp:"",
-//       depormentNameDp:"",
-//       jobTitleDp:"",
-//       responsibilityDp:"",
-//       communicationChannelCodeDp:"",
-//       communicationValueDp:"",
-//       communicationChannelNameDp:""
+const [details, setDetails] = useState([])
+const [items, setItems] = useState(usersData)
 
-
-// }
-
-
-
-/// DropOffLocation
-// additionalLocationIdentificationDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.additionalLocationIdentification.Name,
-// sublocationIdentificationDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.sublocationIdentification,
-// locationNameDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.locationName,
-// locationSpecificInstructionsDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.locationSpecificInstructions.Name,
-// uTCOffsetDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.UtcOffSet,
-// cityNameDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.City,
-// countryDp:TcbData &&  TcbData.data.plannedDropOff.Logisticlocation.countryCode.Name,
-// crossStreetDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.crossStreet,
-// currencyOfPartyDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.currencyOfParty.Name,
-// launguageOfthePartyDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.languageOfTheParty.Name,
-// nameDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.name,
-// postBoxNumberDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.pOBoxNumber,
-// postalCodeDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.postalCode,
-// provinceDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.province,
-// stateDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.state,
-// streetAddressOneDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.streetAddressOne,
-// streetAddressTwoDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.streetAddressTwo,
-// streetAddressThreeDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.streetAddressThree,
-// latitudeDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.latitude,
-// longitutueDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.longitude,
-
-// contactTypeDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.contact,
-// personeNameDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.personeName,
-// depormentNameDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.depormentName,
-// jobTitleDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.jobTitle,
-// // responsibilityDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.responsibility.Name,
-// responsibilityDp:'',
-// // communicationChannelCodeDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.communicationChannelCode.Name,
-// communicationChannelCodeDp:'',
-// communicationValueDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.communicationValue,
-// communicationChannelNameDp:TcbData && TcbData.data.plannedDropOff.Logisticlocation.communicationChannelName
-
-
-const initialValues = {
-  cargoType :'',
-  harmonizedSystemCode: "", 
-  cargoTypeDescription: "", 
-  countryOfOriginCode: "", 
-  finalDestinationCountry: "",
-  totalGrossVolume:'',
-  totalGrossVolumeCodes:"",
-  totalGrossWeight: '',
-  totalGrossWeightCodes:'',
-  totalTransportNetWeight: "",
-  totalTransportNetWeightCodes:"",
-  totalChargeableWeight: "",
-  totalChargeableWeightCodes: "",
-  declaredWeightForCustoms: "", 
-  declaredWeightForCustomsCodes: "", 
-  totalLoadingLength: "", 
-  totalLoadingLengthCodes: "",
-  associatedInvoiceAmount: "",
-  associatedInvoiceAmountCodes: "",
-  declaredValueForCustoms: "", 
-  declaredValueForCustomsCodes:"",
-  totalPackageQuantity: "",
-  totalPackageQuantityCodes: "",
-  totalItemQuantity: "", 
-  totalItemQuantityCodes: "", 
-  packageTypeCode: "",
-  totalPackageQuantityPT:"",
-  totalGrossWeightPT:"",
-  totalGrossWeightPTCodes:"",
-  totalGrossVolumePT:"",
-  totalGrossVolumePTCodes:"",  
+const toggleDetails = (index) => {
+  const position = details.indexOf(index)
+  let newDetails = details.slice()
+  if (position !== -1) {
+    newDetails.splice(position, 1)
+  } else {
+    newDetails = [...details, index]
+  }
+  setDetails(newDetails)
 }
+
+
+const fields = [
+  { key: 'name', _style: { width: '40%'} },
+  'registered',
+  { key: 'role', _style: { width: '20%'} },
+  { key: 'status', _style: { width: '20%'} },
+  {
+    key: 'show_details',
+    label: '',
+    _style: { width: '1%' },
+    sorter: false,
+    filter: false
+  }
+]
+
+const getBadge = (status)=>{
+  switch (status) {
+    case 'Active': return 'success'
+    case 'Inactive': return 'secondary'
+    case 'Pending': return 'warning'
+    case 'Banned': return 'danger'
+    default: return 'primary'
+  }
+}
+
+return (
+  <CDataTable
+    items={usersData}
+    fields={fields}
+    columnFilter
+    tableFilter
+    footer
+    itemsPerPageSelect
+    itemsPerPage={5}
+    hover
+    sorter
+    pagination
+    scopedSlots = {{
+      'status':
+        (item)=>(
+          <td>
+            <CBadge color={getBadge(item.status)}>
+              {item.status}
+            </CBadge>
+          </td>
+        ),
+      'show_details':
+        (item, index)=>{
+          return (
+            <td className="py-2">
+              <CButton
+                color="primary"
+                variant="outline"
+                shape="square"
+                size="sm"
+                onClick={()=>{toggleDetails(index)}}
+              >
+                {details.includes(index) ? 'Hide' : 'Show'}
+              </CButton>
+            </td>
+            )
+        },
+      'details':
+          (item, index)=>{
+            return (
+            <CCollapse show={details.includes(index)}>
+              <CCardBody>
+                <h4>
+                  {item.username}
+                </h4>
+                <p className="text-muted">User since: {item.registered}</p>
+                <CButton size="sm" color="info">
+                  User Settings
+                </CButton>
+                <CButton size="sm" color="danger" className="ml-1">
+                  Delete
+                </CButton>
+              </CCardBody>
+            </CCollapse>
+          )
+        }
+    }}
+  />
+)
+
