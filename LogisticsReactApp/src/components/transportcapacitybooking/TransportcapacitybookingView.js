@@ -135,12 +135,19 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
    
  
  
-  {loading && count === 0 && Swal.fire({
+  // {loading && count === 0 && Swal.fire({
    
-    title: '....Loading please wait !',
-    showConfirmButton: false,
-    timer: 500
-  })} 
+  //   title: '....Loading please wait !',
+  //   showConfirmButton: false,
+  //   timer: 700
+  // })} 
+  if(loading){
+    Swal.fire({title: 'Loading Order Details ....  !'})
+    Swal.showLoading()
+  }else{
+    Swal.fire({title: 'Loaded success...'})
+   Swal.hideLoading()
+  }
    
   { Error && Swal.fire('Oops...', 'Something went wrong!', 'error')}
  
@@ -293,19 +300,38 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                   </CCol>
                                   <CCol md="4">
                                     
+                                    <CLabel>Name</CLabel>
+                                      <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.name} />
+                               
+                                    </CCol>
+                                    <CCol md="4">
+                                    
+                                    <CLabel>Postal Code</CLabel>
+                                      <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.postalCode} />
+                               
+                                    </CCol>
+                                    <CCol md="4">
+                                    
+                                    <CLabel>Country</CLabel>
+                                      <CInput disabled value={TcbData &&  TcbData.data.plannedPickUp.Logisticlocation.countryCode.Name} />
+                               
+                                        
+                                    </CCol>
+                                    <CCol md="4">
+                                    
+                                    <CLabel>State</CLabel>
+                                      <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.state} />
+                               
+                                    </CCol>
+                                  <CCol md="4">
+                                    
                                   <CLabel>City</CLabel>
                                   
                                     <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.cityCode} />
                              
                                   </CCol>
 
-                                  <CCol md="4">
-                                    
-                                  <CLabel>Country</CLabel>
-                                    <CInput disabled value={TcbData &&  TcbData.data.plannedPickUp.Logisticlocation.countryCode.Name} />
-                             
-                                      
-                                  </CCol>
+                                
                                   <CCol md="4">
                                     
                                   <CLabel>Cross Street</CLabel>
@@ -326,24 +352,14 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                              
                                      
                                   </CCol>
-                                  <CCol md="4">
-                                    
-                                  <CLabel>Name</CLabel>
-                                    <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.name} />
-                             
-                                  </CCol>
+                                 
                                   <CCol md="4">
                                     
                                   <CLabel>Post Box Number</CLabel>
                                     <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.pOBoxNumber} />
                              
                                   </CCol>
-                                  <CCol md="4">
-                                    
-                                  <CLabel>Postal Code</CLabel>
-                                    <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.postalCode} />
-                             
-                                  </CCol>
+                                 
                                   <CCol md="4">
                                     
                                   <CLabel>Province</CLabel>
@@ -352,12 +368,7 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                              
                                    
                                   </CCol>
-                                  <CCol md="4">
-                                    
-                                  <CLabel>State</CLabel>
-                                    <CInput disabled value={TcbData && TcbData.data.plannedPickUp.Logisticlocation.state} />
-                             
-                                  </CCol>
+                                 
                                   <CCol md="4">
                                     
                                   <CLabel>Street Address One</CLabel>
@@ -623,19 +634,38 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                                   </CCol>
                                   <CCol md="4">
                                     
+                                    <CLabel>Name</CLabel>
+                                      <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.name} />
+                               
+                                    </CCol>
+                                    <CCol md="4">
+                                    
+                                    <CLabel>Postal Code</CLabel>
+                                      <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.postalCode} />
+                               
+                                    </CCol>
+                                    <CCol md="4">
+                                    
+                                    <CLabel>Country</CLabel>
+                                      <CInput disabled value={TcbData &&  TcbData.data.plannedDropOff.Logisticlocation.countryCode.Name} />
+                               
+                                        
+                                    </CCol>
+                                    <CCol md="4">
+                                    
+                                    <CLabel>State</CLabel>
+                                      <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.state} />
+                               
+                                    </CCol>
+                                  <CCol md="4">
+                                    
                                   <CLabel>City</CLabel>
                                   
                                     <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.cityCode} />
                              
                                   </CCol>
 
-                                  <CCol md="4">
-                                    
-                                  <CLabel>Country</CLabel>
-                                    <CInput disabled value={TcbData &&  TcbData.data.plannedDropOff.Logisticlocation.countryCode.Name} />
-                             
-                                      
-                                  </CCol>
+                                
                                   <CCol md="4">
                                     
                                   <CLabel>Cross Street</CLabel>
@@ -656,24 +686,14 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                              
                                      
                                   </CCol>
-                                  <CCol md="4">
-                                    
-                                  <CLabel>Name</CLabel>
-                                    <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.name} />
-                             
-                                  </CCol>
+                                 
                                   <CCol md="4">
                                     
                                   <CLabel>Post Box Number</CLabel>
                                     <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.pOBoxNumber} />
                              
                                   </CCol>
-                                  <CCol md="4">
-                                    
-                                  <CLabel>Postal Code</CLabel>
-                                    <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.postalCode} />
-                             
-                                  </CCol>
+                                 
                                   <CCol md="4">
                                     
                                   <CLabel>Province</CLabel>
@@ -682,12 +702,7 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
                              
                                    
                                   </CCol>
-                                  <CCol md="4">
-                                    
-                                  <CLabel>State</CLabel>
-                                    <CInput disabled value={TcbData && TcbData.data.plannedDropOff.Logisticlocation.state} />
-                             
-                                  </CCol>
+                                 
                                   <CCol md="4">
                                     
                                   <CLabel>Street Address One</CLabel>

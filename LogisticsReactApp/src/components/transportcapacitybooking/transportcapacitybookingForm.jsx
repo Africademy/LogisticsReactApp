@@ -74,6 +74,13 @@ const createTransportcapacitybooking =() => {
   const [Error,setError] = useState(null)
   const [Loading,setLoading] = useState(false)
 
+  const [openPickUp,setopenPickUp] = useState(false)
+  const [openPickTime,setopenPickTime] = useState(false)
+  const [openDropOffUp,setopenDropOffUp] = useState(false)
+  const [openDropTime,setopenDropTime] = useState(false)
+  const [openCargo,setopenCargo]=useState(false)
+  const [closecargo,setclosecargo] =  useState(false)
+
   //Order Details
   const [transportServiceCategoryCodes,settransportServiceCategoryCodes]= useState([])
   const [transportServiceConditionTypeCodes,settransportServiceConditionTypeCodes]= useState([])
@@ -295,8 +302,9 @@ const createTransportcapacitybooking =() => {
               <CCardHeader
                   className={ `card-toggle-header Ccard ${ServiceDetails ? "cardheader": ""}` }
                   onClick={() => {
-                    setServiceDetails(!ServiceDetails)
                   
+                   { openPickUp ? setServiceDetails(!ServiceDetails): setServiceDetails(!ServiceDetails)}
+                  //  {openPickUp && setopenPickUp(!openPickUp)}
                   }}
                   >
                     <div className="cardFlex">
@@ -305,35 +313,30 @@ const createTransportcapacitybooking =() => {
                            <span className="cardFlex__header__Icon"> <AiOutlineCheck /></span>
 
                         </IconContext.Provider>):   <span className="cardFlex__header__span">1</span>}
-                      
-                       
-                       
                         <h6>Service Details</h6>
                       </div>
                        
                        {ServiceDetails ?  <AiOutlineDown />: <AiOutlineRight />}
 
                     </div>
-                 
-                 
-                 
                   </CCardHeader>
               
-                <CCollapse  show={ServiceDetails}>
+                <CCollapse  show={openPickUp ? !ServiceDetails :ServiceDetails}>
                   {/* <div className="collapse"> */}
-                     <TCBOrderDetails setenableNext={setTabenablePL} optionServiceLevel={transportServiceLevelCodes} ServiceConditionTypeCodes={transportServiceConditionTypeCodes} ServiceCategoryCodes={transportServiceCategoryCodes} />
+                     <TCBOrderDetails setenableNext={setTabenablePL}  setopenPickUp={setopenPickUp}   optionServiceLevel={transportServiceLevelCodes} ServiceConditionTypeCodes={transportServiceConditionTypeCodes} ServiceCategoryCodes={transportServiceCategoryCodes} />
                   {/* </div> */}
               </CCollapse>
             </CCard>
             {/* 222222222222 PickUp Location */}
               <CCard >
               <CCardHeader
-                  className={ `card-toggle-header Ccard ${PickUpLocation ? "cardheader": ""}` }
+                  className={ `card-toggle-header Ccard ${openPickUp ? "cardheader": ""}` }
                   onClick={() => {
-                    
-                    {TabenablePL && setPickUpLocation(!PickUpLocation) }
-                    {TabenablePL && setServiceDetails(false)}
-                      
+                    //  { openPickUp && setServiceDetails(!ServiceDetails)}
+          
+                    //  {openPickTime && setopenPickTime(!openPickTime)}
+                    { openPickTime ? setPickUpLocation(!PickUpLocation): setPickUpLocation(!PickUpLocation)}
+  
                   
                   }}
                   >
@@ -346,15 +349,15 @@ const createTransportcapacitybooking =() => {
                         <h6>Pickup Location</h6>
                       </div>
                        
-                       {  PickUpLocation ?  <AiOutlineDown />: <AiOutlineRight />}
+                       { openPickUp ?  <AiOutlineDown />: <AiOutlineRight />}
 
                     </div>
                   </CCardHeader>
 
-                {TabenablePL && (
-                  <CCollapse  show={PickUpLocation}>
+                {(
+                  <CCollapse  show={openPickTime ? false ? '':PickUpLocation :openPickUp} >
                   
-                  <TCBPickUpLocation setenableNext={setTabenablePickTime} />
+                    <TCBPickUpLocation setenableNext={setTabenablePickTime} setopenPickTime = {setopenPickTime}  />
            
                  </CCollapse>
                 )}
@@ -364,14 +367,13 @@ const createTransportcapacitybooking =() => {
 
              <CCard>
                 <CCardHeader
-                  className={ `card-toggle-header ${pickUPTime ? "cardheader": ""}` }
+                  className={ `card-toggle-header ${ openPickTime? "cardheader": ""}` }
                   onClick={() => {
-                    {TabenablePickTime && setpickUPTime(!pickUPTime)}
-                    {TabenablePickTime && setPickUpLocation(false) }
-                    
-                    
-                   // eslint-disable-next-line no-lone-blocks
-                  //  { setcollapseOrderDetails(false)} 
+            
+                    // { openPickTime &&  setopenPickUp(!openPickUp)}
+                    { openDropOffUp ? setpickUPTime(!pickUPTime): setpickUPTime(!pickUPTime)}
+
+                    // {openDropOffUp && setopenDropOffUp(!openDropOffUp)}
                   }}
                 >
                 
@@ -384,14 +386,14 @@ const createTransportcapacitybooking =() => {
                         </IconContext.Provider>):   <span className="cardFlex__header__span">3</span>}
                         <h6>Pickup Time</h6>
                       </div>
-                       { pickUPTime ?  <AiOutlineDown />: <AiOutlineRight />}
+                       { openPickTime ?  <AiOutlineDown />: <AiOutlineRight />}
 
                     </div>
                     </CCardHeader>
                     {(
-                      <CCollapse show={pickUPTime}>
+                      <CCollapse show={ openDropOffUp ? false ? '':pickUPTime :openPickTime}>
                         {/* <TCBPickUpTime setenableNext={setenableNextPp} /> */}
-                        <TCBPIckUPTime  setenableNext={setTabenableDl} />
+                        <TCBPIckUPTime  setenableNext={setTabenableDl} setopenDropOffUp = {setopenDropOffUp} />
                       </CCollapse>
                 )}
               </CCard>
@@ -399,12 +401,13 @@ const createTransportcapacitybooking =() => {
                {/* 44444 DropOff Location */}
                <CCard >
               <CCardHeader
-                  className={ `card-toggle-header Ccard ${DropOffLocation ? "cardheader": ""}` }
+                  className={ `card-toggle-header Ccard ${ openDropOffUp ? "cardheader": ""}` }
                   onClick={() => {
-                    {TabenableDl &&  setDropOffLocation(!DropOffLocation) }
-                    {TabenableDl &&  setpickUPTime(false)}
-                    
-                  
+             
+                    // {openDropOffUp && setopenPickTime(!openPickTime)}
+                    { openDropTime ? setDropOffLocation(!DropOffLocation): setDropOffLocation(!DropOffLocation)}
+
+                    // {openDropTime && setopenDropTime(!openDropTime)}
                   }}
                   >
                     <div className="cardFlex">
@@ -416,17 +419,15 @@ const createTransportcapacitybooking =() => {
                         <h6>Drop-Off Location</h6>
                       </div>
                        
-                       {DropOffLocation ?  <AiOutlineDown />: <AiOutlineRight />}
+                       { openDropOffUp?  <AiOutlineDown />: <AiOutlineRight />}
 
-                    </div>
-                 
-                 
+                    </div>  
                  
                   </CCardHeader>
               
-                <CCollapse  show={DropOffLocation}>
+                <CCollapse  show={ openDropTime? false ? '': DropOffLocation:openDropOffUp}>
                  
-                     <TCBDropOffLocation  setenableNext={setTabenableDropTime}/>
+                     <TCBDropOffLocation  setenableNext={setTabenableDropTime} setopenDropTime={setopenDropTime} />
                   
               </CCollapse>
             </CCard>
@@ -435,12 +436,13 @@ const createTransportcapacitybooking =() => {
               {/* 555555  DropOff Time */}
               <CCard>
                 <CCardHeader
-                className={ `card-toggle-header ${ DropOffTime ? "cardheader": ""}` }
+                className={ `card-toggle-header ${ openDropTime? "cardheader": ""}` }
                 onClick={() => {
-                  {TabenableDropTime && setDropOffTime(!DropOffTime) }
-                  {TabenableDropTime &&  setDropOffLocation(false) }
-                 
-                 
+                  // {openDropTime && setopenDropOffUp(!openDropOffUp)}
+                  { openCargo ? setDropOffTime(!DropOffTime): setDropOffTime(!DropOffTime)}
+
+                  // {openCargo && setopenCargo(!openCargo)}
+
                 }}
                 >
                
@@ -453,14 +455,14 @@ const createTransportcapacitybooking =() => {
                         </IconContext.Provider>):   <span className="cardFlex__header__span">5</span>}
                         <h6> Drop-Off Time</h6>
                       </div>
-                       { DropOffTime ?  <AiOutlineDown />: <AiOutlineRight />}
+                       { openDropTime ?  <AiOutlineDown />: <AiOutlineRight />}
 
                     </div>
                 </CCardHeader>
                   {(
-                     <CCollapse show={DropOffTime}>
+                     <CCollapse show={ openCargo ? false ? '': DropOffTime  :openDropTime}>
                      {/* <TCBPlannedDropOff setenableNext={setenableNextPd} /> */}
-                     <TCBDropOffTime  setenableNext={setTabenableCG}/>
+                     <TCBDropOffTime  setenableNext={setTabenableCG} setopenCargo={setopenCargo} />
      
                   </CCollapse>
                   )}
@@ -469,12 +471,12 @@ const createTransportcapacitybooking =() => {
               {/*6666666  CargoCharacterstic */}
               <CCard>
                     <CCardHeader
-                        className={ `card-toggle-header  ${ collapseSpecialRequirements ? "cardheader": ""}` }
+                        className={ `card-toggle-header  ${ openCargo ? "cardheader": ""}` }
                         onClick={() => {
-                          {TabenableCG && setcollapseSpecialRequirements(!collapseSpecialRequirements);}
-                          {TabenableCG &&  setDropOffTime(false);}
-                         
-                     
+                          // {openCargo && setopenDropTime(!openDropTime)}
+                          { closecargo ? setcollapseSpecialRequirements(!collapseSpecialRequirements): setcollapseSpecialRequirements(!collapseSpecialRequirements)}
+
+                          // {closecargo && setclosecargo(!closecargo)}
                       }} 
                     >
                      
@@ -487,13 +489,13 @@ const createTransportcapacitybooking =() => {
                         </IconContext.Provider>):   <span className="cardFlex__header__span">6</span>}
                         <h6>  Space Requirements</h6>
                       </div>
-                       { collapseSpecialRequirements ?  <AiOutlineDown />: <AiOutlineRight />}
+                       { openCargo ?  <AiOutlineDown />: <AiOutlineRight />}
 
                     </div>
                     </CCardHeader>
                           { (
-                            <CCollapse show={collapseSpecialRequirements}>
-                            <CargoCharacteristicsForm  setenableNext={setTabenableSp}/>
+                            <CCollapse show={ closecargo ? false ? '':collapseSpecialRequirements :openCargo}>
+                            <CargoCharacteristicsForm  setenableNext={setTabenableSp} setclosecargo={setclosecargo} />
                          </CCollapse>
                           )}
                   

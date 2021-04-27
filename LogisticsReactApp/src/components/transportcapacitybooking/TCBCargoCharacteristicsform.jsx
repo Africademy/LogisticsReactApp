@@ -28,7 +28,7 @@ import { getTotalpackagequantitys } from "../../services/totalpackagequantitySer
 import { getCargotypecodes } from "../../services/cargotypecodeService";
 import {} from "./transportcapacitybookingForm.css";
 
- const CargoCharacteristicsForm =({setenableNext})=> {
+ const CargoCharacteristicsForm =({setenableNext ,setclosecargo})=> {
 
   const dispatch = useDispatch()
 //   CargoType       :   codetypes() cc
@@ -200,10 +200,11 @@ const [CargoData,setCargoData] = useState(null)
          <CCardBody>
             <Formik 
                 initialValues= {initialValues}
-                validationSchema= {validationSchema}
+                // validationSchema= {validationSchema}
                 
                 onSubmit={value => {
                   setenableNext(true)
+                  setclosecargo(true)
                   setCargoData(value)
                   dispatch(SpaceRequirementsAction(value))
                 }}

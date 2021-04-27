@@ -16,7 +16,7 @@ import {ServiceDetailsAction} from "../../actions/TCBActions";
 // import { getTransportserviceconditiontypecodes } from '../../services/transportserviceconditiontypecodeService';
 // import { getTransportservicelevelcodes } from '../../services/transportservicelevelcodeService';
 
-function TCBOrderDetails({ setenableNext,optionServiceLevel,ServiceConditionTypeCodes,ServiceCategoryCodes }) {
+function TCBOrderDetails({ setenableNext,setopenPickUp,optionServiceLevel,ServiceConditionTypeCodes,ServiceCategoryCodes }) {
 	const [showAlert, setshowAlert] = useState(false);
   const dispatch = useDispatch()
 
@@ -47,6 +47,7 @@ function TCBOrderDetails({ setenableNext,optionServiceLevel,ServiceConditionType
 				onSubmit={(values) => {
 					console.log(values);
 					setenableNext(true);
+					setopenPickUp(true)
           dispatch(ServiceDetailsAction(values))
           
 				}}

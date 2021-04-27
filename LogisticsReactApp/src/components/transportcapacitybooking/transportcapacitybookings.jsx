@@ -23,6 +23,7 @@ import {
   deleteTransportcapacitybooking,
 } from "../../services/transportcapacitybookingService";
 import Moment from "moment";
+import { data } from "jquery";
 
 class Transportcapacitybookings extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class Transportcapacitybookings extends Component {
     this.props = props;
     this.state = {
       records: [],
-      pageSize: 10,
+      pageSize: 5,
       currentPage: 1,
     };
   }
@@ -101,6 +102,7 @@ class Transportcapacitybookings extends Component {
     const {
       data: transportcapacitybookings,
     } = await getTransportcapacitybookings();
+    console.log(transportcapacitybookings,"array list")
     this.setState({ records: transportcapacitybookings });
   };
 
@@ -280,7 +282,7 @@ class Transportcapacitybookings extends Component {
 
         <div className="bookings-list card card-body my-2">
           <CDataTable
-            items={paginatedTransportcapacitybookings}
+            items={this.state.records}
             fields={this.fields}
             tableFilter
             itemsPerPageSelect
@@ -371,7 +373,7 @@ class Transportcapacitybookings extends Component {
                   <td>
                     <div className="action-buttons text-center">
                       <Link
-                        // to={`/EditTransportcapacitybooking/${item._id}`}
+                        to={`/EditTransportcapacitybooking/${item._id}`}
                         className="btn btn-warning btn-sm mx-1 my-sm-1"
                         title="Edit"
                       >
@@ -474,7 +476,7 @@ class Transportcapacitybookings extends Component {
           </div> */}
           <span
             className="btn btn-link text-right"
-            onClick={this.componentDidMount}
+            onClick={ ()=>this.setState(()=> this.state.pageSize =totalCount) }
           >
             See all
           </span>

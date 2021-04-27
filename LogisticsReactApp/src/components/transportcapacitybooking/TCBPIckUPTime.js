@@ -29,7 +29,7 @@ import Moment from "moment";
 import { useDispatch } from "react-redux";
 import { PickUpTimeAction } from "../../actions/TCBActions";
 
-function TCBPIckUPTime({ setenableNext }) {
+function TCBPIckUPTime({ setenableNext,setopenDropOffUp }) {
 	const dispatch = useDispatch();
 
 	const [toggleModle, setToggleModal] = useState(false);
@@ -77,6 +77,7 @@ function TCBPIckUPTime({ setenableNext }) {
                     getDates(value)
 					dispatch(PickUpTimeAction(value));
 					setenableNext(true);
+					setopenDropOffUp(true)
 				}}
 			>
 				{(formik) => (

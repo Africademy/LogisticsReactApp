@@ -18,7 +18,7 @@ import { getCommunicationchannels } from '../../services/communicationchannelSer
 import { getEntityidentificationtypes } from '../../services/entityidentificationtypeService';
 import { getCommunicationchannelcodes } from '../../services/communicationchannelcodeService';
 
-function TCBDropOffLocation({setenableNext}) {
+function TCBDropOffLocation({setenableNext,setopenDropTime}) {
 
     const dispatch = useDispatch()
     const [AdditionalLocationIdentification,setAdditionalLocationIdentification]= useState([])
@@ -176,7 +176,7 @@ const initialValues ={
     jobTitle:yup.string(),
     // responsibility:yup.string().required(),
     communicationChannelCode:yup.string().required(),
-    communicationValue:yup.string().required(),
+    communicationValue:yup.string(),
     communicationChannelName:yup.string(),
 })
 
@@ -184,11 +184,12 @@ const initialValues ={
         <CCardBody>
            <Formik
             initialValues={initialValues}
-            // validationSchema={validationSchema}
+            validationSchema={validationSchema}
             onSubmit={(values)=> {
               console.log(values)
               dispatch(DropOffLocationAction(values))
               setenableNext(true)
+							setopenDropTime(true)
           }}
         >
           { 
@@ -255,14 +256,23 @@ const initialValues ={
 										 <FormicControl
 												 control="input"
 												 placeholder="Enter here..."
-												 label="City"
-												 id="CityName"
-												 name="cityName"
-												 isRequired="true"
-												 options={dropDownOtions}
+												 label=" Name"
+												 id="Name"
+												 name="name"
+												 // options={dropDownOtions}
 										 />
 								 </CCol>
-
+								 <CCol md="4">
+										 <FormicControl
+												 control="input"
+												 placeholder="Enter here..."
+												 label="Postal Code"
+												 id="PostalCode"
+												 name="postalCode"
+												 isRequired="true"
+												 // options={dropDownOtions}
+										 />
+								 </CCol>
 								 <CCol md="4">
 										 <FormicControl
 												 control="select"
@@ -273,6 +283,29 @@ const initialValues ={
 												 isRequired="true"
 										 />
 								 </CCol>
+								 <CCol md="4">
+										 <FormicControl
+												 control="input"
+												 placeholder="Enter here..."
+												 label="State"
+												 id="State"
+												 name="state"
+												 // options={dropDownOtions}
+										 />
+								 </CCol>
+								 <CCol md="4">
+										 <FormicControl
+												 control="input"
+												 placeholder="Enter here..."
+												 label="City"
+												 id="CityName"
+												 name="cityName"
+												 isRequired="true"
+												 options={dropDownOtions}
+										 />
+								 </CCol>
+
+							
 								 <CCol md="4">
 										 <FormicControl
 												 control="input"
@@ -303,16 +336,7 @@ const initialValues ={
 												 isRequired="true"
 										 />
 								 </CCol>
-								 <CCol md="4">
-										 <FormicControl
-												 control="input"
-												 placeholder="Enter here..."
-												 label=" Name"
-												 id="Name"
-												 name="name"
-												 // options={dropDownOtions}
-										 />
-								 </CCol>
+								
 								 <CCol md="4">
 										 <FormicControl
 												 control="input"
@@ -324,17 +348,7 @@ const initialValues ={
 												 // options={dropDownOtions}
 										 />
 								 </CCol>
-								 <CCol md="4">
-										 <FormicControl
-												 control="input"
-												 placeholder="Enter here..."
-												 label="Postal Code"
-												 id="PostalCode"
-												 name="postalCode"
-												 isRequired="true"
-												 // options={dropDownOtions}
-										 />
-								 </CCol>
+								
 								 <CCol md="4">
 										 <FormicControl
 												 control="input"
@@ -346,16 +360,7 @@ const initialValues ={
 												 // options={dropDownOtions}
 										 />
 								 </CCol>
-								 <CCol md="4">
-										 <FormicControl
-												 control="input"
-												 placeholder="Enter here..."
-												 label="State"
-												 id="State"
-												 name="state"
-												 // options={dropDownOtions}
-										 />
-								 </CCol>
+								
 								 <CCol md="4">
 										 <FormicControl
 												 control="input"
@@ -517,7 +522,7 @@ const initialValues ={
 																		 id="CommunicationValue"
 																		 name="communicationValue"
 																		 // options={dropDownOtions}
-																		 isRequired="true"
+																		//  isRequired="true"
 																 />
 														 </CCol>
 														 <CCol md="4">

@@ -33,30 +33,35 @@ const Navbar = ({ user }) => {
 
       <div className="collapse navbar-collapse" id="navbarText">
         <ul className="navbar-nav mr-auto">
-          {user && (
-            <li className="nav-item active">
-              {/* <NavLink className="nav-link custom-nav-link" to="/sampleComponent">
-              sampleComponent
-            </NavLink> */}
-            </li>
-          )}
+         
         </ul>
         {!user && (
           <React.Fragment>
             <span className="nav-item">
-              <NavLink className="nav-link custom-nav-link" to="/login">
+              <NavLink className="nav-link  custom-nav-link" style={{color:"white"}} to="/login">
                 Login
               </NavLink>
             </span>
             <span className="nav-item">
-              <NavLink className="nav-link custom-nav-link" to="/register">
+              <NavLink className="nav-link custom-nav-link" style={{color:"white"}} to="/register">
                 Register
               </NavLink>
             </span>
           </React.Fragment>
         )}
+         {user && (
+            <span className="nav-item">
+            <NavLink
+              className="nav-link custom-nav-link"
+              style={{color:"white"}}
+              to="/logout"
+            >
+              Logout
+            </NavLink>
+          </span>
+          )}
 
-        {user && (
+        {/* {user && (
           <div className="dropdown-container">
             <a
               href="#"
@@ -103,7 +108,7 @@ const Navbar = ({ user }) => {
               </span>
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </nav>
   );

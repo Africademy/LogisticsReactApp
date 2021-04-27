@@ -26,7 +26,7 @@ import FormicControl from "../../utils/CoreUI/FormicControl";
 import {useDispatch} from 'react-redux'
 import {DropOffTimeAction} from "../../actions/TCBActions"; 
 
-function TCBDropOffTime({ setenableNext }) {
+function TCBDropOffTime({ setenableNext,setopenCargo }) {
 
 	const dispatch = useDispatch()
 
@@ -66,6 +66,7 @@ function TCBDropOffTime({ setenableNext }) {
 					console.log(value);
 					dispatch(DropOffTimeAction(value))
 					setenableNext(true);
+					setopenCargo(true)
 				}}
 			>
 				{(formik) => (

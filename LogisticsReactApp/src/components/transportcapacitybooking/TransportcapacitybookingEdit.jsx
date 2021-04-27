@@ -45,7 +45,8 @@ function TransportcapacitybookingEdit() {
   const [tcbFinalData,settcbFinalData] = useState(null)
   const [ABCLoacal,setABCLoacal] = useState(null)
   const [Success,setSuccess] = useState('')
-  const [Loading,setLoading] = useState(false)
+  const [Loading,setLoading] = useState(true)
+  const [count,setcount] =useState(0)
   const [Error1, setError] = useState(false);
   const history = useHistory()
 
@@ -68,13 +69,16 @@ function TransportcapacitybookingEdit() {
   // console.log(localData.tvbDta.transportServiceCategoryCodes,"Edit123123") rm
   useEffect(()=>{
      loadValuesFn()
-  },[TcbData])
+     setcount((value)=> value+1)
+     setLoading(false)
+  },[TcbData,])
 
 	const getDataFromTcB = async () => {
 		const getData = await getTransportcapacitybooking(id);
 
 		console.log(getData, "getTransportcapacitybooking");
 		setTcbData(getData);
+    setLoading(false)
 	};
   const loadValuesFn =()=>{
         setFormValues(newinitialValues)
@@ -658,7 +662,7 @@ function TransportcapacitybookingEdit() {
     console.log(SchemaObj.PickUpTime.pickupStartTime,"local time")
     console.log(SchemaObj,"SchemaObj && getApiCall")
     console.log(tcbFinalData,"tcbFinalData ")
-    setLoading(true)
+  
     saveTransportcapacitybooking(SchemaObj).then(
        res => { 
         setSuccess(res.status)
@@ -679,9 +683,28 @@ function TransportcapacitybookingEdit() {
     }
   })}
    {Error1  && Swal.fire('Oops...', 'Something went wrong!', 'error')}
+    
+  // {Loading && count === 0 && Swal.fire( Swal.showLoading(),{
+  //   icon:'success',
+  //   title: '....Loading please wait !',
+  //   showConfirmButton: false,
+  //   timer: 700
+  // })} 
+  //  { Loading &&count === 0 &&  Swal.showLoading()}
+
+ 
 	return (
 		<div>
-         {Loading && <Alert bgcolor="bgBlue" >  Please wait updating.... </Alert> }
+        
+              {/* {( Loading && count === 0 ) ? (
+            // Swal.fire({title: 'Loading Order Details ....  !'})
+            Swal.showLoading()
+          ): (
+            // Swal.fire({title: 'Loaded success...'})
+            Swal.hideLoading()
+          )} */}
+
+         {/* {Loading && <Alert bgcolor="bgBlue" >  Please wait updating.... </Alert> } */}
          {/* { Error1 === 400 && <Alert bgcolor="bgRed" > Update is Failed !!!! </Alert>} */}
          {/* { Success === 200 && <Alert bgcolor="bgBlue" >  SuccessFully Update the Order Details !! </Alert>} */}
        
@@ -968,12 +991,24 @@ function TransportcapacitybookingEdit() {
                                                     <FormicControl
                                                         control="input"
                                                         placeholder="Enter here..."
-                                                        label="City"
-                                                        id="CityName"
-                                                        name="cityName"
+                                                        label=" Name"
+                                                        id="Name"
+                                                        name="name"
+                                                        // options={dropDownOtions}
                                                     />
                                                 </CCol>
-
+                                                <CCol md="4">
+                                                    <FormicControl
+                                                        control="input"
+                                                        placeholder="Enter here..."
+                                                        label="Postal Code"
+                                                        id="PostalCode"
+                                                        name="postalCode"
+                                                        isRequired="true"
+                                                        // options={dropDownOtions}
+                                                    />
+                                                </CCol>
+                                                
                                                 <CCol md="4">
                                                     <FormicControl
                                                         control="selectedit"
@@ -986,6 +1021,26 @@ function TransportcapacitybookingEdit() {
                                                         isRequired="true"
                                                     />
                                                 </CCol>
+                                                <CCol md="4">
+                                                    <FormicControl
+                                                        control="input"
+                                                        placeholder="Enter here..."
+                                                        label="State"
+                                                        id="State"
+                                                        name="state"
+                                                        // options={dropDownOtions}
+                                                    />
+                                                </CCol>
+                                                <CCol md="4">
+                                                    <FormicControl
+                                                        control="input"
+                                                        placeholder="Enter here..."
+                                                        label="City"
+                                                        id="CityName"
+                                                        name="cityName"
+                                                    />
+                                                </CCol>
+
                                                 <CCol md="4">
                                                     <FormicControl
                                                         control="input"
@@ -1020,16 +1075,7 @@ function TransportcapacitybookingEdit() {
                                                         isRequired="true"
                                                     />
                                                 </CCol>
-                                                <CCol md="4">
-                                                    <FormicControl
-                                                        control="input"
-                                                        placeholder="Enter here..."
-                                                        label=" Name"
-                                                        id="Name"
-                                                        name="name"
-                                                        // options={dropDownOtions}
-                                                    />
-                                                </CCol>
+                                               
                                                 <CCol md="4">
                                                     <FormicControl
                                                         control="input"
@@ -1041,17 +1087,7 @@ function TransportcapacitybookingEdit() {
                                                         // options={dropDownOtions}
                                                     />
                                                 </CCol>
-                                                <CCol md="4">
-                                                    <FormicControl
-                                                        control="input"
-                                                        placeholder="Enter here..."
-                                                        label="Postal Code"
-                                                        id="PostalCode"
-                                                        name="postalCode"
-                                                        isRequired="true"
-                                                        // options={dropDownOtions}
-                                                    />
-                                                </CCol>
+                                              
                                                 <CCol md="4">
                                                     <FormicControl
                                                         control="input"
@@ -1062,16 +1098,7 @@ function TransportcapacitybookingEdit() {
                                                         // options={dropDownOtions}
                                                     />
                                                 </CCol>
-                                                <CCol md="4">
-                                                    <FormicControl
-                                                        control="input"
-                                                        placeholder="Enter here..."
-                                                        label="State"
-                                                        id="State"
-                                                        name="state"
-                                                        // options={dropDownOtions}
-                                                    />
-                                                </CCol>
+                                               
                                                 <CCol md="4">
                                                     <FormicControl
                                                         control="input"
@@ -1384,12 +1411,23 @@ function TransportcapacitybookingEdit() {
                                                     <FormicControl
                                                         control="input"
                                                         placeholder="Enter here..."
-                                                        label="City"
-                                                        id="CityName"
-                                                        name="cityNameDp"
+                                                        label=" Name"
+                                                        id="Name"
+                                                        name="nameDp"
+                                                        // options={dropDownOtions}
                                                     />
                                                 </CCol>
-
+                                                <CCol md="4">
+                                                    <FormicControl
+                                                        control="input"
+                                                        placeholder="Enter here..."
+                                                        label="Postal Code"
+                                                        id="PostalCode"
+                                                        name="postalCodeDp"
+                                                        isRequired="true"
+                                                        // options={dropDownOtions}
+                                                    />
+                                                </CCol>
                                                 <CCol md="4">
                                                     <FormicControl
                                                         control="selectedit"
@@ -1402,6 +1440,27 @@ function TransportcapacitybookingEdit() {
                                                         isRequired="true"
                                                     />
                                                 </CCol>
+                                                <CCol md="4">
+                                                    <FormicControl
+                                                        control="input"
+                                                        placeholder="Enter here..."
+                                                        label="State"
+                                                        id="State"
+                                                        name="stateDp"
+                                                        // options={dropDownOtions}
+                                                    />
+                                                </CCol>
+                                                <CCol md="4">
+                                                    <FormicControl
+                                                        control="input"
+                                                        placeholder="Enter here..."
+                                                        label="City"
+                                                        id="CityName"
+                                                        name="cityNameDp"
+                                                    />
+                                                </CCol>
+
+                                               
                                                 <CCol md="4">
                                                     <FormicControl
                                                         control="input"
@@ -1436,16 +1495,7 @@ function TransportcapacitybookingEdit() {
                                                         isRequired="true"
                                                     />
                                                 </CCol>
-                                                <CCol md="4">
-                                                    <FormicControl
-                                                        control="input"
-                                                        placeholder="Enter here..."
-                                                        label=" Name"
-                                                        id="Name"
-                                                        name="nameDp"
-                                                        // options={dropDownOtions}
-                                                    />
-                                                </CCol>
+                                               
                                                 <CCol md="4">
                                                     <FormicControl
                                                         control="input"
@@ -1457,17 +1507,7 @@ function TransportcapacitybookingEdit() {
                                                         // options={dropDownOtions}
                                                     />
                                                 </CCol>
-                                                <CCol md="4">
-                                                    <FormicControl
-                                                        control="input"
-                                                        placeholder="Enter here..."
-                                                        label="Postal Code"
-                                                        id="PostalCode"
-                                                        name="postalCodeDp"
-                                                        isRequired="true"
-                                                        // options={dropDownOtions}
-                                                    />
-                                                </CCol>
+                                              
                                                 <CCol md="4">
                                                     <FormicControl
                                                         control="input"
@@ -1478,16 +1518,7 @@ function TransportcapacitybookingEdit() {
                                                         // options={dropDownOtions}
                                                     />
                                                 </CCol>
-                                                <CCol md="4">
-                                                    <FormicControl
-                                                        control="input"
-                                                        placeholder="Enter here..."
-                                                        label="State"
-                                                        id="State"
-                                                        name="stateDp"
-                                                        // options={dropDownOtions}
-                                                    />
-                                                </CCol>
+                                               
                                                 <CCol md="4">
                                                     <FormicControl
                                                         control="input"

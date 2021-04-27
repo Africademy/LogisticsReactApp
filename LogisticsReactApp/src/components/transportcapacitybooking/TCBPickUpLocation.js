@@ -23,7 +23,7 @@ import { getDescription200types } from "../../services/description200typeService
 import { getEntityidentificationtypes } from "../../services/entityidentificationtypeService";
 import { getCommunicationchannelcodes } from "../../services/communicationchannelcodeService";
 
-function TCBPickUpLocation({ setenableNext }) {
+function TCBPickUpLocation({ setenableNext,setopenPickTime }) {
 // AdditionalLocationIdentification ---  getIdentifiertypes() cc
 // LocationSpecificInstructions: ----   getDescription200types() cc
 // CurrencyOfParty ---  getCurrencyofpartycodes() cc
@@ -50,6 +50,10 @@ function TCBPickUpLocation({ setenableNext }) {
 	const [ContactType,setContactType]= useState([])
 	const [Resposibilities,setResposibilities]= useState([])
 	const [commmunicationChannel,setcommmunicationChannel]= useState([])
+	// const [countryState,setcountryState] = useState('')
+
+	// console.log(countryState,"country")
+	const [Selectedcountry,setSelectedcountry]=useState(false)
 
 
  useEffect(()=>{
@@ -114,7 +118,8 @@ function TCBPickUpLocation({ setenableNext }) {
 		{ key: "option2", value: "option2" },
 		{ key: "option3", value: "option3" },
 	];
-
+ 
+	
 
 	const initialValues ={
     // additionalLocationIdentification:"",
@@ -148,6 +153,8 @@ function TCBPickUpLocation({ setenableNext }) {
     communicationChannelName:"",
 }
 
+
+
   const validationSchema = yup.object({
     
    
@@ -179,21 +186,38 @@ function TCBPickUpLocation({ setenableNext }) {
     jobTitle:yup.string(),
     // responsibility:yup.string().required(),
     communicationChannelCode:yup.string().required(),
-    communicationValue:yup.string().required(),
+    communicationValue:yup.string(),
     communicationChannelName:yup.string(),
 })
+
+  
 	return (
 		<CCardBody>
 			<Formik
 				initialValues={initialValues}
 				// validationSchema={validationSchema}
+				validateOnChange
 				onSubmit={(values) => {
 					console.log(values);
 					setenableNext(true);
+					setopenPickTime(true)
 					dispatch(PickUpLocationAction(values))
 				}}
 			>
-				{(formik) => (
+				{(formik) => {
+					console.log( "values",formik.values.country)
+					// if( formik.values.country === "6066bb76f225027765a0a67d" ){
+					// 	formik.values.uTCOffset = "UTC+5.5"
+					// 	  console.log("success")
+					// 		// UTC+5.5   UTC+5.75  
+					// 		// setSelectedcountry(true)
+					// 		// formik.values.state = "andra"
+					// 		// dropDownOtions
+					// }
+					// if(formik.values.country === "6066bb7bf225027765a0a67e"){
+					// 	formik.values.uTCOffset = "UTC+5.75"
+					// }
+				  return (
 					   <Form>
 						 <div className="AlertInOrder">
 								 {/* {showAlert && (<Alert bgcolor="bgSuccess"> Successfully Submited The Order Details! Please Go Head Planned Details </Alert>)} */}
@@ -256,72 +280,9 @@ function TCBPickUpLocation({ setenableNext }) {
 										 <FormicControl
 												 control="input"
 												 placeholder="Enter here..."
-												 label="City"
-												 id="CityName"
-												 name="cityName"
-												 isRequired="true"
-												 options={dropDownOtions}
-										 />
-								 </CCol>
-
-								 <CCol md="4">
-										 <FormicControl
-												 control="select"
-												 label="Country"
-												 id="Country"
-												 name="country"
-												 options={Country}
-												 isRequired="true"
-										 />
-								 </CCol>
-								 <CCol md="4">
-										 <FormicControl
-												 control="input"
-												 placeholder="Enter here..."
-												 label="Cross Street"
-												 id="CrossStreet"
-												 name="crossStreet"
-												 // options={dropDownOtions}
-										 />
-								 </CCol>
-								 <CCol md="4">
-										 <FormicControl
-												 control="select"
-												 label="Currency Of Party"
-												 id="CurrencyOfParty"
-												 name="currencyOfParty"
-												 options={CurrencyOfParty}
-												 isRequired="true"
-										 />
-								 </CCol>
-								 <CCol md="4">
-										 <FormicControl
-												 control="select"
-												 label=" Language Of the Party"
-												 id="LaunguageOftheParty"
-												 name="launguageOftheParty"
-												 options={LanguageOftheParty}
-												 isRequired="true"
-										 />
-								 </CCol>
-								 <CCol md="4">
-										 <FormicControl
-												 control="input"
-												 placeholder="Enter here..."
 												 label=" Name"
 												 id="Name"
 												 name="name"
-												 // options={dropDownOtions}
-										 />
-								 </CCol>
-								 <CCol md="4">
-										 <FormicControl
-												 control="input"
-												 placeholder="Enter here..."
-												 label=" Post Box Number"
-												 id="PostBoxNumber"
-												 name="postBoxNumber"
-												 isRequired="true"
 												 // options={dropDownOtions}
 										 />
 								 </CCol>
@@ -338,13 +299,14 @@ function TCBPickUpLocation({ setenableNext }) {
 								 </CCol>
 								 <CCol md="4">
 										 <FormicControl
-												 control="input"
-												 placeholder="Enter here..."
-												 label="Province"
-												 id="Province"
-												 name="province"
+												 control="select"
+												 label="Country"
+												 id="Country"
+												 name="country"
+												 options={Country}
 												 isRequired="true"
-												 // options={dropDownOtions}
+												 value={formik.values.country}
+												 onChange={formik.handleChange}
 										 />
 								 </CCol>
 								 <CCol md="4">
@@ -358,6 +320,74 @@ function TCBPickUpLocation({ setenableNext }) {
 												 // options={dropDownOtions}
 										 />
 								 </CCol>
+								 <CCol md="4">
+										 <FormicControl
+												 control="input"
+												 placeholder="Enter here..."
+												 label="City"
+												 id="CityName"
+												 name="cityName"
+												 isRequired="true"
+												 options={dropDownOtions}
+										 />
+								 </CCol>
+
+							
+								 <CCol md="4">
+										 <FormicControl
+												 control="input"
+												 placeholder="Enter here..."
+												 label="Cross Street"
+												 id="CrossStreet"
+												 name="crossStreet"
+												 // options={dropDownOtions}
+										 />
+								 </CCol>
+								 <CCol md="4">
+										 <FormicControl
+												 control= {Selectedcountry?"selectOptional" : "select"}
+												 label="Currency Of Party"
+												 id="CurrencyOfParty"
+												 name="currencyOfParty"
+												 options={Selectedcountry?dropDownOtions : CurrencyOfParty}
+												 isRequired="true"
+										 />
+								 </CCol>
+								 <CCol md="4">
+										 <FormicControl
+												 control="select"
+												 label=" Language Of the Party"
+												 id="LaunguageOftheParty"
+												 name="launguageOftheParty"
+												 options={LanguageOftheParty}
+												 isRequired="true"
+										 />
+								 </CCol>
+								
+								 <CCol md="4">
+										 <FormicControl
+												 control="input"
+												 placeholder="Enter here..."
+												 label=" Post Box Number"
+												 id="PostBoxNumber"
+												 name="postBoxNumber"
+												 isRequired="true"
+												 // options={dropDownOtions}
+										 />
+								 </CCol>
+								
+								 <CCol md="4">
+										 <FormicControl
+												 control="input"
+												 placeholder="Enter here..."
+												 label="Province"
+												 id="Province"
+												 name="province"
+												 isRequired="true"
+												 // options={dropDownOtions}
+										 />
+								 </CCol>
+								
 								 <CCol md="4">
 										 <FormicControl
 												 control="input"
@@ -518,7 +548,7 @@ function TCBPickUpLocation({ setenableNext }) {
 																		 label="Communication Value"
 																		 id="CommunicationValue"
 																		 name="communicationValue"
-																		 isRequired="true"
+																		//  isRequired="true"
 																		 // options={dropDownOtions}
 																 />
 														 </CCol>
@@ -549,9 +579,8 @@ function TCBPickUpLocation({ setenableNext }) {
 								 Next
 						 </CButton>
 				 </Form>
- 
-					
-					)}
+ 			
+					)}}
 			</Formik>
 		</CCardBody>
 	);
