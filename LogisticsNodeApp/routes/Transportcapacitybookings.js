@@ -418,21 +418,19 @@ router.delete("/:id", verify, async (req, res) => {
     var resData = {};
     const tcb = await Transportcapacitybooking.findById(req.params.id);
 
+    // transportCapacityBookingSpaceRequirements.Transportcargocharacteristicstypes
     resData[
       "removedTransportcargocharacteristicstypes"
-    ] = await Transportcapacitybookingspacerequirement.deleteOne(
-      {
-        _id:
-          tcb.transportCapacityBookingSpaceRequirements
-            .Transportcargocharacteristicstypes._id,
-      },
-      function (err, doc) {
-        sendError(err, doc, res);
-      }
-    );
+    ] = await Transportcapacitybookingspacerequirement.deleteOne({
+      _id:
+        tcb.transportCapacityBookingSpaceRequirements
+          .Transportcargocharacteristicstypes._id,
+    });
 
-    // working
-    resData["removedPackagetotaltypes"] = await Packagetotaltype.deleteOne(
+    // transportCapacityBookingSpaceRequirements.Packagetotaltypes
+    resData[
+      "removedPackagetotaltypes"
+    ] = await Packagetotaltype.findOneAndDelete(
       {
         _id:
           tcb.transportCapacityBookingSpaceRequirements.Packagetotaltypes._id,
@@ -442,73 +440,78 @@ router.delete("/:id", verify, async (req, res) => {
       }
     );
 
+    // plannedPickUp.Logisticlocation.contact
     const plannedPickUpLogisticlocation = await Logisticlocationtype.findById(
       tcb.plannedPickUp.Logisticlocation
     );
 
     resData[
-      "removedPlannedPickUpLogisticlocationContact"
-    ] = await Contacttype.deleteOne(
+      "removePlannedPickUpLogisticlocationContact"
+    ] = await Contacttype.findOneAndDelete(
       { _id: plannedPickUpLogisticlocation.contact },
       function (err, doc) {
         sendError(err, doc, res);
       }
     );
 
+    // plannedPickUp.Logisticlocation
     resData[
       "removedPlannedPickUpLogisticlocation"
-    ] = await Logisticlocationtype.deleteOne(
+    ] = await Logisticlocationtype.findOneAndDelete(
       { _id: plannedPickUpLogisticlocation._id },
       function (err, doc) {
         sendError(err, doc, res);
       }
     );
 
+    // plannedPickUp.LogisticEventPeriod
     resData[
       "removedPlannedPickUpLogisticEventPeriod"
-    ] = await Logisticeventperiod.deleteOne(
+    ] = await Logisticeventperiod.findOneAndDelete(
       { _id: tcb.plannedPickUp.LogisticEventPeriod },
       function (err, doc) {
         sendError(err, doc, res);
       }
     );
 
+    // plannedDropOff.Logisticlocation.contact
     const plannedDropOffLogisticlocation = await Logisticlocationtype.findById(
       tcb.plannedDropOff.Logisticlocation
     );
 
     resData[
-      "removedPlannedDropOffLogisticlocationContact"
-    ] = await Contacttype.deleteOne(
+      "removePlannedDropOffLogisticlocationContact"
+    ] = await Contacttype.findOneAndDelete(
       { _id: plannedDropOffLogisticlocation.contact },
       function (err, doc) {
         sendError(err, doc, res);
       }
     );
 
+    // plannedDropOff.Logisticlocation
     resData[
       "removedPlannedDropOffLogisticlocation"
-    ] = await Logisticlocationtype.deleteOne(
+    ] = await Logisticlocationtype.findOneAndDelete(
       { _id: plannedDropOffLogisticlocation._id },
       function (err, doc) {
         sendError(err, doc, res);
       }
     );
 
-    // working
+    // plannedDropOff.LogisticEventPeriod
     resData[
       "removedPlannedDropOffLogisticEventPeriod"
-    ] = await Logisticeventperiod.deleteOne(
+    ] = await Logisticeventperiod.findOneAndDelete(
       { _id: tcb.plannedDropOff.LogisticEventPeriod },
       function (err, doc) {
         sendError(err, doc, res);
       }
     );
 
-    // working
+    // transportcapacitybooking
     resData[
       "removedTransportcapacitybooking"
-    ] = await Transportcapacitybooking.deleteOne(
+    ] = await Transportcapacitybooking.findOneAndDelete(
       {
         _id: id,
       },
@@ -517,8 +520,7 @@ router.delete("/:id", verify, async (req, res) => {
       }
     );
     console.log(resData);
-    resData = deleteResponseFormat(resData);
-    console.log(resData);
+
     await session.abortTransaction();
     session.endSession();
 
@@ -529,20 +531,6 @@ router.delete("/:id", verify, async (req, res) => {
     });
   }
 });
-
-function deleteResponseFormat(data) {
-  if (data && typeof data === "object") {
-    for (const k in data) {
-      const status = data[k].deletedCount > 0 && data[k].n > 0 ? true : false;
-      const msg =
-        data[k].deletedCount > 0 && data[k].n > 0 ? "success" : "failed";
-      for (const l in data[k]) delete data[k][l];
-      data[k]["status"] = status;
-      data[k]["message"] = msg;
-    }
-  }
-  return data;
-}
 
 function sendError(err, doc, res, callback) {
   if (err) return res.send(err);
