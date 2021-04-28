@@ -169,7 +169,7 @@ function TCBPickUpLocation({ setenableNext,setopenPickTime }) {
     currencyOfParty:yup.string().required(),
     launguageOftheParty:yup.string().required(),
     name:yup.string(),
-    postBoxNumber:yup.number().required(),
+    postBoxNumber:yup.number(),
     postalCode:yup.number().required(),
     province:yup.string().required(),
     state:yup.string().required(),
@@ -206,6 +206,15 @@ function TCBPickUpLocation({ setenableNext,setopenPickTime }) {
 			>
 				{(formik) => {
 					console.log( "values",formik.values.country)
+					// const [s1,setS1]=useState(0)
+					// useEffect(()=>{
+					//   handleChangeS1()
+					// 	console.log("fecth data here")
+					// })
+					// const handleChangeS1 =()=>{
+					// 	setS1(2)
+					// }
+					// console.log(s1,"s1 value here")
 					// if( formik.values.country === "6066bb76f225027765a0a67d" ){
 					// 	formik.values.uTCOffset = "UTC+5.5"
 					// 	  console.log("success")
@@ -215,7 +224,7 @@ function TCBPickUpLocation({ setenableNext,setopenPickTime }) {
 					// 		// dropDownOtions
 					// }
 					// if(formik.values.country === "6066bb7bf225027765a0a67e"){
-					// 	formik.values.uTCOffset = "UTC+5.75"
+					// 	formik.values.uTCOffset = s1
 					// }
 				  return (
 					   <Form>
@@ -371,7 +380,7 @@ function TCBPickUpLocation({ setenableNext,setopenPickTime }) {
 												 label=" Post Box Number"
 												 id="PostBoxNumber"
 												 name="postBoxNumber"
-												 isRequired="true"
+												//  isRequired="true"
 												 // options={dropDownOtions}
 										 />
 								 </CCol>

@@ -226,6 +226,7 @@ class Transportcapacitybookings extends Component {
                           placeholder="Booking Id"
                           type="text"
                           className="form-control"
+                          autocomplete="off"
                           onChange={this.handleInputChange}
                         />
                       </CInputGroup>
@@ -268,6 +269,7 @@ class Transportcapacitybookings extends Component {
                       </CLabel>
                       <CButton
                         type="submit"
+                       
                         className="btn btn-info custom-btn float-right"
                       >
                         Go

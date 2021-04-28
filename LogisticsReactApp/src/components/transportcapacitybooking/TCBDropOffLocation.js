@@ -159,7 +159,7 @@ const initialValues ={
     currencyOfParty:yup.string().required(),
     launguageOftheParty:yup.string().required(),
     name:yup.string(),
-    postBoxNumber:yup.number().required(),
+    postBoxNumber:yup.number(),
     postalCode:yup.number().required(),
     province:yup.string().required(),
     state:yup.string().required(),
@@ -344,7 +344,7 @@ const initialValues ={
 												 label=" Post Box Number"
 												 id="PostBoxNumber"
 												 name="postBoxNumber"
-												 isRequired="true"
+												//  isRequired="true"
 												 // options={dropDownOtions}
 										 />
 								 </CCol>
