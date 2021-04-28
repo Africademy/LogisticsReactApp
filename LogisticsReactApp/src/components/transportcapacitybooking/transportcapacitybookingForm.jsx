@@ -284,15 +284,15 @@ const createTransportcapacitybooking =() => {
            <div className="mt-2">  
            <div className="AlertInTCB">
 
-               {Loading && <Alert bgcolor="bgBlue" >  Please wait updating.... </Alert> } 
-               {response && (<Alert bgcolor="bgBlue" > {`Successfully Booking The Order !! `}</Alert>)}
+               {Loading && <Alert bgcolor="white" >  Please wait updating.... </Alert> } 
+               {response && (<Alert bgcolor="white" > {`Successfully Booking The Order !! `}</Alert>)}
              
                 {Error && (<Alert bgcolor="bgRed" >Not Saved Please CheckForm </Alert>)}
              </div> 
            <div className="AlertInTCB">
               {/*  */}
 
-                <Alert bgcolor="bgBlue" > Welcome To Transport Capacity Booking</Alert>
+                <Alert bgcolor="white" > Welcome To Transport Capacity Booking</Alert>
               </div>
             </div>
           <CContainer>

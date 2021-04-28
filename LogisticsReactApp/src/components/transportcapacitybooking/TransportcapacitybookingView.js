@@ -14,7 +14,8 @@ import { getTransportcapacitybooking } from '../../services/transportcapacityboo
 import Moment from "moment";
 import { isArray, result, trim } from 'lodash';
 import Swal from 'sweetalert2'   
-import { Alert } from 'bootstrap';
+import Alert from "../../utils/Alert/Alert";
+
 // import {useSelector} from 'react-redux'
 
 
@@ -23,7 +24,7 @@ function TransportcapacitybookingView() {
   const [TcbData,setTcbData] = useState(null)
   let { id } = useParams();
 
-   const [loading,setloading] = useState(true)
+   const [Loading,setLoading] = useState(true)
   const [localData, setlocalData] = useState(JSON.parse(localStorage.getItem('state')));
   const [Error,setError] = useState(false)
 const [count,setcount] =useState(0)
@@ -62,32 +63,32 @@ const [count,setcount] =useState(0)
   
     
   // };
-
+useEffect(()=>{
+   console.log(Loading,"status")
+  
+},[Loading])
   
  useEffect(()=>{
-  // setcount((value)=> value+1)
-  console.log("effect runnning")
   getDataFromTcB()
 },[])
-  useEffect(()=>{
-    setcount((value)=> value+1)
-  },[TcbData])
+  // useEffect(()=>{
+  //   setcount((value)=> value+1)
+  // },[TcbData])
  console.log(count ,"count is ")
+
+
 const getDataFromTcB = async ()=>{
     
   try {
-
     const getData = await getTransportcapacitybooking(id)
     console.log(getData,"getTransportcapacitybooking")
-   
     setTcbData(getData)
-    setloading(false)
+    setLoading(false)
 
-  }catch(err){
+  } catch(err) {
     console.log(err)
     setError(true)
   }
-  
 }
 
 console.log(TcbData,"TcbData")
@@ -141,20 +142,21 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
   //   showConfirmButton: false,
   //   timer: 700
   // })} 
-  if(loading){
-    Swal.fire({title: 'Loading Order Details ....  !'})
-    Swal.showLoading()
-  }else{
-    Swal.fire({title: 'Loaded success...'})
-   Swal.hideLoading()
-  }
+  // if(loading){
+  //   Swal.fire({title: 'Loading Order Details ....  !'})
+  //   Swal.showLoading()
+  // }else{
+  //   Swal.fire({title: 'Loaded success...'})
+  //  Swal.hideLoading()
+  // }
    
-  { Error && Swal.fire('Oops...', 'Something went wrong!', 'error')}
+  { false && Swal.fire('Oops...', 'Something went wrong!', 'error')}
  
    
   
   return (
     <div>
+      {Loading && <Alert bgcolor="white" >  Please Wait UpLoad The Order Details.... </Alert> }
         
       <div style={{textAlign:"end" ,fontSize:"1.2rem",fontWeight:"bold",position:"relative",left:"4rem"}}>Order Id: &nbsp;{TcbData&& TcbData.data.bookingId}</div>
        {/* Original form */}

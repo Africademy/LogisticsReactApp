@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../src/Logo.png";
 
 const Navbar = ({ user }) => {
+
+  const [keyvalue,setkeyvalue] = useState(false)
+
+  useEffect(()=>{
+    const userKey = localStorage.getItem('token')
+    if(userKey){
+      setkeyvalue(true)
+    }
+    
+  })
+
+ 
+  console.log(keyvalue,"userKey")
   return (
     <nav
       style={{ marginBottom: 10 }}
@@ -35,7 +48,7 @@ const Navbar = ({ user }) => {
         <ul className="navbar-nav mr-auto">
          
         </ul>
-        {!user && (
+        {( !user && !keyvalue  )  && (
           <React.Fragment>
             <span className="nav-item">
               <NavLink className="nav-link  custom-nav-link" style={{color:"white"}} to="/login">
@@ -49,7 +62,7 @@ const Navbar = ({ user }) => {
             </span>
           </React.Fragment>
         )}
-         {user && (
+         { keyvalue  && (
             <span className="nav-item">
             <NavLink
               className="nav-link custom-nav-link"

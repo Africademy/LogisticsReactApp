@@ -200,7 +200,7 @@ const [CargoData,setCargoData] = useState(null)
          <CCardBody>
             <Formik 
                 initialValues= {initialValues}
-                // validationSchema= {validationSchema}
+                validationSchema= {validationSchema}
                 
                 onSubmit={value => {
                   setenableNext(true)

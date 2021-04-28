@@ -7,7 +7,7 @@ function Alert({bgcolor,children}) {
     const [show,setshow] = useState(true)
 
     useEffect(()=>{
-        const timer = setTimeout(()=>setshow(false),3000)
+        const timer = setTimeout(()=>setshow(false),1000)
         return ()=>{
             clearTimeout(timer)
         }
@@ -16,17 +16,19 @@ function Alert({bgcolor,children}) {
 
     // root-portals
     return ReactDOM.createPortal(
-            <div className="AlertPopup">
+
+            <div>
             { show && (
-                 
-                 <div className={`alert fade show transportcapacitybooking__Alert  ${bgcolor} `} role="alert" autoClose>
+                <div className="wrapper">
+                 <div className={`alert fade show AlertPopup transportcapacitybooking__Alert  ${bgcolor} `} role="alert" autoClose>
             
                    <div className=" ">
-                     {children ? children :" A simple primary alert—check it out! " }
+                      {children ? children :" A simple primary alert—check it out! " }
                    </div>
-                 {/* <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                 <span aria-hidden="true">&times;</span>
-                 </button> */}
+                    {/* <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button> */}
+               </div>
              </div>
              )}
 

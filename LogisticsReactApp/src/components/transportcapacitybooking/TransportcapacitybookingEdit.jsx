@@ -46,6 +46,7 @@ function TransportcapacitybookingEdit() {
   const [ABCLoacal,setABCLoacal] = useState(null)
   const [Success,setSuccess] = useState('')
   const [Loading,setLoading] = useState(true)
+  const [LoadingRes,setLoadingRes] = useState(false)
   const [count,setcount] =useState(0)
   const [Error1, setError] = useState(false);
   const history = useHistory()
@@ -70,12 +71,11 @@ function TransportcapacitybookingEdit() {
   useEffect(()=>{
      loadValuesFn()
      setcount((value)=> value+1)
-     setLoading(false)
+    //  setLoading(false)
   },[TcbData,])
 
 	const getDataFromTcB = async () => {
 		const getData = await getTransportcapacitybooking(id);
-
 		console.log(getData, "getTransportcapacitybooking");
 		setTcbData(getData);
     setLoading(false)
@@ -662,17 +662,17 @@ function TransportcapacitybookingEdit() {
     console.log(SchemaObj.PickUpTime.pickupStartTime,"local time")
     console.log(SchemaObj,"SchemaObj && getApiCall")
     console.log(tcbFinalData,"tcbFinalData ")
-  
+    setLoadingRes(true)
     saveTransportcapacitybooking(SchemaObj).then(
        res => { 
         setSuccess(res.status)
-        setLoading(false)
+         setLoadingRes(false)
         setnavigate(true)
          console.log(res.status,"response")
         } ).catch(err => {
           // setResponse(err)
           setError(true)
-          setLoading(false)
+           setLoadingRes(false)
           console.log(err.status,"Error while updateing Orderid")
         })
       
@@ -704,7 +704,8 @@ function TransportcapacitybookingEdit() {
             Swal.hideLoading()
           )} */}
 
-         {/* {Loading && <Alert bgcolor="bgBlue" >  Please wait updating.... </Alert> } */}
+         {Loading && <Alert bgcolor="white" >  Please Wait UpLoad The Order Details.... </Alert> }
+         {LoadingRes && <Alert bgcolor="white" >  Please wait Submitting.... </Alert> }
          {/* { Error1 === 400 && <Alert bgcolor="bgRed" > Update is Failed !!!! </Alert>} */}
          {/* { Success === 200 && <Alert bgcolor="bgBlue" >  SuccessFully Update the Order Details !! </Alert>} */}
        
@@ -865,6 +866,7 @@ function TransportcapacitybookingEdit() {
                               selectedName = {TcbData && TcbData.data.transportServiceCategoryCode.Name}
 															options={localData.tvbDta.transportServiceCategoryCodes}
                               // options={dropDownOtions}
+                              isRequired="true"
 														
 														/>
                           
@@ -882,7 +884,7 @@ function TransportcapacitybookingEdit() {
                               selectedName = {TcbData && TcbData.data.transportServiceConditionTypeCode.Name}
 															options={localData.tvbDta.transportServiceConditionTypeCodes}
 														
-															// isRequired="true"
+															isRequired="true"
 														/>
                            
 													</CCol>
@@ -896,7 +898,7 @@ function TransportcapacitybookingEdit() {
 															typeOfOption="ServiceLevel"
                               selectedId = {TcbData && TcbData.data.transportServiceLevelCode.Id}
                               selectedName = {TcbData && TcbData.data.transportServiceLevelCode.Name}
-															// isRequired="true"
+															isRequired="true"
 															options={localData.tvbDta.transportServiceLevelCodes}
 														
 														/>
@@ -984,6 +986,7 @@ function TransportcapacitybookingEdit() {
                                                         label="UTC Offset"
                                                         id="UTCOffset"
                                                         name="uTCOffset"
+                                                        isRequired="true"
                                                         // options={dropDownOtions}
                                                     />
                                                 </CCol>
@@ -1028,6 +1031,7 @@ function TransportcapacitybookingEdit() {
                                                         label="State"
                                                         id="State"
                                                         name="state"
+                                                        isRequired="true"
                                                         // options={dropDownOtions}
                                                     />
                                                 </CCol>
@@ -1038,6 +1042,7 @@ function TransportcapacitybookingEdit() {
                                                         label="City"
                                                         id="CityName"
                                                         name="cityName"
+                                                        isRequired="true"
                                                     />
                                                 </CCol>
 
@@ -1083,7 +1088,7 @@ function TransportcapacitybookingEdit() {
                                                         label=" Post Box Number"
                                                         id="PostBoxNumber"
                                                         name="postBoxNumber"
-                                                        isRequired="true"
+                                                        // isRequired="true"
                                                         // options={dropDownOtions}
                                                     />
                                                 </CCol>
@@ -1095,6 +1100,7 @@ function TransportcapacitybookingEdit() {
                                                         label="Province"
                                                         id="Province"
                                                         name="province"
+                                                        isRequired="true"
                                                         // options={dropDownOtions}
                                                     />
                                                 </CCol>
@@ -1147,6 +1153,7 @@ function TransportcapacitybookingEdit() {
                                                         label="Latitude"
                                                         id="Latitude"
                                                         name="latitude"
+                                                        isRequired="true"
                                                         // options={dropDownOtions}
                                                     />
                                                 </CCol>
@@ -1158,6 +1165,7 @@ function TransportcapacitybookingEdit() {
                                                         label="Longitude"
                                                         id="Longitutue"
                                                         name="longitutue"
+                                                        isRequired="true"
                                                         // options={dropDownOtions}
                                                     />
                                                 </CCol>
@@ -1191,6 +1199,7 @@ function TransportcapacitybookingEdit() {
                                                                     label="Person Name"
                                                                     id="PersoneName"
                                                                     name="personeName"
+                                                                    isRequired="true"
                                                                     // options={dropDownOtions}
                                                                 />
                                                             </CCol>
@@ -1404,6 +1413,7 @@ function TransportcapacitybookingEdit() {
                                                         label="UTC Offset"
                                                         id="UTCOffset"
                                                         name="uTCOffsetDp"
+                                                        isRequired="true"
                                                         // options={dropDownOtions}
                                                     />
                                                 </CCol>
@@ -1447,6 +1457,7 @@ function TransportcapacitybookingEdit() {
                                                         label="State"
                                                         id="State"
                                                         name="stateDp"
+                                                        isRequired="true"
                                                         // options={dropDownOtions}
                                                     />
                                                 </CCol>
@@ -1457,6 +1468,7 @@ function TransportcapacitybookingEdit() {
                                                         label="City"
                                                         id="CityName"
                                                         name="cityNameDp"
+                                                        isRequired="true"
                                                     />
                                                 </CCol>
 
@@ -1503,7 +1515,7 @@ function TransportcapacitybookingEdit() {
                                                         label=" Post Box Number"
                                                         id="PostBoxNumber"
                                                         name="postBoxNumberDp"
-                                                        isRequired="true"
+                                                        // isRequired="true"
                                                         // options={dropDownOtions}
                                                     />
                                                 </CCol>
@@ -1515,6 +1527,7 @@ function TransportcapacitybookingEdit() {
                                                         label="Province"
                                                         id="Province"
                                                         name="provinceDp"
+                                                        isRequired="true"
                                                         // options={dropDownOtions}
                                                     />
                                                 </CCol>
@@ -1567,6 +1580,7 @@ function TransportcapacitybookingEdit() {
                                                         label="Latitude"
                                                         id="LatitudeDp"
                                                         name="latitudeDp"
+                                                        isRequired="true"
                                                         // options={dropDownOtions}
                                                     />
                                                 </CCol>
@@ -1578,6 +1592,7 @@ function TransportcapacitybookingEdit() {
                                                         label="Longitude"
                                                         id="LongitutueDp"
                                                         name="longitutueDp"
+                                                        isRequired="true"
                                                         // options={dropDownOtions}
                                                     />
                                                 </CCol>
@@ -1611,6 +1626,7 @@ function TransportcapacitybookingEdit() {
                                                                     label="Person Name"
                                                                     id="PersoneNameDp"
                                                                     name="personeNameDp"
+                                                                    isRequired="true"
                                                                     // options={dropDownOtions}
                                                                 />
                                                             </CCol>

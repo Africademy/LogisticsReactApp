@@ -2,6 +2,8 @@ import {
 	CButton,
 	CCardBody,
 	CCol,
+	CInput,
+	CModal,
 	CRow,
 } from "@coreui/react";
 import { Form, Formik } from "formik";
@@ -151,6 +153,7 @@ function TCBPickUpLocation({ setenableNext,setopenPickTime }) {
     communicationChannelCode:"",
     communicationValue:"",
     communicationChannelName:"",
+		UNLocation:''
 }
 
 
@@ -195,7 +198,7 @@ function TCBPickUpLocation({ setenableNext,setopenPickTime }) {
 		<CCardBody>
 			<Formik
 				initialValues={initialValues}
-				// validationSchema={validationSchema}
+				validationSchema={validationSchema}
 				validateOnChange
 				onSubmit={(values) => {
 					console.log(values);
@@ -205,16 +208,26 @@ function TCBPickUpLocation({ setenableNext,setopenPickTime }) {
 				}}
 			>
 				{(formik) => {
-					console.log( "values",formik.values.country)
-					// const [s1,setS1]=useState(0)
-					// useEffect(()=>{
-					//   handleChangeS1()
-					// 	console.log("fecth data here")
-					// })
-					// const handleChangeS1 =()=>{
-					// 	setS1(2)
-					// }
-					// console.log(s1,"s1 value here")
+					console.log( "UNLocation",formik.values.UNLocation)
+					const [s1,setS1]=useState('')
+					const [toggle,settoggle] = useState(true)
+					useEffect(()=>{
+					  // handleChangeS1()
+						console.log("fecth data here")
+					},[s1])
+					const handleChangeS1 =(e)=>{											
+						e.preventDefault()
+						formik.values.locationName = s1
+						formik.values.sublocationIdentification = s1
+						settoggle(true)
+					}
+					const handleToggle =()=>{
+						settoggle(true)
+					}
+					  if(s1 === 2){
+							formik.values.uTCOffset = "UTC+5.5"
+						}
+					console.log(s1,"s1 value here")
 					// if( formik.values.country === "6066bb76f225027765a0a67d" ){
 					// 	formik.values.uTCOffset = "UTC+5.5"
 					// 	  console.log("success")
@@ -231,7 +244,23 @@ function TCBPickUpLocation({ setenableNext,setopenPickTime }) {
 						 <div className="AlertInOrder">
 								 {/* {showAlert && (<Alert bgcolor="bgSuccess"> Successfully Submited The Order Details! Please Go Head Planned Details </Alert>)} */}
 						 </div>
-						 <CRow className="justify-content-center">
+						    {/* <CRow >
+									<CCol style={{border:"2px solid grey",borderRadius:"5px",padding:"1rem",display:"flex",alignItems:'center'}}  md="12">
+										<CInput 
+										type="text"
+										 placeholder="UN Location" 
+										 id="UNLocation"
+										 name="UNLocation"
+										 value={s1}
+										 onChange={formik.handleChange=(e)=>{setS1(e.target.value)}}
+										 />
+										<CButton style={{}}  className="btn btn-primary ml-2" onClick={handleChangeS1}>Find</CButton>
+										<CButton style={{}}  className="btn btn-primary ml-2" onClick={handleToggle} >AddNew</CButton>
+									</CCol>
+								  
+								</CRow>  */}
+									{toggle && <div>
+										<CRow className="justify-content-center">
 								 {/* <CCol md="4">
 										 <FormicControl
 												 control="selectOptionalidentificationScheme"
@@ -243,6 +272,10 @@ function TCBPickUpLocation({ setenableNext,setopenPickTime }) {
 												 options={AdditionalLocationIdentification}
 										 />
 								 </CCol> */}
+							  
+								
+
+								
 								 <CCol md="4">
 										 <FormicControl
 												 control="input"
@@ -420,6 +453,8 @@ function TCBPickUpLocation({ setenableNext,setopenPickTime }) {
 								 </CCol>
 								
 						 </CRow>
+						
+		
 						 <CRow>
 						 <CCol md="4">
 										 <FormicControl
@@ -432,7 +467,12 @@ function TCBPickUpLocation({ setenableNext,setopenPickTime }) {
 										 />
 								 </CCol>
 						 </CRow>
-
+ 
+						
+									</div>
+								}
+								{/* toggle */}
+			
 						 <div className="card-title mt-3">Geological Coordinates</div>
 
 						 {/* Loop the below CRow for new product */}
