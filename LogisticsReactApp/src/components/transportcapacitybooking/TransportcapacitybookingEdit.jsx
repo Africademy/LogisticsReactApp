@@ -36,6 +36,8 @@ import {useSelector} from 'react-redux'
 import { isArray, trim } from "lodash";
 import Moment from "moment";
 import Swal from 'sweetalert2'
+import * as yup from "yup";
+import { FaAngleLeft } from "react-icons/fa";
 
 function TransportcapacitybookingEdit() {
 	// const data = useSelector((state)=> state.tvbDta)
@@ -129,9 +131,7 @@ function TransportcapacitybookingEdit() {
 		servicecategory:"",
 		serviceConditionType: "",
 		serviceLevel: "",
-  //  pickUpLoaction
-
-      // additionalLocationIdentification:"",
+     // additionalLocationIdentification:"",
       sublocationIdentification:"",
       locationName:"",
       // locationSpecificInstructions:"",
@@ -231,11 +231,114 @@ function TransportcapacitybookingEdit() {
       //Dropoff Time
       dropOffStartTime: "",
       dropOffEndTime: "",
-      
-
-
 
 	};
+  const validationSchema = yup.object({
+		servicecategory:yup.string().required(),
+		serviceConditionType:yup.string().required() ,
+		serviceLevel: yup.string().required(),
+     // additionalLocationIdentification:"",
+      sublocationIdentification:yup.string().required(),
+      locationName:yup.string().required(),
+      // locationSpecificInstructions:"",
+      uTCOffset:yup.number().required(),
+      cityName:yup.string().required(),
+      country:yup.string().required(),
+      crossStreet:yup.string(),
+      currencyOfParty:yup.string().required(),
+      launguageOftheParty:yup.string().required(),
+      name:yup.string(),
+      postBoxNumber:yup.number(),
+      postalCode:yup.number().required(),
+      province:yup.string().required(),
+      state:yup.string().required(),
+      streetAddressOne:yup.string().required(),
+      streetAddressTwo:yup.string(),
+      streetAddressThree:yup.string(),
+      latitude:yup.number().required(),
+      longitutue:yup.number().required(),
+
+      contactType:yup.string().required(),
+      personeName:yup.string().required(),
+      depormentName:yup.string(),
+      jobTitle:yup.string(),
+      // responsibility:"",
+      communicationChannelCode:yup.string().required(),
+      communicationValue:yup.string(),
+      communicationChannelName:yup.string(),
+
+      //DropOff Location
+      
+    // additionalLocationIdentificationDp:"",
+    sublocationIdentificationDp:yup.string().required(),
+    locationNameDp:yup.string().required(),
+    // locationSpecificInstructionsDp:"",
+    uTCOffsetDp:yup.number().required(),
+    cityNameDp:yup.string().required(),
+    countryDp:yup.string().required(),
+    crossStreetDp:yup.string(),
+    currencyOfPartyDp:yup.string().required(),
+    launguageOfthePartyDp:yup.string().required(),
+    nameDp:yup.string(),
+    postBoxNumberDp:yup.number(),
+    postalCodeDp:yup.number().required(),
+    provinceDp:yup.string().required(),
+    stateDp:yup.string().required(),
+    streetAddressOneDp:yup.string().required(),
+    streetAddressTwoDp:yup.string(),
+    streetAddressThreeDp:yup.string(),
+    latitudeDp:yup.number().required(),
+    longitutueDp:yup.number().required(),
+
+    contactTypeDp:yup.string().required(),
+    personeNameDp:yup.string().required(),
+    depormentNameDp:yup.string(),
+    jobTitleDp:yup.string(),
+    // responsibilityDp:"",
+    communicationChannelCodeDp:yup.string().required(),
+    communicationValueDp:yup.string(),
+    communicationChannelNameDp:yup.string(),
+
+   // Cargo Values
+      cargoType :yup.string().required(),
+      // harmonizedSystemCode: "", 
+      // cargoTypeDescription: "", 
+      countryOfOriginCode: yup.string().required(), 
+      finalDestinationCountry: yup.string().required(),
+      totalGrossVolume: yup.number().required(),
+      totalGrossVolumeCodes:yup.string().required(),
+      totalGrossWeight:  yup.number().required(),
+      totalGrossWeightCodes:yup.string().required(),
+      totalTransportNetWeight:  yup.number().required(),
+      totalTransportNetWeightCodes:yup.string().required(),
+      totalChargeableWeight:  yup.number().required(),
+      totalChargeableWeightCodes: yup.string().required(),
+      declaredWeightForCustoms:  yup.number().required(), 
+      declaredWeightForCustomsCodes: yup.string().required(), 
+      totalLoadingLength:  yup.number().required(), 
+      totalLoadingLengthCodes: yup.string().required(),
+      associatedInvoiceAmount:  yup.number().required(),
+      associatedInvoiceAmountCodes: yup.string().required(),
+      declaredValueForCustoms:  yup.number().required(), 
+      declaredValueForCustomsCodes: yup.string().required(),
+      totalPackageQuantity:  yup.number().required(),
+      totalPackageQuantityCodes: yup.string().required(),
+      totalItemQuantity:  yup.number().required(), 
+      totalItemQuantityCodes: yup.string().required(), 
+      packageTypeCode: yup.string().required(),
+      totalPackageQuantityPT: yup.number().required(),
+      totalGrossWeightPT: yup.number().required(),
+      totalGrossWeightPTCodes:yup.string().required(),
+      totalGrossVolumePT: yup.number().required(),
+      totalGrossVolumePTCodes:yup.string().required(),  
+      //PickupTime
+      pickupStartTime: yup.string().required(),
+      pickupEndTime: yup.string().required(),
+      //Dropoff Time
+      dropOffStartTime: yup.string().required(),
+      dropOffEndTime: yup.string().required(),
+
+	});
  
 	const newinitialValues = {
 		servicecategory: TcbData && TcbData.data.transportServiceCategoryCode.Name,
@@ -704,13 +807,13 @@ function TransportcapacitybookingEdit() {
             Swal.hideLoading()
           )} */}
 
-         {Loading && <Alert bgcolor="white" >  Please Wait UpLoad The Order Details.... </Alert> }
-         {LoadingRes && <Alert bgcolor="white" >  Please wait Submitting.... </Alert> }
+         {Loading && <Alert bgcolor="white" alertView = {true} >  Please Wait UpLoad The Order Details.... </Alert> }
+         {LoadingRes && <Alert bgcolor="white"  >  Please wait Submitting.... </Alert> }
          {/* { Error1 === 400 && <Alert bgcolor="bgRed" > Update is Failed !!!! </Alert>} */}
          {/* { Success === 200 && <Alert bgcolor="bgBlue" >  SuccessFully Update the Order Details !! </Alert>} */}
        
-
-       <div style={{textAlign:"end" ,fontSize:"1.2rem",fontWeight:"bold",position:"relative",left:"4rem"}}>Order Id: &nbsp;{TcbData&& TcbData.data.bookingId}</div>
+      
+       {/* <div style={{textAlign:"end" ,fontSize:"1.2rem",fontWeight:"bold",position:"relative",left:"4rem"}}>Order Id: &nbsp;{TcbData&& TcbData.data.bookingId}</div> */}
 			{/* <div style={{textAlign:"end" ,fontSize:"1.2rem",fontWeight:"bold",position:"relative",left:"4rem"}}>Order Id: &nbsp;{id}</div> */}
 			{/* <h3>{TcbData && TcbData.data.transportServiceCategoryCode.Name}</h3> */}
 
@@ -718,6 +821,12 @@ function TransportcapacitybookingEdit() {
 
 			<div className="transportcapacitybooking">
 				<div className="py-5">
+        <CRow style={{display:"flex",justifyContent:"space-between",position:'relative',top:'-2rem'}}>
+        
+        <div style={{marginLeft:'-2rem',fontSize:"1.2rem",fontWeight:"bold",textDecoration:"underline",cursor:"pointer"}} onClick={()=> history.push('/transportcapacitybookings')}> <FaAngleLeft style={{position:"relative" ,bottom:"2px"}} />Back</div>
+        <div style={{textAlign:"end" ,fontSize:"1.2rem",fontWeight:"bold",position:"relative",left:"4rem"}}>Order Id: &nbsp;{TcbData&& TcbData.data.bookingId}</div>
+
+      </CRow>
 					{/* <div className="AlertInTCB">
                 </div> */}
 
@@ -731,7 +840,7 @@ function TransportcapacitybookingEdit() {
 									<Formik
 										initialValues={FormValues || initialValues} 
 										enableReinitialize
-										// validationSchema={validationSchema}
+										validationSchema={validationSchema}
 										onSubmit={(values) => {
                       const servicecategory = servicecategoryFn(values)
                       const serviceConditionType = serviceConditionTypeFn(values)
@@ -1965,7 +2074,8 @@ function TransportcapacitybookingEdit() {
                                 className="finalSubmition__btn"
                                 color="primary"
                                 style={{ margin: "1rem" }}
-                                // disabled={!formik.dirty && formik.errors}
+                                // disabled={!formik.errors}
+                                disabled={!formik.isValid && formik.errors }
                               >
                                 Submit Changes
                               </button>

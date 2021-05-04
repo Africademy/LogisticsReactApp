@@ -44,6 +44,7 @@ function TCBOrderDetails({ setenableNext,setopenPickUp,optionServiceLevel,Servic
 			<Formik
 				initialValues={initialValues}
 				validationSchema={validationSchema}
+				validateOnChange
 				onSubmit={(values) => {
 					console.log(values);
 					setenableNext(true);

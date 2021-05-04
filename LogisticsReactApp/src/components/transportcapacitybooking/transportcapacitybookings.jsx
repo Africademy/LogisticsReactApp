@@ -24,6 +24,7 @@ import {
 } from "../../services/transportcapacitybookingService";
 import Moment from "moment";
 import { data } from "jquery";
+import { trim } from "lodash";
 
 class Transportcapacitybookings extends Component {
   constructor(props) {
@@ -177,8 +178,11 @@ class Transportcapacitybookings extends Component {
   };
 
   formatDate = (d) => {
-    return Moment(d).format("DD-MM-YYYY hh:mm");
+    return Moment(d).format(`DD-MM-YYYY `);
   };
+  formatTime = (d)=>{
+    return Moment(d).format(`hh:mm`);
+  }
 
   render() {
     const {
@@ -313,12 +317,21 @@ class Transportcapacitybookings extends Component {
                 );
               },
               "plannedPickUp.LogisticEventPeriod.beginDate": (item) => {
+                const Date = this.formatDate(
+                  item.plannedPickUp.LogisticEventPeriod.beginDate
+                )
+                const Time = this.formatTime(
+                  item.plannedPickUp.LogisticEventPeriod.beginTime
+                )
+                console.log(this.formatTime(
+                  item.plannedPickUp.LogisticEventPeriod.beginTime
+                ),"log")
                 return (
                   <td>
                     <span>
-                      {this.formatDate(
-                        item.plannedPickUp.LogisticEventPeriod.beginDate
-                      )}
+                      {console.log(item.plannedPickUp.LogisticEventPeriod.beginTime,"time")}
+                      {Date}
+                      {item.plannedPickUp.LogisticEventPeriod.beginTime}
                     </span>
                     <small id="from-address" className="form-text text-muted">
                       {item.plannedPickUp.Logisticlocation.locationName}
@@ -333,6 +346,7 @@ class Transportcapacitybookings extends Component {
                       {this.formatDate(
                         item.plannedPickUp.LogisticEventPeriod.endDate
                       )}
+                       {item.plannedPickUp.LogisticEventPeriod.endTime}
                     </span>
                     <small id="to-address" className="form-text text-muted">
                       {item.plannedDropOff.Logisticlocation.locationName}

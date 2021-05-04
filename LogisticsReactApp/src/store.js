@@ -23,7 +23,7 @@ const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
           if(localState === null) return undefined
            return JSON.parse(localState)
 
-        }catch(e){
+        } catch(e){
           console.log(e)
         }
     }

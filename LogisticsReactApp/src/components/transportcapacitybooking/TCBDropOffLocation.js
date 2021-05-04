@@ -152,22 +152,22 @@ const initialValues ={
     sublocationIdentification:yup.string().required(),
     locationName:yup.string().required(),
     // locationSpecificInstructions:yup.string().required(),
-    uTCOffset:yup.number().required(),
+    uTCOffset: yup.number().required().min(0),
     cityName:yup.string().required(),
     country:yup.string().required(),
     crossStreet:yup.string(),
     currencyOfParty:yup.string().required(),
     launguageOftheParty:yup.string().required(),
     name:yup.string(),
-    postBoxNumber:yup.number(),
-    postalCode:yup.number().required(),
+    postBoxNumber:yup.number().min(0),
+    postalCode:yup.number().required().min(0),
     province:yup.string().required(),
     state:yup.string().required(),
     streetAddressOne:yup.string().required(),
     streetAddressTwo:yup.string(),
     streetAddressThree:yup.string(),
-    latitude:yup.number().required(),
-    longitutue:yup.number().required(),
+    latitude:yup.number().required().min(0),
+    longitutue:yup.number().required().min(0),
 
 
     contactType:yup.string().required(),
@@ -185,6 +185,7 @@ const initialValues ={
            <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
+						validateOnChange
             onSubmit={(values)=> {
               console.log(values)
               dispatch(DropOffLocationAction(values))

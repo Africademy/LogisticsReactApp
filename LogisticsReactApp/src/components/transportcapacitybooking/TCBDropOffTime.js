@@ -23,12 +23,18 @@ import React, { useState } from "react";
 import { Form, Formik } from "formik";
 import * as yup from "yup";
 import FormicControl from "../../utils/CoreUI/FormicControl";
-import {useDispatch} from 'react-redux'
+import {useDispatch,useSelector} from 'react-redux'
 import {DropOffTimeAction} from "../../actions/TCBActions"; 
+import moment from "moment";
+import Moment from "moment";
 
 function TCBDropOffTime({ setenableNext,setopenCargo }) {
 
 	const dispatch = useDispatch()
+
+	const PickUpTimeData = useSelector((state)=>state.tvbDta.PickUpTime)
+
+	console.log(PickUpTimeData,"inside DP")
 
 	// const [collapseSpecialRequirements,setcollapseSpecialRequirements] =useState(false)
 	const [toggleModle, setToggleModal] = useState(false);
@@ -55,6 +61,8 @@ function TCBDropOffTime({ setenableNext,setopenCargo }) {
 		// EventpickupEndTime: yup.string().required(),
 	});
 
+	const yesterday = moment().subtract(0, 'days');
+	const yesterday1 = Moment(yesterday._d).format("YYYY-MM-DDTHH:MM")
 	// console.log(plannedDropData, "plannedDropData");
 
 	return (
@@ -62,6 +70,7 @@ function TCBDropOffTime({ setenableNext,setopenCargo }) {
 			<Formik
 				initialValues={initialValues}
 				validationSchema={validationSchema}
+				validateOnChange
 				onSubmit={(value) => {
 					console.log(value);
 					dispatch(DropOffTimeAction(value))
@@ -84,6 +93,7 @@ function TCBDropOffTime({ setenableNext,setopenCargo }) {
 									id="pickupStartTime"
 									name="dropOffStartTime"
 									isRequired="true"
+									min = { yesterday1}
 								/>
 							</CCol>
 							<CCol md="6">
@@ -94,6 +104,7 @@ function TCBDropOffTime({ setenableNext,setopenCargo }) {
 									id="pickupEndTime"
 									name="dropOffEndTime"
 									isRequired="true"
+									min = { formik.values.dropOffStartTime}
 								/>
 							</CCol>
 						</CRow>

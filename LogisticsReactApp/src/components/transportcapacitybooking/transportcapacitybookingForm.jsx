@@ -7,6 +7,7 @@ import {
   CCollapse,
   CContainer,
   CPopover,
+  CRow,
   
 } from "@coreui/react";
 // import CIcon from "@coreui/icons-react";
@@ -32,6 +33,7 @@ import { getTransportservicecategorycodes } from "../../services/transportservic
 import { saveTransportcapacitybooking } from "../../services/transportcapacitybookingService";
 import { useHistory } from "react-router";
 import {useDispatch} from 'react-redux'
+import { FaAngleLeft } from "react-icons/fa";
 
 
 
@@ -278,9 +280,13 @@ const createTransportcapacitybooking =() => {
   // 
     return (
       <div className="transportcapacitybooking">
+       
         <div className="py-5">
                {/* <div className="AlertInTCB">
                 </div> */}
+             <CRow>
+              <div style={{marginLeft:'-2rem',fontSize:"1.2rem",fontWeight:"bold",textDecoration:"underline", position:"relative" ,bottom:"7px",cursor:"pointer",top:'-2rem'}} onClick={()=> history.push('/transportcapacitybookings')}> <FaAngleLeft style={{position:"relative" ,bottom:"2px"}} />Back</div>
+            </CRow>
            <div className="mt-2">  
            <div className="AlertInTCB">
 
@@ -300,10 +306,10 @@ const createTransportcapacitybooking =() => {
             {/*1111111111  Service Details */}
             <CCard >
               <CCardHeader
-                  className={ `card-toggle-header Ccard ${ServiceDetails ? "cardheader": ""}` }
+                  className={ `card-toggle-header Ccard ${openPickUp ? "cardheader": ""}` }
                   onClick={() => {
                   
-                   { openPickUp ? setServiceDetails(!ServiceDetails): setServiceDetails(!ServiceDetails)}
+                   { ServiceDetails ? setServiceDetails(!ServiceDetails): setServiceDetails(!ServiceDetails)}
                   //  {openPickUp && setopenPickUp(!openPickUp)}
                   }}
                   >
@@ -316,7 +322,8 @@ const createTransportcapacitybooking =() => {
                         <h6>Service Details</h6>
                       </div>
                        
-                       {ServiceDetails ?  <AiOutlineDown />: <AiOutlineRight />}
+                       {!openPickUp &&( ServiceDetails  ?  <AiOutlineDown />: <AiOutlineRight />)}
+                       {openPickUp &&  ( ServiceDetails ? <AiOutlineRight />: <AiOutlineDown />)}
 
                     </div>
                   </CCardHeader>
@@ -330,7 +337,7 @@ const createTransportcapacitybooking =() => {
             {/* 222222222222 PickUp Location */}
               <CCard >
               <CCardHeader
-                  className={ `card-toggle-header Ccard ${openPickUp ? "cardheader": ""}` }
+                  className={ `card-toggle-header Ccard ${openPickTime ? "cardheader": ""}` }
                   onClick={() => {
                     //  { openPickUp && setServiceDetails(!ServiceDetails)}
           
@@ -349,17 +356,18 @@ const createTransportcapacitybooking =() => {
                         <h6>Pickup Location</h6>
                       </div>
                        
-                       { openPickUp ?  <AiOutlineDown />: <AiOutlineRight />}
+                       { (PickUpLocation && openPickTime ?  <AiOutlineDown />: <AiOutlineRight />)}
+                        {/* {(openPickUp || openPickTime) &&( PickUpLocation && openPickTime ?  <AiOutlineRight />: <AiOutlineDown />)} */}
 
                     </div>
                   </CCardHeader>
 
                 {(
-                  <CCollapse  show={openPickTime ? false ? '':PickUpLocation :openPickUp} >
+                 (openPickUp && <CCollapse  show={openPickTime ? false ? '':PickUpLocation :openPickUp} >
                   
                     <TCBPickUpLocation setenableNext={setTabenablePickTime} setopenPickTime = {setopenPickTime}  />
            
-                 </CCollapse>
+                 </CCollapse>)
                 )}
             </CCard>
 
@@ -367,7 +375,7 @@ const createTransportcapacitybooking =() => {
 
              <CCard>
                 <CCardHeader
-                  className={ `card-toggle-header ${ openPickTime? "cardheader": ""}` }
+                  className={ `card-toggle-header ${ openDropOffUp? "cardheader": ""}` }
                   onClick={() => {
             
                     // { openPickTime &&  setopenPickUp(!openPickUp)}
@@ -386,7 +394,7 @@ const createTransportcapacitybooking =() => {
                         </IconContext.Provider>):   <span className="cardFlex__header__span">3</span>}
                         <h6>Pickup Time</h6>
                       </div>
-                       { openPickTime ?  <AiOutlineDown />: <AiOutlineRight />}
+                       { pickUPTime ?  <AiOutlineDown />: <AiOutlineRight />}
 
                     </div>
                     </CCardHeader>
@@ -401,7 +409,7 @@ const createTransportcapacitybooking =() => {
                {/* 44444 DropOff Location */}
                <CCard >
               <CCardHeader
-                  className={ `card-toggle-header Ccard ${ openDropOffUp ? "cardheader": ""}` }
+                  className={ `card-toggle-header Ccard ${ openDropTime ? "cardheader": ""}` }
                   onClick={() => {
              
                     // {openDropOffUp && setopenPickTime(!openPickTime)}
@@ -419,7 +427,7 @@ const createTransportcapacitybooking =() => {
                         <h6>Drop-Off Location</h6>
                       </div>
                        
-                       { openDropOffUp?  <AiOutlineDown />: <AiOutlineRight />}
+                       { DropOffLocation?  <AiOutlineDown />: <AiOutlineRight />}
 
                     </div>  
                  
@@ -436,7 +444,7 @@ const createTransportcapacitybooking =() => {
               {/* 555555  DropOff Time */}
               <CCard>
                 <CCardHeader
-                className={ `card-toggle-header ${ openDropTime? "cardheader": ""}` }
+                className={ `card-toggle-header ${ openCargo? "cardheader": ""}` }
                 onClick={() => {
                   // {openDropTime && setopenDropOffUp(!openDropOffUp)}
                   { openCargo ? setDropOffTime(!DropOffTime): setDropOffTime(!DropOffTime)}
@@ -455,7 +463,7 @@ const createTransportcapacitybooking =() => {
                         </IconContext.Provider>):   <span className="cardFlex__header__span">5</span>}
                         <h6> Drop-Off Time</h6>
                       </div>
-                       { openDropTime ?  <AiOutlineDown />: <AiOutlineRight />}
+                       { DropOffTime ?  <AiOutlineDown />: <AiOutlineRight />}
 
                     </div>
                 </CCardHeader>
@@ -471,7 +479,7 @@ const createTransportcapacitybooking =() => {
               {/*6666666  CargoCharacterstic */}
               <CCard>
                     <CCardHeader
-                        className={ `card-toggle-header  ${ openCargo ? "cardheader": ""}` }
+                        className={ `card-toggle-header  ${ closecargo ? "cardheader": ""}` }
                         onClick={() => {
                           // {openCargo && setopenDropTime(!openDropTime)}
                           { closecargo ? setcollapseSpecialRequirements(!collapseSpecialRequirements): setcollapseSpecialRequirements(!collapseSpecialRequirements)}
@@ -489,7 +497,7 @@ const createTransportcapacitybooking =() => {
                         </IconContext.Provider>):   <span className="cardFlex__header__span">6</span>}
                         <h6>  Space Requirements</h6>
                       </div>
-                       { openCargo ?  <AiOutlineDown />: <AiOutlineRight />}
+                       { collapseSpecialRequirements ?  <AiOutlineDown />: <AiOutlineRight />}
 
                     </div>
                     </CCardHeader>

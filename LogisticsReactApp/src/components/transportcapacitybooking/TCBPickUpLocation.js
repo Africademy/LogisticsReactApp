@@ -25,6 +25,7 @@ import { getDescription200types } from "../../services/description200typeService
 import { getEntityidentificationtypes } from "../../services/entityidentificationtypeService";
 import { getCommunicationchannelcodes } from "../../services/communicationchannelcodeService";
 
+
 function TCBPickUpLocation({ setenableNext,setopenPickTime }) {
 // AdditionalLocationIdentification ---  getIdentifiertypes() cc
 // LocationSpecificInstructions: ----   getDescription200types() cc
@@ -165,22 +166,22 @@ function TCBPickUpLocation({ setenableNext,setopenPickTime }) {
     sublocationIdentification:yup.string().required(),
     locationName:yup.string().required(),
     // locationSpecificInstructions:yup.string().required(),
-    uTCOffset:yup.number().required(),
+    uTCOffset:yup.number().required().min(0),
     cityName:yup.string().required(),
     country:yup.string().required(),
     crossStreet:yup.string(),
     currencyOfParty:yup.string().required(),
     launguageOftheParty:yup.string().required(),
-    name:yup.string(),
-    postBoxNumber:yup.number(),
-    postalCode:yup.number().required(),
+    name: yup.string(),
+    postBoxNumber: yup.number().min(0),
+    postalCode: yup.number().required().min(0),
     province:yup.string().required(),
     state:yup.string().required(),
     streetAddressOne:yup.string().required(),
     streetAddressTwo:yup.string(),
     streetAddressThree:yup.string(),
-    latitude:yup.number().required(),
-    longitutue:yup.number().required(),
+    latitude:yup.number().required().min(0),
+    longitutue:yup.number().required().min(0),
 
 
     contactType:yup.string().required(),
@@ -189,10 +190,10 @@ function TCBPickUpLocation({ setenableNext,setopenPickTime }) {
     jobTitle:yup.string(),
     // responsibility:yup.string().required(),
     communicationChannelCode:yup.string().required(),
-    communicationValue:yup.string(),
+    communicationValue: yup.string(),
     communicationChannelName:yup.string(),
 })
-
+// yup.string().required().matches(/^[+]?([1-9][0-9]*(?:[\.][0-9]*)?|0*\.0*[1-9][0-9]*)(?:[eE][+-][0-9]+)?$/, "Only positive values allowed ")
   
 	return (
 		<CCardBody>
@@ -211,8 +212,32 @@ function TCBPickUpLocation({ setenableNext,setopenPickTime }) {
 					console.log( "UNLocation",formik.values.UNLocation)
 					const [s1,setS1]=useState('')
 					const [toggle,settoggle] = useState(true)
+
+					const [details, setDetails] = useState(null);
+
+					const getUserGeolocationDetails = () => {
+				
+							// fetch(
+							// 		`https://geolocation-db.com/json/f9902210-97f0-11eb-a459-b997d30983f1/${s1}`
+							// )
+							// 		.then(response => response.json())
+							// 		.then(data => setDetails(data));
+					};
+
+					// details
+					console.log(details,"fecth details")
+
+         if(details){
+					 formik.values.state = details.state
+					 formik.values.cityName = details.city
+					 formik.values.latitude = details.latitude
+					 formik.values.longitutue = details.longitude
+					 formik.values.locationName = details.city
+				 }
+
 					useEffect(()=>{
 					  // handleChangeS1()
+						getUserGeolocationDetails()
 						console.log("fecth data here")
 					},[s1])
 					const handleChangeS1 =(e)=>{											

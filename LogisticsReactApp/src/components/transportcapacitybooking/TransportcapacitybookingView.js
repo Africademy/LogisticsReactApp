@@ -6,8 +6,9 @@ import {} from "./transportcapacitybookingForm.css";
 import { Form, Formik } from 'formik';
 import React, { useEffect, useState } from 'react'
 
-import { AiOutlineCheck, AiOutlineDown, AiOutlineRight } from 'react-icons/ai';
-import { useParams } from 'react-router'
+import { AiOutlineCheck, AiOutlineDown, AiOutlineRight ,IoArrowBack} from 'react-icons/ai';
+import { FaAngleLeft } from "react-icons/fa";
+import { useParams,useHistory } from 'react-router'
 
 import FormicControl from '../../utils/CoreUI/FormicControl';
 import { getTransportcapacitybooking } from '../../services/transportcapacitybookingService';
@@ -16,6 +17,7 @@ import { isArray, result, trim } from 'lodash';
 import Swal from 'sweetalert2'   
 import Alert from "../../utils/Alert/Alert";
 
+
 // import {useSelector} from 'react-redux'
 
 
@@ -23,6 +25,7 @@ function TransportcapacitybookingView() {
   // const data = useSelector((state)=> state.tvbDta)
   const [TcbData,setTcbData] = useState(null)
   let { id } = useParams();
+  const history = useHistory()
 
    const [Loading,setLoading] = useState(true)
   const [localData, setlocalData] = useState(JSON.parse(localStorage.getItem('state')));
@@ -156,9 +159,8 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
   
   return (
     <div>
-      {Loading && <Alert bgcolor="white" >  Please Wait UpLoad The Order Details.... </Alert> }
-        
-      <div style={{textAlign:"end" ,fontSize:"1.2rem",fontWeight:"bold",position:"relative",left:"4rem"}}>Order Id: &nbsp;{TcbData&& TcbData.data.bookingId}</div>
+      {Loading && <Alert bgcolor="white" alertView = {true} >  Please Wait UpLoad The Order Details.... </Alert> }
+         
        {/* Original form */}
       
 
@@ -167,6 +169,12 @@ console.log((TcbData && TcbData.data.transportServiceCategoryCode.Name),"TcbData
         <div className="py-5">
                {/* <div className="AlertInTCB">
                 </div> */}
+                <CRow style={{display:"flex",justifyContent:"space-between",position:'relative',top:'-2rem'}}>
+        
+        <div style={{marginLeft:'-2rem',fontSize:"1.2rem",fontWeight:"bold",textDecoration:"underline",cursor:"pointer"}} onClick={()=> history.push('/transportcapacitybookings')}> <FaAngleLeft style={{position:"relative" ,bottom:"2px"}} />Back</div>
+        <div style={{textAlign:"end" ,fontSize:"1.2rem",fontWeight:"bold",position:"relative",left:"4rem"}}>Order Id: &nbsp;{TcbData&& TcbData.data.bookingId}</div>
+
+      </CRow>
           
           <CContainer>
             

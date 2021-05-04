@@ -124,7 +124,7 @@ const [CargoData,setCargoData] = useState(null)
     {key:'option3' ,value: 'option3'}
   ]
 
- 
+ // totalTransportNetWeight: yup.string('').required().matches(/^[0-9]*$/,'Should Be Numbers Only').matches(/^[+]?([1-9][0-9]*(?:[\.][0-9]*)?|0*\.0*[1-9][0-9]*)(?:[eE][+-][0-9]+)?$/, "Should Be Positive values "),
 
   const initialValues = {
     cargoType :'',
@@ -165,31 +165,31 @@ const [CargoData,setCargoData] = useState(null)
     // cargoTypeDescription: yup.string().required(), 
     countryOfOriginCode: yup.string().required(), 
     finalDestinationCountry: yup.string().required(),
-    totalGrossVolume: yup.number().required(),
+    totalGrossVolume: yup.number().required().min(0),
     totalGrossVolumeCodes:yup.string().required(),
-    totalGrossWeight: yup.number().required(),
+    totalGrossWeight: yup.number().required().min(0),
     totalGrossWeightCodes:yup.string().required(),
-    totalTransportNetWeight: yup.number().required(),
+    totalTransportNetWeight: yup.number().required().min(0),
     totalTransportNetWeightCodes:yup.string().required(),
-    totalChargeableWeight: yup.number().required(),
+    totalChargeableWeight: yup.number().required().min(0),
     totalChargeableWeightCodes: yup.string().required(),
-    declaredWeightForCustoms: yup.number().required(), 
+    declaredWeightForCustoms: yup.number().required().min(0), 
     declaredWeightForCustomsCodes: yup.string().required(), 
-    totalLoadingLength: yup.number().required(), 
+    totalLoadingLength: yup.number().required().min(0), 
     totalLoadingLengthCodes: yup.string().required(),
-    associatedInvoiceAmount: yup.number().required(),
+    associatedInvoiceAmount: yup.number().required().min(0),
     associatedInvoiceAmountCodes: yup.string().required(),
-    declaredValueForCustoms: yup.number().required(), 
+    declaredValueForCustoms: yup.number().required().min(0), 
     declaredValueForCustomsCodes:yup.string().required(),
-    totalPackageQuantity: yup.number().required(),
+    totalPackageQuantity: yup.number().required().min(0),
     totalPackageQuantityCodes: yup.string().required(),
-    totalItemQuantity: yup.number().required(), 
+    totalItemQuantity: yup.number().required().min(0), 
     totalItemQuantityCodes: yup.string().required(), 
     packageTypeCode: yup.string().required(),
-    totalPackageQuantityPT:yup.number().required(),
-    totalGrossWeightPT:yup.number().required(),
+    totalPackageQuantityPT:yup.number().required().min(0),
+    totalGrossWeightPT:yup.number().required().min(0),
     totalGrossWeightPTCodes:yup.string().required(),
-    totalGrossVolumePT:yup.number().required(),
+    totalGrossVolumePT:yup.number().required().min(0),
     totalGrossVolumePTCodes:yup.string().required(),  
   })
  
@@ -201,7 +201,7 @@ const [CargoData,setCargoData] = useState(null)
             <Formik 
                 initialValues= {initialValues}
                 validationSchema= {validationSchema}
-                
+                validateOnChange
                 onSubmit={value => {
                   setenableNext(true)
                   setclosecargo(true)

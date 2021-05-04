@@ -28,8 +28,19 @@ import Moment from "moment";
 
 import { useDispatch } from "react-redux";
 import { PickUpTimeAction } from "../../actions/TCBActions";
+import moment from "moment";
 
 function TCBPIckUPTime({ setenableNext,setopenDropOffUp }) {
+
+
+	// disable past dates
+			const yesterday = moment().subtract(0, 'days');
+			const yesterday1 = Moment(yesterday._d).format("YYYY-MM-DDTHH:MM")
+			// const yesterday = new Date(today.setDate(today.getDate() - 1))
+			console.log(yesterday1,"yesterday")
+	
+
+
 	const dispatch = useDispatch();
 
 	const [toggleModle, setToggleModal] = useState(false);
@@ -71,7 +82,7 @@ function TCBPIckUPTime({ setenableNext,setopenDropOffUp }) {
 			<Formik
 				initialValues={initialValues}
 				validationSchema= {validationSchema}
-
+				validateOnChange
 				onSubmit={(value) => {
 					console.log(value);
                     getDates(value)
@@ -91,11 +102,15 @@ function TCBPIckUPTime({ setenableNext,setopenDropOffUp }) {
 								<FormicControl
 									label="Starts at"
 									control="input"
+									min={yesterday1}
 									type="datetime-local"
 									id="pickupStartTime"
 									name="pickupStartTime"
 									isRequired="true"
+									
+									
 								/>
+								{/* <DatePicker /> */}
 							</CCol>
 							<CCol md="6">
 								<FormicControl
@@ -104,6 +119,7 @@ function TCBPIckUPTime({ setenableNext,setopenDropOffUp }) {
 									type="datetime-local"
 									id="pickupEndTime"
 									name="pickupEndTime"
+									min={formik.values.pickupStartTime}
 									isRequired="true"
 								/>
 							</CCol>
