@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const CommunicationchannelScheema = mongoose.Schema({
   communicationValue: {
     type: String,
-    required: true
+    required: false
   },
   communicationChannelName: {
     type: String,
