@@ -1,10 +1,6 @@
 # Dependencies
-/LogisticsNodeApp/node_modules
-/LogisticsNodeApp/package-lock.json
-
-/LogisticsReactApp/node_modules
-/LogisticsReactApp/package-lock.json
-/LogisticsReactApp/build
+node_modules
+build
 
 # IDE
 /.vscode
